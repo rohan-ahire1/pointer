@@ -1,0 +1,100 @@
+/* Minimal reset + base styles. Colour, type, radius, shadow and motion
+   values all come from tokens.css — nothing here uses a raw hex. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+/*
+ * Fonts are loaded via next/font/google in app/layout.tsx, which sets
+ * --font-unbounded / --font-dm-sans / --font-dm-mono on <html>. tokens.css
+ * stays the source of truth for the *names* (--font-display etc.); this
+ * override points those names at the actual loaded font stacks.
+ *
+ * Must be a `:root` rule, not `html`: tokens.css's own defaults are set on
+ * `:root`, which has higher specificity than the `html` type selector even
+ * though they target the same element — an `html { }` override here would
+ * silently lose to tokens.css regardless of source order.
+ */
+:root {
+  --font-display: var(--font-unbounded);
+  --font-body: var(--font-dm-sans);
+  --font-mono: var(--font-dm-mono);
+}
+
+body {
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.soft {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
