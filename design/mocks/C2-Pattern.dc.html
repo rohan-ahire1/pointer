@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sliding Window — Pointer (Toybox)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:28px 28px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+</style>
+</helmet>
+<div class="grid {{themeClass}}" style="position: relative; width: 1440px; height: 3150px; box-sizing: border-box; padding: 28px 88px 0; display: flex; flex-direction: column; color: var(--ink)">
+<a href="#try" class="skip">Skip to the visualizer</a>
+
+<nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 10px 24px; background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 4px 4px 0 var(--shadow)">
+<a href="C2-Home.dc.html" class="soft" aria-label="Pointer home" style="text-decoration: none; font-size: 24px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</a>
+<div style="display: flex; gap: 4px; align-items: center; font-size: 16px; font-weight: 500">
+<a href="C2-Home.dc.html" style="text-decoration: none; padding: 12px 16px">Patterns</a>
+<a href="C2-Problems.dc.html" style="text-decoration: none; padding: 12px 16px">Problems</a>
+<a href="C2-Progress.dc.html" style="text-decoration: none; padding: 12px 16px">Progress</a>
+<a href="C2-About.dc.html" style="text-decoration: none; padding: 12px 16px">About</a>
+<a href="C2-Search.dc.html" style="text-decoration: none; box-sizing: border-box; display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 12px 0 14px; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; color: var(--ink); font-size: 15px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+Search patterns &amp; problems
+<span style="padding: 2px 7px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">/</span>
+</a>
+<button type="button" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" aria-pressed="{{isDark}}" style="width: 46px; height: 46px; margin-left: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); border: 2px solid var(--line); border-radius: 12px; color: var(--ink)">
+<sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+<sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if>
+</button>
+</div>
+</nav>
+
+<div style="position: relative; margin-top: 18px; z-index: 5">
+<nav aria-label="Lesson" style="display: flex; align-items: center; gap: 18px; padding: 10px 12px; background: var(--card); border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)">
+<button type="button" onClick="{{toggleSwitcher}}" aria-expanded="{{switcherOpen}}" aria-controls="pattern-switcher" style="display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 14px; background: var(--yellow); border: 2px solid var(--line); border-radius: 12px; color: var(--on-accent); font-size: 16px; font-weight: 700">
+<span style="font-family: 'DM Mono', monospace; font-size: 14px">03</span> Sliding Window
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+<span class="sr-only">— switch pattern</span>
+</button>
+<ol style="display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; flex-grow: 1">
+<li><a href="#idea" aria-current="true" style="display: flex; align-items: center; gap: 8px; text-decoration: none; height: 44px; padding: 0 14px; border-radius: 10px; background: var(--inverse-bg); color: var(--inverse-fg); font-weight: 700; font-size: 15px"><span style="font-family: 'DM Mono', monospace; font-size: 12px">1</span>The idea</a></li>
+<li><a href="#watch" style="display: flex; align-items: center; gap: 8px; text-decoration: none; height: 44px; padding: 0 14px; border-radius: 10px; font-weight: 700; font-size: 15px"><span style="font-family: 'DM Mono', monospace; font-size: 12px">2</span>Watch</a></li>
+<li><a href="#try" style="display: flex; align-items: center; gap: 8px; text-decoration: none; height: 44px; padding: 0 14px; border-radius: 10px; font-weight: 700; font-size: 15px"><span style="font-family: 'DM Mono', monospace; font-size: 12px">3</span>Try it</a></li>
+<li><a href="#solve" style="display: flex; align-items: center; gap: 8px; text-decoration: none; height: 44px; padding: 0 14px; border-radius: 10px; font-weight: 700; font-size: 15px"><span style="font-family: 'DM Mono', monospace; font-size: 12px">4</span>Solve</a></li>
+</ol>
+<span style="font-size: 14px; color: var(--muted)">Lesson 3 of 15 · {{progressLabel}}</span>
+<div style="display: flex; gap: 6px">
+<a href="#" aria-label="Previous pattern: 02 Two Pointers" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--line); border-radius: 12px; font-weight: 700">←</a>
+<a href="C2-Soon.dc.html" aria-label="Next pattern: 04 Stack" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--line); border-radius: 12px; background: var(--mint); font-weight: 700; color: var(--on-accent)">→</a>
+</div>
+</nav>
+<sc-if value="{{switcherOpen}}" hint-placeholder-val="{{ false }}">
+<div id="pattern-switcher" style="position: absolute; left: 0; top: 78px; width: 900px; box-sizing: border-box; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 6px 6px 0 var(--shadow); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h3 style="margin: 0 0 6px; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--muted)">{{g.title}}</h3>
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="5">
+<a href="#" aria-current="{{it.current}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 10px; text-decoration: none; border-radius: 10px; background: {{it.bg}}">
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; width: 22px">{{it.n}}</span>
+<span style="flex-grow: 1; font-weight: 700; font-size: 15px">{{it.name}}</span>
+<span style="font-size: 13px; color: var(--muted)">{{it.status}}</span>
+</a>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<main style="display: flex; flex-direction: column">
+<header id="idea" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 36px; align-items: center; padding: 64px 0 64px">
+<div style="grid-column: span 8; display: flex; flex-direction: column; gap: 18px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: var(--muted)"><a href="C2-Home.dc.html">Patterns</a> <span aria-hidden="true">›</span> Foundations <span aria-hidden="true">›</span> <span aria-current="page">Sliding Window</span></nav>
+<h1 class="soft" style="margin: 0; font-weight: 800; font-size: 83px; line-height: 0.95; letter-spacing: -0.03em">Sliding <span style="background: var(--yellow); padding: 0 14px; border-radius: 12px; color: var(--on-accent)">Window</span></h1>
+<p style="margin: 0; font-size: 22px; line-height: 1.55; color: var(--muted); max-width: 700px">Look out of a train window. New scenery slides in on the right, old scenery slides out on the left, and you never re-read the whole view. You only deal with what changed.</p>
+<div style="display: flex; gap: 16px; font-size: 15px; color: var(--muted)"><span>⏱ about 15 minutes</span><span aria-hidden="true">·</span><span>Needs: arrays, sets</span><span aria-hidden="true">·</span><span>Time O(n)</span></div>
+</div>
+<aside aria-label="When to use it" style="grid-column: 10 / span 3; position: relative">
+<div aria-hidden="true" style="position: absolute; top: -14px; left: 34%; width: 96px; height: 28px; background: var(--tape); transform: rotate(5deg); z-index: 2"></div>
+<div class="tilt" style="background: var(--tint-yellow); border: 2px solid var(--line); border-radius: 6px; box-shadow: 5px 5px 0 var(--shadow); padding: 30px 24px 24px; display: flex; flex-direction: column; gap: 12px; transform: rotate(2deg)">
+<h2 style="margin: 0; font-size: 18px; font-weight: 700">Reach for it when…</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.4">
+<li>✓ the answer is a <b>contiguous</b> run</li>
+<li>✓ it asks for the <b>longest</b>, <b>shortest</b> or a <b>count</b></li>
+<li>✓ brute force is two nested loops</li>
+</ul>
+</div>
+</aside>
+</header>
+
+<section id="watch" aria-labelledby="watch-h" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 36px; padding-bottom: 88px">
+<div style="grid-column: span 3; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; text-align: right; padding-top: 40px">
+<h2 id="watch-h" class="soft" style="margin: 0; font-weight: 800; font-size: 32px"><span style="font-family: 'DM Mono', monospace; font-size: 16px; vertical-align: middle">2 · </span>Watch</h2>
+<span aria-hidden="true" style="font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.05; color: var(--pen)">one minute.<br>worth it.</span>
+<svg width="80" height="44" viewBox="0 0 80 44" fill="none" stroke="currentColor" style="color: var(--pen)" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 8 C 30 4, 56 12, 72 34"></path><path d="M62 35 L73 36 L73 25"></path></svg>
+</div>
+<div style="grid-column: span 9; display: flex; flex-direction: column; gap: 14px">
+<div style="background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 8px 8px 0 var(--shadow); padding: 14px">
+<div style="position: relative; height: 470px; border-radius: 12px; overflow: hidden; background: var(--card-2); display: flex; align-items: center; justify-content: center">
+<div aria-hidden="true" style="position: absolute; left: 60px; bottom: 150px; display: flex; gap: 10px">
+<span style="width: 64px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--card); border: 2px solid var(--past-line); font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 700; color: var(--faint)">p</span>
+<span style="width: 64px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--yellow); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 700; color: var(--on-accent)">w</span>
+<span style="width: 64px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--yellow); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 700; color: var(--on-accent)">k</span>
+<span style="width: 64px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--yellow); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 700; color: var(--on-accent)">e</span>
+<span style="width: 64px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--card); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 700">w</span>
+</div>
+<button type="button" aria-label="Play the 60-second explainer" style="position: relative; width: 108px; height: 108px; border-radius: 50%; background: var(--orange); border: 2px solid var(--line); box-shadow: 5px 5px 0 var(--shadow); display: flex; align-items: center; justify-content: center; color: var(--on-accent)"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg></button>
+<div style="position: absolute; left: 24px; bottom: 22px; right: 24px; display: flex; justify-content: space-between; align-items: center">
+<span class="soft" style="font-size: 21px; font-weight: 700">Sliding Window in 60 seconds</span>
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; padding: 6px 10px; background: var(--card); border: 2px solid var(--line); border-radius: 9px">[EXPLAINER VIDEO] · 1:00</span>
+</div>
+</div>
+</div>
+<div style="display: flex; gap: 10px; align-items: center">
+<button type="button" onClick="{{toggleCaptions}}" aria-pressed="{{captions}}" style="height: 44px; padding: 0 16px; display: flex; align-items: center; gap: 8px; background: {{ccBg}}; border: 2px solid var(--line); border-radius: 12px; color: {{ccFg}}; font-size: 15px; font-weight: 700"><span style="font-family: 'DM Mono', monospace; font-size: 12px; padding: 1px 5px; border: 1.5px solid var(--line); border-radius: 4px">CC</span>{{ccLabel}}</button>
+<button type="button" onClick="{{toggleTranscript}}" aria-expanded="{{transcript}}" aria-controls="transcript" style="height: 44px; padding: 0 16px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; color: var(--ink); font-size: 15px; font-weight: 700">{{transcriptLabel}}</button>
+<span style="font-size: 14px; color: var(--muted)">No sound? Captions are on by default.</span>
+</div>
+<sc-if value="{{transcript}}" hint-placeholder-val="{{ false }}">
+<div id="transcript" style="padding: 20px 24px; background: var(--card); border: 2px solid var(--line); border-radius: 16px; font-size: 17px; line-height: 1.65; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0"><b>0:00</b> — Say you need the longest stretch of a string with no repeated letters. The obvious way checks every start and every end. That’s n² work.</p>
+<p style="margin: 0"><b>0:15</b> — Instead, keep a window. Move its right edge one letter at a time and remember what’s inside.</p>
+<p style="margin: 0"><b>0:32</b> — When a letter repeats, slide the left edge forward until the repeat is gone. The window never moves backwards.</p>
+<p style="margin: 0"><b>0:48</b> — Each letter enters once and leaves once. One pass, O(n). That’s the sliding window.</p>
+</div>
+</sc-if>
+</div>
+</section>
+
+<section id="try" aria-labelledby="try-h" style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<h2 id="try-h" class="soft" style="margin: 0; font-weight: 800; font-size: 42px; letter-spacing: -0.02em"><span style="font-family: 'DM Mono', monospace; font-size: 18px; vertical-align: middle">3 · </span>Now you drive</h2>
+<div style="display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--muted)">Keys:
+<span style="padding: 3px 8px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">←</span><span style="padding: 3px 8px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">→</span> step
+<span style="padding: 3px 8px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">Space</span> play
+<span style="padding: 3px 8px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">R</span> reset</div>
+</div>
+<div role="group" aria-label="Sliding window visualizer. Use left and right arrow keys to step, Space to play, R to reset." tabIndex="0" onKeyDown="{{onKey}}" style="background: var(--card); border: 2px solid var(--line); border-radius: 26px; box-shadow: 8px 8px 0 var(--shadow); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); overflow: hidden">
+<div style="grid-column: span 7; padding: 32px 36px; display: flex; flex-direction: column; gap: 20px; border-right: 2px solid var(--line)">
+<h3 class="soft" style="margin: 0; font-size: 20px; font-weight: 700">Longest Substring Without Repeating Characters</h3>
+<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+<label for="g-input" style="font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 700">s =</label>
+<input id="g-input" value="{{s}}" onChange="{{onInput}}" maxlength="10" aria-describedby="g-hint" autocomplete="off" spellcheck="false" style="height: 46px; box-sizing: border-box; font-family: 'DM Mono', monospace; font-size: 17px; font-weight: 700; padding: 0 14px; border: 2px solid var(--line); border-radius: 12px; background: var(--tint-yellow); color: var(--ink); width: 170px">
+<span style="font-size: 14px; color: var(--muted)">or try</span>
+<sc-for list="{{presets}}" as="pr" hint-placeholder-count="3">
+<button type="button" onClick="{{pr.pick}}" aria-label="Load example {{pr.v}}" style="height: 44px; padding: 0 12px; background: var(--card); border: 2px solid var(--line); border-radius: 10px; font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 700; color: var(--ink)">"{{pr.v}}"</button>
+</sc-for>
+</div>
+<span id="g-hint" style="margin-top: -10px; font-size: 14px; color: var(--muted)">Lowercase letters a–z, up to 10. Anything else is ignored.</span>
+<div aria-hidden="true" style="position: relative; display: flex; gap: 8px; padding: 10px 0 0; min-height: 118px">
+<sc-if value="{{showWin}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 2px; height: 80px; left: {{winLeft}}px; width: {{winWidth}}px; box-sizing: border-box; border: 2.5px solid var(--line); border-radius: 18px; background: var(--tint-yellow)"></div>
+</sc-if>
+<sc-for list="{{cells}}" as="c" hint-placeholder-count="8">
+<div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px">
+<div style="width: 54px; height: 64px; box-sizing: border-box; margin-top: 6px; display: flex; align-items: center; justify-content: center; border-radius: 13px; font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 700; background: {{c.bg}}; color: {{c.fg}}; border: 2px {{c.bs}} {{c.bd}}; transform: translateY({{c.lift}}px)">{{c.ch}}</div>
+<div style="height: 28px; display: flex; gap: 3px">
+<sc-if value="{{c.isL}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px 8px; background: var(--inverse-bg); color: var(--inverse-fg); border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700">L</span></sc-if>
+<sc-if value="{{c.isR}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px 8px; background: var(--orange); border: 2px solid var(--line); border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; color: var(--on-accent)">R</span></sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+<div aria-live="{{liveMode}}" aria-atomic="true" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 18px; background: var(--tint-cream); border: 2px solid var(--line); border-radius: 16px 16px 16px 4px; min-height: 58px; box-sizing: border-box">
+<span aria-hidden="true" style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--pen); line-height: 1">what’s happening</span>
+<span style="font-size: 19px; font-weight: 700; line-height: 1.35">{{note}}</span>
+<span class="sr-only">{{srSummary}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; font-family: 'DM Mono', monospace">
+<div style="padding: 12px 14px; border: 2px solid var(--line); border-radius: 14px; background: var(--tint-lilac); display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 700">window</span><span style="font-size: 19px; font-weight: 700">"{{win}}"</span></div>
+<div style="padding: 12px 14px; border: 2px solid var(--line); border-radius: 14px; background: var(--tint-mint); display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 700">seen</span><span style="font-size: 19px; font-weight: 700">{{seenText}}</span></div>
+<div style="padding: 12px 14px; border: 2px solid var(--line); border-radius: 14px; background: var(--yellow); display: flex; flex-direction: column; gap: 4px; color: var(--on-accent)"><span style="font-size: 12px; font-weight: 700">best so far</span><span class="soft" style="font-size: 21px; font-weight: 800; line-height: 1">{{best}}</span></div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<button type="button" onClick="{{reset}}" aria-label="Reset to the first step" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--card); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); color: var(--ink)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg></button>
+<button type="button" onClick="{{prev}}" style="height: 50px; padding: 0 18px; background: var(--card); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; color: var(--ink)">← Back</button>
+<button type="button" onClick="{{next}}" style="height: 50px; padding: 0 18px; background: var(--mint); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; color: var(--on-accent)">Step →</button>
+<button type="button" onClick="{{toggle}}" style="height: 50px; padding: 0 24px; background: var(--orange); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; color: var(--on-accent)">{{playLabel}}</button>
+<div role="group" aria-label="Playback speed" style="display: flex; margin-left: auto; border: 2px solid var(--line); border-radius: 12px; overflow: hidden">
+<sc-for list="{{speeds}}" as="sp" hint-placeholder-count="3">
+<button type="button" onClick="{{sp.pick}}" aria-pressed="{{sp.on}}" style="height: 44px; min-width: 50px; padding: 0 10px; border: 0; background: {{sp.bg}}; color: {{sp.fg}}; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700">{{sp.label}}</button>
+</sc-for>
+</div>
+</div>
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted)">{{stepLabel}}</span>
+</div>
+<div style="grid-column: span 5; background: var(--card-2); padding: 30px 0; display: flex; flex-direction: column; gap: 14px">
+<div style="padding: 0 28px; display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; padding: 5px 10px; background: var(--card); border: 2px solid var(--line); border-radius: 9px">solution.ts</span>
+<span style="font-size: 14px; color: var(--muted)">▶ marks the line running now</span>
+</div>
+<div role="list" aria-label="TypeScript solution" style="display: flex; flex-direction: column; font-family: 'DM Mono', monospace; font-size: 14px; line-height: 1">
+<sc-for list="{{code}}" as="ln" hint-placeholder-count="14">
+<div role="listitem" style="display: flex; gap: 10px; padding: 8px 18px 8px 10px; margin: 0 12px; border-radius: 8px; background: {{ln.bg}}">
+<span aria-hidden="true" style="width: 12px; color: var(--pen); font-size: 11px">{{ln.mark}}</span>
+<span aria-hidden="true" style="width: 18px; text-align: right; color: var(--faint)">{{ln.n}}</span>
+<span style="white-space: pre; color: var(--ink); font-weight: {{ln.w}}">{{ln.t}}</span>
+</div>
+</sc-for>
+</div>
+<div style="margin: 8px 28px 0; padding: 14px 16px; background: var(--card); border: 2px dashed var(--line); border-radius: 14px; font-size: 15px; line-height: 1.5"><b>Why it’s fast:</b> each character enters the window once and leaves at most once, so it’s O(n), not O(n²).</div>
+</div>
+</div>
+</section>
+
+<section id="solve" aria-labelledby="solve-h" style="display: flex; flex-direction: column; gap: 24px; padding-top: 96px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<h2 id="solve-h" class="soft" style="margin: 0; font-weight: 800; font-size: 42px; letter-spacing: -0.02em"><span style="font-family: 'DM Mono', monospace; font-size: 18px; vertical-align: middle">4 · </span>Your turn</h2>
+<div style="display: flex; align-items: center; gap: 14px">
+<span id="prog-l" style="font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 700">{{progressLabel}}</span>
+<div role="progressbar" aria-labelledby="prog-l" aria-valuemin="0" aria-valuemax="4" aria-valuenow="{{doneCount}}" style="width: 220px; height: 16px; background: var(--card); border: 2px solid var(--line); border-radius: 999px; overflow: hidden"><div style="height: 100%; width: {{progressPct}}%; background: var(--mint); color: var(--on-accent)"></div></div>
+</div>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px">
+<sc-for list="{{problems}}" as="p" hint-placeholder-count="4">
+<li class="tilt" style="min-height: 250px; box-sizing: border-box; padding: 22px; display: flex; flex-direction: column; gap: 12px; background: {{p.bg}}; border: 2px solid var(--line); border-radius: 20px; box-shadow: 4px 4px 0 var(--shadow); transform: rotate({{p.tilt}}deg)">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; padding: 4px 10px; background: {{p.chip}}; color: var(--on-accent); border: 2px solid var(--line); border-radius: 9px">{{p.diff}}</span>
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted)">{{p.n}}</span>
+</div>
+<h3 class="soft" style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.15">{{p.name}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.45; color: var(--muted); flex-grow: 1">{{p.twist}}</p>
+<div style="display: flex; gap: 8px; align-items: center">
+<button type="button" onClick="{{p.toggle}}" aria-pressed="{{p.done}}" style="min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: var(--card); border: 2px solid var(--line); border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--ink)">
+<span aria-hidden="true" style="width: 18px; height: 18px; box-sizing: border-box; border: 2px solid var(--line); border-radius: 5px; background: {{p.box}}; color: var(--on-accent); display: flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1">{{p.tick}}</span>{{p.label}}</button>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 10px; font-size: 14px; font-weight: 700">Open on LeetCode ↗<span class="sr-only"> (opens in a new tab)</span></a>
+</div>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<section aria-label="Up next" style="margin-top: 88px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 22px">
+<a href="C2-Soon.dc.html" style="grid-column: span 8; text-decoration: none; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 30px 34px; background: var(--mint); border: 2px solid var(--line); border-radius: 24px; box-shadow: 6px 6px 0 var(--shadow); color: var(--on-accent)">
+<span style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700">UP NEXT · LESSON 4 OF 15</span>
+<span class="soft" style="font-size: 32px; font-weight: 800; line-height: 1">Stack</span>
+<span style="font-size: 17px">Remember the past, answer on the way back.</span>
+</span>
+<span aria-hidden="true" style="width: 64px; height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--card); color: var(--ink); border: 2px solid var(--line); border-radius: 18px; font-size: 28px; font-weight: 700">→</span>
+</a>
+<div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px; justify-content: center">
+<a href="#" style="min-height: 52px; display: flex; align-items: center; padding: 0 20px; text-decoration: none; background: var(--card); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-weight: 700">← Back to 02 Two Pointers</a>
+<a href="C2-Home.dc.html" style="min-height: 52px; display: flex; align-items: center; padding: 0 20px; text-decoration: none; background: var(--card); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-weight: 700">All 15 patterns</a>
+</div>
+</section>
+</main>
+
+<footer style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; height: 110px; font-size: 15px; color: var(--muted)">
+<span class="soft" style="font-size: 19px; font-weight: 800; color: var(--ink)"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</span>
+<span>Made by Rohan</span>
+<span style="font-family: 'DM Mono', monospace; font-size: 13px">[GITHUB] · [INSTAGRAM]</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3150}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.CODE = [
+      'function longest(s: string): number {',
+      '  const seen = new Set<string>();',
+      '  let left = 0, best = 0;',
+      '',
+      '  for (let r = 0; r < s.length; r++) {',
+      '    while (seen.has(s[r])) {',
+      '      seen.delete(s[left]);',
+      '      left++;',
+      '    }',
+      '    seen.add(s[r]);',
+      '    best = Math.max(best, r - left + 1);',
+      '  }',
+      '  return best;',
+      '}'
+    ];
+    this.steps = this.build('abcabcbb');
+    this.state = { s: 'abcabcbb', i: 0, playing: false, speed: 1, solved: [false, false, false, false], switcherOpen: false, captions: true, transcript: false, theme: 'light' };
+  }
+  build(s) {
+    var out = [], l = 0, best = 0, seen = [], q = function (c) { return '‘' + c + '’'; };
+    out.push({ l: 0, r: -1, incl: false, seen: [], best: 0, lines: [1, 2], note: 'Start with an empty window and an empty set.' });
+    for (var r = 0; r < s.length; r++) {
+      out.push({ l: l, r: r, incl: false, seen: seen.slice(), best: best, lines: [4, 5], note: 'The right edge reaches ' + q(s[r]) + '. Is it already in the window?' });
+      while (seen.indexOf(s[r]) >= 0) {
+        var ch = s[l];
+        seen.splice(seen.indexOf(ch), 1);
+        l++;
+        out.push({ l: l, r: r, incl: false, seen: seen.slice(), best: best, lines: [6, 7], note: 'Yes, it repeats. Move the left edge past ' + q(ch) + '.' });
+      }
+      seen.push(s[r]);
+      best = Math.max(best, r - l + 1);
+      out.push({ l: l, r: r, incl: true, seen: seen.slice(), best: best, lines: [9, 10], note: 'Add ' + q(s[r]) + '. The window “' + s.slice(l, r + 1) + '” is ' + (r - l + 1) + ' long.' });
+    }
+    out.push({ l: l, r: s.length - 1, incl: true, seen: seen.slice(), best: best, lines: [12], note: 'Done. The longest window without a repeat is ' + best + ' long.' });
+    return out;
+  }
+  load(v) {
+    clearInterval(this.t);
+    this.steps = this.build(v);
+    this.setState({ s: v, i: 0, playing: false });
+  }
+  go(d) {
+    var n = this.steps.length;
+    this.setState({ i: Math.max(0, Math.min(n - 1, this.state.i + d)) });
+  }
+  startTimer(speed) {
+    var self = this;
+    clearInterval(this.t);
+    this.t = setInterval(function () {
+      if (self.state.i >= self.steps.length - 1) { clearInterval(self.t); self.setState({ playing: false }); }
+      else self.go(1);
+    }, Math.round(900 / speed));
+  }
+  toggle() {
+    if (this.state.playing) { clearInterval(this.t); this.setState({ playing: false }); return; }
+    if (this.state.i >= this.steps.length - 1) this.setState({ i: 0 });
+    this.setState({ playing: true });
+    this.startTimer(this.state.speed);
+  }
+  setSpeed(v) {
+    this.setState({ speed: v });
+    if (this.state.playing) this.startTimer(v);
+  }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    var self = this, st = this.steps[Math.min(this.state.i, this.steps.length - 1)], s = this.state.s;
+    var CW = 62;
+    var cells = s.split('').map(function (ch, idx) {
+      var inW = idx >= st.l && (idx < st.r || (idx === st.r && st.incl));
+      var inc = idx === st.r && !st.incl;
+      var past = idx < st.l && st.r >= 0;
+      return {
+        ch: ch, isL: st.r >= 0 && idx === st.l, isR: idx === st.r,
+        bg: inc ? 'var(--orange)' : (past ? 'var(--past-bg)' : 'var(--card)'),
+        fg: inc ? 'var(--on-accent)' : (past ? 'var(--faint)' : 'var(--ink)'),
+        bd: past ? 'var(--past-line)' : 'var(--ink)',
+        bs: past ? 'dashed' : 'solid',
+        lift: inc ? -8 : 0
+      };
+    });
+    var endW = st.incl ? st.r + 1 : st.r;
+    var wlen = st.r >= 0 ? Math.max(0, endW - st.l) : 0;
+    var winStr = st.r >= 0 ? s.slice(st.l, Math.max(st.l, endW)) : '';
+    var code = this.CODE.map(function (t, k) {
+      var on = st.lines.indexOf(k) >= 0;
+      return { n: k + 1, t: t === '' ? ' ' : t, bg: on ? 'var(--hl)' : 'transparent', w: on ? 700 : 500, mark: on ? '▶' : '' };
+    });
+    var probs = [
+      ['Best Time to Buy and Sell Stock', 'Easy', 'Warm-up: the cheapest price so far is your window’s left edge.'],
+      ['Longest Substring Without Repeating Characters', 'Medium', 'The one you just watched. Write it from memory.'],
+      ['Longest Repeating Character Replacement', 'Medium', 'Same window, but shrink only when replacements run out.'],
+      ['Minimum Window Substring', 'Hard', 'Grow until the window is valid, then shrink it as small as it goes.']
+    ];
+    var chips = { Easy: 'var(--mint)', Medium: 'var(--yellow)', Hard: 'var(--orange)' };
+    var tilts = [-0.8, 0.6, -0.4, 0.9];
+    var solved = this.state.solved;
+    var done = solved.filter(function (x) { return x; }).length;
+    var names = ['Arrays & Hashing', 'Two Pointers', 'Sliding Window', 'Stack', 'Binary Search', 'Linked List', 'Trees', 'Tries', 'Heaps', 'Backtracking', 'Graphs', '1-D DP', '2-D DP', 'Greedy', 'Intervals'];
+    var gtitles = ['FOUNDATIONS', 'STRUCTURES & RECURSION', 'ADVANCED'];
+    var groups = gtitles.map(function (t, gi) {
+      return {
+        title: t,
+        items: names.slice(gi * 5, gi * 5 + 5).map(function (nm, j) {
+          var idx = gi * 5 + j, cur = idx === 2;
+          return { n: (idx < 9 ? '0' : '') + (idx + 1), name: nm, current: cur ? 'page' : 'false', bg: cur ? 'var(--tint-yellow)' : 'transparent', status: cur ? 'you are here' : 'coming soon' };
+        })
+      };
+    });
+    var sum = 'Step ' + (this.state.i + 1) + ' of ' + this.steps.length + '. ';
+    if (st.r >= 0) sum += 'Left edge at position ' + st.l + ', right edge at position ' + st.r + '. Window is "' + winStr + '". Best so far ' + st.best + '.';
+    return {
+      s: s, cells: cells, code: code, note: st.note, best: st.best,
+      showWin: wlen > 0, winLeft: st.l * CW - 5, winWidth: wlen * CW + 2,
+      win: winStr,
+      seenText: '{' + st.seen.join(',') + '}',
+      srSummary: sum,
+      liveMode: this.state.playing ? 'off' : 'polite',
+      stepLabel: 'Step ' + (this.state.i + 1) + ' of ' + this.steps.length,
+      playLabel: this.state.playing ? 'Pause' : 'Play ▶',
+      onInput: function (e) {
+        var v = String(e.target.value || '').toLowerCase().replace(/[^a-z]/g, '').slice(0, 10);
+        self.load(v);
+      },
+      onKey: function (e) {
+        var tag = e.target && e.target.tagName;
+        if (tag === 'INPUT') return;
+        if (tag === 'BUTTON' && (e.key === ' ' || e.key === 'Enter')) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); self.go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); self.go(-1); }
+        else if (e.key === ' ') { e.preventDefault(); self.toggle(); }
+        else if (e.key === 'r' || e.key === 'R') { clearInterval(self.t); self.setState({ i: 0, playing: false }); }
+      },
+      presets: ['abcabcbb', 'bbbbb', 'pwwkew'].map(function (v) { return { v: v, pick: function () { self.load(v); } }; }),
+      speeds: [0.5, 1, 2].map(function (v) {
+        var on = self.state.speed === v;
+        return { label: v + '×', on: on, bg: on ? 'var(--inverse-bg)' : 'var(--card)', fg: on ? 'var(--inverse-fg)' : 'var(--ink)', pick: function () { self.setSpeed(v); } };
+      }),
+      next: function () { self.go(1); }, prev: function () { self.go(-1); },
+      reset: function () { clearInterval(self.t); self.setState({ i: 0, playing: false }); },
+      toggle: function () { self.toggle(); },
+      themeClass: this.state.theme === 'dark' ? 'theme-dark' : 'theme-light',
+      isDark: this.state.theme === 'dark',
+      isLight: this.state.theme !== 'dark',
+      themeLabel: this.state.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: function () { self.setState({ theme: self.state.theme === 'dark' ? 'light' : 'dark' }); },
+      switcherOpen: this.state.switcherOpen,
+      toggleSwitcher: function () { self.setState({ switcherOpen: !self.state.switcherOpen }); },
+      groups: groups,
+      captions: this.state.captions,
+      ccBg: this.state.captions ? 'var(--yellow)' : 'var(--card)',
+      ccFg: this.state.captions ? 'var(--on-accent)' : 'var(--ink)',
+      ccLabel: this.state.captions ? 'Captions on' : 'Captions off',
+      toggleCaptions: function () { self.setState({ captions: !self.state.captions }); },
+      transcript: this.state.transcript,
+      transcriptLabel: this.state.transcript ? 'Hide transcript' : 'Read the transcript',
+      toggleTranscript: function () { self.setState({ transcript: !self.state.transcript }); },
+      doneCount: done,
+      progressLabel: done + ' of 4 problems solved',
+      progressPct: Math.round(done / 4 * 100),
+      problems: probs.map(function (p, i) {
+        var d = solved[i];
+        return {
+          n: '0' + (i + 1), name: p[0], diff: p[1], twist: p[2], chip: chips[p[1]], tilt: tilts[i],
+          done: d, bg: d ? 'var(--tint-mint)' : 'var(--card)', box: d ? 'var(--mint)' : 'var(--card)', tick: d ? '✓' : '',
+          label: d ? 'Solved' : 'Mark solved',
+          toggle: function () { var n = solved.slice(); n[i] = !n[i]; self.setState({ solved: n }); }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

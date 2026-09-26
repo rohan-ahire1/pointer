@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>All patterns — Pointer (phone)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:28px 28px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+.grid{background-size:24px 24px}
+</style>
+</helmet>
+<div class="grid {{themeClass}}" style="position: relative; overflow: hidden; width: 390px; height: 1900px; box-sizing: border-box; padding: 16px 16px 0; display: flex; flex-direction: column; color: var(--ink)">
+<a href="#main" class="skip">Skip to content</a>
+<header style="display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 14px; background: var(--card); border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)">
+<a href="C2-Phone.dc.html" class="soft" aria-label="Pointer home" style="flex-grow: 1; text-decoration: none; font-size: 19px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 26px; height: 26px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</a>
+<a href="C2-PhoneSearch.dc.html" aria-label="Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 12px; color: var(--ink)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></a>
+<a href="C2-PhoneMenu.dc.html" aria-label="Open menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--yellow); color: var(--on-accent); border: 2px solid var(--line); border-radius: 12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="14" y2="17"></line></svg></a>
+</header>
+
+<main id="main" style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px">
+<h1 class="soft" style="margin: 0; font-size: 32px; font-weight: 800; line-height: 1.05">All 15 patterns</h1>
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--card); border: 2px solid var(--line); border-radius: 16px">
+<span style="font-size: 14px; font-weight: 700; flex-grow: 1">{{solvedTotal}} of 75 problems solved</span>
+<span aria-hidden="true" style="width: 110px; height: 10px; background: var(--paper); border: 2px solid var(--line); border-radius: 999px; overflow: hidden"><span style="display: block; height: 100%; width: {{solvedPct}}%; background: var(--mint)"></span></span>
+</div>
+<div role="group" aria-label="Show" style="display: flex; padding: 4px; gap: 4px; background: var(--card); border: 2px solid var(--line); border-radius: 14px">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="flex: 1; height: 40px; border: 0; border-radius: 10px; background: {{f.bg}}; color: {{f.fg}}; font-size: 14px; font-weight: 700">{{f.label}}</button>
+</sc-for>
+</div>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+<sc-if value="{{g.show}}" hint-placeholder-val="{{ true }}">
+<section aria-labelledby="{{g.id}}" style="display: flex; flex-direction: column; gap: 10px">
+<h2 id="{{g.id}}" style="margin: 8px 0 0; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em">{{g.title}}</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{g.items}}" as="p" hint-placeholder-count="5">
+<li><a href="{{p.href}}" style="display: flex; gap: 12px; align-items: center; padding: 14px; text-decoration: none; background: {{p.bg}}; color: {{p.fg}}; border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)">
+<span style="flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; padding: 5px 7px; background: {{p.chip}}; color: var(--on-accent); border: 2px solid var(--line); border-radius: 9px">{{p.n}}</span>
+<span style="display: flex; flex-direction: column; gap: 3px; flex-grow: 1; min-width: 0">
+<span class="soft" style="font-size: 16px; font-weight: 700">{{p.name}}</span>
+<span style="font-size: 13px; color: {{p.sub}}">{{p.tag}} · {{p.solvedLabel}}</span>
+</span>
+<span aria-hidden="true" style="font-weight: 700">→</span>
+</a></li>
+</sc-for>
+</ul>
+</section>
+</sc-if>
+</sc-for>
+</main>
+<footer style="margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 32px 0 28px; font-size: 14px; color: var(--muted)">
+<span class="soft" style="font-size: 18px; font-weight: 800; color: var(--ink)">pointer</span><span>Made by Rohan</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({ theme: 'light' }, { filter: 'all' });
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var base = {
+      themeClass: st.theme === 'dark' ? 'theme-dark' : 'theme-light',
+      isDark: st.theme === 'dark', isLight: st.theme !== 'dark',
+      themeLabel: st.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: function () { self.setState({ theme: st.theme === 'dark' ? 'light' : 'dark' }); }
+    };
+    var extra = (function () {
+
+    var PATTERNS = [
+      ['Arrays & Hashing', 'Trade memory for instant lookups.', 0], ['Two Pointers', 'Two indices walking toward an answer.', 0],
+      ['Sliding Window', 'A range that grows and shrinks as it scans.', 0], ['Stack', 'Remember the past, answer on the way back.', 0],
+      ['Binary Search', 'Halve the search space every step.', 0], ['Linked List', 'Rewire pointers without losing the chain.', 1],
+      ['Trees', 'Recursion that follows the branches.', 1], ['Tries', 'Share prefixes, find words letter by letter.', 1],
+      ['Heaps', 'Always know the smallest item.', 1], ['Backtracking', 'Try, recurse, undo.', 1],
+      ['Graphs', 'Explore neighbours with BFS and DFS.', 2], ['1-D DP', 'Solve small, remember, build up.', 2],
+      ['2-D DP', 'Fill a table cell by cell.', 2], ['Greedy', 'Take the best move now. Never look back.', 2],
+      ['Intervals', 'Sort by start, then merge or split.', 2]
+    ];
+    var GROUPS = [['FOUNDATIONS', 'Start here. Arrays, pointers and windows.'], ['STRUCTURES & RECURSION', 'Lists, trees and trying every option.'], ['ADVANCED', 'Graphs, dynamic programming and greedy choices.']];
+    var PROBLEMS = {
+      'Arrays & Hashing': [['Contains Duplicate','E'],['Valid Anagram','E'],['Two Sum','E'],['Group Anagrams','M'],['Top K Frequent Elements','M'],['Encode and Decode Strings','M'],['Product of Array Except Self','M'],['Longest Consecutive Sequence','M']],
+      'Two Pointers': [['Valid Palindrome','E'],['3Sum','M'],['Container With Most Water','M']],
+      'Sliding Window': [['Best Time to Buy and Sell Stock','E'],['Longest Substring Without Repeating Characters','M'],['Longest Repeating Character Replacement','M'],['Minimum Window Substring','H']],
+      'Stack': [['Valid Parentheses','E']],
+      'Binary Search': [['Find Minimum in Rotated Sorted Array','M'],['Search in Rotated Sorted Array','M']],
+      'Linked List': [['Reverse Linked List','E'],['Merge Two Sorted Lists','E'],['Linked List Cycle','E'],['Reorder List','M'],['Remove Nth Node From End of List','M'],['Merge K Sorted Lists','H']],
+      'Trees': [['Invert Binary Tree','E'],['Maximum Depth of Binary Tree','E'],['Same Tree','E'],['Subtree of Another Tree','E'],['Lowest Common Ancestor of a BST','M'],['Binary Tree Level Order Traversal','M'],['Validate Binary Search Tree','M'],['Kth Smallest Element in a BST','M'],['Construct Binary Tree from Preorder and Inorder','M'],['Binary Tree Maximum Path Sum','H'],['Serialize and Deserialize Binary Tree','H']],
+      'Tries': [['Implement Trie (Prefix Tree)','M'],['Design Add and Search Words Data Structure','M'],['Word Search II','H']],
+      'Heaps': [['Find Median from Data Stream','H']],
+      'Backtracking': [['Combination Sum','M'],['Word Search','M']],
+      'Graphs': [['Number of Islands','M'],['Clone Graph','M'],['Pacific Atlantic Water Flow','M'],['Course Schedule','M'],['Number of Connected Components','M'],['Graph Valid Tree','M']],
+      '1-D DP': [['Climbing Stairs','E'],['House Robber','M'],['House Robber II','M'],['Longest Palindromic Substring','M'],['Palindromic Substrings','M'],['Decode Ways','M'],['Coin Change','M'],['Maximum Product Subarray','M'],['Word Break','M'],['Longest Increasing Subsequence','M']],
+      '2-D DP': [['Unique Paths','M'],['Longest Common Subsequence','M']],
+      'Greedy': [['Maximum Subarray','M'],['Jump Game','M']],
+      'Intervals': [['Insert Interval','M'],['Merge Intervals','M'],['Non-overlapping Intervals','M'],['Meeting Rooms','E'],['Meeting Rooms II','M']],
+      'Extras': [['Alien Dictionary','H'],['Rotate Image','M'],['Spiral Matrix','M'],['Set Matrix Zeroes','M'],['Number of 1 Bits','E'],['Counting Bits','E'],['Reverse Bits','E'],['Missing Number','E'],['Sum of Two Integers','M']]
+    };
+    var SOLVED0 = { 'Two Sum': true, 'Contains Duplicate': true, 'Valid Anagram': true, 'Valid Palindrome': true, 'Best Time to Buy and Sell Stock': true, 'Valid Parentheses': true, 'Climbing Stairs': true };
+    var DIFF = { E: ['Easy', 'var(--mint)'], M: ['Medium', 'var(--yellow)'], H: ['Hard', 'var(--orange)'] };
+    var CHIPS = ['var(--yellow)', 'var(--mint)', 'var(--lilac)', 'var(--peach)', 'var(--sky)'];
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+    var f = st.filter, solved = SOLVED0, done = 0;
+    Object.keys(PROBLEMS).forEach(function (k) { PROBLEMS[k].forEach(function (p) { if (solved[p[0]]) done++; }); });
+    var groups = GROUPS.map(function (g, gi) {
+      var items = [];
+      PATTERNS.forEach(function (p, i) {
+        if (p[2] !== gi) return;
+        var pr = PROBLEMS[p[0]], s = pr.filter(function (q) { return solved[q[0]]; }).length, live = i === 2;
+        if (f === 'live' && !live) return;
+        if (f === 'progress' && !s) return;
+        items.push({ n: pad2(i + 1), name: p[0], href: live ? 'C2-PhoneLessonTop.dc.html' : 'C2-Soon.dc.html', chip: CHIPS[i % 5], tag: live ? 'Live now' : 'Soon',
+          bg: live ? 'var(--yellow)' : 'var(--card)', fg: live ? 'var(--on-accent)' : 'var(--ink)', sub: live ? 'var(--on-accent)' : 'var(--muted)', solvedLabel: s + '/' + pr.length + ' solved' });
+      });
+      return { id: 'pg-' + gi, title: g[0], items: items, show: items.length > 0 };
+    });
+    return {
+      groups: groups, solvedTotal: done, solvedPct: Math.round(done / 75 * 100),
+      filters: [['all', 'All'], ['live', 'Live'], ['progress', 'Started']].map(function (o) { var on = f === o[0]; return { label: o[1], on: on, bg: on ? 'var(--inverse-bg)' : 'transparent', fg: on ? 'var(--inverse-fg)' : 'var(--ink)', pick: function () { self.setState({ filter: o[0] }); } }; })
+    };
+
+    })();
+    return Object.assign(base, extra);
+  }
+}
+</script>
+</body>
+</html>

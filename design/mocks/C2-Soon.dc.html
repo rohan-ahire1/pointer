@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stack (coming soon) — Pointer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:28px 28px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+</style>
+</helmet>
+<div class="grid {{themeClass}}" style="position: relative; overflow: hidden; width: 1440px; height: 1750px; box-sizing: border-box; padding: 28px 88px 0; display: flex; flex-direction: column; color: var(--ink)">
+<div aria-hidden="true" style="position: absolute; top: 140px; right: -70px; width: 260px; height: 260px; border-radius: 50%; background: var(--blob1); opacity: 0.3"></div>
+<div aria-hidden="true" class="tilt" style="position: absolute; top: 980px; left: -90px; width: 200px; height: 200px; border-radius: 44px; background: var(--blob2); opacity: 0.25; transform: rotate(18deg)"></div>
+<a href="#main" class="skip">Skip to content</a>
+<nav aria-label="Main" style="position: relative; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 10px 24px; background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 4px 4px 0 var(--shadow)">
+<a href="C2-Home.dc.html" class="soft" aria-label="Pointer home" style="text-decoration: none; font-size: 24px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</a>
+<div style="display: flex; gap: 4px; align-items: center; font-size: 16px; font-weight: 500">
+<a href="C2-Patterns.dc.html" aria-current="page" style="text-decoration: none; padding: 12px 16px; border-radius: 12px; background: var(--tint-yellow); font-weight: 700">Patterns</a>
+<a href="C2-Problems.dc.html" style="text-decoration: none; padding: 12px 16px; border-radius: 12px">Problems</a>
+<a href="C2-Progress.dc.html" style="text-decoration: none; padding: 12px 16px; border-radius: 12px">Progress</a>
+<a href="C2-About.dc.html" style="text-decoration: none; padding: 12px 16px; border-radius: 12px">About</a>
+<a href="C2-Search.dc.html" style="display: flex; align-items: center; gap: 10px; height: 46px; box-sizing: border-box; padding: 0 12px 0 14px; margin-left: 6px; text-decoration: none; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; color: var(--ink); font-size: 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>Search<span style="padding: 2px 7px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">/</span></a>
+<button type="button" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" aria-pressed="{{isDark}}" style="width: 46px; height: 46px; margin-left: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); border: 2px solid var(--line); border-radius: 12px; color: var(--ink)">
+<sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+<sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if>
+</button>
+</div>
+</nav>
+
+<nav aria-label="Lesson" style="margin-top: 18px; display: flex; align-items: center; gap: 18px; padding: 10px 12px; background: var(--card); border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)">
+<a href="C2-Patterns.dc.html" style="display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 14px; text-decoration: none; background: var(--lilac); color: var(--on-accent); border: 2px solid var(--line); border-radius: 12px; font-size: 16px; font-weight: 700"><span style="font-family: 'DM Mono', monospace; font-size: 14px">04</span> Stack <span aria-hidden="true">▾</span><span class="sr-only">, switch pattern</span></a>
+<span style="flex-grow: 1; font-size: 15px; color: var(--muted)">This lesson is still being made. Here’s what’s ready.</span>
+<span style="font-size: 14px; color: var(--muted)">Lesson 4 of 15</span>
+<div style="display: flex; gap: 6px">
+<a href="C2-Pattern.dc.html" aria-label="Previous pattern: 03 Sliding Window" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--line); border-radius: 12px; font-weight: 700">←</a>
+<a href="#" aria-label="Next pattern: 05 Binary Search" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid var(--line); border-radius: 12px; font-weight: 700">→</a>
+</div>
+</nav>
+<main id="main" style="display: flex; flex-direction: column; gap: 56px; padding-top: 64px">
+<header style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 36px; align-items: center">
+<div style="grid-column: span 7; display: flex; flex-direction: column; gap: 18px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: var(--muted)"><a href="C2-Patterns.dc.html">Patterns</a> <span aria-hidden="true">›</span> Foundations <span aria-hidden="true">›</span> <span aria-current="page">Stack</span></nav>
+<div style="display: flex; align-items: center; gap: 14px">
+<h1 class="soft" style="margin: 0; font-size: 84px; font-weight: 800; line-height: 1">Stack</h1>
+<span style="padding: 8px 14px; background: var(--tint-lilac); border: 2px solid var(--line); border-radius: 999px; font-size: 15px; font-weight: 700">Coming soon</span>
+</div>
+<p style="margin: 0; font-size: 22px; line-height: 1.55; color: var(--muted); max-width: 660px">Think of a stack of plates. You only ever touch the top one, and the last plate you put down is the first one you pick up.</p>
+</div>
+<div class="tilt" aria-hidden="true" style="grid-column: 9 / span 4; justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 8px; transform: rotate(2deg)">
+<span style="font-size: 15px; font-weight: 700; color: var(--pen)">push ↓ · pop ↑</span>
+<div style="width: 200px; height: 46px; background: var(--orange); border: 2px solid var(--line); border-radius: 14px; box-shadow: 4px 4px 0 var(--shadow); transform: translateY(-10px) rotate(-3deg)"></div>
+<div style="width: 200px; height: 46px; background: var(--yellow); border: 2px solid var(--line); border-radius: 14px"></div>
+<div style="width: 200px; height: 46px; background: var(--mint); border: 2px solid var(--line); border-radius: 14px"></div>
+<div style="width: 200px; height: 46px; background: var(--lilac); border: 2px solid var(--line); border-radius: 14px"></div>
+</div>
+</header>
+
+<section aria-labelledby="ready-h" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px">
+<div style="grid-column: span 7; background: var(--card); border: 2px solid var(--line); border-radius: 26px; box-shadow: 6px 6px 0 var(--shadow); padding: 30px; display: flex; flex-direction: column; gap: 16px">
+<h2 id="ready-h" class="soft" style="margin: 0; font-size: 24px; font-weight: 700">What’s ready</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px solid var(--line); border-radius: 16px; background: var(--tint-mint)"><span aria-hidden="true" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 8px; background: var(--mint); color: var(--on-accent); font-weight: 700">✓</span><span style="flex-grow: 1; font-weight: 700">The idea and analogy</span><span style="font-size: 14px">Ready</span></li>
+<li style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px solid var(--line); border-radius: 16px; background: var(--tint-mint)"><span aria-hidden="true" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 8px; background: var(--mint); color: var(--on-accent); font-weight: 700">✓</span><span style="flex-grow: 1; font-weight: 700">The practice problem</span><span style="font-size: 14px">Ready</span></li>
+<li style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px dashed var(--line); border-radius: 16px"><span aria-hidden="true" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 8px; background: var(--yellow); color: var(--on-accent); font-weight: 700">…</span><span style="flex-grow: 1; font-weight: 700">60-second explainer</span><span style="font-size: 14px">Being animated</span></li>
+<li style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px dashed var(--line); border-radius: 16px"><span aria-hidden="true" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); font-weight: 700">○</span><span style="flex-grow: 1; font-weight: 700">Step-through visualizer</span><span style="font-size: 14px">Not started</span></li>
+</ul>
+</div>
+<div style="grid-column: span 5; display: flex; flex-direction: column; gap: 20px">
+<form onSubmit="{{onNotify}}" style="background: var(--yellow); color: var(--on-accent); border: 2px solid var(--line); border-radius: 26px; box-shadow: 6px 6px 0 var(--shadow); padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<h2 class="soft" style="margin: 0; font-size: 22px; font-weight: 700">Hear when it’s live</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">One email when Stack goes live. Nothing else.</p>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 8px">
+<label for="notify-email" class="sr-only">Email address</label>
+<input id="notify-email" type="email" required placeholder="you@example.com" autocomplete="email" style="flex-grow: 1; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 14px; border: 2px solid var(--line); border-radius: 12px; background: #FFFFFF; color: #231F3A; font-size: 16px">
+<button type="submit" style="height: 48px; padding: 0 18px; border: 2px solid var(--line); border-radius: 12px; background: #231F3A; color: #FFF6EA; font-size: 15px; font-weight: 700">Notify me</button>
+</div>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 0; padding: 12px 14px; background: #FFFFFF; border: 2px solid var(--line); border-radius: 12px; font-weight: 700; color: #231F3A">You’re on the list. See you when it’s live.</p>
+</sc-if>
+<span style="font-size: 13px">[EMAIL SIGNUP SERVICE]</span>
+</form>
+<a href="#" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: var(--card); border: 2px solid var(--line); border-radius: 20px; box-shadow: 4px 4px 0 var(--shadow)"><span style="font-weight: 700; flex-grow: 1">Or follow along on Instagram</span><span style="font-family: 'DM Mono', monospace; font-size: 14px">[INSTAGRAM] ↗</span></a>
+</div>
+</section>
+
+<section aria-labelledby="meanwhile-h" style="display: flex; flex-direction: column; gap: 18px">
+<h2 id="meanwhile-h" class="soft" style="margin: 0; font-size: 30px; font-weight: 800">Meanwhile</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px">
+<a href="C2-Problems.dc.html" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow)">
+<span style="align-self: flex-start; font-size: 13px; font-weight: 700; padding: 4px 10px; background: var(--mint); color: var(--on-accent); border: 2px solid var(--line); border-radius: 8px">Easy</span>
+<span class="soft" style="font-size: 20px; font-weight: 700">Valid Parentheses</span>
+<span style="font-size: 15px; color: var(--muted)">The classic stack problem. Try it with the plate picture in mind: every closing bracket must match the plate on top.</span>
+</a>
+<a href="C2-Pattern.dc.html" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px; padding: 24px; background: var(--mint); color: var(--on-accent); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow)">
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700">LIVE NOW · LESSON 3</span>
+<span class="soft" style="font-size: 20px; font-weight: 700">Sliding Window</span>
+<span style="font-size: 15px">Finish the one that’s ready. It pairs nicely with stacks.</span>
+</a>
+</div>
+</section>
+</main>
+<footer style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; height: 120px; font-size: 15px; color: var(--muted)">
+<span class="soft" style="font-size: 20px; font-weight: 800; color: var(--ink)">pointer</span>
+<nav aria-label="Footer" style="display: flex; gap: 20px"><a href="C2-About.dc.html">About</a><a href="#">Accessibility</a><a href="#">[GITHUB]</a><a href="#">[INSTAGRAM]</a></nav>
+<span>Made by Rohan · pointer.rohanahire.com</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1750}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({ theme: 'light' }, { sent: false });
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var base = {
+      themeClass: st.theme === 'dark' ? 'theme-dark' : 'theme-light',
+      isDark: st.theme === 'dark', isLight: st.theme !== 'dark',
+      themeLabel: st.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: function () { self.setState({ theme: st.theme === 'dark' ? 'light' : 'dark' }); }
+    };
+    var extra = (function () {
+
+    return {
+      sent: !!st.sent, notSent: !st.sent,
+      onNotify: function (e) { e.preventDefault(); self.setState({ sent: true }); }
+    };
+
+    })();
+    return Object.assign(base, extra);
+  }
+}
+</script>
+</body>
+</html>

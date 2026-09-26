@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your progress — Pointer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:28px 28px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+</style>
+</helmet>
+<div class="grid {{themeClass}}" style="position: relative; overflow: hidden; width: 1440px; height: 1950px; box-sizing: border-box; padding: 28px 88px 0; display: flex; flex-direction: column; color: var(--ink)">
+<div aria-hidden="true" style="position: absolute; top: 140px; right: -70px; width: 260px; height: 260px; border-radius: 50%; background: var(--blob1); opacity: 0.3"></div>
+<div aria-hidden="true" class="tilt" style="position: absolute; top: 980px; left: -90px; width: 200px; height: 200px; border-radius: 44px; background: var(--blob2); opacity: 0.25; transform: rotate(18deg)"></div>
+<a href="#main" class="skip">Skip to content</a>
+<nav aria-label="Main" style="position: relative; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 10px 24px; background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 4px 4px 0 var(--shadow)">
+<a href="C2-Home.dc.html" class="soft" aria-label="Pointer home" style="text-decoration: none; font-size: 24px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</a>
+<div style="display: flex; gap: 4px; align-items: center; font-size: 16px; font-weight: 500">
+<a href="C2-Patterns.dc.html" style="text-decoration: none; padding: 12px 16px; border-radius: 12px">Patterns</a>
+<a href="C2-Problems.dc.html" style="text-decoration: none; padding: 12px 16px; border-radius: 12px">Problems</a>
+<a href="C2-Progress.dc.html" aria-current="page" style="text-decoration: none; padding: 12px 16px; border-radius: 12px; background: var(--tint-yellow); font-weight: 700">Progress</a>
+<a href="C2-About.dc.html" style="text-decoration: none; padding: 12px 16px; border-radius: 12px">About</a>
+<a href="C2-Search.dc.html" style="display: flex; align-items: center; gap: 10px; height: 46px; box-sizing: border-box; padding: 0 12px 0 14px; margin-left: 6px; text-decoration: none; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; color: var(--ink); font-size: 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>Search<span style="padding: 2px 7px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">/</span></a>
+<button type="button" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" aria-pressed="{{isDark}}" style="width: 46px; height: 46px; margin-left: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); border: 2px solid var(--line); border-radius: 12px; color: var(--ink)">
+<sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+<sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if>
+</button>
+</div>
+</nav>
+
+<main id="main" style="display: flex; flex-direction: column; gap: 40px; padding-top: 64px">
+<header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: var(--muted)"><a href="C2-Home.dc.html">Home</a> <span aria-hidden="true">›</span> <span aria-current="page">Progress</span></nav>
+<h1 class="soft" style="margin: 0; font-size: 64px; font-weight: 800; line-height: 1">Your progress</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: var(--muted)">Saved in this browser only. No account, nothing sent anywhere.</p>
+</div>
+<div style="display: flex; gap: 10px">
+<button type="button" style="height: 48px; padding: 0 18px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--ink)">Export progress</button>
+<button type="button" style="height: 48px; padding: 0 18px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--ink)">Import</button>
+<button type="button" onClick="{{askReset}}" style="height: 48px; padding: 0 18px; background: var(--card); border: 2px dashed var(--line); border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--pen)">Reset…</button>
+</div>
+</header>
+<sc-if value="{{confirming}}" hint-placeholder-val="{{ false }}">
+<div role="alertdialog" aria-labelledby="reset-h" style="display: flex; align-items: center; gap: 16px; padding: 18px 22px; background: var(--tint-cream); border: 2px solid var(--line); border-radius: 18px">
+<span id="reset-h" style="flex-grow: 1; font-size: 16px"><b>Reset everything?</b> Your solved problems and lesson progress will be cleared. This can’t be undone. Export first if you want a backup.</span>
+<button type="button" onClick="{{cancelReset}}" style="height: 44px; padding: 0 16px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; font-weight: 700; color: var(--ink)">Keep my progress</button>
+<button type="button" onClick="{{doReset}}" style="height: 44px; padding: 0 16px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); border-radius: 12px; font-weight: 700">Yes, reset</button>
+</div>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px">
+<div style="padding: 22px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow); display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 700">Problems solved</span><span class="soft" style="font-size: 40px; font-weight: 800">{{done}}<span style="font-size: 18px; color: var(--muted)"> / 75</span></span></div>
+<div style="padding: 22px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow); display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 700">Patterns started</span><span class="soft" style="font-size: 40px; font-weight: 800">{{started}}<span style="font-size: 18px; color: var(--muted)"> / 15</span></span></div>
+<div style="padding: 22px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow); display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 700">Lessons finished</span><span class="soft" style="font-size: 40px; font-weight: 800">0<span style="font-size: 18px; color: var(--muted)"> / 1 live</span></span></div>
+<div style="padding: 22px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow); display: flex; flex-direction: column; gap: 10px"><span style="font-size: 14px; font-weight: 700">By difficulty</span>
+<sc-for list="{{diffs}}" as="d" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="width: 56px; font-weight: 700">{{d.label}}</span><span aria-hidden="true" style="flex-grow: 1; height: 10px; background: var(--paper); border: 2px solid var(--line); border-radius: 999px; overflow: hidden"><span style="display: block; height: 100%; width: {{d.pct}}%; background: {{d.c}}"></span></span><span style="width: 44px; text-align: right">{{d.txt}}</span></div>
+</sc-for>
+</div>
+</div>
+
+<a href="C2-Pattern.dc.html#try" style="text-decoration: none; display: flex; align-items: center; gap: 24px; padding: 26px 30px; background: var(--yellow); color: var(--on-accent); border: 2px solid var(--line); border-radius: 24px; box-shadow: 6px 6px 0 var(--shadow)">
+<span style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1">
+<span style="font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700">PICK UP WHERE YOU LEFT OFF</span>
+<span class="soft" style="font-size: 28px; font-weight: 800">03 Sliding Window · 3 Try it</span>
+<span style="font-size: 16px">Then solve Longest Substring Without Repeating Characters.</span>
+</span>
+<span aria-hidden="true" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: var(--card); color: var(--ink); border: 2px solid var(--line); border-radius: 16px; font-size: 26px; font-weight: 700">→</span>
+</a>
+
+<section aria-labelledby="by-pattern-h" style="display: flex; flex-direction: column; gap: 14px">
+<h2 id="by-pattern-h" class="soft" style="margin: 0; font-size: 28px; font-weight: 800">By pattern</h2>
+<table style="width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); border: 2px solid var(--line); border-radius: 20px; overflow: hidden; font-size: 15px">
+<thead><tr style="text-align: left; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: var(--muted)">
+<th scope="col" style="padding: 14px 20px">PATTERN</th><th scope="col" style="padding: 14px 12px">LESSON</th><th scope="col" style="padding: 14px 12px; width: 300px">PROBLEMS</th><th scope="col" style="padding: 14px 20px">NEXT UP</th>
+</tr></thead>
+<tbody>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="15">
+<tr>
+<th scope="row" style="padding: 12px 20px; text-align: left; border-top: 1.5px solid var(--past-bg); font-weight: 700"><span style="font-family: 'DM Mono', monospace; font-size: 12px; padding: 2px 7px; margin-right: 10px; background: {{r.chip}}; color: var(--on-accent); border: 2px solid var(--line); border-radius: 7px">{{r.n}}</span>{{r.name}}</th>
+<td style="padding: 12px; border-top: 1.5px solid var(--past-bg)">{{r.lesson}}</td>
+<td style="padding: 12px; border-top: 1.5px solid var(--past-bg)"><span style="display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 160px; height: 10px; background: var(--paper); border: 2px solid var(--line); border-radius: 999px; overflow: hidden"><span style="display: block; height: 100%; width: {{r.pct}}%; background: var(--mint)"></span></span>{{r.txt}}</span></td>
+<td style="padding: 12px 20px; border-top: 1.5px solid var(--past-bg); color: var(--muted)">{{r.next}}</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</section>
+</main>
+<footer style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; height: 120px; font-size: 15px; color: var(--muted)">
+<span class="soft" style="font-size: 20px; font-weight: 800; color: var(--ink)">pointer</span>
+<nav aria-label="Footer" style="display: flex; gap: 20px"><a href="C2-About.dc.html">About</a><a href="#">Accessibility</a><a href="#">[GITHUB]</a><a href="#">[INSTAGRAM]</a></nav>
+<span>Made by Rohan · pointer.rohanahire.com</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1950}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({ theme: 'light' }, { confirming: false, solved: { 'Two Sum': true, 'Contains Duplicate': true, 'Valid Anagram': true, 'Valid Palindrome': true, 'Best Time to Buy and Sell Stock': true, 'Valid Parentheses': true, 'Climbing Stairs': true } });
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var base = {
+      themeClass: st.theme === 'dark' ? 'theme-dark' : 'theme-light',
+      isDark: st.theme === 'dark', isLight: st.theme !== 'dark',
+      themeLabel: st.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: function () { self.setState({ theme: st.theme === 'dark' ? 'light' : 'dark' }); }
+    };
+    var extra = (function () {
+
+    var PATTERNS = [
+      ['Arrays & Hashing', 'Trade memory for instant lookups.', 0], ['Two Pointers', 'Two indices walking toward an answer.', 0],
+      ['Sliding Window', 'A range that grows and shrinks as it scans.', 0], ['Stack', 'Remember the past, answer on the way back.', 0],
+      ['Binary Search', 'Halve the search space every step.', 0], ['Linked List', 'Rewire pointers without losing the chain.', 1],
+      ['Trees', 'Recursion that follows the branches.', 1], ['Tries', 'Share prefixes, find words letter by letter.', 1],
+      ['Heaps', 'Always know the smallest item.', 1], ['Backtracking', 'Try, recurse, undo.', 1],
+      ['Graphs', 'Explore neighbours with BFS and DFS.', 2], ['1-D DP', 'Solve small, remember, build up.', 2],
+      ['2-D DP', 'Fill a table cell by cell.', 2], ['Greedy', 'Take the best move now. Never look back.', 2],
+      ['Intervals', 'Sort by start, then merge or split.', 2]
+    ];
+    var GROUPS = [['FOUNDATIONS', 'Start here. Arrays, pointers and windows.'], ['STRUCTURES & RECURSION', 'Lists, trees and trying every option.'], ['ADVANCED', 'Graphs, dynamic programming and greedy choices.']];
+    var PROBLEMS = {
+      'Arrays & Hashing': [['Contains Duplicate','E'],['Valid Anagram','E'],['Two Sum','E'],['Group Anagrams','M'],['Top K Frequent Elements','M'],['Encode and Decode Strings','M'],['Product of Array Except Self','M'],['Longest Consecutive Sequence','M']],
+      'Two Pointers': [['Valid Palindrome','E'],['3Sum','M'],['Container With Most Water','M']],
+      'Sliding Window': [['Best Time to Buy and Sell Stock','E'],['Longest Substring Without Repeating Characters','M'],['Longest Repeating Character Replacement','M'],['Minimum Window Substring','H']],
+      'Stack': [['Valid Parentheses','E']],
+      'Binary Search': [['Find Minimum in Rotated Sorted Array','M'],['Search in Rotated Sorted Array','M']],
+      'Linked List': [['Reverse Linked List','E'],['Merge Two Sorted Lists','E'],['Linked List Cycle','E'],['Reorder List','M'],['Remove Nth Node From End of List','M'],['Merge K Sorted Lists','H']],
+      'Trees': [['Invert Binary Tree','E'],['Maximum Depth of Binary Tree','E'],['Same Tree','E'],['Subtree of Another Tree','E'],['Lowest Common Ancestor of a BST','M'],['Binary Tree Level Order Traversal','M'],['Validate Binary Search Tree','M'],['Kth Smallest Element in a BST','M'],['Construct Binary Tree from Preorder and Inorder','M'],['Binary Tree Maximum Path Sum','H'],['Serialize and Deserialize Binary Tree','H']],
+      'Tries': [['Implement Trie (Prefix Tree)','M'],['Design Add and Search Words Data Structure','M'],['Word Search II','H']],
+      'Heaps': [['Find Median from Data Stream','H']],
+      'Backtracking': [['Combination Sum','M'],['Word Search','M']],
+      'Graphs': [['Number of Islands','M'],['Clone Graph','M'],['Pacific Atlantic Water Flow','M'],['Course Schedule','M'],['Number of Connected Components','M'],['Graph Valid Tree','M']],
+      '1-D DP': [['Climbing Stairs','E'],['House Robber','M'],['House Robber II','M'],['Longest Palindromic Substring','M'],['Palindromic Substrings','M'],['Decode Ways','M'],['Coin Change','M'],['Maximum Product Subarray','M'],['Word Break','M'],['Longest Increasing Subsequence','M']],
+      '2-D DP': [['Unique Paths','M'],['Longest Common Subsequence','M']],
+      'Greedy': [['Maximum Subarray','M'],['Jump Game','M']],
+      'Intervals': [['Insert Interval','M'],['Merge Intervals','M'],['Non-overlapping Intervals','M'],['Meeting Rooms','E'],['Meeting Rooms II','M']],
+      'Extras': [['Alien Dictionary','H'],['Rotate Image','M'],['Spiral Matrix','M'],['Set Matrix Zeroes','M'],['Number of 1 Bits','E'],['Counting Bits','E'],['Reverse Bits','E'],['Missing Number','E'],['Sum of Two Integers','M']]
+    };
+    var SOLVED0 = { 'Two Sum': true, 'Contains Duplicate': true, 'Valid Anagram': true, 'Valid Palindrome': true, 'Best Time to Buy and Sell Stock': true, 'Valid Parentheses': true, 'Climbing Stairs': true };
+    var DIFF = { E: ['Easy', 'var(--mint)'], M: ['Medium', 'var(--yellow)'], H: ['Hard', 'var(--orange)'] };
+    var CHIPS = ['var(--yellow)', 'var(--mint)', 'var(--lilac)', 'var(--peach)', 'var(--sky)'];
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+    var solved = st.solved, done = 0, started = 0;
+    var dc = { E: [0, 0], M: [0, 0], H: [0, 0] };
+    Object.keys(PROBLEMS).forEach(function (k) { PROBLEMS[k].forEach(function (p) { dc[p[1]][1]++; if (solved[p[0]]) { dc[p[1]][0]++; done++; } }); });
+    var rows = PATTERNS.map(function (p, i) {
+      var pr = PROBLEMS[p[0]], s = pr.filter(function (q) { return solved[q[0]]; }).length;
+      if (s) started++;
+      var nx = pr.filter(function (q) { return !solved[q[0]]; })[0];
+      return { n: pad2(i + 1), name: p[0], chip: CHIPS[i % 5], lesson: i === 2 ? 'In progress · Try it' : 'Coming soon', pct: Math.round(s / pr.length * 100), txt: s + ' / ' + pr.length, next: nx ? nx[0] : 'All done ✓' };
+    });
+    return {
+      done: done, started: started, rows: rows, confirming: !!st.confirming,
+      diffs: [['Easy', 'E', 'var(--mint)'], ['Medium', 'M', 'var(--yellow)'], ['Hard', 'H', 'var(--orange)']].map(function (d) { var c = dc[d[1]]; return { label: d[0], c: d[2], pct: Math.round(c[0] / c[1] * 100), txt: c[0] + '/' + c[1] }; }),
+      askReset: function () { self.setState({ confirming: true }); },
+      cancelReset: function () { self.setState({ confirming: false }); },
+      doReset: function () { self.setState({ confirming: false, solved: {} }); }
+    };
+
+    })();
+    return Object.assign(base, extra);
+  }
+}
+</script>
+</body>
+</html>

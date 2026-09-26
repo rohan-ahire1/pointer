@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pointer — Toybox, phone home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:24px 24px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+</style>
+</helmet>
+<div class="grid theme-light" style="width: 390px; height: 2350px; box-sizing: border-box; padding: 16px 18px 0; display: flex; flex-direction: column; gap: 0; color: var(--ink)">
+
+<nav aria-label="Main" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 8px 8px 16px; background: var(--card); border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)">
+<a href="#" class="soft" style="text-decoration: none; font-size: 19px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</a>
+<a href="C2-PhoneMenu.dc.html" aria-label="Open menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--yellow); border: 2px solid var(--line); border-radius: 12px; color: var(--on-accent)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="14" y2="17"></line></svg></a>
+</nav>
+
+<section style="display: flex; flex-direction: column; gap: 18px; padding: 44px 0 40px">
+<div style="font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--pen); transform: rotate(-3deg); align-self: flex-start">15 patterns. zero memorizing.</div>
+<h1 class="soft" style="margin: 0; font-weight: 800; font-size: 38px; line-height: 0.98; letter-spacing: -0.025em">Algorithms you can <span style="background: var(--yellow); padding: 0 6px; border-radius: 8px; box-decoration-break: clone; color: var(--on-accent)">watch move.</span></h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted)">Every interview pattern as a one-minute animation and a visualizer you can step through.</p>
+<a href="C2-PhoneLesson.dc.html" style="text-decoration: none; text-align: center; padding: 16px; background: var(--orange); border: 2px solid var(--line); border-radius: 14px; box-shadow: 4px 4px 0 var(--shadow); font-weight: 700; font-size: 16px; color: var(--on-accent)">Start with Sliding Window →</a>
+<a href="#" style="text-decoration: none; text-align: center; padding: 16px; background: var(--card); border: 2px solid var(--line); border-radius: 14px; box-shadow: 4px 4px 0 var(--shadow); font-weight: 700; font-size: 16px">▶ Watch 60s</a>
+</section>
+
+<div style="position: relative; padding-top: 12px; margin-bottom: 56px">
+<div style="position: absolute; top: 0; left: 40%; width: 84px; height: 26px; background: var(--tape); transform: rotate(-4deg); z-index: 2"></div>
+<div style="background: var(--card); border: 2px solid var(--line); border-radius: 20px; box-shadow: 6px 6px 0 var(--shadow); padding: 28px 16px 18px; display: flex; flex-direction: column; gap: 14px; transform: rotate(1deg)">
+<div style="display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted)"><span>sliding window</span><span>step 9 / 22</span></div>
+<div style="position: relative; display: flex; gap: 4px; padding: 6px 0">
+<div style="position: absolute; left: 40px; top: 0; width: 116px; height: 100%; box-sizing: border-box; border: 2px solid var(--line); border-radius: 12px; background: var(--tint-yellow)"></div>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700; color: var(--faint)">a</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700">b</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700">c</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700">a</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700; background: var(--orange); border: 2px solid var(--line); border-radius: 10px; transform: translateY(-5px) rotate(4deg); color: var(--on-accent)">b</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700">c</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700">b</span>
+<span style="position: relative; width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700">b</span>
+</div>
+<span style="font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; color: var(--pen)">‘b’ again! shrink from the left</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-family: 'DM Mono', monospace; font-size: 11px">
+<div style="padding: 8px; border: 2px solid var(--line); border-radius: 10px; background: var(--tint-lilac)">win "bca"</div>
+<div style="padding: 8px; border: 2px solid var(--line); border-radius: 10px; background: var(--tint-mint)">seen 3</div>
+<div style="padding: 8px; border: 2px solid var(--line); border-radius: 10px; background: var(--yellow); color: var(--on-accent)">best 3</div>
+</div>
+</div>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<h2 class="soft" style="margin: 0; font-weight: 800; font-size: 27px; letter-spacing: -0.02em">Pick a pattern</h2>
+<span style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--pen)">start with 03</span>
+</div>
+<sc-for list="{{patterns}}" as="p" hint-placeholder-count="6">
+<a href="{{p.href}}" style="text-decoration: none; display: flex; gap: 14px; align-items: center; padding: 16px; background: {{p.bg}}; border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)">
+<span style="flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; padding: 6px 8px; background: {{p.chip}}; border: 2px solid var(--line); border-radius: 9px">{{p.n}}</span>
+<span style="display: flex; flex-direction: column; gap: 3px; flex-grow: 1">
+<span class="soft" style="font-size: 16px; font-weight: 700; line-height: 1.1">{{p.name}}</span>
+<span style="font-size: 14px; line-height: 1.4; color: var(--muted)">{{p.idea}}</span>
+</span>
+<span style="font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; color: {{p.tagColor}}">{{p.tag}}</span>
+</a>
+</sc-for>
+<a href="C2-PhonePatterns.dc.html" style="text-decoration: none; text-align: center; padding: 14px; background: var(--card); border: 2px dashed var(--line); border-radius: 14px; font-weight: 700; font-size: 15px">See all 15 patterns</a>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px; padding-top: 56px">
+<div style="background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 4px 4px 0 var(--shadow); padding: 20px; display: flex; flex-direction: column; gap: 8px">
+<span style="align-self: flex-start; padding: 4px 10px; background: var(--yellow); border: 2px solid var(--line); border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; color: var(--on-accent)">01 WATCH</span>
+<span class="soft" style="font-size: 18px; font-weight: 700">A 60-second explainer</span>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted)">Intuition first, before any code.</p>
+</div>
+<div style="background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 4px 4px 0 var(--shadow); padding: 20px; display: flex; flex-direction: column; gap: 8px">
+<span style="align-self: flex-start; padding: 4px 10px; background: var(--mint); border: 2px solid var(--line); border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; color: var(--on-accent)">02 PLAY</span>
+<span class="soft" style="font-size: 18px; font-weight: 700">Step through it</span>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted)">Your input, one line at a time.</p>
+</div>
+<div style="background: var(--card); border: 2px solid var(--line); border-radius: 18px; box-shadow: 4px 4px 0 var(--shadow); padding: 20px; display: flex; flex-direction: column; gap: 8px">
+<span style="align-self: flex-start; padding: 4px 10px; background: var(--lilac); border: 2px solid var(--line); border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; color: var(--on-accent)">03 PRACTISE</span>
+<span class="soft" style="font-size: 18px; font-weight: 700">Solve the classics</span>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted)">Real interview problems, progress saved.</p>
+</div>
+</section>
+
+<footer style="margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 36px 0 32px">
+<span class="soft" style="font-size: 19px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</span>
+<span style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700">made by Rohan</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2350}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var list = [
+      ['Arrays & Hashing', 'Trade memory for instant lookups.'],
+      ['Two Pointers', 'Two indices walking toward an answer.'],
+      ['Sliding Window', 'A range that grows and shrinks.'],
+      ['Stack', 'Remember the past, answer on the way back.'],
+      ['Binary Search', 'Halve the search space every step.'],
+      ['Linked List', 'Rewire pointers, keep the chain.']
+    ];
+    var chips = ['var(--yellow)', 'var(--mint)', 'var(--lilac)', 'var(--peach)', 'var(--sky)'];
+    return {
+      patterns: list.map(function (x, i) {
+        var live = i === 2;
+        return { href: live ? 'C2-PhoneLessonTop.dc.html' : 'C2-Soon.dc.html', n: '0' + (i + 1), name: x[0], idea: x[1], chip: chips[i % 5], bg: live ? 'var(--yellow)' : 'var(--card)', tag: live ? 'live!' : 'soon', tagColor: live ? 'var(--pen)' : 'var(--muted)' };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

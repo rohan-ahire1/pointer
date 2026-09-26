@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design system — Pointer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:28px 28px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+</style>
+</helmet>
+<div class="grid {{themeClass}}" style="position: relative; overflow: hidden; width: 1440px; height: 3400px; box-sizing: border-box; padding: 56px 88px 0; display: flex; flex-direction: column; color: var(--ink)">
+
+<main id="main" style="display: flex; flex-direction: column; padding-top: 12px">
+<header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 36px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span class="soft" style="font-size: 22px; font-weight: 800"><span aria-hidden="true" style="display: inline-flex; width: 30px; height: 30px; margin-right: 10px; vertical-align: middle; align-items: center; justify-content: center; border-radius: 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700">↑</span>pointer</span>
+<h1 class="soft" style="margin: 0; font-size: 64px; font-weight: 800; line-height: 1">Design system</h1>
+<p style="margin: 0; font-size: 19px; color: var(--muted); max-width: 720px">Toybox v2. Chunky, friendly, readable. The single source for the site and the explainer videos.</p>
+</div>
+<button type="button" onClick="{{toggleTheme}}" aria-pressed="{{isDark}}" style="height: 50px; padding: 0 18px; background: var(--card); color: var(--ink); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 15px; font-weight: 700">Preview in {{otherTheme}}</button>
+</header>
+<section style="display: flex; flex-direction: column; gap: 20px; padding: 40px 0; border-top: 2px dashed var(--line)">
+<div style="display: flex; align-items: baseline; gap: 18px"><h2 class="soft" style="margin: 0; font-size: 32px; font-weight: 800">Colour</h2><span style="font-size: 16px; color: var(--muted)">Every colour is a variable. Components never use raw hex.</span></div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{palettes}}" as="pal" hint-placeholder-count="2">
+<div class="{{pal.cls}}" style="padding: 22px; background: var(--paper); color: var(--ink); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span class="soft" style="font-size: 20px; font-weight: 800">{{pal.name}}</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{tokens}}" as="t" hint-placeholder-count="16">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="height: 52px; border-radius: 12px; border: 2px solid var(--line); background: {{t.v}}"></span>
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500">{{t.name}}</span>
+<span style="font-size: 12px; color: var(--muted); line-height: 1.3">{{t.use}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 15px; color: var(--muted)">Rule: text on any accent fill (yellow, mint, orange, lilac) always uses <b>--on-accent</b>, which stays dark in both themes.</p>
+</section>
+<section style="display: flex; flex-direction: column; gap: 20px; padding: 40px 0; border-top: 2px dashed var(--line)">
+<div style="display: flex; align-items: baseline; gap: 18px"><h2 class="soft" style="margin: 0; font-size: 32px; font-weight: 800">Type</h2><span style="font-size: 16px; color: var(--muted)">Unbounded for display, DM Sans for reading, DM Mono for code and labels.</span></div>
+
+<div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px">
+<div style="grid-column: span 7; display: flex; flex-direction: column; gap: 14px; padding: 26px; background: var(--card); border: 2px solid var(--line); border-radius: 22px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">DISPLAY · UNBOUNDED 800 · -3% TRACKING</span>
+<span class="soft" style="font-size: 72px; font-weight: 800; line-height: 1">Display 72</span>
+<span class="soft" style="font-size: 56px; font-weight: 800; line-height: 1">Heading 56</span>
+<span class="soft" style="font-size: 40px; font-weight: 800; line-height: 1.05">Heading 40</span>
+<span class="soft" style="font-size: 28px; font-weight: 800">Heading 28</span>
+<span class="soft" style="font-size: 20px; font-weight: 700">Card title 20</span>
+</div>
+<div style="grid-column: span 5; display: flex; flex-direction: column; gap: 14px">
+<div style="padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">BODY · DM SANS</span>
+<span style="font-size: 22px; line-height: 1.55">Lead 22 · 1.55</span>
+<span style="font-size: 18px; line-height: 1.55">Body 18 · long reading</span>
+<span style="font-size: 16px; line-height: 1.55">Body 16 · UI default</span>
+<span style="font-size: 14px; color: var(--muted)">Caption 14 · muted, never below 13</span>
+</div>
+<div style="padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">MONO · DM MONO</span>
+<span style="font-family: 'DM Mono', monospace; font-size: 15px">const seen = new Set&lt;string&gt;();</span>
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; font-weight: 500">SECTION LABEL 12 · +6% TRACKING</span>
+</div>
+</div>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 20px; padding: 40px 0; border-top: 2px dashed var(--line)">
+<div style="display: flex; align-items: baseline; gap: 18px"><h2 class="soft" style="margin: 0; font-size: 32px; font-weight: 800">Space, shape & depth</h2><span style="font-size: 16px; color: var(--muted)">Chunky, rounded, with hard offset shadows.</span></div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+<div style="padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">SPACING (PX)</span>
+<div style="display: flex; align-items: flex-end; gap: 8px">
+<sc-for list="{{spaces}}" as="s" hint-placeholder-count="10"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><span style="width: 18px; height: {{s.v}}px; background: var(--lilac); border: 1.5px solid var(--line); border-radius: 4px"></span><span style="font-family: 'DM Mono', monospace; font-size: 11px">{{s.v}}</span></div></sc-for>
+</div>
+</div>
+<div style="padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">RADIUS</span>
+<div style="display: flex; gap: 10px; align-items: center">
+<sc-for list="{{radii}}" as="r" hint-placeholder-count="6"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><span style="width: 52px; height: 52px; background: var(--tint-yellow); border: 2px solid var(--line); border-radius: {{r.v}}px"></span><span style="font-family: 'DM Mono', monospace; font-size: 11px">{{r.l}}</span></div></sc-for>
+</div>
+<span style="font-size: 13px; color: var(--muted)">Chips 8–10 · buttons 12–14 · cards 18–26 · pills 999</span>
+</div>
+<div style="padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">BORDER, SHADOW, FOCUS</span>
+<div style="display: flex; gap: 22px; align-items: center">
+<span style="width: 70px; height: 50px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; box-shadow: 3px 3px 0 var(--shadow)"></span>
+<span style="width: 70px; height: 50px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; box-shadow: 6px 6px 0 var(--shadow)"></span>
+<span style="width: 70px; height: 50px; background: var(--card); border: 2px solid var(--line); border-radius: 12px; outline: 3px solid var(--focus); outline-offset: 3px"></span>
+</div>
+<span style="font-size: 13px; color: var(--muted)">2px ink border everywhere · shadow 3 / 4 / 6 / 8 px, no blur · focus ring 3px blue, offset 3px</span>
+</div>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 20px; padding: 40px 0; border-top: 2px dashed var(--line)">
+<div style="display: flex; align-items: baseline; gap: 18px"><h2 class="soft" style="margin: 0; font-size: 32px; font-weight: 800">Components</h2><span style="font-size: 16px; color: var(--muted)">Everything below is a reusable piece.</span></div>
+
+<div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px">
+
+<div style="grid-column: span 6; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">BUTTONS</span>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<button type="button" style="height: 50px; padding: 0 20px; border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; background: var(--orange); color: var(--on-accent)">Primary</button>
+<button type="button" style="height: 50px; padding: 0 20px; border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; background: var(--card); color: var(--ink)">Secondary</button>
+<button type="button" style="height: 50px; padding: 0 20px; border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; background: var(--mint); color: var(--on-accent)">Step →</button>
+<button type="button" style="height: 50px; padding: 0 20px; border: 0; border-radius: 14px; font-size: 16px; font-weight: 700; background: var(--inverse-bg); color: var(--inverse-fg)">Inverse</button>
+<button type="button" aria-label="Reset" style="width: 50px; height: 50px; padding: 0 20px; border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow); font-size: 16px; font-weight: 700; padding: 0; background: var(--card); color: var(--ink)">↺</button>
+</div>
+<span style="font-size: 13px; color: var(--muted)">Min height 44px. One primary per view. Pressed state: shadow drops to 0, button moves 3px down-right.</span>
+</div>
+
+<div style="grid-column: span 6; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">CHIPS & TAGS</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<span style="font-size: 13px; font-weight: 700; padding: 4px 10px; background: var(--mint); color: var(--on-accent); border: 2px solid var(--line); border-radius: 8px">Easy</span>
+<span style="font-size: 13px; font-weight: 700; padding: 4px 10px; background: var(--yellow); color: var(--on-accent); border: 2px solid var(--line); border-radius: 8px">Medium</span>
+<span style="font-size: 13px; font-weight: 700; padding: 4px 10px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); border-radius: 8px">Hard</span>
+<span style="font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 700; padding: 4px 9px; background: var(--lilac); color: var(--on-accent); border: 2px solid var(--line); border-radius: 10px">03</span>
+<span style="font-size: 13px; font-weight: 700; padding: 3px 9px; background: var(--card); border: 1.5px solid var(--line); border-radius: 999px">Live now</span>
+<span style="font-size: 13px; font-weight: 700; padding: 3px 9px; background: var(--paper); color: var(--muted); border: 1.5px solid var(--muted); border-radius: 999px">Coming soon</span>
+<span style="padding: 3px 8px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px">Space</span>
+</div>
+</div>
+
+<div style="grid-column: span 4; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">INPUTS</span>
+<label for="ds-in" style="font-size: 14px; font-weight: 700">Your string</label>
+<input id="ds-in" value="abcabcbb" readonly aria-describedby="ds-hint" style="height: 46px; box-sizing: border-box; padding: 0 14px; border: 2px solid var(--line); border-radius: 12px; background: var(--tint-yellow); color: var(--ink); font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500">
+<span id="ds-hint" style="font-size: 13px; color: var(--muted)">Hint text sits under the field and is linked to it.</span>
+<div style="display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 12px; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; color: var(--muted); font-size: 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>Search<span style="margin-left: auto; padding: 2px 7px; background: var(--card); border: 1.5px solid var(--line); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink)">/</span></div>
+</div>
+
+<div style="grid-column: span 4; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">CONTROLS</span>
+<div role="group" aria-label="Example segmented control" style="display: flex; padding: 4px; gap: 4px; background: var(--card); border: 2px solid var(--line); border-radius: 14px">
+<button type="button" aria-pressed="true" style="flex: 1; height: 40px; border: 0; border-radius: 10px; background: var(--inverse-bg); color: var(--inverse-fg); font-weight: 700">All</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--ink); font-weight: 700">Live</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--ink); font-weight: 700">Started</button>
+</div>
+<div style="display: flex; align-items: center; gap: 12px"><span role="switch" aria-checked="true" aria-label="Example switch" style="width: 64px; height: 38px; box-sizing: border-box; padding: 3px; display: flex; justify-content: flex-end; background: var(--mint); border: 2px solid var(--line); border-radius: 999px"><span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: var(--card); border: 2px solid var(--line)"></span></span><span style="font-weight: 700">Switch</span></div>
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 8px; background: var(--mint); color: var(--on-accent); font-weight: 700">✓</span><span style="font-weight: 700">Solved checkbox</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; font-weight: 700">Progress · 3 of 4</span><span style="height: 14px; background: var(--paper); border: 2px solid var(--line); border-radius: 999px; overflow: hidden"><span style="display: block; width: 75%; height: 100%; background: var(--mint)"></span></span></div>
+</div>
+
+<div style="grid-column: span 4; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">CARDS</span>
+<div style="padding: 18px; background: var(--yellow); color: var(--on-accent); border: 2px solid var(--line); border-radius: 22px; box-shadow: 4px 4px 0 var(--shadow); display: flex; flex-direction: column; gap: 8px">
+<span style="display: flex; justify-content: space-between"><span style="font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; padding: 3px 8px; background: var(--lilac); border: 2px solid var(--line); border-radius: 9px">03</span><span style="font-size: 12px; font-weight: 700; padding: 3px 8px; background: #FFFFFF; border: 1.5px solid var(--line); border-radius: 999px">Live now</span></span>
+<span class="soft" style="font-size: 17px; font-weight: 700">Sliding Window</span><span style="font-size: 13px">Pattern card · live state</span>
+</div>
+<div style="padding: 16px; background: var(--tint-yellow); border: 2px solid var(--line); border-radius: 16px; box-shadow: 3px 3px 0 var(--shadow)"><b>Reach for it when…</b><div style="font-size: 14px; margin-top: 6px">Callout card · tinted</div></div>
+</div>
+
+<div style="grid-column: span 7; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">VISUALIZER CELLS</span>
+<div style="display: flex; gap: 24px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span style="width: 54px; height: 64px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--card); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500">a</span><span style="font-size: 13px">Waiting</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span style="padding: 6px; border: 2.5px solid var(--line); border-radius: 18px; background: var(--tint-yellow)"><span style="width: 54px; height: 64px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--card); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500">b</span></span><span style="font-size: 13px">In window</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span style="width: 54px; height: 64px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; transform: translateY(-8px)">c</span><span style="font-size: 13px">Incoming (lifted)</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span style="width: 54px; height: 64px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--past-bg); color: var(--faint); border: 2px dashed var(--past-line); font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500">d</span><span style="font-size: 13px">Left behind</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px; margin-left: auto">
+<span style="padding: 2px 8px; background: var(--inverse-bg); color: var(--inverse-fg); border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; align-self: flex-start">L</span>
+<span style="padding: 2px 8px; background: var(--orange); color: var(--on-accent); border: 2px solid var(--line); border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; align-self: flex-start">R</span>
+<span style="font-size: 13px">Pointer tags</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 18px; background: var(--tint-cream); border: 2px solid var(--line); border-radius: 16px 16px 16px 4px"><span style="font-size: 13px; font-weight: 700; color: var(--pen)">what’s happening</span><span style="font-size: 18px; font-weight: 700">Narration bubble · announced to screen readers.</span></div>
+<div style="display: flex; gap: 10px; padding: 8px 12px; border-radius: 8px; background: var(--hl); font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500"><span style="color: var(--pen)">▶</span><span style="color: var(--faint)">10</span>best = Math.max(best, r - left + 1);</div>
+</div>
+
+<div style="grid-column: span 5; padding: 24px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted)">NAVIGATION</span>
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px; border: 2px solid var(--line); border-radius: 14px">
+<span style="height: 40px; display: flex; align-items: center; gap: 6px; padding: 0 10px; background: var(--yellow); color: var(--on-accent); border: 2px solid var(--line); border-radius: 10px; font-size: 14px; font-weight: 700">03 Sliding Window ▾</span>
+<span style="height: 36px; display: flex; align-items: center; padding: 0 10px; background: var(--inverse-bg); color: var(--inverse-fg); border-radius: 9px; font-size: 13px; font-weight: 700">1 Idea</span>
+<span style="font-size: 13px; font-weight: 700; padding: 0 6px">2 Watch</span>
+<span style="font-size: 13px; font-weight: 700; padding: 0 6px">3 Try it</span>
+</div>
+<span style="font-size: 13px; color: var(--muted)">Lesson bar: pattern switcher, numbered sections (current one filled), prev/next. Sticky on scroll.</span>
+<div style="font-size: 14px; color: var(--muted)"><a href="#">Patterns</a> › Foundations › <b style="color: var(--ink)">Sliding Window</b></div>
+<span style="font-size: 13px; color: var(--muted)">Breadcrumb on every page below the top level.</span>
+</div>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 20px; padding: 40px 0; border-top: 2px dashed var(--line)">
+<div style="display: flex; align-items: baseline; gap: 18px"><h2 class="soft" style="margin: 0; font-size: 32px; font-weight: 800">Motion & accessibility</h2><span style="font-size: 16px; color: var(--muted)">How things move, and the rules that always apply.</span></div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<ul style="margin: 0; padding: 24px 24px 24px 44px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5">
+<li><b>Fast 150ms</b> hovers and presses · <b>base 250ms</b> theme and panels · <b>slow 400ms</b> the window sliding.</li>
+<li>Easing: ease-out for things arriving, ease-in-out for things moving across.</li>
+<li>The visualizer animates between steps: the window capsule slides, the incoming letter lifts, the bubble text crossfades.</li>
+<li>With reduced motion on: no tilts, no slides. States just switch.</li>
+</ul>
+<ul style="margin: 0; padding: 24px 24px 24px 44px; background: var(--card); border: 2px solid var(--line); border-radius: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5">
+<li>WCAG 2.2 AA. Text 4.5:1, large text and UI edges 3:1, in both themes.</li>
+<li>Touch targets at least 44px. Visible focus ring on everything.</li>
+<li>Never colour alone: pair it with a label, border style or icon.</li>
+<li>Every page: one h1, landmarks, skip link, breadcrumb below top level.</li>
+</ul>
+</div>
+</section>
+</main>
+<footer style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; height: 120px; font-size: 15px; color: var(--muted)">
+<span class="soft" style="font-size: 20px; font-weight: 800; color: var(--ink)">pointer</span>
+<nav aria-label="Footer" style="display: flex; gap: 20px"><a href="C2-About.dc.html">About</a><a href="#">Accessibility</a><a href="#">[GITHUB]</a><a href="#">[INSTAGRAM]</a></nav>
+<span>Made by Rohan · pointer.rohanahire.com</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({ theme: 'light' }, {});
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var base = {
+      themeClass: st.theme === 'dark' ? 'theme-dark' : 'theme-light',
+      isDark: st.theme === 'dark', isLight: st.theme !== 'dark',
+      themeLabel: st.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: function () { self.setState({ theme: st.theme === 'dark' ? 'light' : 'dark' }); }
+    };
+    var extra = (function () {
+
+    var toks = [['paper', 'Page background'], ['card', 'Cards, fields'], ['ink', 'Text, icons'], ['muted', 'Secondary text'],
+      ['line', 'Borders'], ['shadow', 'Hard shadows'], ['pen', 'Accent text'], ['focus', 'Focus ring'],
+      ['orange', 'Primary, Hard, incoming'], ['yellow', 'Highlight, Medium'], ['mint', 'Step, Easy, progress'], ['lilac', 'Chips, extras'],
+      ['tint-yellow', 'Callouts, window'], ['tint-mint', 'Solved rows'], ['tint-lilac', 'Soft panels'], ['hl', 'Active code line']];
+    return {
+      otherTheme: st.theme === 'dark' ? 'light' : 'dark',
+      palettes: [{ name: 'Light', cls: 'theme-light' }, { name: 'Dark', cls: 'theme-dark' }],
+      tokens: toks.map(function (t) { return { name: '--' + t[0], use: t[1], v: 'var(--' + t[0] + ')' }; }),
+      spaces: [4, 8, 12, 16, 20, 24, 32, 40, 56, 72, 96].map(function (v) { return { v: v }; }),
+      radii: [[8, '8'], [12, '12'], [16, '16'], [22, '22'], [26, '26'], [999, 'pill']].map(function (r) { return { v: Math.min(r[0], 26) === 26 && r[0] === 999 ? 999 : r[0], l: r[1] }; })
+    };
+
+    })();
+    return Object.assign(base, extra);
+  }
+}
+</script>
+</body>
+</html>

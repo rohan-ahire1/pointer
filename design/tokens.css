@@ -1,0 +1,105 @@
+/* Pointer design tokens — Toybox v2. Source of truth for colour.
+   Light is :root; dark applies via [data-theme="dark"] or the system setting. */
+:root {
+  --paper:#FFF6EA;
+  --ink:#231F3A;
+  --line:#231F3A;
+  --shadow:#231F3A;
+  --card:#FFFFFF;
+  --card-2:#FFFBF4;
+  --muted:#5A5570;
+  --faint:#77728C;
+  --pen:#A8440C;
+  --on-accent:#231F3A;
+  --inverse-bg:#231F3A;
+  --inverse-fg:#FFF6EA;
+  --yellow:#FFD45C;
+  --mint:#6FD3AE;
+  --orange:#FF8B42;
+  --lilac:#B7A4F4;
+  --peach:#FFC9A6;
+  --sky:#9DD0FF;
+  --tint-yellow:#FFF1C7;
+  --tint-lilac:#EDE6FF;
+  --tint-mint:#E3F7EF;
+  --tint-cream:#FFF0DE;
+  --hl:#FFE3A3;
+  --past-bg:#F2EEE6;
+  --past-line:#B3ADC2;
+  --focus:#2F5BD8;
+  --blob1:#B7A4F4;
+  --blob2:#6FD3AE;
+  --font-display: 'Unbounded', sans-serif;   /* 800, letter-spacing -0.03em */
+  --font-body: 'DM Sans', sans-serif;        /* 400/500/700 */
+  --font-mono: 'DM Mono', monospace;         /* 400/500 */
+  --radius-chip: 8px; --radius-btn: 14px; --radius-card: 22px; --radius-panel: 26px;
+  --border: 2px solid var(--line);
+  --shadow-sm: 3px 3px 0 var(--shadow); --shadow-md: 4px 4px 0 var(--shadow); --shadow-lg: 6px 6px 0 var(--shadow); --shadow-xl: 8px 8px 0 var(--shadow);
+  --dur-fast: 150ms; --dur-base: 250ms; --dur-slow: 400ms;
+}
+[data-theme="dark"] {
+  --paper:#1A1728;
+  --ink:#FFF6EA;
+  --line:#EFE6D6;
+  --shadow:#08060F;
+  --card:#272339;
+  --card-2:#211D31;
+  --muted:#CBC5DB;
+  --faint:#9A94B0;
+  --pen:#FFB27A;
+  --on-accent:#231F3A;
+  --inverse-bg:#FFF6EA;
+  --inverse-fg:#1A1728;
+  --yellow:#FFD45C;
+  --mint:#6FD3AE;
+  --orange:#FF9A57;
+  --lilac:#B7A4F4;
+  --peach:#F7BE9A;
+  --sky:#94C8F5;
+  --tint-yellow:#3A3122;
+  --tint-lilac:#2E2748;
+  --tint-mint:#1D3A33;
+  --tint-cream:#2A2436;
+  --hl:#4B3E1E;
+  --past-bg:#201C30;
+  --past-line:#5A5474;
+  --focus:#9BB8FF;
+  --blob1:#4A3F78;
+  --blob2:#1F5A48;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#1A1728;
+    --ink:#FFF6EA;
+    --line:#EFE6D6;
+    --shadow:#08060F;
+    --card:#272339;
+    --card-2:#211D31;
+    --muted:#CBC5DB;
+    --faint:#9A94B0;
+    --pen:#FFB27A;
+    --on-accent:#231F3A;
+    --inverse-bg:#FFF6EA;
+    --inverse-fg:#1A1728;
+    --yellow:#FFD45C;
+    --mint:#6FD3AE;
+    --orange:#FF9A57;
+    --lilac:#B7A4F4;
+    --peach:#F7BE9A;
+    --sky:#94C8F5;
+    --tint-yellow:#3A3122;
+    --tint-lilac:#2E2748;
+    --tint-mint:#1D3A33;
+    --tint-cream:#2A2436;
+    --hl:#4B3E1E;
+    --past-bg:#201C30;
+    --past-line:#5A5474;
+    --focus:#9BB8FF;
+    --blob1:#4A3F78;
+    --blob2:#1F5A48;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .tilt { transform: none !important; }
+}

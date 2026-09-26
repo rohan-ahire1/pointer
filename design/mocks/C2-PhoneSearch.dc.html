@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Search — Pointer (phone)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'DM Sans',sans-serif;background:#FFF6EA}
+.theme-light{--paper:#FFF6EA;--gridline:#FFF6EA;--ink:#231F3A;--line:#231F3A;--shadow:#231F3A;--card:#FFFFFF;--card-2:#FFFBF4;--muted:#5A5570;--faint:#77728C;--pen:#A8440C;--on-accent:#231F3A;--inverse-bg:#231F3A;--inverse-fg:#FFF6EA;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF8B42;--lilac:#B7A4F4;--peach:#FFC9A6;--sky:#9DD0FF;--tint-yellow:#FFF1C7;--tint-lilac:#EDE6FF;--tint-mint:#E3F7EF;--tint-cream:#FFF0DE;--hl:#FFE3A3;--past-bg:#F2EEE6;--past-line:#B3ADC2;--focus:#2F5BD8;--tape:transparent;--blob1:#B7A4F4;--blob2:#6FD3AE}
+.theme-dark{--paper:#1A1728;--gridline:#1A1728;--ink:#FFF6EA;--line:#EFE6D6;--shadow:#08060F;--card:#272339;--card-2:#211D31;--muted:#CBC5DB;--faint:#9A94B0;--pen:#FFB27A;--on-accent:#231F3A;--inverse-bg:#FFF6EA;--inverse-fg:#1A1728;--yellow:#FFD45C;--mint:#6FD3AE;--orange:#FF9A57;--lilac:#B7A4F4;--peach:#F7BE9A;--sky:#94C8F5;--tint-yellow:#3A3122;--tint-lilac:#2E2748;--tint-mint:#1D3A33;--tint-cream:#2A2436;--hl:#4B3E1E;--past-bg:#201C30;--past-line:#5A5474;--focus:#9BB8FF;--tape:transparent;--blob1:#4A3F78;--blob2:#1F5A48}
+a{color:var(--ink)}a:hover{color:var(--pen)}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.grid{background-color:var(--paper);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:28px 28px;transition:background-color .25s ease,color .25s ease}
+.soft{font-family:Unbounded,sans-serif;letter-spacing:-0.03em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:12px;z-index:50;padding:12px 18px;background:var(--inverse-bg);color:var(--inverse-fg);border-radius:10px;font-weight:700}
+.skip:focus{left:24px}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none !important}.grid{transition:none}}
+.grid{background-size:24px 24px}
+</style>
+</helmet>
+<div class="grid {{themeClass}}" style="position: relative; overflow: hidden; width: 390px; height: 844px; box-sizing: border-box; padding: 16px 16px 0; display: flex; flex-direction: column; color: var(--ink)">
+
+<div role="dialog" aria-modal="true" aria-label="Search Pointer" style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex-grow: 1; display: flex; align-items: center; gap: 8px; height: 50px; padding: 0 12px; background: var(--card); border: 2px solid var(--line); border-radius: 14px; box-shadow: 3px 3px 0 var(--shadow)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+<label for="ps-q" class="sr-only">Search patterns, problems and pages</label>
+<input id="ps-q" value="{{q}}" onChange="{{onQ}}" placeholder="Search…" autocomplete="off" style="flex-grow: 1; min-width: 0; border: 0; background: transparent; font-size: 17px; color: var(--ink); outline: none">
+</div>
+<a href="C2-Phone.dc.html" style="min-height: 44px; display: flex; align-items: center; padding: 0 6px; font-size: 15px; font-weight: 700">Cancel</a>
+</div>
+<span aria-live="polite" style="font-size: 13px; color: var(--muted)">{{countLabel}}</span>
+<sc-for list="{{sections}}" as="sec" hint-placeholder-count="3">
+<div role="group" aria-label="{{sec.title}}" style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted)">{{sec.title}}</span>
+<sc-for list="{{sec.items}}" as="it" hint-placeholder-count="3">
+<a href="{{it.href}}" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; text-decoration: none; background: var(--card); border: 2px solid var(--line); border-radius: 14px">
+<span aria-hidden="true" style="flex-shrink: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 9px; background: {{it.chip}}; color: var(--on-accent); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700">{{it.badge}}</span>
+<span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px; font-weight: 700">{{it.title}}</span><span style="font-size: 12px; color: var(--muted)">{{it.sub}}</span></span>
+</a>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({ theme: 'light' }, { q: 'win' });
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var base = {
+      themeClass: st.theme === 'dark' ? 'theme-dark' : 'theme-light',
+      isDark: st.theme === 'dark', isLight: st.theme !== 'dark',
+      themeLabel: st.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: function () { self.setState({ theme: st.theme === 'dark' ? 'light' : 'dark' }); }
+    };
+    var extra = (function () {
+
+    var PATTERNS = [
+      ['Arrays & Hashing', 'Trade memory for instant lookups.', 0], ['Two Pointers', 'Two indices walking toward an answer.', 0],
+      ['Sliding Window', 'A range that grows and shrinks as it scans.', 0], ['Stack', 'Remember the past, answer on the way back.', 0],
+      ['Binary Search', 'Halve the search space every step.', 0], ['Linked List', 'Rewire pointers without losing the chain.', 1],
+      ['Trees', 'Recursion that follows the branches.', 1], ['Tries', 'Share prefixes, find words letter by letter.', 1],
+      ['Heaps', 'Always know the smallest item.', 1], ['Backtracking', 'Try, recurse, undo.', 1],
+      ['Graphs', 'Explore neighbours with BFS and DFS.', 2], ['1-D DP', 'Solve small, remember, build up.', 2],
+      ['2-D DP', 'Fill a table cell by cell.', 2], ['Greedy', 'Take the best move now. Never look back.', 2],
+      ['Intervals', 'Sort by start, then merge or split.', 2]
+    ];
+    var GROUPS = [['FOUNDATIONS', 'Start here. Arrays, pointers and windows.'], ['STRUCTURES & RECURSION', 'Lists, trees and trying every option.'], ['ADVANCED', 'Graphs, dynamic programming and greedy choices.']];
+    var PROBLEMS = {
+      'Arrays & Hashing': [['Contains Duplicate','E'],['Valid Anagram','E'],['Two Sum','E'],['Group Anagrams','M'],['Top K Frequent Elements','M'],['Encode and Decode Strings','M'],['Product of Array Except Self','M'],['Longest Consecutive Sequence','M']],
+      'Two Pointers': [['Valid Palindrome','E'],['3Sum','M'],['Container With Most Water','M']],
+      'Sliding Window': [['Best Time to Buy and Sell Stock','E'],['Longest Substring Without Repeating Characters','M'],['Longest Repeating Character Replacement','M'],['Minimum Window Substring','H']],
+      'Stack': [['Valid Parentheses','E']],
+      'Binary Search': [['Find Minimum in Rotated Sorted Array','M'],['Search in Rotated Sorted Array','M']],
+      'Linked List': [['Reverse Linked List','E'],['Merge Two Sorted Lists','E'],['Linked List Cycle','E'],['Reorder List','M'],['Remove Nth Node From End of List','M'],['Merge K Sorted Lists','H']],
+      'Trees': [['Invert Binary Tree','E'],['Maximum Depth of Binary Tree','E'],['Same Tree','E'],['Subtree of Another Tree','E'],['Lowest Common Ancestor of a BST','M'],['Binary Tree Level Order Traversal','M'],['Validate Binary Search Tree','M'],['Kth Smallest Element in a BST','M'],['Construct Binary Tree from Preorder and Inorder','M'],['Binary Tree Maximum Path Sum','H'],['Serialize and Deserialize Binary Tree','H']],
+      'Tries': [['Implement Trie (Prefix Tree)','M'],['Design Add and Search Words Data Structure','M'],['Word Search II','H']],
+      'Heaps': [['Find Median from Data Stream','H']],
+      'Backtracking': [['Combination Sum','M'],['Word Search','M']],
+      'Graphs': [['Number of Islands','M'],['Clone Graph','M'],['Pacific Atlantic Water Flow','M'],['Course Schedule','M'],['Number of Connected Components','M'],['Graph Valid Tree','M']],
+      '1-D DP': [['Climbing Stairs','E'],['House Robber','M'],['House Robber II','M'],['Longest Palindromic Substring','M'],['Palindromic Substrings','M'],['Decode Ways','M'],['Coin Change','M'],['Maximum Product Subarray','M'],['Word Break','M'],['Longest Increasing Subsequence','M']],
+      '2-D DP': [['Unique Paths','M'],['Longest Common Subsequence','M']],
+      'Greedy': [['Maximum Subarray','M'],['Jump Game','M']],
+      'Intervals': [['Insert Interval','M'],['Merge Intervals','M'],['Non-overlapping Intervals','M'],['Meeting Rooms','E'],['Meeting Rooms II','M']],
+      'Extras': [['Alien Dictionary','H'],['Rotate Image','M'],['Spiral Matrix','M'],['Set Matrix Zeroes','M'],['Number of 1 Bits','E'],['Counting Bits','E'],['Reverse Bits','E'],['Missing Number','E'],['Sum of Two Integers','M']]
+    };
+    var SOLVED0 = { 'Two Sum': true, 'Contains Duplicate': true, 'Valid Anagram': true, 'Valid Palindrome': true, 'Best Time to Buy and Sell Stock': true, 'Valid Parentheses': true, 'Climbing Stairs': true };
+    var DIFF = { E: ['Easy', 'var(--mint)'], M: ['Medium', 'var(--yellow)'], H: ['Hard', 'var(--orange)'] };
+    var CHIPS = ['var(--yellow)', 'var(--mint)', 'var(--lilac)', 'var(--peach)', 'var(--sky)'];
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+    var q = (st.q || '').trim().toLowerCase();
+    function m(s) { return !q || s.toLowerCase().indexOf(q) >= 0; }
+    var pats = [], probs = [];
+    PATTERNS.forEach(function (p, i) { if (m(p[0])) pats.push({ title: p[0], sub: i === 2 ? 'Lesson · live now' : 'Lesson · coming soon', href: i === 2 ? 'C2-PhoneLessonTop.dc.html' : 'C2-Soon.dc.html', badge: pad2(i + 1), chip: CHIPS[i % 5] }); });
+    Object.keys(PROBLEMS).forEach(function (k) { PROBLEMS[k].forEach(function (p) { if (m(p[0])) probs.push({ title: p[0], sub: DIFF[p[1]][0] + ' · ' + k, href: 'C2-PhoneProblems.dc.html', badge: p[1], chip: DIFF[p[1]][1] }); }); });
+    var secs = [['PATTERNS', pats.slice(0, 3)], ['PROBLEMS', probs.slice(0, 5)]].filter(function (s) { return s[1].length; }).map(function (s) { return { title: s[0], items: s[1] }; });
+    var n = pats.length + probs.length;
+    return { q: st.q, sections: secs, countLabel: n ? n + ' results' : 'No matches. Try “tree” or “two sum”.', onQ: function (e) { self.setState({ q: e.target.value }); } };
+
+    })();
+    return Object.assign(base, extra);
+  }
+}
+</script>
+</body>
+</html>
