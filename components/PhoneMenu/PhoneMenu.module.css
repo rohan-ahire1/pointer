@@ -1,0 +1,88 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--paper);
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 14px;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+}
+
+.title {
+  flex-grow: 1;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.closeButton {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--card);
+}
+
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 14px;
+  text-decoration: none;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  color: var(--muted);
+  font-size: 16px;
+  text-align: left;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 0 18px;
+  text-decoration: none;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.navLink[aria-current="page"] {
+  background: var(--yellow);
+  color: var(--on-accent);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.themeRow {
+  margin-top: auto;
+}
