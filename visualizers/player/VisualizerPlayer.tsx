@@ -27,7 +27,7 @@ function isParseError<I>(parsed: I | { error: string }): parsed is { error: stri
  * (including this component) is generic over `<I, S>`.
  */
 export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, S>) {
-  const { title, code, parseInput, presets, trace, View, inputLabel, inputHint } = visualizer;
+  const { title, code, parseInput, presets, trace, View, inputLabel, inputHint, inputMaxLength = 10 } = visualizer;
 
   const [raw, setRaw] = useState<string>(presets[0] ?? "");
   const [stepIndex, setStepIndex] = useState(0);
@@ -196,7 +196,7 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
             id={inputId}
             value={raw}
             onChange={handleInputChange}
-            maxLength={10}
+            maxLength={inputMaxLength}
             autoComplete="off"
             spellCheck={false}
             aria-describedby={error ? `${hintId} ${errorId}` : hintId}

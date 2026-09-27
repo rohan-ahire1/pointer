@@ -49,4 +49,6 @@ export type Visualizer<I, S> = {
    */
   inputLabel?: string;
   inputHint?: string;
+  /** Max characters the input field accepts. Defaults to 10 (Sliding Window's limit). */
+  inputMaxLength?: number;
 };
