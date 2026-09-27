@@ -456,11 +456,47 @@
     "name": "Backtracking",
     "group": "structures",
     "idea": "Try, recurse, undo.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "combination-sum",
       "word-search"
-    ]
+    ],
+    "analogy": "Walk into a maze with a piece of chalk. When you hit a dead end, step back to the last fork and try the next turn, never walking the same dead end twice. Backtracking explores choices the same way, undoing each step so every option gets exactly one visit.",
+    "minutes": 20,
+    "needs": [
+      "recursion",
+      "arrays"
+    ],
+    "complexity": "Exponential",
+    "whenToUse": [
+      "You must list every valid arrangement",
+      "Each step tries one of a few options",
+      "A wrong turn can be undone cleanly"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Which sets of 2, 3, 6 and 7 add to 7? Trying every multiset blindly repeats dead ends, because most sets overshoot or miss."
+        },
+        {
+          "t": 15,
+          "text": "Try one number at a time and carry what is left. Each choice narrows the question to a smaller target."
+        },
+        {
+          "t": 32,
+          "text": "2, 2 then 3 reaches exactly 7, so [2, 2, 3] is saved. With only 1 left, 2 is already too big, so that whole branch is cut."
+        },
+        {
+          "t": 48,
+          "text": "Trying every branch is exponential, but each cut prunes a whole subtree. That’s backtracking."
+        }
+      ]
+    },
+    "visualizer": "combination-sum"
   },
   {
     "number": 11,
