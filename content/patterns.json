@@ -5,7 +5,7 @@
     "name": "Arrays & Hashing",
     "group": "foundations",
     "idea": "Trade memory for instant lookups.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "contains-duplicate",
       "valid-anagram",
@@ -15,7 +15,43 @@
       "encode-and-decode-strings",
       "product-of-array-except-self",
       "longest-consecutive-sequence"
-    ]
+    ],
+    "analogy": "A coat check takes your coat and hands you a ticket. Later you show the ticket and your coat comes back at once, with nobody searching the rack. A hash map is the same trade: spend a little memory and every lookup is instant.",
+    "minutes": 15,
+    "needs": [
+      "arrays",
+      "hash maps"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "You check the same values again and again",
+      "Counts, pairs or duplicates decide the answer",
+      "Brute force compares every pair of items"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Two Sum asks which two numbers add to 9. Trying every pair means each number meets every other number. That is n² work."
+        },
+        {
+          "t": 15,
+          "text": "Instead, walk the list once and keep a map of numbers you have seen. Each entry remembers a number and the index where it sits."
+        },
+        {
+          "t": 32,
+          "text": "For each number, ask the map for its partner. 9 minus 7 is 2, and 2 is already in the map, so the pair is 0 and 1."
+        },
+        {
+          "t": 48,
+          "text": "One pass, one map lookup each: O(n) time. That is arrays and hashing: memory traded for instant lookups."
+        }
+      ]
+    },
+    "visualizer": "two-sum-hash-map"
   },
   {
     "number": 2,

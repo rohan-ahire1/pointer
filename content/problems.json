@@ -5,7 +5,8 @@
     "difficulty": "easy",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/contains-duplicate/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: one set remembers every number you have seen."
   },
   {
     "slug": "valid-anagram",
@@ -13,7 +14,8 @@
     "difficulty": "easy",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/valid-anagram/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: count the letters here, count them there, compare."
   },
   {
     "slug": "two-sum",
@@ -21,7 +23,8 @@
     "difficulty": "easy",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/two-sum/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "group-anagrams",
@@ -29,7 +32,8 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/group-anagrams/",
-    "premium": false
+    "premium": false,
+    "twist": "Same letter counts, now used as a key for each group."
   },
   {
     "slug": "top-k-frequent-elements",
@@ -37,7 +41,8 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/top-k-frequent-elements/",
-    "premium": false
+    "premium": false,
+    "twist": "Count everything first, then keep the k biggest counts."
   },
   {
     "slug": "encode-and-decode-strings",
@@ -45,7 +50,8 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/encode-and-decode-strings/",
-    "premium": true
+    "premium": true,
+    "twist": "Store each length up front, so decoding never guesses."
   },
   {
     "slug": "product-of-array-except-self",
@@ -53,7 +59,8 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/product-of-array-except-self/",
-    "premium": false
+    "premium": false,
+    "twist": "Prefix and suffix products, with no division allowed."
   },
   {
     "slug": "longest-consecutive-sequence",
@@ -61,7 +68,8 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/longest-consecutive-sequence/",
-    "premium": false
+    "premium": false,
+    "twist": "A set finds each run’s start in constant time."
   },
   {
     "slug": "valid-palindrome",
