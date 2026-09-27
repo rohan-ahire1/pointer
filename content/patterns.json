@@ -59,12 +59,47 @@
     "name": "Two Pointers",
     "group": "foundations",
     "idea": "Two indices walking toward an answer.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "valid-palindrome",
       "3sum",
       "container-with-most-water"
-    ]
+    ],
+    "analogy": "Two people start at opposite ends of a hallway and walk toward each other. Each step rules out a whole row of options they will never need to check. Two pointers prune a search the same way: every move discards what cannot win.",
+    "minutes": 15,
+    "needs": [
+      "arrays"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "The input is sorted, or can be sorted first",
+      "You compare a pair from opposite ends",
+      "Each step rules out a whole row of options"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Nine walls stand in a row, and you must pick the pair that holds the most water. Trying every pair means n² checks."
+        },
+        {
+          "t": 15,
+          "text": "Instead, start with the widest container: the first and last walls. Measure what it holds."
+        },
+        {
+          "t": 32,
+          "text": "The shorter wall is the limit, so move it inward. The taller wall never needs to move first."
+        },
+        {
+          "t": 48,
+          "text": "Each wall moves once, so one pass finds the best: 49. That is two pointers."
+        }
+      ]
+    },
+    "visualizer": "container-with-most-water"
   },
   {
     "number": 3,

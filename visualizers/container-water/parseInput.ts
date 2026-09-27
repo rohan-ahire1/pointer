@@ -1,0 +1,27 @@
+import type { ContainerInput } from "./types";
+
+/**
+ * Input rules (docs/patterns/02-two-pointers.md): 2–10 wall heights from 0
+ * to 9, separated by spaces. Every error says what *is* allowed.
+ */
+export function parseInput(raw: string): ContainerInput | { error: string } {
+  if (raw.trim() === "") {
+    return { error: "Enter 2–10 wall heights from 0 to 9, separated by spaces." };
+  }
+  const tokens = raw.trim().split(/\s+/);
+  if (tokens.length < 2 || tokens.length > 10) {
+    return { error: `Enter 2–10 wall heights, separated by spaces. You entered ${tokens.length}.` };
+  }
+  const height: number[] = [];
+  for (const token of tokens) {
+    if (!/^-?\d+$/.test(token)) {
+      return { error: `“${token}” isn’t a wall height. Use whole numbers from 0 to 9.` };
+    }
+    const h = Number(token);
+    if (h < 0 || h > 9) {
+      return { error: `${h} is out of range. Wall heights run from 0 to 9.` };
+    }
+    height.push(h);
+  }
+  return height;
+}

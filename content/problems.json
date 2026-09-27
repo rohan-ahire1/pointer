@@ -77,7 +77,8 @@
     "difficulty": "easy",
     "pattern": "two-pointers",
     "leetcodeUrl": "https://leetcode.com/problems/valid-palindrome/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: ends walk inward, skipping what is not a letter."
   },
   {
     "slug": "3sum",
@@ -85,7 +86,8 @@
     "difficulty": "medium",
     "pattern": "two-pointers",
     "leetcodeUrl": "https://leetcode.com/problems/3sum/",
-    "premium": false
+    "premium": false,
+    "twist": "Sort first, then run two pointers from every start."
   },
   {
     "slug": "container-with-most-water",
@@ -93,7 +95,8 @@
     "difficulty": "medium",
     "pattern": "two-pointers",
     "leetcodeUrl": "https://leetcode.com/problems/container-with-most-water/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "best-time-to-buy-and-sell-stock",
