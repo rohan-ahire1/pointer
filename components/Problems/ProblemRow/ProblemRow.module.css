@@ -1,0 +1,86 @@
+.row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px 14px;
+  min-height: 56px;
+  padding: 10px 20px;
+  border-top: 1.5px solid var(--past-bg);
+}
+
+@media (min-width: 640px) {
+  .row {
+    grid-template-columns: 32px minmax(0, 1fr) 90px 160px 110px;
+    padding: 0 20px;
+  }
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--mint);
+  cursor: pointer;
+}
+
+.name,
+.nameSolved {
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.nameSolved {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.diffTag {
+  justify-self: start;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  color: var(--on-accent);
+  border: var(--border);
+  border-radius: 8px;
+}
+
+.diffEasy {
+  background: var(--mint);
+}
+
+.diffMedium {
+  background: var(--yellow);
+}
+
+.diffHard {
+  background: var(--orange);
+}
+
+.lessonLink {
+  grid-column: 2 / -1;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .lessonLink {
+    grid-column: auto;
+  }
+}
+
+.leetcodeLink {
+  grid-column: 2 / -1;
+  justify-self: start;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .leetcodeLink {
+    grid-column: auto;
+    justify-self: end;
+  }
+}

@@ -1,0 +1,30 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 16px 64px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px 32px 96px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    padding: 32px 88px 96px;
+  }
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+}
