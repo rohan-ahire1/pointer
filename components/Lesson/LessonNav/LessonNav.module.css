@@ -16,6 +16,14 @@
   box-shadow: var(--shadow-sm);
 }
 
+.topRow {
+  display: contents;
+}
+
+.backButton {
+  display: none;
+}
+
 .switcherButton {
   display: flex;
   align-items: center;
@@ -172,4 +180,85 @@
   font-size: 13px;
   color: var(--muted);
   white-space: nowrap;
+}
+
+/* Phone (design/mocks/C2-PhoneLessonTop.dc.html, C2-PhoneLesson.dc.html):
+   the lesson bar collapses to a compact two-row header — back button +
+   pattern switcher, then the four section tabs — and sticks to the top of
+   the viewport (it stacks correctly under the sticky SiteHeader because
+   both use `position: sticky; top: 0` and appear in that order in the
+   document). The solved-count label and prev/next pattern arrows are
+   dropped here: the same information already appears in LessonHero's
+   "Lesson N of 15" line and the Up next card. */
+@media (max-width: 767px) {
+  .wrap {
+    position: sticky;
+    top: 0;
+    z-index: 39;
+    margin-top: 0;
+    padding-top: 10px;
+    background: var(--paper);
+  }
+
+  .bar {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .topRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .backButton {
+    display: flex;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: var(--border);
+    border-radius: var(--radius-btn);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .switcherButton {
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .progressLabel,
+  .adjacent {
+    display: none;
+  }
+
+  .tabs {
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .tabs li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .tab,
+  .tabActive {
+    justify-content: center;
+    width: 100%;
+    padding: 0 6px;
+    min-height: 44px;
+    font-size: 13px;
+  }
+
+  .switcherPanel {
+    max-height: calc(100vh - 140px);
+  }
 }

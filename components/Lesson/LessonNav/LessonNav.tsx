@@ -89,18 +89,23 @@ export function LessonNav({
   return (
     <div className={styles.wrap}>
       <nav aria-label="Lesson" className={styles.bar}>
-        <button
-          type="button"
-          ref={switcherButtonRef}
-          onClick={() => setSwitcherOpen((open) => !open)}
-          aria-expanded={switcherOpen}
-          aria-controls="pattern-switcher"
-          className={styles.switcherButton}
-        >
-          <span className={styles.switcherNumber}>{padPatternNumber(patternNumber)}</span> {patternName}
-          <ChevronIcon />
-          <span className="sr-only">— switch pattern</span>
-        </button>
+        <div className={styles.topRow}>
+          <Link href="/patterns" aria-label="Back to all patterns" className={styles.backButton}>
+            <span aria-hidden="true">←</span>
+          </Link>
+          <button
+            type="button"
+            ref={switcherButtonRef}
+            onClick={() => setSwitcherOpen((open) => !open)}
+            aria-expanded={switcherOpen}
+            aria-controls="pattern-switcher"
+            className={styles.switcherButton}
+          >
+            <span className={styles.switcherNumber}>{padPatternNumber(patternNumber)}</span> {patternName}
+            <ChevronIcon />
+            <span className="sr-only">— switch pattern</span>
+          </button>
+        </div>
 
         <ol className={styles.tabs}>
           {SECTIONS.map((section) => (
