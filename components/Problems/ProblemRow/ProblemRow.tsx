@@ -37,14 +37,20 @@ export function ProblemRow({ problem, lessonHref, lessonLabel }: ProblemRowProps
 
   return (
     <li className={styles.row}>
-      <input
-        id={checkboxId}
-        type="checkbox"
-        checked={solved}
-        onChange={() => toggleSolved(problem.slug)}
-        aria-label={`${solved ? "Mark not solved" : "Mark solved"}: ${problem.title}`}
-        className={styles.checkbox}
-      />
+      {/* The checkbox glyph is small, but it's wrapped in a 44x44 label so
+          the tappable area meets the 44px touch-target rule (CLAUDE.md) —
+          the visible name label below is a second, larger way to toggle
+          the same input via its own `htmlFor`. */}
+      <label htmlFor={checkboxId} className={styles.checkboxWrap}>
+        <input
+          id={checkboxId}
+          type="checkbox"
+          checked={solved}
+          onChange={() => toggleSolved(problem.slug)}
+          aria-label={`${solved ? "Mark not solved" : "Mark solved"}: ${problem.title}`}
+          className={styles.checkbox}
+        />
+      </label>
       <label htmlFor={checkboxId} className={solved ? styles.nameSolved : styles.name}>
         {problem.title}
       </label>

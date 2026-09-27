@@ -1,6 +1,6 @@
 .row {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 10px 14px;
   min-height: 56px;
@@ -10,9 +10,19 @@
 
 @media (min-width: 640px) {
   .row {
-    grid-template-columns: 32px minmax(0, 1fr) 90px 160px 110px;
+    grid-template-columns: 44px minmax(0, 1fr) 90px 160px 110px;
     padding: 0 20px;
   }
+}
+
+.checkboxWrap {
+  width: 44px;
+  height: 44px;
+  margin-left: -11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .checkbox {

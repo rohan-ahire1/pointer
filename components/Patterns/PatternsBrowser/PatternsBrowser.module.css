@@ -86,8 +86,16 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Single column below 480px (design/mocks/C2-PhonePatterns.dc.html shows
+     a full-width stacked list on phone) instead of two cramped columns. */
+  grid-template-columns: 1fr;
   gap: 16px;
+}
+
+@media (min-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 640px) {
