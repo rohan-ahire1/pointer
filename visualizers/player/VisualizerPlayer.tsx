@@ -38,6 +38,11 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
   const hintId = useId();
   const errorId = useId();
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  // Whether any part of the player is on screen. The phone transport bar
+  // (fixed to the viewport bottom) only shows while it is, so it never
+  // covers the rest of the lesson or the footer.
+  const [inView, setInView] = useState(false);
 
   const parsed = useMemo(() => parseInput(raw), [parseInput, raw]);
   const error = isParseError(parsed) ? parsed.error : null;
@@ -73,6 +78,14 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
 
   // Unmount cleanup.
   useEffect(() => stopTimer, [stopTimer]);
+
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, []);
 
   const step = useCallback(
     (delta: number) => {
@@ -137,6 +150,8 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
     if (tag === "INPUT" || tag === "TEXTAREA") return;
     // ...or when Space/Enter is what activates a focused button.
     if (tag === "BUTTON" && (event.key === " " || event.key === "Enter")) return;
+    // ...or when ← → should scroll a focused scrollable area (the code panel).
+    if (target?.dataset.scrollArrows !== undefined && (event.key === "ArrowLeft" || event.key === "ArrowRight")) return;
 
     if (event.key === "ArrowRight") {
       event.preventDefault();
@@ -162,7 +177,9 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
 
   return (
     <div
+      ref={panelRef}
       className={styles.panel}
+      data-in-view={inView}
       role="group"
       aria-label={`${title} visualizer. Use left and right arrow keys to step, Space to play, R to reset.`}
       tabIndex={0}
@@ -242,9 +259,8 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
             and handlers as the desktop layout, just repositioned by CSS
             (see .transport in VisualizerPlayer.module.css), so there is
             only ever one set of controls in the accessibility tree. The
-            page reserves matching bottom padding (patterns/[slug]/
-            page.module.css) so the bar never covers the Solve section or
-            footer. */}
+            bar only shows while the player is on screen (data-in-view),
+            so it never covers the Solve section or footer. */}
         <div className={styles.transport}>
           <div className={styles.controls}>
             <button
@@ -295,7 +311,15 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
           <span className={styles.codeBadge}>solution.ts</span>
           <span className={styles.codeHint}>▶ marks the line running now</span>
         </div>
-        <div role="list" aria-label="TypeScript solution" className={styles.codeList}>
+        {/* Focusable so keyboard users can scroll it when the code is wider
+            than the panel (phone widths); ← → scroll it instead of stepping. */}
+        <div
+          role="list"
+          aria-label="TypeScript solution"
+          className={styles.codeList}
+          tabIndex={0}
+          data-scroll-arrows
+        >
           {code.map((line, index) => {
             const active = activeLines.includes(index);
             return (

@@ -314,6 +314,11 @@
   color: var(--faint);
 }
 
+/* --faint doesn't reach 4.5:1 on the --hl highlight in either theme. */
+.codeLineActive .codeLineNumber {
+  color: var(--ink);
+}
+
 .codeText {
   color: var(--ink);
 }
@@ -340,6 +345,17 @@
     box-shadow: var(--shadow-lg);
     padding: 8px calc(12px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom))
       calc(12px + env(safe-area-inset-left));
+  }
+
+  .panel[data-in-view="false"] .transport {
+    transform: translateY(110%);
+    visibility: hidden;
+  }
+
+  .transport {
+    transition:
+      transform var(--dur-base) ease-in-out,
+      visibility var(--dur-base);
   }
 
   .controls {
@@ -383,4 +399,9 @@
   .stepLabel {
     text-align: center;
   }
+}
+
+/* Inset so the focus ring isn't clipped by the panel's overflow: hidden. */
+.codeList:focus-visible {
+  outline-offset: -3px;
 }

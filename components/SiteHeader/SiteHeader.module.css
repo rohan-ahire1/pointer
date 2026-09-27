@@ -31,6 +31,9 @@
 }
 
 .logoLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
   padding: 6px 4px;
 }
@@ -132,4 +135,14 @@
   color: var(--inverse-fg);
   border-radius: 12px;
   font-weight: 700;
+}
+
+/* On a phone-width lesson page the lesson's own sticky header (back,
+   pattern switcher, section tabs) takes the top of the viewport, per
+   design/mocks/C2-PhoneLesson.dc.html, so the site header scrolls away
+   instead of stacking on top of it. */
+@media (max-width: 767px) {
+  :global(body:has([data-lesson-nav])) .wrap {
+    position: relative;
+  }
 }

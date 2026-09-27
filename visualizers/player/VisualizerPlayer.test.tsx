@@ -154,4 +154,32 @@ describe("VisualizerPlayer autoplay + aria-live", () => {
     });
     expect(stepLabel(/step 1 of 25/i)).toBeInTheDocument();
   });
+
+  it("marks itself in view only while the IntersectionObserver reports it on screen", () => {
+    let report: ((entries: Array<{ isIntersecting: boolean }>) => void) | undefined;
+    const disconnect = vi.fn();
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(callback: (entries: Array<{ isIntersecting: boolean }>) => void) {
+          report = callback;
+        }
+        observe() {}
+        disconnect = disconnect;
+      },
+    );
+
+    try {
+      const region = renderPlayer();
+      expect(region).toHaveAttribute("data-in-view", "false");
+
+      act(() => report?.([{ isIntersecting: true }]));
+      expect(region).toHaveAttribute("data-in-view", "true");
+
+      act(() => report?.([{ isIntersecting: false }]));
+      expect(region).toHaveAttribute("data-in-view", "false");
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
 });

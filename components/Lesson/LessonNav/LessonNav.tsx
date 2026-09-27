@@ -87,7 +87,7 @@ export function LessonNav({
   }, [switcherOpen]);
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.wrap} data-lesson-nav>
       <nav aria-label="Lesson" className={styles.bar}>
         <div className={styles.topRow}>
           <Link href="/patterns" aria-label="Back to all patterns" className={styles.backButton}>

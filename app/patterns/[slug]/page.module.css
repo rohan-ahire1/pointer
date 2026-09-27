@@ -16,15 +16,6 @@
   }
 }
 
-/* Reserves space for VisualizerPlayer's sticky bottom transport bar
-   (VisualizerPlayer.module.css) so it never overlaps the Solve section,
-   Up next card or footer once the user scrolls to the end of the page. */
-@media (max-width: 767px) {
-  .page {
-    padding-bottom: calc(104px + env(safe-area-inset-bottom));
-  }
-}
-
 .main {
   display: flex;
   flex-direction: column;
