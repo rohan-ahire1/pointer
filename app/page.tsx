@@ -1,40 +1,105 @@
-import { SLIDING_WINDOW_VISUALIZER_ID } from "@/visualizers/sliding-window";
-import { VisualizerById } from "@/visualizers/player/VisualizerById";
+import Link from "next/link";
+import { getPatternGroups, getPatterns } from "@/content";
+import { groupNumberRange } from "@/lib/pattern-style";
+import { PatternCard } from "@/components/PatternCard/PatternCard";
+import { WelcomeBackBanner } from "@/components/Home/WelcomeBackBanner/WelcomeBackBanner";
+import { HomeVisualizerCard } from "@/components/Home/HomeVisualizerCard/HomeVisualizerCard";
 import styles from "./page.module.css";
 
-/**
- * Step 1 placeholder home: just enough content to show the layout shell
- * (skip link, nav, footer) and the design tokens/fonts working together.
- * Real content (patterns grid, "Watch 60s", etc.) lands in later steps.
- */
+const FEATURE_TILES = [
+  {
+    tag: "01 WATCH",
+    tagBg: "var(--yellow)",
+    title: "A 60-second explainer",
+    body: "Intuition first. The animation shows why it works before any code appears.",
+  },
+  {
+    tag: "02 PLAY",
+    tagBg: "var(--mint)",
+    title: "Step through it",
+    body: "Your input, your pace. Forward and back, one line at a time.",
+  },
+  {
+    tag: "03 PRACTISE",
+    tagBg: "var(--lilac)",
+    title: "Solve the classics",
+    body: "A short, ordered list of real interview problems, with progress saved.",
+  },
+];
+
+/** Home (design/mocks/C2-Home.dc.html / C2-Home-Dark.dc.html). */
 export default function HomePage() {
+  const firstLive = getPatterns().find((pattern) => pattern.status === "live");
+  const groups = getPatternGroups();
+
   return (
     <>
+      <WelcomeBackBanner />
+
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>15 patterns. zero memorizing.</p>
-        <h1 className={`soft ${styles.title}`}>
-          Algorithms you can <span className={styles.highlight}>watch move.</span>
-        </h1>
-        <p className={styles.lead}>
-          Every interview pattern, explained with a one-minute animation and a visualizer you can poke,
-          pause and step through.
-        </p>
-        <p className={styles.status}>
-          This is the step 1 scaffold: project setup, tokens, fonts and this layout shell (nav, footer,
-          skip link, theme toggle). Try resizing the window below <code>768px</code> for the phone menu,
-          and the moon icon in the nav for dark mode.
-        </p>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>15 patterns. zero memorizing.</p>
+          <h1 className={`soft ${styles.title}`}>
+            Algorithms you can <span className={styles.highlight}>watch move.</span>
+          </h1>
+          <p className={styles.lead}>
+            Every interview pattern, explained with a one-minute animation and a visualizer you can poke,
+            pause and step through.
+          </p>
+          <div className={styles.heroActions}>
+            {firstLive && (
+              <Link href={`/patterns/${firstLive.slug}`} className={styles.primaryButton}>
+                Start with {firstLive.name} →
+              </Link>
+            )}
+            {firstLive && (
+              <Link href={`/patterns/${firstLive.slug}#watch`} className={styles.secondaryButton}>
+                ▶ Watch 60s
+              </Link>
+            )}
+          </div>
+        </div>
+        <div className={styles.heroVisual}>
+          <HomeVisualizerCard />
+        </div>
       </section>
 
-      {/* TEMP: step 3 preview, replaced in step 6 */}
-      <section className={styles.visualizerPreview}>
-        <p className={styles.visualizerPreviewLabel}>
-          Step 3 preview — the visualizer engine and shared player. This block moves onto the real Sliding
-          Window lesson page in step 4 and disappears from here in step 6.
-        </p>
-        <VisualizerById id={SLIDING_WINDOW_VISUALIZER_ID} />
+      <section id="patterns" aria-labelledby="patterns-h" className={styles.patternsSection}>
+        <div className={styles.patternsHead}>
+          <h2 id="patterns-h" className={`soft ${styles.patternsHeading}`}>
+            Pick a pattern
+          </h2>
+          <span className={styles.patternsNote}>03 is live. more on the way →</span>
+        </div>
+        {groups.map((group) => (
+          <div key={group.key} className={styles.group}>
+            <div className={styles.groupHead}>
+              <h3 className={styles.groupTitle}>{group.label.toUpperCase()}</h3>
+              <span className={styles.groupBlurb}>{group.description}</span>
+              <span className={styles.groupRange}>{groupNumberRange(group.patterns)}</span>
+            </div>
+            <ul className={styles.grid}>
+              {group.patterns.map((pattern) => (
+                <li key={pattern.slug}>
+                  <PatternCard pattern={pattern} variant="compact" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
-      {/* END TEMP */}
+
+      <section className={styles.features} aria-label="How Pointer teaches a pattern">
+        {FEATURE_TILES.map((tile) => (
+          <div key={tile.tag} className={styles.featureTile}>
+            <span className={styles.featureTag} style={{ background: tile.tagBg }}>
+              {tile.tag}
+            </span>
+            <h3 className={`soft ${styles.featureTitle}`}>{tile.title}</h3>
+            <p className={styles.featureBody}>{tile.body}</p>
+          </div>
+        ))}
+      </section>
     </>
   );
 }

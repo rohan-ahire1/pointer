@@ -1,0 +1,27 @@
+.card {
+  box-sizing: border-box;
+  min-width: 0;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-xl);
+  padding: 28px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.note {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pen);
+}
