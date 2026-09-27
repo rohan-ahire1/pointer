@@ -140,7 +140,8 @@
     "difficulty": "easy",
     "pattern": "stack",
     "leetcodeUrl": "https://leetcode.com/problems/valid-parentheses/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "find-minimum-in-rotated-sorted-array",

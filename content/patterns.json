@@ -157,11 +157,46 @@
     "name": "Stack",
     "group": "foundations",
     "idea": "Remember the past, answer on the way back.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "valid-parentheses"
     ],
-    "analogy": "Think of a stack of plates. You only ever touch the top one, and the last plate you put down is the first one you pick up."
+    "analogy": "Think of a stack of plates. You only ever touch the top one, and the last plate you put down is the first one you pick up.",
+    "minutes": 10,
+    "needs": [
+      "strings",
+      "arrays"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "The last thing seen must be handled first",
+      "Pairs nest inside each other, like brackets",
+      "You need to undo steps in reverse order"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Six brackets, and each closer must meet the right opener. Scanning ahead for every match is slow."
+        },
+        {
+          "t": 15,
+          "text": "Instead, stack each opener as you read it. The stack remembers what is still waiting."
+        },
+        {
+          "t": 32,
+          "text": "Each closer checks only the top plate. If they match, the pair is settled."
+        },
+        {
+          "t": 48,
+          "text": "One pass, O(n) time. Empty stack, valid string. That is the stack."
+        }
+      ]
+    },
+    "visualizer": "valid-parentheses"
   },
   {
     "number": 5,
