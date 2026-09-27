@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { DM_Mono, DM_Sans, Unbounded } from "next/font/google";
 import Script from "next/script";
 import "@/styles/tokens.css";
 import "@/styles/globals.css";
 import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
+import { SITE_URL } from "@/lib/site";
 import { SiteHeader } from "@/components/SiteHeader/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter/SiteFooter";
 import { SkipLink } from "@/components/SkipLink/SkipLink";
@@ -30,10 +31,44 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
+const DESCRIPTION =
+  "Every interview pattern, explained with a one-minute animation and a visualizer you can poke, pause and step through.";
+
 export const metadata: Metadata = {
-  title: "Pointer — algorithms you can watch move",
-  description:
-    "Every interview pattern, explained with a one-minute animation and a visualizer you can poke, pause and step through.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Pointer — algorithms you can watch move",
+    template: "%s · Pointer",
+  },
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Pointer",
+    title: "Pointer — algorithms you can watch move",
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pointer — algorithms you can watch move",
+    description: DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Light/dark values match styles/tokens.css's `--paper` in each theme.
+  // `<meta name="theme-color">` is plain HTML, not CSS, so it can't read
+  // the custom property directly (same constraint noted in
+  // opengraph-image.tsx and manifest.ts) — kept in sync by hand.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFF6EA" },
+    { media: "(prefers-color-scheme: dark)", color: "#1A1728" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

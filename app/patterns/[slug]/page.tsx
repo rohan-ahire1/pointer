@@ -24,12 +24,13 @@ export async function generateMetadata({ params }: PatternPageProps): Promise<Me
   const { slug } = await params;
   const pattern = getPattern(slug);
   if (!pattern) {
-    return { title: "Pattern not found — Pointer" };
+    return { title: "Pattern not found" };
   }
   const description = pattern.status === "live" ? pattern.analogy : pattern.idea;
   return {
-    title: `${pattern.name} — Pointer`,
+    title: pattern.name,
     description,
+    alternates: { canonical: `/patterns/${pattern.slug}` },
   };
 }
 

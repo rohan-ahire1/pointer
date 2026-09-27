@@ -5,8 +5,9 @@ import { ProblemsBrowser } from "@/components/Problems/ProblemsBrowser/ProblemsB
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "The Blind 75 — Pointer",
+  title: "The Blind 75",
   description: "The classic interview problem list, grouped by pattern. Tick them off as you go.",
+  alternates: { canonical: "/problems" },
 };
 
 export default function ProblemsPage() {

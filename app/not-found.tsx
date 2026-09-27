@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SearchButton } from "@/components/NotFound/SearchButton/SearchButton";
 import styles from "./not-found.module.css";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "The page you wanted isn't here. It may have moved, or the link has a typo.",
+};
 
 /** 404 (design/mocks/C2-404.dc.html). */
 export default function NotFound() {

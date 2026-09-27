@@ -6,8 +6,9 @@ import { YourProgressCard } from "@/components/Patterns/YourProgressCard/YourPro
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "All 15 patterns — Pointer",
+  title: "All 15 patterns",
   description: "Most interview problems are one of these in disguise. Learn them in order, or jump to the one you need.",
+  alternates: { canonical: "/patterns" },
 };
 
 export default function PatternsPage() {

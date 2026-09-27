@@ -4,8 +4,9 @@ import { ProgressDashboard } from "@/components/Progress/ProgressDashboard/Progr
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Your progress — Pointer",
+  title: "Your progress",
   description: "Saved in this browser only. No account, nothing sent anywhere.",
+  alternates: { canonical: "/progress" },
 };
 
 export default function ProgressPage() {

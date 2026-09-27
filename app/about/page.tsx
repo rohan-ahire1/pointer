@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "About — Pointer",
+  title: "About",
   description:
     "Pointer teaches the 15 patterns behind most coding interviews by showing them move, one step at a time.",
+  alternates: { canonical: "/about" },
 };
 
 const PRINCIPLES = [
