@@ -297,7 +297,8 @@
     "difficulty": "medium",
     "pattern": "tries",
     "leetcodeUrl": "https://leetcode.com/problems/implement-trie-prefix-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "design-add-and-search-words-data-structure",
@@ -305,7 +306,8 @@
     "difficulty": "medium",
     "pattern": "tries",
     "leetcodeUrl": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
-    "premium": false
+    "premium": false,
+    "twist": "Trie search where “.” matches any letter at that spot."
   },
   {
     "slug": "word-search-ii",
@@ -313,7 +315,8 @@
     "difficulty": "hard",
     "pattern": "tries",
     "leetcodeUrl": "https://leetcode.com/problems/word-search-ii/",
-    "premium": false
+    "premium": false,
+    "twist": "Walk the board and the trie together, pruning dead letters."
   },
   {
     "slug": "find-median-from-data-stream",
