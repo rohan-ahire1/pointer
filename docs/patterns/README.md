@@ -11,6 +11,26 @@ Read first: `CLAUDE.md`, `design/visualizer-spec.md`, `visualizers/types.ts`,
 
 ---
 
+## 0. Who builds what
+
+Two builders, no shared files, so both can work at once:
+
+| File (per visualizer folder) | Owner | What |
+|---|---|---|
+| `types.ts` | **UI** (already written) | The state contract. **Authoritative** over the "State:" line in each spec. |
+| `meta.ts` | **Content** | `export const meta = { id, title, presets, inputLabel, inputHint, inputMaxLength }` straight from the spec |
+| `code.ts` | **Content** | The reference solution, verbatim from the spec, one string per line |
+| `parseInput.ts` | **Content** | Input parsing, limits and error copy |
+| `trace.ts` | **Content** | The traced run, returning `Step<State>[]` with `lines`, `note` and `sr` per the spec's step table |
+| `trace.test.ts`, `parseInput` tests | **Content** | Everything in section 7 |
+| `View.tsx`, `View.module.css`, `index.ts` | **UI** | The animated picture, and wiring the visualizer into the registry |
+| `visualizers/kit/`, `visualizers/index.ts`, `visualizers/player/` | **UI** | |
+| `content/patterns.json`, `content/problems.json` | **Content** | Section 8 |
+| `lib/continue-lesson.test.ts` | **Content** | Section 9 |
+
+The content builder never edits UI files and the UI builder never edits content files. If the contract in `types.ts` can't
+express something the trace needs, write it in `docs/patterns/QUESTIONS.md` instead of changing `types.ts`.
+
 ## 1. Visual language (shared by every view)
 
 Everything is built from the Sliding Window vocabulary. Same tokens, same shapes, same motion.
@@ -77,7 +97,7 @@ renders it). Each `sr` is a full sentence summary of what the picture shows, lik
   setup lines; the last step highlights the `return`.
 - **Step budget:** every preset ≤ 60 steps; the largest valid input ≤ 150 steps. Choose input limits so this holds.
 
-## 5. The shared kit (build this first)
+## 5. The shared kit (UI builder)
 
 Create `visualizers/kit/` so the 14 views stay consistent and small. Sliding Window keeps its own view (don't refactor it).
 
@@ -97,8 +117,7 @@ Unit test the pure helpers (`treeLayout`, `format`).
 
 - `Visualizer` has `inputLabel`, `inputHint` and `inputMaxLength` (default 10). Set all three.
 - Register every visualizer in `visualizers/index.ts` under its id.
-- Each visualizer folder mirrors Sliding Window: `index.ts`, `code.ts`, `parseInput.ts`, `trace.ts`,
-  `trace.test.ts`, `View.tsx`, `View.module.css`.
+- Each visualizer folder mirrors Sliding Window, plus `types.ts` (contract) and `meta.ts` (see section 0).
 
 ## 7. Tests (definition of done for a visualizer)
 
@@ -146,8 +165,10 @@ For each pattern, turn the entry into a `LivePattern` (see `content/types.ts`):
 
 ## 10. Process
 
-- Work on the current branch (`content/all-patterns`). Commit per pattern (kit first), each message ending with the trailer
+- The content builder works on its own branch in its own worktree and commits per pattern, each message ending with the trailer
   `Generated-by: Muse Code 1.3 (muse-spark-1.3-contributor)`. Don't push. Don't touch `design/` or `CLAUDE.md`.
+- Until the UI side lands, a pattern can't be registered (no View yet). The content builder's tests import `trace`/`parseInput`
+  directly, so they don't need the registry.
 - After each pattern: `npm run lint`, `npm run typecheck`, `npm test` must pass. After each batch also `npm run build`.
 - If the spec is ambiguous or wrong (e.g. an expected answer looks off), don't silently change it: implement the
   closest faithful version and list the question in `docs/patterns/QUESTIONS.md`.
