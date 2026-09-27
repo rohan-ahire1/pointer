@@ -236,47 +236,58 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
           <span className="sr-only">{srSummary}</span>
         </div>
 
-        <div className={styles.controls}>
-          <button
-            type="button"
-            onClick={reset}
-            aria-label="Reset to the first step"
-            className={styles.iconButton}
-          >
-            <ResetIcon />
-          </button>
-          <button type="button" onClick={() => step(-1)} disabled={!hasSteps} className={styles.button}>
-            ← Back
-          </button>
-          <button type="button" onClick={() => step(1)} disabled={!hasSteps} className={styles.buttonAccent}>
-            Step →
-          </button>
-          <button
-            type="button"
-            onClick={togglePlay}
-            disabled={!hasSteps}
-            className={styles.buttonPlay}
-          >
-            {playing ? "Pause" : "Play ▶"}
-          </button>
-          <div role="group" aria-label="Playback speed" className={styles.speedGroup}>
-            {SPEEDS.map((value) => {
-              const on = speed === value;
-              return (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setSpeed(value)}
-                  aria-pressed={on}
-                  className={on ? styles.speedButtonActive : styles.speedButton}
-                >
-                  {value}×
-                </button>
-              );
-            })}
+        {/* Below ~768px this row and the step label below it become a
+            sticky bar pinned to the bottom of the viewport (design/mocks/
+            C2-PhoneLesson.dc.html) — the same Reset/Back/Play/Step buttons
+            and handlers as the desktop layout, just repositioned by CSS
+            (see .transport in VisualizerPlayer.module.css), so there is
+            only ever one set of controls in the accessibility tree. The
+            page reserves matching bottom padding (patterns/[slug]/
+            page.module.css) so the bar never covers the Solve section or
+            footer. */}
+        <div className={styles.transport}>
+          <div className={styles.controls}>
+            <button
+              type="button"
+              onClick={reset}
+              aria-label="Reset to the first step"
+              className={styles.iconButton}
+            >
+              <ResetIcon />
+            </button>
+            <button type="button" onClick={() => step(-1)} disabled={!hasSteps} className={styles.button}>
+              ← Back
+            </button>
+            <button type="button" onClick={() => step(1)} disabled={!hasSteps} className={styles.buttonAccent}>
+              Step →
+            </button>
+            <button
+              type="button"
+              onClick={togglePlay}
+              disabled={!hasSteps}
+              className={styles.buttonPlay}
+            >
+              {playing ? "Pause" : "Play ▶"}
+            </button>
+            <div role="group" aria-label="Playback speed" className={styles.speedGroup}>
+              {SPEEDS.map((value) => {
+                const on = speed === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setSpeed(value)}
+                    aria-pressed={on}
+                    className={on ? styles.speedButtonActive : styles.speedButton}
+                  >
+                    {value}×
+                  </button>
+                );
+              })}
+            </div>
           </div>
+          <span className={styles.stepLabel}>{stepLabel}</span>
         </div>
-        <span className={styles.stepLabel}>{stepLabel}</span>
       </div>
 
       <div className={styles.right}>

@@ -144,6 +144,12 @@
   }
 }
 
+.transport {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .controls {
   display: flex;
   align-items: center;
@@ -310,4 +316,71 @@
 
 .codeText {
   color: var(--ink);
+}
+
+/* Phone (design/mocks/C2-PhoneLesson.dc.html): the transport row becomes a
+   sticky bar pinned to the bottom of the viewport, with the step counter
+   above the buttons (column-reverse flips the visual order without
+   touching DOM/tab order) and safe-area padding for notched devices. The
+   speed buttons are dropped here — 0.5x/1x/2x is still reachable once the
+   viewport is wide enough to show them. Button order is reordered to
+   Reset / Back / Play / Step to match the mock while keeping keyboard tab
+   order (Reset, Back, Step, Play) unchanged. */
+@media (max-width: 767px) {
+  .transport {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 35;
+    flex-direction: column-reverse;
+    gap: 6px;
+    background: var(--card);
+    border-top: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 8px calc(12px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom))
+      calc(12px + env(safe-area-inset-left));
+  }
+
+  .controls {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .iconButton {
+    order: 1;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .button,
+  .buttonAccent,
+  .buttonPlay {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 48px;
+    padding: 0 6px;
+    font-size: 14px;
+  }
+
+  .button {
+    order: 2;
+  }
+
+  .buttonPlay {
+    order: 3;
+  }
+
+  .buttonAccent {
+    order: 4;
+  }
+
+  .speedGroup {
+    display: none;
+  }
+
+  .stepLabel {
+    text-align: center;
+  }
 }
