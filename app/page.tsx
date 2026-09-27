@@ -29,8 +29,19 @@ const FEATURE_TILES = [
 
 /** Home (design/mocks/C2-Home.dc.html / C2-Home-Dark.dc.html). */
 export default function HomePage() {
-  const firstLive = getPatterns().find((pattern) => pattern.status === "live");
+  const patterns = getPatterns();
+  const firstLive = patterns.find((pattern) => pattern.status === "live");
   const groups = getPatternGroups();
+  const liveCount = patterns.filter((pattern) => pattern.status === "live").length;
+  // Matches the mock's "03 is live. more on the way →" while one lesson is
+  // live (the live pattern's number); counts up as lessons ship, and
+  // retires the "more on the way" once everything is live.
+  const liveNote =
+    liveCount === patterns.length
+      ? `All ${patterns.length} lessons live →`
+      : liveCount === 1 && firstLive
+        ? `${String(firstLive.number).padStart(2, "0")} is live. more on the way →`
+        : `${String(liveCount).padStart(2, "0")} are live. more on the way →`;
 
   return (
     <>
@@ -69,7 +80,7 @@ export default function HomePage() {
           <h2 id="patterns-h" className={`soft ${styles.patternsHeading}`}>
             Pick a pattern
           </h2>
-          <span className={styles.patternsNote}>03 is live. more on the way →</span>
+          <span className={styles.patternsNote}>{liveNote}</span>
         </div>
         {groups.map((group) => (
           <div key={group.key} className={styles.group}>
