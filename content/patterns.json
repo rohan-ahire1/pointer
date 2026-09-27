@@ -327,7 +327,7 @@
     "name": "Graphs",
     "group": "advanced",
     "idea": "Explore neighbours with BFS and DFS.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "number-of-islands",
       "clone-graph",
@@ -335,7 +335,43 @@
       "course-schedule",
       "number-of-connected-components",
       "graph-valid-tree"
-    ]
+    ],
+    "analogy": "Drop ink on any land square you have not coloured yet. It spreads to every square joined to it, but never crosses water. Each drop is one island, and counting the drops counts the islands.",
+    "minutes": 15,
+    "needs": [
+      "2D arrays",
+      "queues"
+    ],
+    "complexity": "O(m·n)",
+    "whenToUse": [
+      "The input is a grid or a network",
+      "Answers spread through neighbours",
+      "You must count joined-up regions"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "A grid of land and water hides joined-up islands. Re-exploring from every land cell repeats the same ground over and over."
+        },
+        {
+          "t": 15,
+          "text": "Scan row by row instead. The first unclaimed land, at row 0, col 0, must be a new island."
+        },
+        {
+          "t": 32,
+          "text": "A queue floods from it to every joined square, claiming island 1. The scan moves on and finds two more."
+        },
+        {
+          "t": 48,
+          "text": "Each cell is claimed once: O(m·n). Three drops of ink, three islands. That’s graph search."
+        }
+      ]
+    },
+    "visualizer": "number-of-islands"
   },
   {
     "number": 12,

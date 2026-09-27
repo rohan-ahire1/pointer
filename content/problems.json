@@ -351,7 +351,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-islands/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "clone-graph",
@@ -359,7 +360,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/clone-graph/",
-    "premium": false
+    "premium": false,
+    "twist": "Same flood, but copy each node as you claim it."
   },
   {
     "slug": "pacific-atlantic-water-flow",
@@ -367,7 +369,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
-    "premium": false
+    "premium": false,
+    "twist": "Flood from both oceans, keep the overlap."
   },
   {
     "slug": "course-schedule",
@@ -375,7 +378,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/course-schedule/",
-    "premium": false
+    "premium": false,
+    "twist": "Flood along arrows; a loop means no schedule."
   },
   {
     "slug": "number-of-connected-components",
@@ -383,7 +387,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/",
-    "premium": true
+    "premium": true,
+    "twist": "Count the floods in a graph, not a grid."
   },
   {
     "slug": "graph-valid-tree",
@@ -391,7 +396,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/graph-valid-tree/",
-    "premium": true
+    "premium": true,
+    "twist": "One flood plus no loops means a tree."
   },
   {
     "slug": "climbing-stairs",
