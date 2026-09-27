@@ -9,7 +9,7 @@
 .word {
   display: inline-flex;
   align-items: center;
-  gap: 1px;
+  gap: 0;
   padding: 4px 8px;
   border: 2px solid var(--line);
   border-radius: 10px;
@@ -33,7 +33,7 @@
 }
 
 .letter {
-  padding: 0 2px;
+  padding: 0 1px;
   border-radius: 4px;
   transition: background-color var(--dur-fast) ease;
 }
