@@ -71,7 +71,11 @@ export function MedianTwoHeapsView({ step, input }: MedianViewProps) {
           {heapEdges("high", high)}
           {heapNodes("low", low)}
           {heapNodes("high", high)}
-          {low.length === 0 && <text className={styles.empty} x={HALF / 2} y={TOP}>empty</text>}
+          {low.length === 0 && (
+            <text className={styles.empty} x={HALF / 2} y={TOP}>
+              empty
+            </text>
+          )}
           {high.length === 0 && (
             <text className={styles.empty} x={HALF * 1.5 + MIDDLE} y={TOP}>
               empty

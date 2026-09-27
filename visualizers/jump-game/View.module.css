@@ -1,0 +1,108 @@
+.lane {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Room above the stones for the jump arc and its label. */
+.arcRow {
+  position: relative;
+  height: 44px;
+}
+
+.arc {
+  position: absolute;
+  bottom: -4px;
+  left: calc(var(--from) * (var(--cell) + var(--cell-gap)) + var(--cell) / 2);
+  width: calc((var(--to) - var(--from)) * (var(--cell) + var(--cell-gap)));
+  min-width: 2px;
+  height: 26px;
+  box-sizing: border-box;
+  border: 2.5px solid var(--line);
+  border-bottom: none;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  animation: draw var(--dur-slow) ease-out;
+}
+
+.arc[data-gain="false"] {
+  border-style: dashed;
+  border-color: var(--past-line);
+}
+
+/* Arrowhead on the landing end. */
+.arc::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  bottom: -4px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--line);
+}
+
+.arc[data-gain="false"]::after {
+  border-top-color: var(--past-line);
+}
+
+.arcLabel {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  gap: var(--cell-gap);
+  padding-top: 8px;
+}
+
+.capsule {
+  position: absolute;
+  top: calc(8px + 16px + 4px - 8px);
+  height: calc(var(--cell) * 8 / 7 + 16px);
+  left: -6px;
+  width: calc(var(--span) * (var(--cell) + var(--cell-gap)) - var(--cell-gap) + 12px);
+  box-sizing: border-box;
+  border: 2.5px solid var(--line);
+  border-radius: 18px;
+  background: var(--tint-yellow);
+  transition: width var(--dur-slow) ease-in-out;
+}
+
+.capsule[data-end="true"] {
+  background: var(--tint-mint);
+}
+
+.slot {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--cell);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.index {
+  height: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Reveal left to right; negative insets keep the label (above) and the
+   arrowhead (past the right edge) inside the clip. */
+@keyframes draw {
+  from {
+    clip-path: inset(-30px 100% -12px -12px);
+  }
+  to {
+    clip-path: inset(-30px -20px -12px -12px);
+  }
+}

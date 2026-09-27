@@ -1,0 +1,87 @@
+/* Grid cells top out smaller than array cells: a 6-wide grid is a map, not a
+   row. Set here (not on the Fit wrapper) so it overrides the kit's default. */
+.grid {
+  --cell: clamp(28px, calc((100cqi - (var(--cols) - 1) * 4px) / var(--cols)), 52px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 4px;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.cell {
+  position: relative;
+  width: var(--cell);
+  height: var(--cell);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: calc(var(--cell) * 0.2);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: calc(var(--cell) * 0.36);
+  font-weight: 700;
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease;
+}
+
+.cell[data-state="water"] {
+  background: var(--sky);
+  color: var(--on-accent);
+  border-color: transparent;
+}
+
+.cell[data-state="land"] {
+  font-size: calc(var(--cell) * 0.28);
+}
+
+.cell[data-state="queued"] {
+  background: var(--tint-yellow);
+}
+
+.cell[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  transform: translateY(-5px);
+  z-index: 1;
+}
+
+.cell[data-state="claimed"] {
+  background: var(--tint-mint);
+  border-width: 3px;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.cell[data-pulse="true"] {
+  animation: pulse var(--dur-base) ease-out;
+}
+
+.cell[data-scan="true"] {
+  outline: 3px solid var(--inverse-bg);
+  outline-offset: 2px;
+}
+
+.scanTag {
+  position: absolute;
+  bottom: -11px;
+  padding: 0 4px;
+  border-radius: 6px;
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.08);
+  }
+}

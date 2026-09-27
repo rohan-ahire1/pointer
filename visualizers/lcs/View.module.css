@@ -1,0 +1,129 @@
+/* Table cells: header column + zero column + one per letter of b. Sized
+   here so it overrides the kit's default. */
+.table {
+  --cell: clamp(24px, calc((100cqi - (var(--cols) - 1) * 4px) / var(--cols)), 46px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 4px;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.head,
+.cell {
+  position: relative;
+  width: var(--cell);
+  height: var(--cell);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.head {
+  font-size: calc(var(--cell) * 0.46);
+  color: var(--ink);
+  border-radius: calc(var(--cell) * 0.2);
+  transition: background-color var(--dur-fast) ease;
+}
+
+.head[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  border: 2px solid var(--line);
+}
+
+.head[data-state="used"] {
+  background: var(--tint-mint);
+  border: 2px solid var(--line);
+}
+
+.head[data-state="used"]::after {
+  content: "✓";
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  font-size: 11px;
+}
+
+.cell {
+  font-size: calc(var(--cell) * 0.38);
+  border: 2px solid var(--line);
+  border-radius: calc(var(--cell) * 0.2);
+  background: var(--card);
+  color: var(--ink);
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease;
+}
+
+.cell[data-state="empty"] {
+  border-style: dashed;
+  border-color: var(--past-line);
+  background: transparent;
+}
+
+.cell[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  transform: translateY(-5px);
+  z-index: 1;
+}
+
+.cell[data-state="source"] {
+  background: var(--tint-yellow);
+}
+
+/* Match cells: mint plus a corner notch, so "this came from the diagonal"
+   doesn't rely on colour. */
+.cell[data-state="match"] {
+  background: var(--tint-mint);
+}
+
+.cell[data-state="match"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid var(--line);
+  border-right: 7px solid transparent;
+}
+
+.cell[data-path="true"] {
+  outline: 3px solid var(--pen);
+  outline-offset: 1px;
+}
+
+.mark {
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 4px;
+  border-radius: 6px;
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.result {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.resultLabel {
+  padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}

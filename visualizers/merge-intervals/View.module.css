@@ -1,0 +1,157 @@
+/* Inset so bars at 0 and 20 (and their labels) stay inside the panel. */
+.frame {
+  position: relative;
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.axis {
+  position: relative;
+  height: 26px;
+  border-bottom: 2px solid var(--line);
+}
+
+.tick {
+  position: absolute;
+  bottom: -2px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.tickLine {
+  width: 0;
+  height: 6px;
+  border-left: 1.5px solid var(--line);
+}
+
+.tick[data-major="true"] .tickLine {
+  height: 10px;
+  border-left-width: 2px;
+}
+
+.lanes {
+  position: relative;
+  margin-top: 4px;
+}
+
+.row {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 36px;
+  transition: transform var(--dur-slow) ease-in-out;
+}
+
+.bar {
+  position: absolute;
+  top: 5px;
+  left: var(--left);
+  width: var(--width);
+  min-width: 8px;
+  height: 26px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  transform: translateY(0);
+  transition:
+    left var(--dur-slow) ease-in-out,
+    width var(--dur-slow) ease-in-out,
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease;
+}
+
+.bar[data-state="current"] {
+  background: var(--orange);
+  transform: translateY(-4px);
+  z-index: 1;
+}
+
+.bar[data-state="current"] .barLabel {
+  color: var(--on-accent);
+}
+
+.bar[data-state="past"] {
+  background: var(--past-bg);
+  border-style: dashed;
+  border-color: var(--past-line);
+}
+
+.bar[data-state="past"] .barLabel {
+  color: var(--faint);
+}
+
+.bar[data-state="range"] {
+  background: var(--tint-yellow);
+}
+
+.bar[data-state="found"] {
+  background: var(--tint-mint);
+}
+
+.barLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.outcome {
+  position: absolute;
+  top: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* From the current bar's start straight down into the merged lane. */
+.guide {
+  position: absolute;
+  bottom: -44px;
+  width: 0;
+  border-left: 2px dashed var(--pen);
+  pointer-events: none;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.divider::after {
+  content: "";
+  flex: 1;
+  border-top: 2px dashed var(--past-line);
+}
+
+.mergedLane {
+  position: relative;
+  height: 36px;
+}
+
+.empty {
+  position: absolute;
+  top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}

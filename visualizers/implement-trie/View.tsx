@@ -96,7 +96,9 @@ export function ImplementTrieView({ step, input }: TrieViewProps) {
               badge={node.isWord ? "★" : undefined}
             />
           ))}
-          {ghostAt && <Node key={`ghost-${missing}`} at={ghostAt} label={missing ?? "?"} state="past" size={NODE} badge="✕" />}
+          {ghostAt && (
+            <Node key={`ghost-${missing}`} at={ghostAt} label={missing ?? "?"} state="past" size={NODE} badge="✕" />
+          )}
         </Svg>
       </div>
       <Stats

@@ -100,7 +100,7 @@ export function CombinationSumView({ step, input }: CombinationViewProps) {
           <Node
             key={node.id}
             at={positions.get(node.id)!}
-            label={node.status === "cut" ? node.pick ?? "" : node.remaining}
+            label={node.status === "cut" ? (node.pick ?? "") : node.remaining}
             state={stateOf(node, current, done)}
             size={NODE}
             badge={node.status === "found" ? "✓" : node.status === "cut" ? "✂" : undefined}
