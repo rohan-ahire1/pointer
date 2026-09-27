@@ -26,9 +26,7 @@ export function ContainerWaterView({ step }: ContainerViewProps) {
       <Fit n={height.length}>
         <div className={styles.chart}>
           {bestPair && bestLevel > 0 && (
-            <div className={styles.best} style={span(bestPair[0], bestPair[1], bestLevel)}>
-              <span className={styles.bestLabel}>best {best}</span>
-            </div>
+            <div className={styles.best} style={span(bestPair[0], bestPair[1], bestLevel)} />
           )}
           {showWater && h > 0 && (
             <div className={styles.water} style={span(left, right, h)}>
@@ -63,6 +61,14 @@ export function ContainerWaterView({ step }: ContainerViewProps) {
           })}
         </div>
       </Fit>
+      <div className={styles.legend}>
+        <span className={styles.legendItem}>
+          <span className={styles.swatchWater} /> water now
+        </span>
+        <span className={styles.legendItem}>
+          <span className={styles.swatchBest} /> best so far
+        </span>
+      </div>
       <Stats
         items={[
           { label: "width", value: showWater ? right - left : "—" },

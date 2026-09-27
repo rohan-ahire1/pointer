@@ -61,7 +61,10 @@
   border-radius: var(--radius-btn);
   background: var(--tint-yellow);
   color: var(--ink);
-  width: 170px;
+  /* Wide enough for the visualizer's longest input (up to 26 characters),
+     never narrower than Sliding Window's original 170px or wider than the column. */
+  width: max(170px, calc(min(var(--input-ch, 10), 26) * 1ch + 30px));
+  max-width: 100%;
 }
 
 .orTry {

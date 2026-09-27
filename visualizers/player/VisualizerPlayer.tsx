@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import type { ChangeEvent, KeyboardEvent as ReactKeyboardEvent } from "react";
+import type { ChangeEvent, CSSProperties, KeyboardEvent as ReactKeyboardEvent } from "react";
 import type { Step, Visualizer } from "../types";
 import styles from "./VisualizerPlayer.module.css";
 
@@ -202,6 +202,7 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
             aria-describedby={error ? `${hintId} ${errorId}` : hintId}
             aria-invalid={error ? true : undefined}
             className={styles.input}
+            style={{ "--input-ch": inputMaxLength } as CSSProperties}
           />
           {presets.length > 0 && (
             <>

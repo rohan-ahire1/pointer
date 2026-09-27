@@ -127,13 +127,37 @@
   pointer-events: none;
 }
 
-.bestLabel {
-  position: absolute;
-  top: -22px;
-  right: 0;
+/* The best outline has no label inside the chart (it would collide with the
+   wall values); this legend names both overlays instead. */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: -8px;
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 700;
-  color: var(--pen);
-  white-space: nowrap;
+  color: var(--muted);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatchWater,
+.swatchBest {
+  width: 18px;
+  height: 12px;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.swatchWater {
+  background: color-mix(in srgb, var(--sky) 55%, transparent);
+  border-top: 2px solid var(--line);
+}
+
+.swatchBest {
+  border: 2px dashed var(--pen);
 }
