@@ -111,8 +111,15 @@
   color: var(--muted);
 }
 
+/* The input drops its own outline; the whole field shows the ring instead. */
+.searchField:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
 .searchInput {
   flex-grow: 1;
+  align-self: stretch;
   min-width: 0;
   border: 0;
   background: transparent;

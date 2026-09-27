@@ -123,6 +123,12 @@
   font-weight: 700;
 }
 
+.profileLinks a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 .principles {
   display: grid;
   grid-template-columns: 1fr;

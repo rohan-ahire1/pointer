@@ -46,6 +46,10 @@ function safeClose(dialog: HTMLDialogElement) {
 export function SearchPalette({ open, onClose }: SearchPaletteProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Whatever had focus when the palette opened (a trigger button, or the
+  // page body when opened with / or ⌘K), restored on close so focus is
+  // never left on the hidden input.
+  const returnFocusRef = useRef<Element | null>(null);
   const router = useRouter();
 
   const [query, setQuery] = useState("");
@@ -81,6 +85,7 @@ export function SearchPalette({ open, onClose }: SearchPaletteProps) {
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (open && !dialog.open) {
+      returnFocusRef.current = document.activeElement;
       setQuery("");
       setActiveIndex(0);
       safeShowModal(dialog);
@@ -95,6 +100,17 @@ export function SearchPalette({ open, onClose }: SearchPaletteProps) {
     router.push(item.href);
     const dialog = dialogRef.current;
     if (dialog) safeClose(dialog);
+  }
+
+  function handleClose() {
+    const previous = returnFocusRef.current;
+    returnFocusRef.current = null;
+    if (previous instanceof HTMLElement && previous !== document.body && previous.isConnected) {
+      previous.focus();
+    } else if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    onClose();
   }
 
   function handleKeyDown(event: ReactKeyboardEvent<HTMLInputElement>) {
@@ -113,7 +129,7 @@ export function SearchPalette({ open, onClose }: SearchPaletteProps) {
   }
 
   return (
-    <dialog ref={dialogRef} aria-label="Search Pointer" className={styles.dialog} onClose={onClose}>
+    <dialog ref={dialogRef} aria-label="Search Pointer" className={styles.dialog} onClose={handleClose}>
       <div className={styles.headerRow}>
         <SearchIcon />
         <label htmlFor={inputId} className="sr-only">

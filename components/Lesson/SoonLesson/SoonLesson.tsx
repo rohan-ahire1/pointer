@@ -95,7 +95,7 @@ export function SoonLesson({ pattern, groupLabel, totalPatterns, prev, next }: S
         </nav>
       </div>
 
-      <main className={styles.main}>
+      <div className={styles.main}>
         <header className={styles.header}>
           <div className={styles.headerCopy}>
             <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
@@ -190,7 +190,7 @@ export function SoonLesson({ pattern, groupLabel, totalPatterns, prev, next }: S
             )}
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

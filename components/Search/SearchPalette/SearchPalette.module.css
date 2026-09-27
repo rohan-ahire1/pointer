@@ -39,6 +39,12 @@
   color: var(--ink);
 }
 
+/* The input drops its own outline; the row shows the ring instead. */
+.headerRow:has(.input:focus-visible) {
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
+
 .input {
   flex-grow: 1;
   min-width: 0;

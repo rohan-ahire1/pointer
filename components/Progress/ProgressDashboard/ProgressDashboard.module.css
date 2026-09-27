@@ -330,3 +330,7 @@
 .nextCell {
   color: var(--muted);
 }
+
+.tableScroll:focus-visible {
+  outline-offset: -3px;
+}

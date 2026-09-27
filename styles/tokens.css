@@ -8,7 +8,7 @@
   --card:#FFFFFF;
   --card-2:#FFFBF4;
   --muted:#5A5570;
-  --faint:#77728C;
+  --faint:#6E6983;   /* darkened from #77728C: 4.5:1 on --paper and --past-bg */
   --pen:#A8440C;
   --on-accent:#231F3A;
   --inverse-bg:#231F3A;

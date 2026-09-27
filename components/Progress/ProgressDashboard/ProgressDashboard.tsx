@@ -265,7 +265,7 @@ export function ProgressDashboard() {
         <h2 id="by-pattern-h" className={`soft ${styles.tableHeading}`}>
           By pattern
         </h2>
-        <div className={styles.tableScroll}>
+        <div className={styles.tableScroll} role="region" aria-label="Progress by pattern" tabIndex={0}>
           <table className={styles.table}>
             <caption className="sr-only">Progress by pattern: lesson status and problems solved</caption>
             <thead>

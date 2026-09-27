@@ -66,7 +66,7 @@ export default async function PatternPage({ params }: PatternPageProps) {
         next={next}
       />
 
-      <main className={styles.main}>
+      <div className={styles.main}>
         <LessonHero pattern={pattern} groupLabel={groupLabel} />
         <LessonWatch video={pattern.video} title={`${pattern.name} in 60 seconds`} />
 
@@ -89,7 +89,7 @@ export default async function PatternPage({ params }: PatternPageProps) {
         <SolveSection problems={problems} />
 
         <UpNextCard totalPatterns={totalPatterns} prev={prev} next={next} />
-      </main>
+      </div>
     </div>
   );
 }
