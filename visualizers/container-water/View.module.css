@@ -1,0 +1,139 @@
+.chart {
+  --unit: 16px;
+  --value-h: 22px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cell-gap);
+  padding-top: 8px;
+  min-width: 0;
+}
+
+@media (max-width: 479px) {
+  .chart {
+    --unit: 12px;
+  }
+}
+
+.slot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: var(--cell);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Every column is as tall as the tallest possible wall (9 units), with the
+   bar anchored to the bottom, so the water can share one baseline. */
+.column {
+  height: calc(9 * var(--unit) + var(--value-h));
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.value {
+  height: var(--value-h);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.value[data-out="true"] {
+  color: var(--faint);
+}
+
+.bar {
+  width: 70%;
+  height: calc(var(--h) * var(--unit));
+  min-height: 3px;
+  box-sizing: border-box;
+  border: 2px solid var(--line);
+  border-radius: 6px 6px 2px 2px;
+  background: var(--card);
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.bar[data-state="current"] {
+  background: var(--orange);
+  transform: translateY(-8px);
+}
+
+.bar[data-state="past"] {
+  background: var(--past-bg);
+  border-style: dashed;
+  border-color: var(--past-line);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Water and the best outline span from the centre of one wall to the centre
+   of the other, filled up to the shorter wall. */
+.water,
+.best {
+  position: absolute;
+  left: calc(var(--from) * (var(--cell) + var(--cell-gap)) + var(--cell) / 2);
+  width: calc((var(--to) - var(--from)) * (var(--cell) + var(--cell-gap)));
+  top: calc(8px + var(--value-h) + (9 - var(--level)) * var(--unit));
+  height: calc(var(--level) * var(--unit));
+  box-sizing: border-box;
+  transition:
+    left var(--dur-slow) ease-in-out,
+    width var(--dur-slow) ease-in-out,
+    top var(--dur-slow) ease-in-out,
+    height var(--dur-slow) ease-in-out;
+}
+
+.water {
+  /* Over the bars, translucent, so the walls inside read as submerged and
+     the area label is never hidden behind one. */
+  z-index: 2;
+  background: color-mix(in srgb, var(--sky) 55%, transparent);
+  border-top: 2px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.waterLabel {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--sky);
+  color: var(--on-accent);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.best {
+  z-index: 3;
+  border: 2px dashed var(--pen);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.bestLabel {
+  position: absolute;
+  top: -22px;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pen);
+  white-space: nowrap;
+}

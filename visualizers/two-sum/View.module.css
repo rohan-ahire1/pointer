@@ -1,0 +1,26 @@
+.mapWrap {
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .mapWrap {
+    width: 200px;
+  }
+}
+
+.probe {
+  padding: 3px 8px;
+  border: 2px dashed var(--past-line);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--card);
+}
+
+.probe[data-lookup="hit"] {
+  border-style: solid;
+  border-color: var(--line);
+  background: var(--tint-mint);
+}

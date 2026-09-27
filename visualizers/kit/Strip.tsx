@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Cell, type CellState } from "./Cell";
+import { Fit } from "./ViewRoot";
 import { PointerTags, type PointerTag } from "./PointerTags";
 import styles from "./Strip.module.css";
 
@@ -38,15 +39,17 @@ export function Strip({ items, capsule = null, tagRows = 1 }: StripProps) {
       : null;
 
   return (
-    <div className={styles.strip}>
-      {capsuleStyle && <div className={styles.capsule} style={capsuleStyle} />}
-      {items.map((item) => (
-        <div key={item.key} className={styles.slot}>
-          {hasAbove && <span className={styles.above}>{item.above}</span>}
-          <Cell value={item.value} state={item.state} badge={item.badge} />
-          <PointerTags tags={item.tags ?? []} rows={tagRows} />
-        </div>
-      ))}
-    </div>
+    <Fit n={items.length}>
+      <div className={styles.strip}>
+        {capsuleStyle && <div className={styles.capsule} style={capsuleStyle} />}
+        {items.map((item) => (
+          <div key={item.key} className={styles.slot}>
+            {hasAbove && <span className={styles.above}>{item.above}</span>}
+            <Cell value={item.value} state={item.state} badge={item.badge} />
+            <PointerTags tags={item.tags ?? []} rows={tagRows} />
+          </div>
+        ))}
+      </div>
+    </Fit>
   );
 }

@@ -27,7 +27,9 @@ export function Panel({ title, aside, tone = "plain", children }: PanelProps) {
 /** A chip row that keeps its height when empty. */
 export function Chips({ children, empty }: { children: ReactNode; empty?: string }) {
   const isEmpty = Array.isArray(children) ? children.length === 0 : !children;
-  return <div className={styles.chips}>{isEmpty && empty ? <span className={styles.empty}>{empty}</span> : children}</div>;
+  return (
+    <div className={styles.chips}>{isEmpty && empty ? <span className={styles.empty}>{empty}</span> : children}</div>
+  );
 }
 
 /** A small mono chip (map entry, queue cell, result). New chips scale in. */

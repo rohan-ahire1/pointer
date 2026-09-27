@@ -1,0 +1,113 @@
+.stackWrap {
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .stackWrap {
+    width: 180px;
+  }
+}
+
+/* Fixed height for 5 plates, a lifting plate and the overflow chip, so stepping never moves the
+   controls below. */
+.pile {
+  height: calc(6 * 46px + 28px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.plate {
+  position: relative;
+  width: 112px;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+  animation: drop var(--dur-base) ease-out;
+  flex-shrink: 0;
+}
+
+.plate[data-top="true"] {
+  background: var(--tint-yellow);
+}
+
+.plateCh {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.plateFrom {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.top {
+  position: absolute;
+  left: calc(100% + 6px);
+  padding: 2px 7px;
+  border-radius: 8px;
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.empty {
+  width: 112px;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--past-line);
+  border-radius: 12px;
+  background: var(--past-bg);
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.more {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* Sits just above the pile (which is bottom-aligned, so it pushes nothing)
+   and floats away, ending invisible. */
+.lifted {
+  animation: lift var(--dur-slow) ease-in forwards;
+  box-shadow: none;
+}
+
+@keyframes lift {
+  from {
+    transform: translateY(46px);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes drop {
+  from {
+    transform: translateY(-24px);
+    opacity: 0;
+  }
+}

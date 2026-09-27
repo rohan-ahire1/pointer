@@ -1,5 +1,7 @@
-/* Sizing tokens every view builds on. Cells shrink on narrow screens so a
-   full-size input fits the player at 320px without horizontal scrolling. */
+/* Sizing tokens every view builds on. `--cell` here is only the default:
+   rows of cells (Strip, and the views' own rows via .fit) recompute it from
+   their own width and element count, so any allowed input fits the player
+   at 320px without horizontal scrolling. */
 .root {
   --cell: 56px;
   --cell-gap: 8px;
@@ -12,16 +14,19 @@
 
 @media (max-width: 479px) {
   .root {
-    --cell: 40px;
-    --cell-gap: 6px;
+    --cell-gap: 5px;
   }
 }
 
-@media (max-width: 359px) {
-  .root {
-    --cell: 32px;
-    --cell-gap: 4px;
-  }
+/* A container whose children size cells from its width: set --n (cells per
+   row) on the child that uses --cell, and give it the .cells class. */
+.fit {
+  container-type: inline-size;
+  min-width: 0;
+}
+
+.cells {
+  --cell: clamp(20px, calc((100cqi - (var(--n) - 1) * var(--cell-gap)) / var(--n)), 56px);
 }
 
 .split {
