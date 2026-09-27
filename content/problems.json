@@ -167,7 +167,8 @@
     "difficulty": "easy",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/reverse-linked-list/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "merge-two-sorted-lists",
@@ -175,7 +176,8 @@
     "difficulty": "easy",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/merge-two-sorted-lists/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: walk both lists, always taking the smaller head."
   },
   {
     "slug": "linked-list-cycle",
@@ -183,7 +185,8 @@
     "difficulty": "easy",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/linked-list-cycle/",
-    "premium": false
+    "premium": false,
+    "twist": "A fast pointer laps a slow one exactly when a loop exists."
   },
   {
     "slug": "reorder-list",
@@ -191,7 +194,8 @@
     "difficulty": "medium",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/reorder-list/",
-    "premium": false
+    "premium": false,
+    "twist": "Find the middle, reverse the back half, then weave."
   },
   {
     "slug": "remove-nth-node-from-end-of-list",
@@ -199,7 +203,8 @@
     "difficulty": "medium",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
-    "premium": false
+    "premium": false,
+    "twist": "Two pointers, n apart, walk to the end together."
   },
   {
     "slug": "merge-k-sorted-lists",
@@ -207,7 +212,8 @@
     "difficulty": "hard",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/merge-k-sorted-lists/",
-    "premium": false
+    "premium": false,
+    "twist": "Merge pairs again and again until one list is left."
   },
   {
     "slug": "invert-binary-tree",

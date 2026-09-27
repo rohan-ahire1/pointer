@@ -252,7 +252,7 @@
     "name": "Linked List",
     "group": "structures",
     "idea": "Rewire pointers without losing the chain.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "reverse-linked-list",
       "merge-two-sorted-lists",
@@ -260,7 +260,43 @@
       "reorder-list",
       "remove-nth-node-from-end-of-list",
       "merge-k-sorted-lists"
-    ]
+    ],
+    "analogy": "A treasure hunt where each clue says where the next one hides. To run it backwards you rewrite one clue at a time, keeping a finger on the next clue before you overwrite it. Reversing a list is the same: save next, flip, step on.",
+    "minutes": 15,
+    "needs": [
+      "pointers",
+      "references"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "Nodes link onward instead of sitting in a row",
+      "You rewire links without losing the chain",
+      "One pass with a few pointers is enough"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Five nodes, each pointing at the next. Turning every arrow around means touching each link once."
+        },
+        {
+          "t": 15,
+          "text": "Instead, walk the list with two pointers: prev behind, curr ahead. Nothing moves but the arrows."
+        },
+        {
+          "t": 32,
+          "text": "For each node, save next first, then point curr back at prev. Never cut before you hold on."
+        },
+        {
+          "t": 48,
+          "text": "One pass, O(n) time. That is reversal."
+        }
+      ]
+    },
+    "visualizer": "reverse-linked-list"
   },
   {
     "number": 7,
