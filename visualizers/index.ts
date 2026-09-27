@@ -8,6 +8,7 @@ import { reverseLinkedListVisualizer } from "./reverse-linked-list";
 import { maxDepthTreeVisualizer } from "./max-depth-tree";
 import { implementTrieVisualizer } from "./implement-trie";
 import { medianTwoHeapsVisualizer } from "./median-two-heaps";
+import { combinationSumVisualizer } from "./combination-sum";
 
 /**
  * Registry of every visualizer, keyed by the id a live pattern's
@@ -30,6 +31,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [maxDepthTreeVisualizer.id]: maxDepthTreeVisualizer as Visualizer<unknown, unknown>,
   [implementTrieVisualizer.id]: implementTrieVisualizer as Visualizer<unknown, unknown>,
   [medianTwoHeapsVisualizer.id]: medianTwoHeapsVisualizer as Visualizer<unknown, unknown>,
+  [combinationSumVisualizer.id]: combinationSumVisualizer as Visualizer<unknown, unknown>,
 };
 
 export function getVisualizer(id: string): Visualizer<unknown, unknown> | undefined {

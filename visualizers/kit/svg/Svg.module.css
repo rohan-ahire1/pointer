@@ -117,8 +117,9 @@
   transition: transform var(--dur-slow) ease-in-out;
 }
 
+/* Same colour as the player panel behind it, so the label reads as a gap in the edge. */
 .edgeLabel rect {
-  fill: var(--paper);
+  fill: var(--card);
 }
 
 .edgeLabel text {
