@@ -1,0 +1,39 @@
+/* Sizing tokens every view builds on. Cells shrink on narrow screens so a
+   full-size input fits the player at 320px without horizontal scrolling. */
+.root {
+  --cell: 56px;
+  --cell-gap: 8px;
+  --tag-h: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+@media (max-width: 479px) {
+  .root {
+    --cell: 40px;
+    --cell-gap: 6px;
+  }
+}
+
+@media (max-width: 359px) {
+  .root {
+    --cell: 32px;
+    --cell-gap: 4px;
+  }
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+}

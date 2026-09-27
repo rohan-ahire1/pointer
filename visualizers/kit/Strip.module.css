@@ -1,0 +1,44 @@
+.strip {
+  position: relative;
+  display: flex;
+  gap: var(--cell-gap);
+  padding-top: 10px;
+  min-width: 0;
+}
+
+.slot {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: var(--cell);
+}
+
+.above {
+  height: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* The window / search-space / reach capsule, spanning slots start..end.
+   Positioned from the same --cell and --cell-gap the slots use, so it lines
+   up at every breakpoint without measuring. */
+.capsule {
+  position: absolute;
+  top: calc(10px + var(--above-h, 0px) - 8px);
+  height: calc(var(--cell) * 8 / 7 + 16px);
+  left: calc(var(--start) * (var(--cell) + var(--cell-gap)) - 6px);
+  width: calc(var(--span) * (var(--cell) + var(--cell-gap)) - var(--cell-gap) + 12px);
+  box-sizing: border-box;
+  border: 2.5px solid var(--line);
+  border-radius: 18px;
+  background: var(--tint-yellow);
+  pointer-events: none;
+  transition:
+    left var(--dur-slow) ease-in-out,
+    width var(--dur-slow) ease-in-out;
+}

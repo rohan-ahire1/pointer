@@ -1,0 +1,78 @@
+.cell {
+  position: relative;
+  width: var(--cell);
+  height: calc(var(--cell) * 8 / 7);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--cell) * 0.23);
+  font-family: var(--font-mono);
+  font-size: calc(var(--cell) * 0.44);
+  font-weight: 700;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.cell[data-size="sm"] {
+  font-size: calc(var(--cell) * 0.36);
+}
+
+.cell[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  transform: translateY(calc(var(--cell) * -0.14));
+}
+
+.cell[data-state="range"] {
+  background: var(--tint-yellow);
+}
+
+.cell[data-state="done"],
+.cell[data-state="found"] {
+  background: var(--tint-mint);
+}
+
+.cell[data-state="past"] {
+  background: var(--past-bg);
+  color: var(--faint);
+  border-style: dashed;
+  border-color: var(--past-line);
+}
+
+.badge {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 2px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  animation: pop var(--dur-base) ease-out;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}

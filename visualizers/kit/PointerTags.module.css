@@ -1,0 +1,41 @@
+.tags {
+  min-height: calc(var(--tag-h) * var(--tag-rows, 1));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.tag {
+  padding: 2px 7px;
+  border-radius: 8px;
+  border: 2px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.tag[data-tone="orange"] {
+  background: var(--orange);
+  color: var(--on-accent);
+}
+
+.tag[data-tone="inverse"] {
+  background: var(--inverse-bg);
+  border-color: var(--inverse-bg);
+  color: var(--inverse-fg);
+}
+
+.tag[data-tone="lilac"] {
+  background: var(--lilac);
+  color: var(--on-accent);
+}
+
+@media (max-width: 479px) {
+  .tag {
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+}

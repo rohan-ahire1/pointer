@@ -1,0 +1,137 @@
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Nodes and edges move with CSS transforms so relayouts glide; SVG
+   geometry attributes (cx, x1…) don't transition in every browser. */
+.node {
+  transition: transform var(--dur-slow) ease-in-out;
+}
+
+.node .shape {
+  fill: var(--card);
+  stroke: var(--line);
+  stroke-width: 2px;
+  transition:
+    fill var(--dur-fast) ease,
+    stroke var(--dur-fast) ease;
+}
+
+.node .ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2px;
+}
+
+.node .label {
+  fill: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.node .lift {
+  transition: transform var(--dur-base) ease-in-out;
+}
+
+.node[data-state="current"] .lift {
+  transform: scale(1.12);
+}
+
+.node[data-state="current"] .shape {
+  fill: var(--orange);
+}
+
+.node[data-state="current"] .label {
+  fill: var(--on-accent);
+}
+
+.node[data-state="range"] .shape {
+  fill: var(--tint-yellow);
+}
+
+.node[data-state="done"] .shape,
+.node[data-state="found"] .shape {
+  fill: var(--tint-mint);
+}
+
+.node[data-state="past"] .shape {
+  fill: var(--past-bg);
+  stroke: var(--past-line);
+  stroke-dasharray: 5 4;
+}
+
+.node[data-state="past"] .label {
+  fill: var(--faint);
+}
+
+.enter {
+  animation: enter var(--dur-base) ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.badge circle {
+  fill: var(--card);
+  stroke: var(--line);
+  stroke-width: 2px;
+}
+
+.badge text {
+  fill: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* An edge is a unit line in a group that is translated, rotated and scaled
+   into place, so it can animate between layouts with plain transforms. */
+.edge {
+  transition: transform var(--dur-slow) ease-in-out;
+}
+
+.edge line {
+  stroke: var(--line);
+  stroke-width: 2px;
+  transition: stroke var(--dur-fast) ease;
+}
+
+.edge[data-tone="path"] line {
+  stroke: var(--orange);
+  stroke-width: 3.5px;
+}
+
+.edge[data-tone="past"] line {
+  stroke: var(--past-line);
+  stroke-dasharray: 5 4;
+}
+
+.edgeLabel {
+  transition: transform var(--dur-slow) ease-in-out;
+}
+
+.edgeLabel rect {
+  fill: var(--paper);
+}
+
+.edgeLabel text {
+  fill: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+@keyframes enter {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
