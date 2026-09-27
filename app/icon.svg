@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Pointer">
+  <!-- Static favicon (design/mocks/*.dc.html "mark", also used inline by
+       components/Logo/Logo.tsx): the same orange square plus arrow mark,
+       in the light-theme brand colours from styles/tokens.css. Hard-coded
+       hex is fine here: this is a plain static asset, not a component, so
+       there is no CSS custom property scope to read a var() token from. -->
+  <rect x="2" y="2" width="28" height="28" rx="9" fill="#FF8B42" stroke="#231F3A" stroke-width="2.4"/>
+  <path d="M16 22V11.5M16 11.5L10.5 17M16 11.5L21.5 17" stroke="#231F3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
