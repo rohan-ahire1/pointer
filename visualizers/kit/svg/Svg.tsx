@@ -4,6 +4,13 @@ import { NODE_SIZE, type Point } from "./treeLayout";
 import styles from "./Svg.module.css";
 
 /**
+ * Rounds transform numbers to 2 decimals. Browsers normalize long floats in
+ * inline styles (188.46153846px → 188.462px), which React would report as a
+ * hydration mismatch against the server-rendered string.
+ */
+const r2 = (n: number) => Math.round(n * 100) / 100;
+
+/**
  * Scales down to its container's width (never up, so a small tree keeps
  * its natural node size); everything inside is in viewBox units.
  */
@@ -37,7 +44,7 @@ type NodeProps = {
 export function Node({ at, label, state = "waiting", size = NODE_SIZE, ring = false, badge, fontSize }: NodeProps) {
   const r = size / 2;
   return (
-    <g className={styles.node} data-state={state} style={{ transform: `translate(${at.x}px, ${at.y}px)` }}>
+    <g className={styles.node} data-state={state} style={{ transform: `translate(${r2(at.x)}px, ${r2(at.y)}px)` }}>
       <g className={styles.enter}>
         <g className={styles.lift}>
           <circle className={styles.shape} r={r} />
@@ -82,7 +89,9 @@ export function Edge({ from, to, tone = "plain", inset = NODE_SIZE / 2 }: EdgePr
     <g
       className={styles.edge}
       data-tone={tone}
-      style={{ transform: `translate(${start.x}px, ${start.y}px) rotate(${angle}deg) scaleX(${usable})` }}
+      style={{
+        transform: `translate(${r2(start.x)}px, ${r2(start.y)}px) rotate(${r2(angle)}deg) scaleX(${r2(usable)})`,
+      }}
     >
       <line x1={0} y1={0} x2={1} y2={0} vectorEffect="non-scaling-stroke" />
     </g>
@@ -95,7 +104,7 @@ export function EdgeLabel({ from, to, text }: { from: Point; to: Point; text: st
   const y = (from.y + to.y) / 2;
   const w = 8 + text.length * 8;
   return (
-    <g className={styles.edgeLabel} style={{ transform: `translate(${x}px, ${y}px)` }}>
+    <g className={styles.edgeLabel} style={{ transform: `translate(${r2(x)}px, ${r2(y)}px)` }}>
       <rect x={-w / 2} y={-9} width={w} height={18} rx={6} />
       <text>{text}</text>
     </g>

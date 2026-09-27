@@ -1,13 +1,17 @@
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import type { Step } from "../types";
-import { Cell, Fit, PointerTags, Stats, ViewRoot, type PointerTag } from "../kit";
+import { Cell, Fit, Stats, ViewRoot } from "../kit";
 import type { ReverseInput, ReverseState } from "./types";
 import styles from "./View.module.css";
 
 type ReverseViewProps = { step: Step<ReverseState>; input: ReverseInput };
 
-/** Width of an arrow gap relative to a cell (matches .gap in the stylesheet). */
-const GAP_RATIO = 0.6;
+/** Widths relative to a cell (match .gap and .null in the stylesheet): tight enough that 7 nodes fit at 320px. */
+const GAP_RATIO = 0.4;
+const NULL_RATIO = 0.7;
+
+type Pointer = "prev" | "curr" | "next";
+const TONE: Record<Pointer, string> = { prev: "inverse", curr: "orange", next: "lilac" };
 
 type Arrow = "right" | "left" | null;
 
@@ -36,14 +40,27 @@ export function ReverseLinkedListView({ step }: ReverseViewProps) {
   const flipped = new Set(reversed);
 
   // A null prev points at the left ∅; a null curr or next points at the right ∅.
-  const tagsFor = (id: number | "left-null" | "right-null"): PointerTag[] => {
-    const tags: PointerTag[] = [];
-    if (prev === null ? id === "left-null" : prev === id) tags.push({ label: "prev", tone: "inverse" });
-    if (curr === null ? id === "right-null" : curr === id) tags.push({ label: "curr", tone: "orange" });
-    const nextShown = phase === "save" || phase === "flip" || phase === "advance";
-    if (nextShown && (nxt === null ? id === "right-null" : nxt === id)) tags.push({ label: "next", tone: "lilac" });
-    return tags;
+  const nextShown = phase === "save" || phase === "flip" || phase === "advance";
+  const pointsAt = (pointer: Pointer, id: number | "left-null" | "right-null"): boolean => {
+    if (pointer === "prev") return prev === null ? id === "left-null" : prev === id;
+    if (pointer === "curr") return curr === null ? id === "right-null" : curr === id;
+    return nextShown && (nxt === null ? id === "right-null" : nxt === id);
   };
+  // One fixed row per pointer, so tags on neighbouring nodes never collide
+  // even when cells are narrower than the tag text.
+  const tags = (id: number | "left-null" | "right-null") => (
+    <div className={styles.tags}>
+      {(["prev", "curr", "next"] as const).map((pointer) => (
+        <span key={pointer} className={styles.tagRow}>
+          {pointsAt(pointer, id) && (
+            <span className={styles.tag} data-tone={TONE[pointer]}>
+              {pointer}
+            </span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
 
   // Gap k sits between slot k-1 and slot k, where slot -1 is the left ∅ and slot n is the right ∅.
   const arrowIn = (k: number): Arrow => {
@@ -70,11 +87,11 @@ export function ReverseLinkedListView({ step }: ReverseViewProps) {
 
   return (
     <ViewRoot>
-      <Fit n={n + 2 + (n + 1) * GAP_RATIO}>
-        <div className={styles.row}>
-          <div className={styles.slot}>
-            <Cell value="∅" state="past" />
-            <PointerTags tags={tagsFor("left-null")} rows={2} />
+      <Fit n={n + 2 * NULL_RATIO + (n + 1) * GAP_RATIO}>
+        <div className={styles.row} style={{ "--units": n + 2 * NULL_RATIO + (n + 1) * GAP_RATIO } as CSSProperties}>
+          <div className={`${styles.slot} ${styles.null}`}>
+            <Cell value="∅" state="past" size="sm" />
+            {tags("left-null")}
           </div>
           {values.map((value, idx) => (
             <Fragment key={idx}>
@@ -84,14 +101,14 @@ export function ReverseLinkedListView({ step }: ReverseViewProps) {
                   value={value}
                   state={idx === flipping && phase === "flip" ? "current" : flipped.has(idx) ? "found" : "waiting"}
                 />
-                <PointerTags tags={tagsFor(idx)} rows={2} />
+                {tags(idx)}
               </div>
             </Fragment>
           ))}
           {gap(n)}
-          <div className={styles.slot}>
-            <Cell value="∅" state="past" />
-            <PointerTags tags={tagsFor("right-null")} rows={2} />
+          <div className={`${styles.slot} ${styles.null}`}>
+            <Cell value="∅" state="past" size="sm" />
+            {tags("right-null")}
           </div>
         </div>
       </Fit>

@@ -1,4 +1,7 @@
 .row {
+  /* This row has no gaps between slots (the arrow gaps are slots), so size
+     cells straight from the width: nodes + null boxes + arrow gaps = --units. */
+  --cell: clamp(20px, calc(100cqi / var(--units)), 56px);
   --cell-gap: 0px;
   display: flex;
   align-items: flex-start;
@@ -14,10 +17,19 @@
   gap: 8px;
 }
 
-/* 0.6 × --cell wide (GAP_RATIO in View.tsx), level with the middle of the cells. */
+/* The null boxes are narrower than a node (NULL_RATIO in View.tsx). */
+.null {
+  width: calc(var(--cell) * 0.7);
+}
+
+.null > :first-child {
+  width: 100%;
+}
+
+/* 0.4 × --cell wide (GAP_RATIO in View.tsx), level with the middle of the cells. */
 .gap {
   flex-shrink: 0;
-  width: calc(var(--cell) * 0.6);
+  width: calc(var(--cell) * 0.4);
   height: calc(var(--cell) * 8 / 7);
   display: flex;
   align-items: center;
@@ -79,4 +91,44 @@
   min-width: 36px;
   color: var(--muted);
   font-weight: 500;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.tagRow {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  padding: 1px 6px;
+  border-radius: 7px;
+  border: 2px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.tag[data-tone="orange"] {
+  background: var(--orange);
+  color: var(--on-accent);
+}
+
+.tag[data-tone="inverse"] {
+  background: var(--inverse-bg);
+  border-color: var(--inverse-bg);
+  color: var(--inverse-fg);
+}
+
+.tag[data-tone="lilac"] {
+  background: var(--lilac);
+  color: var(--on-accent);
 }
