@@ -204,11 +204,47 @@
     "name": "Binary Search",
     "group": "foundations",
     "idea": "Halve the search space every step.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "find-minimum-in-rotated-sorted-array",
       "search-in-rotated-sorted-array"
-    ]
+    ],
+    "analogy": "Finding a word in a paper dictionary, you open near the middle and see which side the word falls on. The other half closes for good. Binary search works the same way: one comparison rules out half of what is left.",
+    "minutes": 15,
+    "needs": [
+      "arrays",
+      "sorted order"
+    ],
+    "complexity": "O(log n)",
+    "whenToUse": [
+      "The input is sorted (or rotated sorted)",
+      "One check rules out half the input",
+      "You need log n, not a full scan"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Seven numbers, sorted but rotated, and you need the smallest. Scanning all seven works, but slowly."
+        },
+        {
+          "t": 15,
+          "text": "Instead, compare the middle with the right end. That single check names the half holding the drop."
+        },
+        {
+          "t": 32,
+          "text": "7 beats 2, so the drop sits right of mid. The left half goes, and the search space halves."
+        },
+        {
+          "t": 48,
+          "text": "Halve again and again: O(log n). That is binary search."
+        }
+      ]
+    },
+    "visualizer": "find-min-rotated"
   },
   {
     "number": 6,

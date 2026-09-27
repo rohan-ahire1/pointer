@@ -149,7 +149,8 @@
     "difficulty": "medium",
     "pattern": "binary-search",
     "leetcodeUrl": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "search-in-rotated-sorted-array",
@@ -157,7 +158,8 @@
     "difficulty": "medium",
     "pattern": "binary-search",
     "leetcodeUrl": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
-    "premium": false
+    "premium": false,
+    "twist": "Same halving, but first ask which half is sorted."
   },
   {
     "slug": "reverse-linked-list",
