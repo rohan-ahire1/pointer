@@ -5,9 +5,11 @@ const NULL_SPELLINGS = new Set(["null", "_", "#"]);
 /**
  * Input rules (docs/patterns/07-trees.md): LeetCode-style level order —
  * values -99..99 with `null` (also `_` or `#`) for a missing child — up to
- * 15 nodes and 4 levels. Token index i sits at heap position i + 1, and a
- * token whose ancestor slot is missing is skipped (children of a missing
- * node are skipped). Every error says what *is* allowed.
+ * 15 nodes and 4 levels. Queue-based parsing: the first token is the root,
+ * then for each node in BFS order the next two tokens are its left and right
+ * child. Parsing stops when the tokens run out; `pos` (root 1, children 2p
+ * and 2p + 1) and `depth` (root 1) are derived from the structure for
+ * layout. Every error says what *is* allowed.
  */
 export function parseInput(raw: string): MaxDepthInput | { error: string } {
   const empty = { error: "Enter level order values like 3 9 20 null null 15 7. Up to 4 levels." };
@@ -34,30 +36,47 @@ export function parseInput(raw: string): MaxDepthInput | { error: string } {
     return { error: "The root can’t be null. Start with a number from -99 to 99." };
   }
 
-  const nodes: TreeNodeData[] = [];
-  const idAt = new Map<number, number>();
-  for (let i = 0; i < slots.length; i++) {
-    const pos = i + 1;
-    const slot = slots[i];
-    if (slot === null) continue;
-    // A value counts only when its parent slot holds a node; anything under
-    // a missing node is skipped, transitively.
-    if (pos !== 1 && !idAt.has(Math.floor(pos / 2))) continue;
-    const depth = Math.floor(Math.log2(pos)) + 1;
-    if (depth > 4) {
-      return { error: `That tree is ${depth} levels deep. Keep it to 4 levels and 15 nodes.` };
+  const rootValue = slots[0] as number;
+  const nodes: TreeNodeData[] = [
+    { id: 0, value: rootValue, left: null, right: null, pos: 1, depth: 1 },
+  ];
+  const queue: TreeNodeData[] = [nodes[0] as TreeNodeData];
+  let head = 0;
+  let index = 1;
+  while (head < queue.length && index < slots.length) {
+    const parent = queue[head] as TreeNodeData;
+    head++;
+    for (const side of ["left", "right"] as const) {
+      if (index >= slots.length) break;
+      const slot = slots[index] as number | null;
+      index++;
+      if (slot === null) continue;
+      const childDepth = parent.depth + 1;
+      if (childDepth > 4) {
+        return { error: `That tree is ${childDepth} levels deep. Keep it to 4 levels and 15 nodes.` };
+      }
+      const childPos = side === "left" ? parent.pos * 2 : parent.pos * 2 + 1;
+      const child: TreeNodeData = {
+        id: nodes.length,
+        value: slot,
+        left: null,
+        right: null,
+        pos: childPos,
+        depth: childDepth,
+      };
+      nodes.push(child);
+      if (nodes.length > 15) {
+        return { error: `That tree has ${nodes.length} nodes. Keep it to 15 nodes in 4 levels.` };
+      }
+      parent[side] = child.id;
+      queue.push(child);
     }
-    idAt.set(pos, nodes.length);
-    nodes.push({ id: nodes.length, value: slot, left: null, right: null, pos, depth });
   }
-  if (nodes.length > 15) {
-    return { error: `That tree has ${nodes.length} nodes. Keep it to 15 nodes in 4 levels.` };
-  }
-  for (const node of nodes) {
-    const leftId = idAt.get(node.pos * 2);
-    const rightId = idAt.get(node.pos * 2 + 1);
-    node.left = leftId === undefined ? null : leftId;
-    node.right = rightId === undefined ? null : rightId;
+  if (index < slots.length) {
+    const leftover = tokens[index] as string;
+    return {
+      error: `Token ${index + 1} (“${leftover}”) has no parent to attach to. Drop the leftover tokens and use level order like 3 9 20 null null 15 7, with up to 15 nodes in 4 levels.`,
+    };
   }
   return { nodes, root: 0 };
 }
