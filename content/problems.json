@@ -333,7 +333,8 @@
     "difficulty": "medium",
     "pattern": "backtracking",
     "leetcodeUrl": "https://leetcode.com/problems/combination-sum/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "word-search",
@@ -341,7 +342,8 @@
     "difficulty": "medium",
     "pattern": "backtracking",
     "leetcodeUrl": "https://leetcode.com/problems/word-search/",
-    "premium": false
+    "premium": false,
+    "twist": "Same try-and-undo walk, stepping to neighbour cells."
   },
   {
     "slug": "number-of-islands",
