@@ -1,6 +1,30 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { Progress } from "@/lib/progress";
 import { getContinueLesson } from "./continue-lesson";
+
+// A fixture non-live pattern served through the real content module, so the
+// fallback case below never depends on real data still being "soon" (every
+// pattern is live now, and may stay that way).
+vi.mock("@/content", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/content")>();
+  return {
+    ...actual,
+    getPattern: (slug: string) => {
+      if (slug === "fixture-soon-pattern") {
+        return {
+          number: 99,
+          slug: "fixture-soon-pattern",
+          name: "Fixture",
+          group: "foundations",
+          idea: "A fixture that stays soon forever.",
+          status: "soon",
+          problems: [],
+        } as const;
+      }
+      return actual.getPattern(slug);
+    },
+  };
+});
 
 const BASE: Progress = { version: 1, solved: {}, lessons: {} };
 
@@ -53,11 +77,12 @@ describe("getContinueLesson", () => {
       ...BASE,
       lessons: {
         "sliding-window": { lastSection: "idea", updatedAt: "2026-01-01T00:00:00.000Z" },
-        stack: { lastSection: "watch", updatedAt: "2026-01-05T00:00:00.000Z" },
+        "fixture-soon-pattern": { lastSection: "watch", updatedAt: "2026-01-05T00:00:00.000Z" },
       },
     };
-    // "stack" is more recent, but it isn't a live pattern (it's "soon"), so
-    // it can't resolve to a real lesson — the older, live entry still wins.
+    // "fixture-soon-pattern" is more recent, but it isn't a live pattern
+    // (it's "soon"), so it can't resolve to a real lesson — the older, live
+    // entry still wins.
     const result = getContinueLesson(progress);
     expect(result?.pattern.slug).toBe("sliding-window");
     expect(result?.section).toBe("idea");
