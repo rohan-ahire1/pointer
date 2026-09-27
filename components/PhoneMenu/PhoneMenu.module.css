@@ -83,6 +83,29 @@
   box-shadow: 3px 3px 0 var(--shadow);
 }
 
+.continueCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  text-decoration: none;
+  background: var(--tint-yellow);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+}
+
+.continueLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.continueText {
+  font-size: 16px;
+  font-weight: 700;
+}
+
 .themeRow {
   margin-top: auto;
 }

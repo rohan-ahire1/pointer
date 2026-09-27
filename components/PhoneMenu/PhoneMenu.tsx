@@ -6,12 +6,16 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle/ThemeToggle";
 import { CloseIcon, SearchIcon } from "@/components/icons/Icons";
 import { NAV_LINKS } from "@/lib/nav-links";
+import { useProgress } from "@/lib/progress";
+import { getContinueLesson } from "@/lib/continue-lesson";
+import { padPatternNumber } from "@/lib/pattern-nav";
 import styles from "./PhoneMenu.module.css";
 
 type PhoneMenuProps = {
   id: string;
   open: boolean;
   onClose: () => void;
+  onOpenSearch: () => void;
 };
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';
@@ -22,10 +26,12 @@ const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';
  * inside the dialog, Escape closes it, and closing returns focus to the
  * menu button that opened it (handled by the caller via onClose).
  */
-export function PhoneMenu({ id, open, onClose }: PhoneMenuProps) {
+export function PhoneMenu({ id, open, onClose, onOpenSearch }: PhoneMenuProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const { progress } = useProgress();
+  const continueLesson = getContinueLesson(progress);
 
   useEffect(() => {
     if (!open) return;
@@ -77,13 +83,7 @@ export function PhoneMenu({ id, open, onClose }: PhoneMenuProps) {
         </button>
       </div>
 
-      <button
-        type="button"
-        className={styles.searchRow}
-        onClick={() => {
-          // TODO step 6: open search palette
-        }}
-      >
+      <button type="button" className={styles.searchRow} onClick={onOpenSearch}>
         <SearchIcon />
         Search patterns &amp; problems
       </button>
@@ -109,6 +109,20 @@ export function PhoneMenu({ id, open, onClose }: PhoneMenuProps) {
           </Link>
         ))}
       </nav>
+
+      {continueLesson && (
+        <Link
+          href={`/patterns/${continueLesson.pattern.slug}#${continueLesson.section}`}
+          onClick={onClose}
+          className={styles.continueCard}
+        >
+          <span className={styles.continueLabel}>CONTINUE</span>
+          <span className={styles.continueText}>
+            {padPatternNumber(continueLesson.pattern.number)} {continueLesson.pattern.name} ·{" "}
+            {continueLesson.sectionLabel} →
+          </span>
+        </Link>
+      )}
 
       <div className={styles.themeRow}>
         <ThemeToggle variant="switch" />

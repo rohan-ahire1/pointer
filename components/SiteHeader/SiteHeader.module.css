@@ -120,3 +120,16 @@
   border-radius: 12px;
   color: var(--ink);
 }
+
+.startLearningButton {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 20px;
+  margin-left: 6px;
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+  border-radius: 12px;
+  font-weight: 700;
+}
