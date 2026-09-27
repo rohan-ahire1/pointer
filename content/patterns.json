@@ -379,7 +379,7 @@
     "name": "1-D DP",
     "group": "advanced",
     "idea": "Solve small, remember, build up.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "climbing-stairs",
       "house-robber",
@@ -391,7 +391,43 @@
       "maximum-product-subarray",
       "word-break",
       "longest-increasing-subsequence"
-    ]
+    ],
+    "analogy": "Plan a route of jobs in a notebook, one line per day. Each line holds the best total so far, so tomorrow’s choice only looks at the last two lines. The final line is the answer, built without ever redoing a day.",
+    "minutes": 15,
+    "needs": [
+      "arrays",
+      "recursion"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "Today’s answer builds on yesterday’s",
+      "Brute force retries the same subproblem",
+      "You only need the last few answers"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Five houses hold 2, 7, 9, 3 and 1, but neighbours share an alarm. Trying every subset rechecks the same endings again and again."
+        },
+        {
+          "t": 15,
+          "text": "Write down the best haul for the first house, then the first two. Each answer only needs the two lines above it."
+        },
+        {
+          "t": 32,
+          "text": "At house 3, skipping keeps 7 but taking adds 9 to 2. Taking wins, so dp[3] is 11."
+        },
+        {
+          "t": 48,
+          "text": "One pass fills the row: O(n). The last cell reads 12, from houses 1, 3 and 5. That’s 1-D DP."
+        }
+      ]
+    },
+    "visualizer": "house-robber"
   },
   {
     "number": 13,
