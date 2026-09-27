@@ -304,7 +304,7 @@
     "name": "Trees",
     "group": "structures",
     "idea": "Recursion that follows the branches.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "invert-binary-tree",
       "maximum-depth-of-binary-tree",
@@ -317,7 +317,42 @@
       "construct-binary-tree-from-preorder-and-inorder",
       "binary-tree-maximum-path-sum",
       "serialize-and-deserialize-binary-tree"
-    ]
+    ],
+    "analogy": "A family tree spans as many generations as its longest branch. Each person asks their children how far down their lines run, then adds one for themselves. The root learns the whole height without ever seeing it.",
+    "minutes": 15,
+    "needs": [
+      "recursion"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "Data branches into left and right children",
+      "Answers combine upward from the leaves",
+      "Each subtree looks like the whole tree"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "A tree with five nodes, and you need its depth. Counting levels by hand means tracking every branch."
+        },
+        {
+          "t": 15,
+          "text": "Instead, ask each child how deep its side goes. Leaves answer 1: just themselves."
+        },
+        {
+          "t": 32,
+          "text": "20 hears 1 from each side, takes the deeper, adds one: 2. Answers bubble upward."
+        },
+        {
+          "t": 48,
+          "text": "Each node answers once: O(n). The root says 3. That is trees."
+        }
+      ]
+    },
+    "visualizer": "max-depth-binary-tree"
   },
   {
     "number": 8,

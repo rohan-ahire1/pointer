@@ -221,7 +221,8 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/invert-binary-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: swap each node’s children, top down."
   },
   {
     "slug": "maximum-depth-of-binary-tree",
@@ -229,7 +230,8 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "same-tree",
@@ -237,7 +239,8 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/same-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "Walk both trees together; every pair must match."
   },
   {
     "slug": "subtree-of-another-tree",
@@ -245,7 +248,8 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/subtree-of-another-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "Same-tree check, tried at every node."
   },
   {
     "slug": "lowest-common-ancestor-of-a-bst",
@@ -253,7 +257,8 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "Split point where the targets part ways."
   },
   {
     "slug": "binary-tree-level-order-traversal",
@@ -261,7 +266,8 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
-    "premium": false
+    "premium": false,
+    "twist": "A queue walks the tree one level at a time."
   },
   {
     "slug": "validate-binary-search-tree",
@@ -269,7 +275,8 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/validate-binary-search-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "Each node inherits a valid range from above."
   },
   {
     "slug": "kth-smallest-element-in-a-bst",
@@ -277,7 +284,8 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
-    "premium": false
+    "premium": false,
+    "twist": "In-order walk, counting until you reach k."
   },
   {
     "slug": "construct-binary-tree-from-preorder-and-inorder",
@@ -285,7 +293,8 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
-    "premium": false
+    "premium": false,
+    "twist": "The preorder head splits the inorder list."
   },
   {
     "slug": "binary-tree-maximum-path-sum",
@@ -293,7 +302,8 @@
     "difficulty": "hard",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
-    "premium": false
+    "premium": false,
+    "twist": "Like depth, but the best path may bend."
   },
   {
     "slug": "serialize-and-deserialize-binary-tree",
@@ -301,7 +311,8 @@
     "difficulty": "hard",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
-    "premium": false
+    "premium": false,
+    "twist": "Level order out, level order back in."
   },
   {
     "slug": "implement-trie-prefix-tree",
