@@ -1,0 +1,107 @@
+.card {
+  box-sizing: border-box;
+  min-height: 176px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  border: var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+}
+
+.cardFull {
+  min-height: 228px;
+  border-radius: 22px;
+}
+
+.cardSoon {
+  background: var(--card);
+}
+
+.cardLive {
+  background: var(--yellow);
+  color: var(--on-accent);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 9px;
+  color: var(--on-accent);
+  border: var(--border);
+  border-radius: 9px;
+}
+
+.tagLive,
+.tagSoon {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+}
+
+.tagLive {
+  color: var(--ink);
+}
+
+.tagSoon {
+  color: var(--muted);
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.idea {
+  font-size: 15px;
+  line-height: 1.45;
+  flex-grow: 1;
+}
+
+.cardSoon .idea {
+  color: var(--muted);
+}
+
+.progressRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progressLabel {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.progressTrack {
+  display: block;
+  height: 10px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cardLive .progressTrack {
+  background: var(--paper);
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  background: var(--mint);
+}
