@@ -2,7 +2,16 @@ import patternsData from "./patterns.json";
 import problemsData from "./problems.json";
 import type { Pattern, PatternGroup, Problem } from "./types";
 
-export type { Pattern, PatternGroup, Problem, Difficulty, LivePattern, SoonPattern } from "./types";
+export type {
+  Pattern,
+  PatternGroup,
+  PatternVideo,
+  Problem,
+  Difficulty,
+  LivePattern,
+  SoonPattern,
+  VideoTranscriptEntry,
+} from "./types";
 
 const patterns = patternsData as Pattern[];
 const problems = problemsData as Problem[];

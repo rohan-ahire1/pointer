@@ -1,0 +1,189 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 64px;
+}
+
+@media (min-width: 900px) {
+  .section {
+    flex-direction: row;
+    gap: 36px;
+  }
+}
+
+.eyebrowCol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 900px) {
+  .eyebrowCol {
+    align-items: flex-end;
+    text-align: right;
+    padding-top: 40px;
+    width: 220px;
+  }
+}
+
+.heading {
+  margin: 0;
+  font-weight: 800;
+  font-size: 32px;
+}
+
+.headingIndex {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--pen);
+}
+
+.videoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.frame {
+  background: var(--card);
+  border: var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-xl);
+  padding: 14px;
+}
+
+.placeholder,
+.video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-2);
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playButton {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-accent);
+  cursor: default;
+}
+
+.placeholderFooter {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.videoTitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.placeholderBadge {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 6px 10px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 9px;
+  white-space: nowrap;
+}
+
+.controlsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.ccButton,
+.ccButtonActive {
+  min-height: 44px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--card);
+}
+
+.ccButtonActive {
+  background: var(--yellow);
+  color: var(--on-accent);
+}
+
+.ccBadge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 1px 5px;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+}
+
+.transcriptButton {
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.transcript {
+  padding: 20px 24px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 16px;
+  font-size: 17px;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transcriptLine {
+  margin: 0;
+}

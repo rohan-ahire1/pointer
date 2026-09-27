@@ -1,0 +1,392 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    padding: 0 88px;
+  }
+}
+
+.navWrap {
+  margin-top: 18px;
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.switcherLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 14px;
+  text-decoration: none;
+  background: var(--lilac);
+  color: var(--on-accent);
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.switcherNumber {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.message {
+  flex-grow: 1;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.progressLabel {
+  font-size: 14px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.adjacent {
+  display: flex;
+  gap: 6px;
+}
+
+.adjacentButton,
+.adjacentButtonDisabled {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.adjacentButtonDisabled {
+  opacity: 0.35;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.header {
+  display: flex;
+}
+
+.headerCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 720px;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(40px, 8vw, 84px);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.badge {
+  padding: 8px 14px;
+  background: var(--tint-lilac);
+  border: var(--border);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.idea {
+  margin: 0;
+  font-size: clamp(17px, 2.4vw, 22px);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.readySection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 900px) {
+  .readySection {
+    grid-template-columns: 7fr 5fr;
+  }
+}
+
+.readyCard {
+  background: var(--card);
+  border: var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.readyTitle {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.readyList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.readyItemDone,
+.readyItemPending {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  flex-wrap: wrap;
+}
+
+.readyItemDone {
+  border: var(--border);
+  background: var(--tint-mint);
+}
+
+.readyItemPending {
+  border: 2px dashed var(--line);
+}
+
+.readyIconDone,
+.readyIconPending {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border);
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.readyIconDone {
+  background: var(--mint);
+  color: var(--on-accent);
+}
+
+.readyIconPending {
+  background: var(--card);
+  color: var(--ink);
+}
+
+.readyLabel {
+  flex-grow: 1;
+  font-weight: 700;
+}
+
+.readyStatus {
+  font-size: 14px;
+}
+
+.notifyCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.notifyForm {
+  background: var(--yellow);
+  color: var(--on-accent);
+  border: var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.notifyTitle {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.notifyCopy {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.notifyRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.notifyInput {
+  flex-grow: 1;
+  min-width: 0;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.notifyButton {
+  height: 48px;
+  padding: 0 18px;
+  border: var(--border);
+  border-radius: 12px;
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.notifySent {
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.placeholderNote {
+  font-size: 13px;
+}
+
+.instagramPlaceholder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 22px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.meanwhileSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.meanwhileTitle {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.meanwhileGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+@media (min-width: 700px) {
+  .meanwhileGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.meanwhileCard,
+.meanwhileLiveCard {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border: var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+}
+
+.meanwhileCard {
+  background: var(--card);
+}
+
+.meanwhileLiveCard {
+  background: var(--mint);
+  color: var(--on-accent);
+}
+
+.meanwhileDiff {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: var(--mint);
+  color: var(--on-accent);
+  border: var(--border);
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+
+.meanwhileEyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.meanwhileName {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.meanwhileCopy {
+  font-size: 15px;
+}

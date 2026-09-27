@@ -1,0 +1,94 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getPattern, getPatterns, getPatternGroups, problemsForPattern, PATTERN_GROUPS } from "@/content";
+import { getAdjacentPatterns } from "@/lib/pattern-nav";
+import { VisualizerById } from "@/visualizers/player/VisualizerById";
+import { LessonNav } from "@/components/Lesson/LessonNav/LessonNav";
+import { LessonHero } from "@/components/Lesson/LessonHero/LessonHero";
+import { LessonWatch } from "@/components/Lesson/LessonWatch/LessonWatch";
+import { SolveSection } from "@/components/Lesson/SolveSection/SolveSection";
+import { UpNextCard } from "@/components/Lesson/UpNextCard/UpNextCard";
+import { SoonLesson } from "@/components/Lesson/SoonLesson/SoonLesson";
+import styles from "./page.module.css";
+
+type PatternPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+/** All 15 patterns get a static route, whether they're live or "coming soon" (CLAUDE.md). */
+export function generateStaticParams() {
+  return getPatterns().map((pattern) => ({ slug: pattern.slug }));
+}
+
+export async function generateMetadata({ params }: PatternPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const pattern = getPattern(slug);
+  if (!pattern) {
+    return { title: "Pattern not found — Pointer" };
+  }
+  const description = pattern.status === "live" ? pattern.analogy : pattern.idea;
+  return {
+    title: `${pattern.name} — Pointer`,
+    description,
+  };
+}
+
+export default async function PatternPage({ params }: PatternPageProps) {
+  const { slug } = await params;
+  const pattern = getPattern(slug);
+  if (!pattern) {
+    notFound();
+  }
+
+  const totalPatterns = getPatterns().length;
+  const { prev, next } = getAdjacentPatterns(pattern.slug);
+  const groupLabel = PATTERN_GROUPS[pattern.group].label;
+
+  if (pattern.status === "soon") {
+    return (
+      <SoonLesson pattern={pattern} groupLabel={groupLabel} totalPatterns={totalPatterns} prev={prev} next={next} />
+    );
+  }
+
+  const problems = problemsForPattern(pattern.slug);
+  const groups = getPatternGroups();
+
+  return (
+    <div className={styles.page}>
+      <LessonNav
+        patternSlug={pattern.slug}
+        patternName={pattern.name}
+        patternNumber={pattern.number}
+        totalPatterns={totalPatterns}
+        groups={groups}
+        prev={prev}
+        next={next}
+      />
+
+      <main className={styles.main}>
+        <LessonHero pattern={pattern} groupLabel={groupLabel} />
+        <LessonWatch video={pattern.video} title={`${pattern.name} in 60 seconds`} />
+
+        <section id="try" aria-labelledby="try-h" className={styles.trySection}>
+          <div className={styles.tryHead}>
+            <h2 id="try-h" className={`soft ${styles.tryHeading}`}>
+              <span className={styles.tryHeadingIndex}>3 · </span>Now you drive
+            </h2>
+            <div className={styles.keys}>
+              Keys:
+              <kbd className={styles.key}>←</kbd>
+              <kbd className={styles.key}>→</kbd> step
+              <kbd className={styles.key}>Space</kbd> play
+              <kbd className={styles.key}>R</kbd> reset
+            </div>
+          </div>
+          <VisualizerById id={pattern.visualizer} />
+        </section>
+
+        <SolveSection problems={problems} />
+
+        <UpNextCard totalPatterns={totalPatterns} prev={prev} next={next} />
+      </main>
+    </div>
+  );
+}
