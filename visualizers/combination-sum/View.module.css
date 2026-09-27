@@ -1,0 +1,78 @@
+.sum {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sumLabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* The target as a bar of `--target` units: path picks fill it from the
+   left as labelled segments; what's still needed is dashed. */
+.bar {
+  display: flex;
+  height: 34px;
+  width: 100%;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.segment,
+.rest {
+  flex: 0 0 calc(100% * var(--units) / var(--target));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: flex-basis var(--dur-slow) ease-in-out;
+}
+
+.segment {
+  background: var(--tint-yellow);
+  border-right: 2px solid var(--line);
+  color: var(--ink);
+  animation: grow var(--dur-base) ease-out;
+}
+
+.rest {
+  color: var(--muted);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--card),
+    var(--card) 6px,
+    var(--past-bg) 6px,
+    var(--past-bg) 12px
+  );
+}
+
+.results {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.resultsLabel {
+  padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0.6);
+    opacity: 0;
+  }
+}

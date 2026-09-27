@@ -3,10 +3,19 @@ import type { CellState } from "../Cell";
 import { NODE_SIZE, type Point } from "./treeLayout";
 import styles from "./Svg.module.css";
 
-/** Scales to its container's width; everything inside is in viewBox units. */
+/**
+ * Scales down to its container's width (never up, so a small tree keeps
+ * its natural node size); everything inside is in viewBox units.
+ */
 export function Svg({ width, height, children }: { width: number; height: number; children: ReactNode }) {
   return (
-    <svg className={styles.svg} viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <svg
+      className={styles.svg}
+      viewBox={`0 0 ${width} ${height}`}
+      width={width}
+      height={height}
+      style={{ maxWidth: width }}
+    >
       {children}
     </svg>
   );

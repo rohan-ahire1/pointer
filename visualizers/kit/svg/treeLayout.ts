@@ -36,6 +36,7 @@ export function tidyLayout(
   nodes: readonly TidyNode[],
   slotWidth: number,
   top = NODE_SIZE / 2 + 4,
+  levelGap = LEVEL_GAP,
 ): { positions: Map<number, Point>; slots: number; levels: number } {
   const children = new Map<number, number[]>();
   let root: number | null = null;
@@ -65,7 +66,7 @@ export function tidyLayout(
       const xs = kids.map((kid) => place(kid, depth + 1));
       x = (xs[0] + xs[xs.length - 1]) / 2;
     }
-    positions.set(id, { x, y: top + depth * LEVEL_GAP });
+    positions.set(id, { x, y: top + depth * levelGap });
     return x;
   };
   place(root, 0);

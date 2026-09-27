@@ -1,0 +1,61 @@
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+}
+
+.word {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 4px 8px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.word[data-active="true"] {
+  background: var(--tint-yellow);
+}
+
+.word[data-done="true"] {
+  background: var(--tint-mint);
+}
+
+.word[data-query="true"] {
+  border-style: dashed;
+}
+
+.letter {
+  padding: 0 2px;
+  border-radius: 4px;
+  transition: background-color var(--dur-fast) ease;
+}
+
+.letter[data-current="true"] {
+  background: var(--orange);
+  color: var(--on-accent);
+}
+
+.tick {
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+.bar {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.treeWrap {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
