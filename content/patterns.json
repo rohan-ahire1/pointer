@@ -360,12 +360,48 @@
     "name": "Tries",
     "group": "structures",
     "idea": "Share prefixes, find words letter by letter.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "implement-trie-prefix-tree",
       "design-add-and-search-words-data-structure",
       "word-search-ii"
-    ]
+    ],
+    "analogy": "Start typing a word and your phone narrows the guesses with every letter. After two letters you are already on the right page for every word that starts that way. A trie stores words the same way, sharing each prefix once so a lookup only walks the letters you type.",
+    "minutes": 15,
+    "needs": [
+      "trees",
+      "hash maps"
+    ],
+    "complexity": "O(L)",
+    "whenToUse": [
+      "The task is prefix search or autocomplete",
+      "Many words share the same beginnings",
+      "Lookups must cost one step per letter"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Searching a word list means checking every word from its first letter. When thousands of words share beginnings, all that repeated reading adds up."
+        },
+        {
+          "t": 15,
+          "text": "A trie stores each shared beginning once. “apple” and “app” walk the same a-p-p path and branch only where they differ."
+        },
+        {
+          "t": 32,
+          "text": "Inserting reuses every node already there, then marks where the word ends. Looking up “app” walks the same path letter by letter."
+        },
+        {
+          "t": 48,
+          "text": "Each operation costs one hop per letter: O(L). That’s the trie."
+        }
+      ]
+    },
+    "visualizer": "implement-trie"
   },
   {
     "number": 9,
@@ -373,10 +409,46 @@
     "name": "Heaps",
     "group": "structures",
     "idea": "Always know the smallest item.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "find-median-from-data-stream"
-    ]
+    ],
+    "analogy": "Picture a line of people sorted by height, split into two teams at the middle. The shorter team only watches its tallest member, and the taller team only its shortest. The median is always where the two teams meet, so nobody ever sorts the whole line.",
+    "minutes": 15,
+    "needs": [
+      "heaps",
+      "sorting"
+    ],
+    "complexity": "O(log n)",
+    "whenToUse": [
+      "Items arrive one at a time, unsorted",
+      "You need the middle, min or max so far",
+      "Brute force sorts after every arrival"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Numbers arrive one at a time and you must report the median after each. Sorting everything so far each time costs n log n per number."
+        },
+        {
+          "t": 15,
+          "text": "Instead, split the numbers into a lower half and an upper half. Each half only watches the member closest to the split."
+        },
+        {
+          "t": 32,
+          "text": "15 arrives and lands in the lower half, then the biggest of that half moves across. Both tops read 5 and 15, so the median is 10."
+        },
+        {
+          "t": 48,
+          "text": "Each number costs one heap push and pop: O(log n). That’s the two-heap median."
+        }
+      ]
+    },
+    "visualizer": "median-two-heaps"
   },
   {
     "number": 10,

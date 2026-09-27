@@ -6,6 +6,8 @@ import { validParenthesesVisualizer } from "./valid-parentheses";
 import { findMinRotatedVisualizer } from "./find-min-rotated";
 import { reverseLinkedListVisualizer } from "./reverse-linked-list";
 import { maxDepthTreeVisualizer } from "./max-depth-tree";
+import { implementTrieVisualizer } from "./implement-trie";
+import { medianTwoHeapsVisualizer } from "./median-two-heaps";
 
 /**
  * Registry of every visualizer, keyed by the id a live pattern's
@@ -26,6 +28,8 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [findMinRotatedVisualizer.id]: findMinRotatedVisualizer as Visualizer<unknown, unknown>,
   [reverseLinkedListVisualizer.id]: reverseLinkedListVisualizer as Visualizer<unknown, unknown>,
   [maxDepthTreeVisualizer.id]: maxDepthTreeVisualizer as Visualizer<unknown, unknown>,
+  [implementTrieVisualizer.id]: implementTrieVisualizer as Visualizer<unknown, unknown>,
+  [medianTwoHeapsVisualizer.id]: medianTwoHeapsVisualizer as Visualizer<unknown, unknown>,
 };
 
 export function getVisualizer(id: string): Visualizer<unknown, unknown> | undefined {
