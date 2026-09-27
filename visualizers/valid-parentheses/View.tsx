@@ -10,12 +10,29 @@ const VISIBLE_PLATES = 5;
 
 const OPENER: Record<string, string> = { ")": "(", "]": "[", "}": "{" };
 
+/** Height of one plate plus the gap under it, in px (matches the stylesheet). */
+const PLATE = 46;
+
+/**
+ * The deepest the stack gets for this input (pushing openers, popping on
+ * closers), so the pile can reserve exactly that much room for the whole run.
+ */
+function deepest(s: string): number {
+  let depth = 0;
+  let max = 0;
+  for (const ch of s) {
+    depth = ch in OPENER ? Math.max(0, depth - 1) : depth + 1;
+    max = Math.max(max, depth);
+  }
+  return max;
+}
+
 /**
  * docs/patterns/04-stack.md: the brackets with `i` reading them, and a stack
  * of plates. Openers drop onto the stack; a matching closer lifts the top
  * plate off, and both brackets settle as a pair.
  */
-export function ValidParenthesesView({ step }: ParensViewProps) {
+export function ValidParenthesesView({ step, input }: ParensViewProps) {
   const { s, i, stack, matched, phase, failedAt, verdict } = step.state;
   const settled = new Set(matched);
 
@@ -32,6 +49,11 @@ export function ValidParenthesesView({ step }: ParensViewProps) {
   const plates = [...stack].reverse();
   const shown = plates.slice(0, VISIBLE_PLATES);
   const hidden = plates.length - shown.length;
+  // Room for the deepest the stack gets (capped at the visible plates), one
+  // lifting plate, and the "+n below" chip if it can ever appear.
+  const maxDepth = deepest(input);
+  const pileHeight =
+    (Math.max(1, Math.min(maxDepth, VISIBLE_PLATES)) + 1) * PLATE + (maxDepth > VISIBLE_PLATES ? 28 : 0);
 
   return (
     <ViewRoot>
@@ -39,7 +61,7 @@ export function ValidParenthesesView({ step }: ParensViewProps) {
         <Strip items={items} />
         <div className={styles.stackWrap}>
           <Panel title="stack">
-            <div className={styles.pile}>
+            <div className={styles.pile} style={{ height: pileHeight }}>
               {/* The plate a match just took off: lifts away and fades for this step only. */}
               {phase === "match" && (
                 <div key={`lifted-${i}`} className={`${styles.plate} ${styles.lifted}`}>

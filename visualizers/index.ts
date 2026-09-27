@@ -2,6 +2,7 @@ import type { Visualizer } from "./types";
 import { slidingWindowVisualizer } from "./sliding-window";
 import { twoSumVisualizer } from "./two-sum";
 import { containerWaterVisualizer } from "./container-water";
+import { validParenthesesVisualizer } from "./valid-parentheses";
 
 /**
  * Registry of every visualizer, keyed by the id a live pattern's
@@ -18,6 +19,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [slidingWindowVisualizer.id]: slidingWindowVisualizer as Visualizer<unknown, unknown>,
   [twoSumVisualizer.id]: twoSumVisualizer as Visualizer<unknown, unknown>,
   [containerWaterVisualizer.id]: containerWaterVisualizer as Visualizer<unknown, unknown>,
+  [validParenthesesVisualizer.id]: validParenthesesVisualizer as Visualizer<unknown, unknown>,
 };
 
 export function getVisualizer(id: string): Visualizer<unknown, unknown> | undefined {

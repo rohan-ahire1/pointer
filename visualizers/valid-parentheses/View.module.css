@@ -8,10 +8,9 @@
   }
 }
 
-/* Fixed height for 5 plates, a lifting plate and the overflow chip, so stepping never moves the
-   controls below. */
+/* Height is set inline from the input's deepest stack, so it never changes
+   while stepping and the controls below stay put. */
 .pile {
-  height: calc(6 * 46px + 28px);
   display: flex;
   flex-direction: column;
   align-items: center;
