@@ -29,7 +29,14 @@ export function FindMinRotatedView({ step }: FindMinViewProps) {
     };
   });
 
-  const showCompare = mid !== null && compare !== null && !done;
+  // Only on the probe step: after a decision, hi may already have moved to mid.
+  const showCompare = phase === "probe" && mid !== null && compare !== null;
+  const decided =
+    phase === "right"
+      ? "drop is right of mid: keep the right part"
+      : phase === "left"
+        ? "minimum is at mid or left of it"
+        : null;
 
   return (
     <ViewRoot>
@@ -39,7 +46,7 @@ export function FindMinRotatedView({ step }: FindMinViewProps) {
             nums[mid] {nums[mid]} {compare === ">" ? ">" : "≤"} {nums[hi]} nums[hi]
           </span>
         ) : (
-          <span className={styles.compareIdle}>{done ? `lo = hi = ${lo}` : "compare mid with hi"}</span>
+          <span className={styles.compareIdle}>{done ? `lo = hi = ${lo}` : (decided ?? "compare mid with hi")}</span>
         )}
       </div>
       <Strip items={items} capsule={done ? { start: lo, end: lo } : { start: lo, end: hi }} tagRows={2} />
