@@ -1,0 +1,80 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 24px 16px 64px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px 32px 96px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    padding: 32px 88px 96px;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .header {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 36px;
+  }
+}
+
+.headerCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .headerCopy {
+    flex: 7 1 0;
+  }
+}
+
+.progressCardSlot {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .progressCardSlot {
+    flex: 4 1 0;
+  }
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.lead {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 640px;
+}
+
+@media (min-width: 768px) {
+  .lead {
+    font-size: 20px;
+  }
+}

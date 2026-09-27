@@ -1,0 +1,55 @@
+.card {
+  box-sizing: border-box;
+  background: var(--card);
+  border: var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-lg);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.value {
+  font-size: 26px;
+}
+
+@media (min-width: 768px) {
+  .value {
+    font-size: 30px;
+  }
+}
+
+.of {
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 400;
+  font-family: var(--font-body);
+  letter-spacing: normal;
+}
+
+.track {
+  height: 14px;
+  background: var(--paper);
+  border: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--mint);
+}
+
+.link {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
