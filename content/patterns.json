@@ -232,10 +232,46 @@
     "name": "Heaps",
     "group": "structures",
     "idea": "Always know the smallest item.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "find-median-from-data-stream"
-    ]
+    ],
+    "analogy": "Picture a line of people sorted by height, split into two teams at the middle. The shorter team only watches its tallest member, and the taller team only its shortest. The median is always where the two teams meet, so nobody ever sorts the whole line.",
+    "minutes": 15,
+    "needs": [
+      "heaps",
+      "sorting"
+    ],
+    "complexity": "O(log n)",
+    "whenToUse": [
+      "Items arrive one at a time, unsorted",
+      "You need the middle, min or max so far",
+      "Brute force sorts after every arrival"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Numbers arrive one at a time and you must report the median after each. Sorting everything so far each time costs n log n per number."
+        },
+        {
+          "t": 15,
+          "text": "Instead, split the numbers into a lower half and an upper half. Each half only watches the member closest to the split."
+        },
+        {
+          "t": 32,
+          "text": "15 arrives and lands in the lower half, then the biggest of that half moves across. Both tops read 5 and 15, so the median is 10."
+        },
+        {
+          "t": 48,
+          "text": "Each number costs one heap push and pop: O(log n). That’s the two-heap median."
+        }
+      ]
+    },
+    "visualizer": "median-two-heaps"
   },
   {
     "number": 10,
