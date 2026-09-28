@@ -1,104 +1,137 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding-bottom: 64px;
+  gap: 20px;
+  padding-bottom: 48px;
 }
 
-@media (min-width: 900px) {
-  .section {
-    flex-direction: row;
-    gap: 36px;
-  }
-}
-
-.eyebrowCol {
+.head {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
 }
 
-@media (min-width: 900px) {
-  .eyebrowCol {
-    align-items: flex-end;
-    text-align: right;
-    padding-top: 40px;
-    width: 220px;
-  }
-}
-
+/* Matches the Try it / Solve section headings. */
 .heading {
   margin: 0;
   font-weight: 800;
-  font-size: 32px;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.02em;
 }
 
 .headingIndex {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   vertical-align: middle;
 }
 
-.eyebrow {
-  font-family: var(--font-body);
-  font-size: 20px;
+.note {
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.05;
   color: var(--pen);
 }
 
-.videoCol {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-  flex: 1 1 auto;
-}
-
-.frame {
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  padding: 14px;
   background: var(--card);
   border: var(--border);
-  border-radius: 22px;
-  box-shadow: var(--shadow-xl);
-  padding: 14px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lg);
 }
 
-.placeholder,
+@media (min-width: 768px) {
+  .card {
+    grid-template-columns: minmax(260px, 400px) minmax(0, 1fr);
+    align-items: center;
+    gap: 32px;
+    padding: 14px 32px 14px 14px;
+  }
+}
+
+.thumb,
+.thumbButton {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.thumbButton {
+  cursor: pointer;
+  border-radius: 14px;
+}
+
+.poster,
 .video {
   position: relative;
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  background: var(--card-2);
 }
 
-.placeholder {
+.poster {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: var(--border);
+  background-color: var(--tint-yellow);
+  background-image: radial-gradient(color-mix(in srgb, var(--line) 16%, transparent) 1.3px, transparent 1.8px);
+  background-size: 18px 18px;
 }
 
-.playButton {
-  width: 108px;
-  height: 108px;
+.playDisc,
+.playDiscLarge {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: var(--orange);
   border: var(--border);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 4px;
   color: var(--on-accent);
-  cursor: default;
+  transition: transform var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
 }
 
-.placeholderFooter {
+.playDiscLarge {
+  width: 108px;
+  height: 108px;
+  box-shadow: var(--shadow-lg);
+}
+
+.thumbButton:hover .playDisc {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playDisc {
+    transition: none;
+  }
+
+  .thumbButton:hover .playDisc {
+    transform: none;
+  }
+}
+
+.posterFooter {
   position: absolute;
-  left: 20px;
-  bottom: 18px;
-  right: 20px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -106,19 +139,48 @@
   gap: 8px;
 }
 
-.videoTitle {
-  font-size: 18px;
+.posterTitle {
+  font-size: 21px;
   font-weight: 700;
 }
 
-.placeholderBadge {
+.posterBadge {
+  margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 13px;
-  padding: 6px 10px;
+  font-size: 12px;
+  padding: 4px 8px;
   background: var(--card);
   border: var(--border);
   border-radius: 9px;
   white-space: nowrap;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.teaser {
+  margin: 0 0 8px;
+  max-width: 52ch;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .controlsRow {
@@ -128,8 +190,8 @@
   align-items: center;
 }
 
-.ccButton,
-.ccButtonActive {
+.expandButton,
+.ghostButton {
   min-height: 44px;
   padding: 0 16px;
   display: flex;
@@ -143,12 +205,14 @@
   background: var(--card);
 }
 
-.ccButtonActive {
-  background: var(--yellow);
+.expandButton {
+  background: var(--orange);
   color: var(--on-accent);
+  box-shadow: var(--shadow-sm);
 }
 
-.ccBadge {
+.ccBadge,
+.ccBadgeOn {
   font-family: var(--font-mono);
   font-size: 12px;
   padding: 1px 5px;
@@ -156,20 +220,9 @@
   border-radius: 4px;
 }
 
-.transcriptButton {
-  min-height: 44px;
-  padding: 0 16px;
-  background: var(--card);
-  border: var(--border);
-  border-radius: var(--radius-btn);
-  color: var(--ink);
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.hint {
-  font-size: 14px;
-  color: var(--muted);
+.ccBadgeOn {
+  background: var(--yellow);
+  color: var(--on-accent);
 }
 
 .transcript {
@@ -186,4 +239,46 @@
 
 .transcriptLine {
   margin: 0;
+}
+
+.dialog {
+  width: min(1100px, 94vw);
+  max-width: none;
+  padding: 0;
+  background: var(--card);
+  color: var(--ink);
+  border: var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-xl);
+}
+
+.dialog::backdrop {
+  background: rgb(20 16 40 / 0.7);
+}
+
+.dialogInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 14px;
+}
+
+.dialogInner > * {
+  width: 100%;
+}
+
+.dialogInner > .closeButton {
+  width: auto;
+}
+
+.closeButton {
+  min-height: 44px;
+  padding: 0 18px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
 }
