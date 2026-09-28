@@ -1,5 +1,5 @@
 .banner {
-  margin-top: 18px;
+  margin: 18px 16px 0;
   box-sizing: border-box;
   text-decoration: none;
   color: var(--ink);
@@ -15,7 +15,14 @@
 
 @media (min-width: 768px) {
   .banner {
+    margin-inline: 32px;
     padding: 12px 14px 12px 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .banner {
+    margin-inline: 88px;
   }
 }
 
