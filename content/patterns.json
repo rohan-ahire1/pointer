@@ -47,7 +47,7 @@
         },
         {
           "t": 48,
-          "text": "One pass, one map lookup each: O(n) time. That is arrays and hashing: memory traded for instant lookups."
+          "text": "One pass, one map lookup each: O(n) time. That’s arrays and hashing: memory traded for instant lookups."
         }
       ]
     },
@@ -95,7 +95,7 @@
         },
         {
           "t": 48,
-          "text": "Each wall moves once, so one pass finds the best: 49. That is two pointers."
+          "text": "Each wall moves once, so one pass finds the best: 49. That’s two pointers."
         }
       ]
     },
@@ -192,7 +192,7 @@
         },
         {
           "t": 48,
-          "text": "One pass, O(n) time. Empty stack, valid string. That is the stack."
+          "text": "One pass, O(n) time. Empty stack, valid string. That’s the stack."
         }
       ]
     },
@@ -240,7 +240,7 @@
         },
         {
           "t": 48,
-          "text": "Halve again and again: O(log n). That is binary search."
+          "text": "Halve again and again: O(log n). That’s binary search."
         }
       ]
     },
@@ -292,7 +292,7 @@
         },
         {
           "t": 48,
-          "text": "One pass, O(n) time. That is reversal."
+          "text": "One pass, O(n) time. That’s the linked list."
         }
       ]
     },
@@ -348,7 +348,7 @@
         },
         {
           "t": 48,
-          "text": "Each node answers once: O(n). The root says 3. That is trees."
+          "text": "Each node answers once: O(n). The root says 3. That’s recursion on a tree."
         }
       ]
     },
