@@ -483,11 +483,46 @@
     "name": "Greedy",
     "group": "advanced",
     "idea": "Take the best move now. Never look back.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "maximum-subarray",
       "jump-game"
-    ]
+    ],
+    "analogy": "Cross a stream on stepping stones without ever planning the route. From each stone, only note the farthest stone you could land on. If the next stone sits past that mark, the crossing is impossible, and you knew without retracing a step.",
+    "minutes": 10,
+    "needs": [
+      "arrays"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "A single choice now never needs revisiting",
+      "Only the best option so far matters",
+      "Brute force tries every combination"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Five stones hold jumps of 2, 3, 1, 1 and 4. Can you reach the end? Trying every route from every stone blows up fast."
+        },
+        {
+          "t": 15,
+          "text": "Forget the route. Track one number instead: the farthest stone you could reach so far."
+        },
+        {
+          "t": 32,
+          "text": "Stone 1 jumps 3, landing on stone 4 and stretching the reach to 4. Every later stone sits inside it."
+        },
+        {
+          "t": 48,
+          "text": "One scan, O(n) time: yes, you reach the end. That’s greedy: the best move now, never looking back."
+        }
+      ]
+    },
+    "visualizer": "jump-game"
   },
   {
     "number": 15,

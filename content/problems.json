@@ -513,7 +513,8 @@
     "difficulty": "medium",
     "pattern": "greedy",
     "leetcodeUrl": "https://leetcode.com/problems/maximum-subarray/",
-    "premium": false
+    "premium": false,
+    "twist": "Extend the running sum or restart it, keeping the best seen."
   },
   {
     "slug": "jump-game",
@@ -521,7 +522,8 @@
     "difficulty": "medium",
     "pattern": "greedy",
     "leetcodeUrl": "https://leetcode.com/problems/jump-game/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "insert-interval",
