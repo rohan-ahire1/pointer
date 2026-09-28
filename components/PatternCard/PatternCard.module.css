@@ -18,12 +18,12 @@
 }
 
 .cardSoon {
-  background: var(--card);
+  background: var(--paper);
+  border-style: dashed;
 }
 
 .cardLive {
-  background: var(--yellow);
-  color: var(--on-accent);
+  background: var(--card);
 }
 
 .head {

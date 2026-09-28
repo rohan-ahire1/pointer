@@ -18,7 +18,7 @@ type PatternCardProps = {
  * (design/mocks/C2-Home.dc.html) and /patterns (design/mocks/C2-Patterns.dc.html)
  * — the same card, just with an extra progress row on the fuller page.
  * Live vs. soon is always shown as a text label ("Live now" / "Coming
- * soon"), never colour alone, even though live also gets a bolder fill.
+ * soon"), never colour alone, even though coming-soon cards also get a dashed border.
  */
 export function PatternCard({ pattern, variant, solved, total }: PatternCardProps) {
   const live = pattern.status === "live";
