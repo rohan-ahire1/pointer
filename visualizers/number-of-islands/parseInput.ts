@@ -1,15 +1,19 @@
 import type { IslandsInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/11-graphs.md): 1–5 rows of 1s (land) and 0s
  * (water), up to 6 wide, rows separated by spaces. All rows must be the
  * same length. Every error says what *is* allowed.
  */
-export function parseInput(raw: string): IslandsInput | { error: string } {
-  if (raw.trim() === "") {
+export function parseInput(input: string): IslandsInput | { error: string } {
+  // A LeetCode grid like [["1","0"],["0","1"]] gives one row per inner [...].
+  const inner = /\[\s*\[/.test(input) ? input.match(/\[[^[\]]*\]/g) : null;
+  const raw = inner ? inner.map((row) => row.replace(/[^01]/g, "")).join(" ") : stripPasteSyntax(input);
+  const rows = raw.split(/[\s,]+/).filter((token) => token !== "");
+  if (rows.length === 0) {
     return { error: "Enter 1–5 rows of 1s and 0s, up to 6 wide, rows separated by spaces." };
   }
-  const rows = raw.split(/\s+/).filter((token) => token !== "");
   if (rows.length > 5) {
     return { error: `Enter 1–5 rows of 1s and 0s. You entered ${rows.length}.` };
   }

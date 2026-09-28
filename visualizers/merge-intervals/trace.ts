@@ -89,7 +89,7 @@ export function trace(input: MergeInput): Step<MergeState>[] {
           : `[${start}, ${end}] starts at ${start}, inside ${grewFrom}. Stretch it to ${show(last.start, last.end)}.`;
       const sr = contained
         ? `Looking at ${say(start, end)}, inside ${grewSay}. Nothing changes. Merged count ${merged.length}.`
-        : `Looking at ${say(start, end)}, inside ${grewSay}. Stretched to ${say(last.start, last.end)}. Merged count ${merged.length}.`;
+        : `Looking at ${say(start, end)}, ${touches ? "touching" : "inside"} ${grewSay}. Stretched to ${say(last.start, last.end)}. Merged count ${merged.length}.`;
       push(k, "stretch", [3, 4, 5, 6, 7], note, sr);
     } else {
       merged.push({ start, end, from: [id] });

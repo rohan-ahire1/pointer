@@ -141,6 +141,8 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
 
   function loadPreset(value: string) {
     setRaw(value);
+    // Reloading the example already shown should still restart it.
+    reset();
   }
 
   function handleKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
@@ -148,6 +150,8 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
     const tag = target?.tagName;
     // Ignore shortcuts while typing in the input field...
     if (tag === "INPUT" || tag === "TEXTAREA") return;
+    // ...or when a modifier is held, so ⌘R, Alt+← and friends keep working.
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
     // ...or when Space/Enter is what activates a focused button.
     if (tag === "BUTTON" && (event.key === " " || event.key === "Enter")) return;
     // ...or when ← → should scroll a focused scrollable area (the code panel).

@@ -1,11 +1,13 @@
 import type { TwoSumInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/01-arrays-and-hashing.md): 2–8 whole numbers
  * from -99 to 99 separated by spaces or commas, a `|`, then one target from
  * -198 to 198. Every error says what *is* allowed.
  */
-export function parseInput(raw: string): TwoSumInput | { error: string } {
+export function parseInput(input: string): TwoSumInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 2–8 whole numbers from -99 to 99, then | and the target." };
   }

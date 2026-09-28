@@ -139,6 +139,7 @@ describe("container-water parseInput", () => {
   it("parses the presets", () => {
     expect(parseInput("1 8 6 2 5 4 8 3 7")).toEqual([1, 8, 6, 2, 5, 4, 8, 3, 7]);
     expect(parseInput("4 3 2 1 4")).toEqual([4, 3, 2, 1, 4]);
+    expect(parseInput("1,8, 6")).toEqual([1, 8, 6]);
     expect(parseInput("1 1")).toEqual([1, 1]);
   });
 

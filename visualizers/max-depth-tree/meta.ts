@@ -9,5 +9,5 @@ export const meta = {
   presets: ["3 9 20 null null 15 7", "1 null 2", "1 2 3 4 5 6 7"],
   inputLabel: "root =",
   inputHint: "Level order, like LeetCode: 3 9 20 null null 15 7. Up to 4 levels.",
-  inputMaxLength: 60,
+  inputMaxLength: 70,
 } as const;

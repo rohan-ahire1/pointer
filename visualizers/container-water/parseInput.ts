@@ -1,14 +1,16 @@
 import type { ContainerInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/02-two-pointers.md): 2–10 wall heights from 0
- * to 9, separated by spaces. Every error says what *is* allowed.
+ * to 9, separated by spaces or commas. Every error says what *is* allowed.
  */
-export function parseInput(raw: string): ContainerInput | { error: string } {
+export function parseInput(input: string): ContainerInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 2–10 wall heights from 0 to 9, separated by spaces." };
   }
-  const tokens = raw.trim().split(/\s+/);
+  const tokens = raw.trim().split(/[\s,]+/).filter((token) => token !== "");
   if (tokens.length < 2 || tokens.length > 10) {
     return { error: `Enter 2–10 wall heights, separated by spaces. You entered ${tokens.length}.` };
   }

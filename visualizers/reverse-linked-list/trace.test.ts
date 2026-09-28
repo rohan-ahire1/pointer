@@ -146,6 +146,7 @@ describe("reverse-linked-list parseInput", () => {
   it("parses the presets", () => {
     expect(parseInput("1 2 3 4 5")).toEqual([1, 2, 3, 4, 5]);
     expect(parseInput("1 2")).toEqual([1, 2]);
+    expect(parseInput("1,2, 3")).toEqual([1, 2, 3]);
     expect(parseInput("7")).toEqual([7]);
   });
 

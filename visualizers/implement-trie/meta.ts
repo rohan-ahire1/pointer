@@ -9,5 +9,5 @@ export const meta = {
   presets: ["apple app | app", "car cat cart | ca", "tea ten to | tex"],
   inputLabel: "words | query =",
   inputHint: "Up to 4 words of 1–6 letters (a–z), then | and a word to look up.",
-  inputMaxLength: 40,
+  inputMaxLength: 60,
 } as const;

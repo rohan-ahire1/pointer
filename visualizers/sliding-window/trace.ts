@@ -33,7 +33,7 @@ export function trace(s: string): Step<SWState>[] {
       state: { s, l, r, incl, seen: [...seen], best },
       lines,
       note,
-      sr: r < 0 ? "" : `Left edge at ${l}, right edge at ${r}. Window is "${win}". Best so far ${best}.`,
+      sr: r < 0 ? "Window is empty. Best so far 0." : `Left edge at ${l}, right edge at ${r}. Window is "${win}". Best so far ${best}.`,
     });
   };
   push(-1, false, [1, 2], "Start with an empty window and an empty set.");

@@ -158,6 +158,11 @@ describe("number-of-islands property test", () => {
 
 describe("number-of-islands parseInput", () => {
   it("parses the presets", () => {
+    expect(parseInput("10,01")).toEqual([
+      [true, false],
+      [false, true],
+    ]);
+    expect(parseInput(",,,")).toHaveProperty("error");
     expect(parseInput("11000 11000 00100 00011")).toEqual([
       [true, true, false, false, false],
       [true, true, false, false, false],

@@ -130,6 +130,7 @@ describe("find-min-rotated parseInput", () => {
   it("parses the presets", () => {
     expect(parseInput("4 5 6 7 0 1 2")).toEqual([4, 5, 6, 7, 0, 1, 2]);
     expect(parseInput("3 4 5 1 2")).toEqual([3, 4, 5, 1, 2]);
+    expect(parseInput("3,4, 5,1,2")).toEqual([3, 4, 5, 1, 2]);
     expect(parseInput("11 13 15 17")).toEqual([11, 13, 15, 17]);
   });
 

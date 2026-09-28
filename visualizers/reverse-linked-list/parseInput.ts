@@ -1,15 +1,17 @@
 import type { ReverseInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/06-linked-list.md): 1–7 node values from -99
  * to 99, head first, separated by spaces. Every error says what *is*
  * allowed.
  */
-export function parseInput(raw: string): ReverseInput | { error: string } {
+export function parseInput(input: string): ReverseInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 1–7 numbers from -99 to 99, separated by spaces." };
   }
-  const tokens = raw.trim().split(/\s+/);
+  const tokens = raw.trim().split(/[\s,]+/).filter((token) => token !== "");
   if (tokens.length < 1 || tokens.length > 7) {
     return { error: `Enter 1–7 numbers, separated by spaces. You entered ${tokens.length}.` };
   }

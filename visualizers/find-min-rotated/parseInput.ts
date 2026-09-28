@@ -1,4 +1,5 @@
 import type { FindMinInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 const ALLOWED = "1–10 different numbers from -99 to 99, sorted then rotated";
 
@@ -8,11 +9,12 @@ const ALLOWED = "1–10 different numbers from -99 to 99, sorted then rotated";
  * Duplicates and non-rotations are rejected with the hint as the error
  * copy, so every error says what *is* allowed.
  */
-export function parseInput(raw: string): FindMinInput | { error: string } {
+export function parseInput(input: string): FindMinInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: `Enter ${ALLOWED}, like 4 5 6 1 2 3.` };
   }
-  const tokens = raw.trim().split(/\s+/);
+  const tokens = raw.trim().split(/[\s,]+/).filter((token) => token !== "");
   if (tokens.length < 1 || tokens.length > 10) {
     return { error: `Enter ${ALLOWED}. You entered ${tokens.length} numbers.` };
   }

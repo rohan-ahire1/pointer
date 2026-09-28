@@ -1,11 +1,13 @@
 import type { RobberInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/12-1-d-dp.md): 1–8 amounts from 0 to 99, one
  * per house, separated by spaces or commas. Every error says what *is*
  * allowed.
  */
-export function parseInput(raw: string): RobberInput | { error: string } {
+export function parseInput(input: string): RobberInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 1–8 amounts from 0 to 99, one per house, separated by spaces." };
   }

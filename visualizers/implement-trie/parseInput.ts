@@ -1,11 +1,13 @@
 import type { TrieInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/08-tries.md): up to 4 words of 1–6 letters
  * (a–z) separated by spaces or commas, a `|`, then one word to look up.
  * Uppercase is lowercased; every error says what *is* allowed.
  */
-export function parseInput(raw: string): TrieInput | { error: string } {
+export function parseInput(input: string): TrieInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter up to 4 words of 1–6 letters (a–z), then | and a word to look up." };
   }

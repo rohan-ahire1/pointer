@@ -1,11 +1,13 @@
 import type { LcsInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/13-2-d-dp.md): two words of 1–6 lowercase
  * letters, separated by a space. Uppercase is lowercased; every error says
  * what *is* allowed.
  */
-export function parseInput(raw: string): LcsInput | { error: string } {
+export function parseInput(input: string): LcsInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter two words of 1–6 letters (a–z), separated by a space." };
   }

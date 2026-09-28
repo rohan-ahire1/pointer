@@ -1,11 +1,13 @@
 import type { CombinationInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/10-backtracking.md): 2–4 different numbers from
  * 2 to 9 separated by spaces or commas, a `|`, then one target from 1 to 10.
  * Every error says what *is* allowed.
  */
-export function parseInput(raw: string): CombinationInput | { error: string } {
+export function parseInput(input: string): CombinationInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 2–4 different numbers from 2 to 9, then | and a target from 1 to 10." };
   }

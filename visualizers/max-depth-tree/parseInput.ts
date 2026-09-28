@@ -1,4 +1,5 @@
 import type { MaxDepthInput, TreeNodeData } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 const NULL_SPELLINGS = new Set(["null", "_", "#"]);
 
@@ -11,7 +12,8 @@ const NULL_SPELLINGS = new Set(["null", "_", "#"]);
  * and 2p + 1) and `depth` (root 1) are derived from the structure for
  * layout. Every error says what *is* allowed.
  */
-export function parseInput(raw: string): MaxDepthInput | { error: string } {
+export function parseInput(input: string): MaxDepthInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   const empty = { error: "Enter level order values like 3 9 20 null null 15 7. Up to 4 levels." };
   if (raw.trim() === "") return empty;
   const tokens = raw.trim().split(/[\s,]+/).filter((token) => token !== "");

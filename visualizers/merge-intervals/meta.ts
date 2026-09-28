@@ -9,5 +9,5 @@ export const meta = {
   presets: ["1-3 2-6 8-10 15-18", "1-4 4-5", "1-4 0-4"],
   inputLabel: "intervals =",
   inputHint: "1–6 intervals like 1-3, with 0 ≤ start ≤ end ≤ 20, separated by spaces.",
-  inputMaxLength: 40,
+  inputMaxLength: 60,
 } as const;

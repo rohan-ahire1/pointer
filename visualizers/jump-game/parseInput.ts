@@ -1,10 +1,12 @@
 import type { JumpInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/14-greedy.md): 1–10 jump lengths from 0 to 5,
  * separated by spaces or commas. Every error says what *is* allowed.
  */
-export function parseInput(raw: string): JumpInput | { error: string } {
+export function parseInput(input: string): JumpInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 1–10 jump lengths from 0 to 5, separated by spaces." };
   }

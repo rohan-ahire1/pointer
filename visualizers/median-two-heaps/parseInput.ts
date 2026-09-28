@@ -1,11 +1,13 @@
 import type { MedianInput } from "./types";
+import { stripPasteSyntax } from "../kit/paste";
 
 /**
  * Input rules (docs/patterns/09-heaps.md): 1–8 whole numbers from -99 to 99
  * separated by spaces or commas, in the order they arrive. Every error says
  * what *is* allowed.
  */
-export function parseInput(raw: string): MedianInput | { error: string } {
+export function parseInput(input: string): MedianInput | { error: string } {
+  const raw = stripPasteSyntax(input);
   if (raw.trim() === "") {
     return { error: "Enter 1–8 numbers from -99 to 99, in the order they arrive." };
   }

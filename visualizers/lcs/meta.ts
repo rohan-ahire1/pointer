@@ -9,5 +9,5 @@ export const meta = {
   presets: ["abcde ace", "abc abc", "abc def"],
   inputLabel: "text1 text2 =",
   inputHint: "Two words of 1–6 lowercase letters, separated by a space.",
-  inputMaxLength: 13,
+  inputMaxLength: 20,
 } as const;

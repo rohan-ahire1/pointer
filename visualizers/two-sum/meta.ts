@@ -9,5 +9,5 @@ export const meta = {
   presets: ["2 7 11 15 | 9", "3 2 4 | 6", "3 3 | 6"],
   inputLabel: "nums | target =",
   inputHint: "2–8 whole numbers from -99 to 99, then | and the target.",
-  inputMaxLength: 40,
+  inputMaxLength: 50,
 } as const;
