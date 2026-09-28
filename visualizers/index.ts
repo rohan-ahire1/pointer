@@ -11,6 +11,9 @@ import { medianTwoHeapsVisualizer } from "./median-two-heaps";
 import { combinationSumVisualizer } from "./combination-sum";
 import { numberOfIslandsVisualizer } from "./number-of-islands";
 import { houseRobberVisualizer } from "./house-robber";
+import { lcsVisualizer } from "./lcs";
+import { jumpGameVisualizer } from "./jump-game";
+import { mergeIntervalsVisualizer } from "./merge-intervals";
 
 /**
  * Registry of every visualizer, keyed by the id a live pattern's
@@ -36,6 +39,9 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [combinationSumVisualizer.id]: combinationSumVisualizer as Visualizer<unknown, unknown>,
   [numberOfIslandsVisualizer.id]: numberOfIslandsVisualizer as Visualizer<unknown, unknown>,
   [houseRobberVisualizer.id]: houseRobberVisualizer as Visualizer<unknown, unknown>,
+  [lcsVisualizer.id]: lcsVisualizer as Visualizer<unknown, unknown>,
+  [jumpGameVisualizer.id]: jumpGameVisualizer as Visualizer<unknown, unknown>,
+  [mergeIntervalsVisualizer.id]: mergeIntervalsVisualizer as Visualizer<unknown, unknown>,
 };
 
 export function getVisualizer(id: string): Visualizer<unknown, unknown> | undefined {

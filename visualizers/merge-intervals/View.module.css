@@ -1,5 +1,6 @@
 /* Inset so bars at 0 and 20 (and their labels) stay inside the panel. */
 .frame {
+  container-type: inline-size;
   position: relative;
   padding: 0 14px;
   display: flex;
@@ -154,4 +155,12 @@
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
+}
+
+/* On a phone a 2-unit bar is ~26px wide: shrink labels so they stay legible. */
+@container (max-width: 400px) {
+  .barLabel {
+    font-size: 10px;
+    letter-spacing: -0.02em;
+  }
 }
