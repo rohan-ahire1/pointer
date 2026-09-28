@@ -374,7 +374,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-islands/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "clone-graph",
@@ -382,7 +383,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/clone-graph/",
-    "premium": false
+    "premium": false,
+    "twist": "Same flood, but copy each node as you claim it."
   },
   {
     "slug": "pacific-atlantic-water-flow",
@@ -390,7 +392,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
-    "premium": false
+    "premium": false,
+    "twist": "Flood from both oceans, keep the overlap."
   },
   {
     "slug": "course-schedule",
@@ -398,7 +401,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/course-schedule/",
-    "premium": false
+    "premium": false,
+    "twist": "Flood along arrows; a loop means no schedule."
   },
   {
     "slug": "number-of-connected-components",
@@ -406,7 +410,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/",
-    "premium": true
+    "premium": true,
+    "twist": "Count the floods in a graph, not a grid."
   },
   {
     "slug": "graph-valid-tree",
@@ -414,7 +419,8 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/graph-valid-tree/",
-    "premium": true
+    "premium": true,
+    "twist": "One flood plus no loops means a tree."
   },
   {
     "slug": "climbing-stairs",
@@ -422,7 +428,8 @@
     "difficulty": "easy",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/climbing-stairs/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: each step adds the two ways below it."
   },
   {
     "slug": "house-robber",
@@ -430,7 +437,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/house-robber/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "house-robber-ii",
@@ -438,7 +446,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/house-robber-ii/",
-    "premium": false
+    "premium": false,
+    "twist": "Same street, but the ends are neighbours too."
   },
   {
     "slug": "longest-palindromic-substring",
@@ -446,7 +455,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/longest-palindromic-substring/",
-    "premium": false
+    "premium": false,
+    "twist": "Grow the answer out from each centre."
   },
   {
     "slug": "palindromic-substrings",
@@ -454,7 +464,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/palindromic-substrings/",
-    "premium": false
+    "premium": false,
+    "twist": "Count the palindromes around every centre."
   },
   {
     "slug": "decode-ways",
@@ -462,7 +473,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/decode-ways/",
-    "premium": false
+    "premium": false,
+    "twist": "Each digit stands alone or pairs with its neighbour."
   },
   {
     "slug": "coin-change",
@@ -470,7 +482,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/coin-change/",
-    "premium": false
+    "premium": false,
+    "twist": "Fewest coins per amount, built coin by coin."
   },
   {
     "slug": "maximum-product-subarray",
@@ -478,7 +491,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/maximum-product-subarray/",
-    "premium": false
+    "premium": false,
+    "twist": "Track the best and worst ending at each step."
   },
   {
     "slug": "word-break",
@@ -486,7 +500,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/word-break/",
-    "premium": false
+    "premium": false,
+    "twist": "Each cut asks whether the prefix already breaks."
   },
   {
     "slug": "longest-increasing-subsequence",
@@ -494,7 +509,8 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/longest-increasing-subsequence/",
-    "premium": false
+    "premium": false,
+    "twist": "Each number extends the best run before it."
   },
   {
     "slug": "unique-paths",
