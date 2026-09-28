@@ -531,7 +531,8 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/insert-interval/",
-    "premium": false
+    "premium": false,
+    "twist": "Slide the new interval into its sorted slot, then merge."
   },
   {
     "slug": "merge-intervals",
@@ -539,7 +540,8 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/merge-intervals/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "non-overlapping-intervals",
@@ -547,7 +549,8 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/non-overlapping-intervals/",
-    "premium": false
+    "premium": false,
+    "twist": "Count the overlaps to remove instead of merging them."
   },
   {
     "slug": "meeting-rooms",
@@ -555,7 +558,8 @@
     "difficulty": "easy",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/meeting-rooms/",
-    "premium": true
+    "premium": true,
+    "twist": "Warm-up: sort by start; any overlap means a clash."
   },
   {
     "slug": "meeting-rooms-ii",
@@ -563,7 +567,8 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/meeting-rooms-ii/",
-    "premium": true
+    "premium": true,
+    "twist": "Track how many meetings run at once; keep the peak."
   },
   {
     "slug": "alien-dictionary",

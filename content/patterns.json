@@ -530,13 +530,49 @@
     "name": "Intervals",
     "group": "advanced",
     "idea": "Sort by start, then merge or split.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "insert-interval",
       "merge-intervals",
       "non-overlapping-intervals",
       "meeting-rooms",
       "meeting-rooms-ii"
-    ]
+    ],
+    "analogy": "Lay every meeting of a shared day on one timeline in start order. Meetings that overlap or touch fuse into one busy block. What is left is the day’s true shape, with every gap visible.",
+    "minutes": 15,
+    "needs": [
+      "sorting",
+      "arrays"
+    ],
+    "complexity": "O(n log n)",
+    "whenToUse": [
+      "Inputs are ranges with a start and end",
+      "Overlap or touching decides the answer",
+      "Order by start, then walk once"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Four bookings cover 1–3, 2–6, 8–10 and 15–18. Which busy blocks do they really form? Comparing every pair is n² work."
+        },
+        {
+          "t": 15,
+          "text": "Sort them by start instead. Once they line up, each booking only meets the block before it."
+        },
+        {
+          "t": 32,
+          "text": "2–6 starts inside 1–3, so stretch the block to 1–6. 8–10 starts after 6, so it opens a new block."
+        },
+        {
+          "t": 48,
+          "text": "One sort, one walk: O(n log n). Three blocks left: 1–6, 8–10 and 15–18. That’s intervals."
+        }
+      ]
+    },
+    "visualizer": "merge-intervals"
   }
 ]
