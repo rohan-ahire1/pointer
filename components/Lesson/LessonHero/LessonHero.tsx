@@ -21,6 +21,9 @@ function splitTitle(name: string): { lead: string; last: string } {
  */
 export function LessonHero({ pattern, groupLabel }: LessonHeroProps) {
   const { lead, last } = splitTitle(pattern.name);
+  // A single word this long ("Backtracking") can't wrap, so it gets a smaller
+  // phone size; shorter titles keep the design's size.
+  const hasLongWord = pattern.name.split(" ").some((word) => word.length >= 11);
 
   return (
     <header id="idea" className={styles.header}>
@@ -29,7 +32,7 @@ export function LessonHero({ pattern, groupLabel }: LessonHeroProps) {
           <Link href="/patterns">Patterns</Link> <span aria-hidden="true">›</span> {groupLabel}{" "}
           <span aria-hidden="true">›</span> <span aria-current="page">{pattern.name}</span>
         </nav>
-        <h1 className={`soft ${styles.title}`}>
+        <h1 className={`soft ${styles.title}`} data-long-word={hasLongWord}>
           {lead}
           <span className={styles.highlight}>{last}</span>
         </h1>

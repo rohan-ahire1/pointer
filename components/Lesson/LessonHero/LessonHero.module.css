@@ -36,6 +36,10 @@
   overflow-wrap: break-word;
 }
 
+.title[data-long-word="true"] {
+  font-size: clamp(24px, 8vw, 83px);
+}
+
 .highlight {
   background: var(--yellow);
   padding: 0 14px;
