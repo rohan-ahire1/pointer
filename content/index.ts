@@ -58,15 +58,15 @@ export function problemsForPattern(slug: string): Problem[] {
 export const PATTERN_GROUPS: Record<PatternGroup, { label: string; description: string }> = {
   foundations: {
     label: "Foundations",
-    description: "Start here. Arrays, pointers and windows.",
+    description: "Start here. Arrays, pointers, windows, stacks and search.",
   },
   structures: {
     label: "Structures & Recursion",
-    description: "Lists, trees and trying every option.",
+    description: "Lists, trees, heaps and trying every option.",
   },
   advanced: {
     label: "Advanced",
-    description: "Graphs, dynamic programming and greedy choices.",
+    description: "Graphs, dynamic programming, greedy choices and intervals.",
   },
 };
 

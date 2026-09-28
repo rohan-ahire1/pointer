@@ -103,7 +103,7 @@ describe("house-robber trace shape", () => {
 
   it("fills one dp cell per decide step", () => {
     const steps = trace(mustParse("2 7 9 3 1"));
-    expect(steps[steps.length - 1].note).toBe("Done. The best haul is 12, from houses 1, 3 and 5.");
+    expect(steps[steps.length - 1].note).toBe("Done. The best haul is 12, from houses 0, 2 and 4.");
     const decides = steps.filter((step) => step.state.phase === "decide");
     expect(decides.map((step) => step.state.dp)).toEqual([
       [0, 2, 7, null, null, null],

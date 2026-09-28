@@ -32,7 +32,7 @@ function maxArea(height: number[]): number {
 |---|---|---|
 | setup | 1, 2 | Start with the widest container: the first and last walls. |
 | measure | 3, 4, 5 | Walls 1 and 7, 8 apart. Water fills to 1, so the area is 8. Best so far 8. |
-| move | 6 or 7 | The left wall is shorter, so move it in. Moving the taller one can only lose. |
+| move | 6 or 7 | The left wall is shorter, so move it in. Moving the taller one can never do better. |
 | done | 9 | Done. The biggest container holds 49. |
 
 Equal heights move `right` (line 7) — say "Both walls are 5. Move the right one in." `sr` example:

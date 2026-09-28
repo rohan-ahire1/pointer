@@ -80,7 +80,7 @@ export function trace(input: ContainerInput): Step<ContainerState>[] {
         false,
         "left",
         [6],
-        "The left wall is shorter, so move it in. Moving the taller one can only lose.",
+        "The left wall is shorter, so move it in. Moving the taller one can never do better.",
         `The left wall is shorter. Moving it in from ${left}. Best so far ${best}.`,
       );
       left++;
@@ -88,7 +88,7 @@ export function trace(input: ContainerInput): Step<ContainerState>[] {
       const note =
         height[left] === height[right]
           ? `Both walls are ${height[left]}. Move the right one in.`
-          : "The right wall is shorter, so move it in. Moving the taller one can only lose.";
+          : "The right wall is shorter, so move it in. Moving the taller one can never do better.";
       push(
         "move",
         h,

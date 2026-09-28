@@ -57,7 +57,7 @@ export function HouseRobberView({ step }: RobberViewProps) {
                   state={houseState(house)}
                   badge={robbedSet.has(house) && phase === "done" ? "✓" : undefined}
                 />
-                <span className={styles.houseLabel}>#{house + 1}</span>
+                <span className={styles.houseLabel}>#{house}</span>
               </div>
             ))}
           </div>
@@ -86,7 +86,7 @@ export function HouseRobberView({ step }: RobberViewProps) {
           </>
         ) : (
           <span className={styles.compareIdle}>
-            {phase === "done" ? `robbed: ${[...robbedSet].map((h) => `#${h + 1}`).join(", ")}` : "skip it, or take it"}
+            {phase === "done" ? `robbed: ${[...robbedSet].map((h) => `#${h}`).join(", ")}` : "skip it, or take it"}
           </span>
         )}
       </div>

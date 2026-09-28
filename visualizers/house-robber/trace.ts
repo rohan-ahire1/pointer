@@ -67,7 +67,7 @@ export function trace(input: RobberInput): Step<RobberState>[] {
     null,
     [2],
     `With one house, take it: dp[1] = ${nums[0]}.`,
-    `House 1 of ${nums.length}, amount ${nums[0]}. dp[1] = ${nums[0]}. ${filledSr()}`,
+    `House 0, amount ${nums[0]}. dp[1] = ${nums[0]}. ${filledSr()}`,
   );
 
   for (let i = 2; i <= nums.length; i++) {
@@ -81,8 +81,8 @@ export function trace(input: RobberInput): Step<RobberState>[] {
       "compare",
       null,
       [3, 4, 5],
-      `House ${i} has ${nums[i - 1]}. Skip it: keep ${skip}. Take it: ${dp[i - 2]} + ${nums[i - 1]} = ${take}.`,
-      `House ${i} of ${nums.length}, amount ${nums[i - 1]}. Skip gives ${skip}, take gives ${take}. ${filledSr()}`,
+      `House ${i - 1} has ${nums[i - 1]}. Skip it: keep ${skip}. Take it: ${dp[i - 2]} + ${nums[i - 1]} = ${take}.`,
+      `House ${i - 1}, amount ${nums[i - 1]}. Skip gives ${skip}, take gives ${take}. ${filledSr()}`,
     );
     const choice: RobberState["choice"] = take > skip ? "take" : "skip";
     dp[i] = Math.max(skip, take);
@@ -101,7 +101,7 @@ export function trace(input: RobberInput): Step<RobberState>[] {
       null,
       [6],
       verdict,
-      `House ${i} of ${nums.length}. ${verdict} ${filledSr()}`,
+      `House ${i - 1}. ${verdict} ${filledSr()}`,
     );
   }
 
@@ -115,15 +115,14 @@ export function trace(input: RobberInput): Step<RobberState>[] {
       i -= 1;
     }
   }
-  const houses = robbed.map((h) => h + 1);
   const listed =
-    houses.length <= 1
-      ? houses.join("")
-      : `${houses.slice(0, -1).join(", ")} and ${houses[houses.length - 1]}`;
+    robbed.length <= 1
+      ? robbed.join("")
+      : `${robbed.slice(0, -1).join(", ")} and ${robbed[robbed.length - 1]}`;
   const doneNote =
     robbed.length === 0
       ? `Done. The best haul is ${dp[nums.length]}.`
-      : `Done. The best haul is ${dp[nums.length]}, from ${houses.length === 1 ? "house" : "houses"} ${listed}.`;
+      : `Done. The best haul is ${dp[nums.length]}, from ${robbed.length === 1 ? "house" : "houses"} ${listed}.`;
   push(
     null,
     null,
