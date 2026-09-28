@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getPatterns } from "@/content";
 import { SITE_URL } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 const STATIC_ROUTES: readonly { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/patterns", changeFrequency: "weekly", priority: 0.9 },

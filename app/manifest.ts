@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 /**
  * Colours are hard-coded brand hex, matching styles/tokens.css's light
  * theme (`--paper` / `--orange`) — a web manifest is plain JSON with no

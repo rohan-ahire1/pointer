@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 
+export const dynamic = "force-static";
+
 export const runtime = "nodejs";
 export const alt = "Pointer — algorithms you can watch move";
 export const size = { width: 1200, height: 630 };
