@@ -612,11 +612,47 @@
     "name": "2-D DP",
     "group": "advanced",
     "idea": "Fill a table cell by cell.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "unique-paths",
       "longest-common-subsequence"
-    ]
+    ],
+    "analogy": "Picture a spreadsheet where every formula only points at the cells above and to the left. Fill it from the top-left corner and each cell becomes a small finished answer. The bottom-right cell then holds the whole answer, built without redoing a single cell.",
+    "minutes": 15,
+    "needs": [
+      "2D arrays",
+      "1-D DP"
+    ],
+    "complexity": "O(m·n)",
+    "whenToUse": [
+      "Two strings or grids must be compared",
+      "Each answer builds on smaller prefixes",
+      "Brute force checks every pair of prefixes"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "“abcde” and “ace” share letters in order, but which run is longest? Listing every subsequence of each word explodes fast."
+        },
+        {
+          "t": 15,
+          "text": "Build a table instead. Each cell answers a smaller question: how much do these two prefixes share?"
+        },
+        {
+          "t": 32,
+          "text": "Fill it corner to corner. ‘c’ meets ‘c’, so take the diagonal 1 and add one: 2. A miss carries the best neighbour."
+        },
+        {
+          "t": 48,
+          "text": "The corner reads 3: “ace”. One pass over the table, O(m·n) time. That’s 2-D DP."
+        }
+      ]
+    },
+    "visualizer": "longest-common-subsequence"
   },
   {
     "number": 14,
@@ -624,11 +660,46 @@
     "name": "Greedy",
     "group": "advanced",
     "idea": "Take the best move now. Never look back.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "maximum-subarray",
       "jump-game"
-    ]
+    ],
+    "analogy": "Cross a stream on stepping stones without ever planning the route. From each stone, only note the farthest stone you could land on. If the next stone sits past that mark, the crossing is impossible, and you knew without retracing a step.",
+    "minutes": 10,
+    "needs": [
+      "arrays"
+    ],
+    "complexity": "O(n)",
+    "whenToUse": [
+      "A single choice now never needs revisiting",
+      "Only the best option so far matters",
+      "Brute force tries every combination"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Five stones hold jumps of 2, 3, 1, 1 and 4. Can you reach the end? Trying every route from every stone blows up fast."
+        },
+        {
+          "t": 15,
+          "text": "Forget the route. Track one number instead: the farthest stone you could reach so far."
+        },
+        {
+          "t": 32,
+          "text": "Stone 1 jumps 3, landing on stone 4 and stretching the reach to 4. Every later stone sits inside it."
+        },
+        {
+          "t": 48,
+          "text": "One scan, O(n) time: yes, you reach the end. That’s greedy: the best move now, never looking back."
+        }
+      ]
+    },
+    "visualizer": "jump-game"
   },
   {
     "number": 15,
@@ -636,13 +707,49 @@
     "name": "Intervals",
     "group": "advanced",
     "idea": "Sort by start, then merge or split.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "insert-interval",
       "merge-intervals",
       "non-overlapping-intervals",
       "meeting-rooms",
       "meeting-rooms-ii"
-    ]
+    ],
+    "analogy": "Lay every meeting of a shared day on one timeline in start order. Meetings that overlap or touch fuse into one busy block. What is left is the day’s true shape, with every gap visible.",
+    "minutes": 15,
+    "needs": [
+      "sorting",
+      "arrays"
+    ],
+    "complexity": "O(n log n)",
+    "whenToUse": [
+      "Inputs are ranges with a start and end",
+      "Overlap or touching decides the answer",
+      "Order by start, then walk once"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Four bookings cover 1–3, 2–6, 8–10 and 15–18. Which busy blocks do they really form? Comparing every pair is n² work."
+        },
+        {
+          "t": 15,
+          "text": "Sort them by start instead. Once they line up, each booking only meets the block before it."
+        },
+        {
+          "t": 32,
+          "text": "2–6 starts inside 1–3, so stretch the block to 1–6. 8–10 starts after 6, so it opens a new block."
+        },
+        {
+          "t": 48,
+          "text": "One sort, one walk: O(n log n). Three blocks left: 1–6, 8–10 and 15–18. That’s intervals."
+        }
+      ]
+    },
+    "visualizer": "merge-intervals"
   }
 ]
