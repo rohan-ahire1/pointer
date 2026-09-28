@@ -435,11 +435,47 @@
     "name": "2-D DP",
     "group": "advanced",
     "idea": "Fill a table cell by cell.",
-    "status": "soon",
+    "status": "live",
     "problems": [
       "unique-paths",
       "longest-common-subsequence"
-    ]
+    ],
+    "analogy": "Picture a spreadsheet where every formula only points at the cells above and to the left. Fill it from the top-left corner and each cell becomes a small finished answer. The bottom-right cell then holds the whole answer, built without redoing a single cell.",
+    "minutes": 15,
+    "needs": [
+      "2D arrays",
+      "1-D DP"
+    ],
+    "complexity": "O(m·n)",
+    "whenToUse": [
+      "Two strings or grids must be compared",
+      "Each answer builds on smaller prefixes",
+      "Brute force checks every pair of prefixes"
+    ],
+    "video": {
+      "src": "[EXPLAINER VIDEO URL]",
+      "durationSec": 60,
+      "captions": "[VTT URL]",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "“abcde” and “ace” share letters in order, but which run is longest? Listing every subsequence of each word explodes fast."
+        },
+        {
+          "t": 15,
+          "text": "Build a table instead. Each cell answers a smaller question: how much do these two prefixes share?"
+        },
+        {
+          "t": 32,
+          "text": "Fill it corner to corner. ‘c’ meets ‘c’, so take the diagonal 1 and add one: 2. A miss carries the best neighbour."
+        },
+        {
+          "t": 48,
+          "text": "The corner reads 3: “ace”. One pass over the table, O(m·n) time. That’s 2-D DP."
+        }
+      ]
+    },
+    "visualizer": "longest-common-subsequence"
   },
   {
     "number": 14,

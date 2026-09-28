@@ -495,7 +495,8 @@
     "difficulty": "medium",
     "pattern": "2-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/unique-paths/",
-    "premium": false
+    "premium": false,
+    "twist": "Warm-up: each cell adds the ways from above and left."
   },
   {
     "slug": "longest-common-subsequence",
@@ -503,7 +504,8 @@
     "difficulty": "medium",
     "pattern": "2-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/longest-common-subsequence/",
-    "premium": false
+    "premium": false,
+    "twist": "The one you just watched. Write it from memory."
   },
   {
     "slug": "maximum-subarray",
