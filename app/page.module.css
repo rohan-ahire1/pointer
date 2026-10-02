@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 48px 16px 64px;
+  padding: 32px 16px 64px;
 }
 
 @media (min-width: 768px) {
   .hero {
-    padding: 72px 32px 96px;
+    padding: 40px 32px 96px;
   }
 }
 
@@ -16,7 +16,7 @@
     flex-direction: row;
     align-items: center;
     gap: 36px;
-    padding: 96px 88px 120px;
+    padding: 56px 88px 120px;
   }
 }
 
@@ -35,6 +35,8 @@
 
 .eyebrow {
   align-self: flex-start;
+  /* Sits tight on the title: 22px gap minus 8px. */
+  margin: 0 0 -8px;
   font-size: 18px;
   font-weight: 700;
   color: var(--pen);

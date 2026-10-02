@@ -1,18 +1,18 @@
 .page {
   display: flex;
   flex-direction: column;
-  padding: 16px 16px 0;
+  padding: 16px 16px 64px;
 }
 
 @media (min-width: 768px) {
   .page {
-    padding: 16px 32px 0;
+    padding: 16px 32px 96px;
   }
 }
 
 @media (min-width: 1200px) {
   .page {
-    padding: 0 88px 0;
+    padding: 0 88px 96px;
   }
 }
 

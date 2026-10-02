@@ -38,7 +38,7 @@ export default function HomePage() {
   // retires the "more on the way" once everything is live.
   const liveNote =
     liveCount === patterns.length
-      ? `All ${patterns.length} lessons live →`
+      ? `All ${patterns.length} patterns →`
       : liveCount === 1 && firstLive
         ? `${String(firstLive.number).padStart(2, "0")} is live. more on the way →`
         : `${String(liveCount).padStart(2, "0")} are live. more on the way →`;

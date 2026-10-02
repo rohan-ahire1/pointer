@@ -42,7 +42,6 @@
   border-radius: 9px;
 }
 
-.tagLive,
 .tagSoon {
   font-size: 13px;
   font-weight: 700;
@@ -50,10 +49,6 @@
   border-radius: 999px;
   background: var(--card);
   border: 1.5px solid var(--line);
-}
-
-.tagLive {
-  color: var(--ink);
 }
 
 .tagSoon {

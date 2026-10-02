@@ -17,8 +17,7 @@ type PatternCardProps = {
  * One pattern tile, shared between Home's "Pick a pattern" grid
  * (design/mocks/C2-Home.dc.html) and /patterns (design/mocks/C2-Patterns.dc.html)
  * — the same card, just with an extra progress row on the fuller page.
- * Live vs. soon is always shown as a text label ("Live now" / "Coming
- * soon"), never colour alone, even though coming-soon cards also get a dashed border.
+ * Only coming-soon cards carry a label ("Coming soon") and a dashed border.
  */
 export function PatternCard({ pattern, variant, solved, total }: PatternCardProps) {
   const live = pattern.status === "live";
@@ -36,7 +35,7 @@ export function PatternCard({ pattern, variant, solved, total }: PatternCardProp
         <span className={styles.number} style={{ background: chipColorForNumber(pattern.number) }}>
           {padPatternNumber(pattern.number)}
         </span>
-        <span className={live ? styles.tagLive : styles.tagSoon}>{live ? "Live now" : "Coming soon"}</span>
+        {!live && <span className={styles.tagSoon}>Coming soon</span>}
       </span>
       <span className={`soft ${styles.name}`}>{pattern.name}</span>
       <span className={styles.idea}>{pattern.idea}</span>

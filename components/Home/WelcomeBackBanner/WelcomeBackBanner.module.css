@@ -29,11 +29,11 @@
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500; /* DM Mono has no 700; a faux-bold looks smeared */
+  letter-spacing: 0.08em;
 }
 
 .copy {
-  flex-grow: 1;
   font-size: 15px;
 }
 
@@ -45,7 +45,8 @@
 
 .progressTrack {
   display: none;
-  width: 140px;
+  flex: 1 1 140px;
+  max-width: 360px;
   height: 12px;
   background: var(--card);
   border: var(--border);
@@ -74,4 +75,10 @@
   border: var(--border);
   border-radius: 12px;
   font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .resume {
+    margin-left: auto;
+  }
 }
