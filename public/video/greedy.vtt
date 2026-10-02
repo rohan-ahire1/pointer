@@ -1,13 +1,13 @@
 WEBVTT
 
-00:00.000 --> 00:05.497
+00:00.000 --> 00:04.825
 Five stones hold jumps of 2, 3, 1, 1 and 4.
 
-00:05.497 --> 00:08.309
+00:04.825 --> 00:07.294
 Can you reach the end?
 
-00:08.309 --> 00:14.700
-Trying every route from every stone blows up fast.
+00:07.294 --> 00:14.700
+Trying every route means following the same jumps again and again.
 
 00:15.000 --> 00:18.340
 Forget the route.
@@ -15,15 +15,14 @@ Forget the route.
 00:18.340 --> 00:31.700
 Track one number instead: the farthest stone you could reach so far.
 
-00:32.000 --> 00:42.467
-Stone 1 jumps 3, landing on stone 4 and stretching the reach to 4.
+00:32.000 --> 00:38.531
+Stone 1 jumps 3, stretching the reach to 4, the end.
 
-00:42.467 --> 00:47.700
-Every later stone sits inside it.
+00:38.531 --> 00:47.700
+Now try 3, 2, 1, 0, 4: the reach stalls at 3, so stone 4 is out of reach.
 
-00:48.000 --> 00:53.307
-One scan, O(n) time: yes, you reach the end.
+00:48.000 --> 00:54.354
+One scan, O(n) time: a stone past the reach means you’re stuck.
 
-00:53.307 --> 00:59.700
+00:54.354 --> 00:59.700
 That’s greedy: the best move now, never looking back.
-

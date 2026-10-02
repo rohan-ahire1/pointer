@@ -1,10 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:05.953
+00:00.000 --> 00:05.856
 A grid of land and water hides joined-up islands.
 
-00:05.953 --> 00:14.700
-Re-exploring from every land cell repeats the same ground over and over.
+00:05.856 --> 00:14.700
+Flooding again from every land cell repeats the same ground over and over.
 
 00:15.000 --> 00:19.555
 Scan row by row instead.
@@ -26,4 +26,3 @@ Three drops of ink, three islands.
 
 00:57.041 --> 00:59.700
 That’s graph search.
-

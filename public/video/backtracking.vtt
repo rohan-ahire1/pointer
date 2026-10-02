@@ -1,10 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:04.458
+00:00.000 --> 00:04.571
 Which sets of 2, 3, 6 and 7 add to 7?
 
-00:04.458 --> 00:14.700
-Trying every multiset blindly repeats dead ends, because most sets overshoot or miss.
+00:04.571 --> 00:14.700
+Trying every branch blindly means 28 nodes, most of them dead ends that overshoot.
 
 00:15.000 --> 00:22.937
 Try one number at a time and carry what is left.
@@ -23,4 +23,3 @@ Trying every branch is exponential, but each cut prunes a whole subtree.
 
 00:57.157 --> 00:59.700
 That’s backtracking.
-

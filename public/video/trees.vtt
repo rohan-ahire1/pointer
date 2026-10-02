@@ -1,16 +1,16 @@
 WEBVTT
 
-00:00.000 --> 00:06.979
+00:00.000 --> 00:05.806
 A tree with five nodes, and you need its depth.
 
-00:06.979 --> 00:14.700
-Counting levels by hand means tracking every branch.
+00:05.806 --> 00:14.700
+Walking every root-to-leaf path visits the shared nodes again and again.
 
-00:15.000 --> 00:24.811
+00:15.000 --> 00:23.532
 Instead, ask each child how deep its side goes.
 
-00:24.811 --> 00:31.700
-Leaves answer 1: just themselves.
+00:23.532 --> 00:31.700
+An empty side answers 0, so a leaf answers 1.
 
 00:32.000 --> 00:43.328
 20 hears 1 from each side, takes the deeper, adds one: 2.
@@ -18,12 +18,11 @@ Leaves answer 1: just themselves.
 00:43.328 --> 00:47.700
 Answers bubble upward.
 
-00:48.000 --> 00:52.712
+00:48.000 --> 00:52.713
 Each node answers once: O(n).
 
-00:52.712 --> 00:55.313
+00:52.713 --> 00:55.313
 The root says 3.
 
 00:55.313 --> 00:59.700
 That’s recursion on a tree.
-

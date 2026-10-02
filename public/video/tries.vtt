@@ -1,26 +1,25 @@
 WEBVTT
 
-00:00.000 --> 00:07.048
-Searching a word list means checking every word from its first letter.
+00:00.000 --> 00:06.149
+Searching a word list means comparing the query with every word.
 
-00:07.048 --> 00:14.700
-When thousands of words share beginnings, all that repeated reading adds up.
+00:06.149 --> 00:14.700
+“car”, “cat” and “cart” all start the same, so the same letters get read again and again.
 
-00:15.000 --> 00:20.803
+00:15.000 --> 00:21.648
 A trie stores each shared beginning once.
 
-00:20.803 --> 00:31.700
-“apple” and “app” walk the same a-p-p path and branch only where they differ.
+00:21.648 --> 00:31.700
+“car” and “cat” share c-a, then branch only where they differ.
 
-00:32.000 --> 00:41.077
-Inserting reuses every node already there, then marks where the word ends.
+00:32.000 --> 00:38.742
+Inserting reuses every node already there and marks where a word ends.
 
-00:41.077 --> 00:47.700
-Looking up “app” walks the same path letter by letter.
+00:38.742 --> 00:47.700
+Looking up “ca” walks c, then a, but no word ends there: search says no, startsWith says yes.
 
 00:48.000 --> 00:56.681
 Each operation costs one hop per letter: O(L).
 
 00:56.681 --> 00:59.700
 That’s the trie.
-

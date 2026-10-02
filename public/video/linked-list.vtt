@@ -18,9 +18,8 @@ For each node, save next first, then point curr back at prev.
 00:42.641 --> 00:47.700
 Never cut before you hold on.
 
-00:48.000 --> 00:53.442
-One pass, O(n) time.
+00:48.000 --> 00:55.856
+One pass, O(n) time, and not a single new node.
 
-00:53.442 --> 00:59.700
+00:55.856 --> 00:59.700
 That’s the linked list.
-

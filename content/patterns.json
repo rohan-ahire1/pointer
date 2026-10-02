@@ -35,7 +35,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Two Sum asks which two numbers add to 9. Trying every pair means each number meets every other number. That is n² work."
+          "text": "Which two numbers add to 9? Checking every pair, the answer only turns up on the tenth and last try. That is n² work."
         },
         {
           "t": 15,
@@ -43,7 +43,7 @@
         },
         {
           "t": 32,
-          "text": "For each number, ask the map for its partner. 9 minus 7 is 2, and 2 is already in the map, so the pair is 0 and 1."
+          "text": "For each number, ask the map for its partner. At 5 you need 4, and 4 is already in the map, so the pair is 3 and 4."
         },
         {
           "t": 48,
@@ -83,7 +83,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Nine walls stand in a row, and you must pick the pair that holds the most water. Trying every pair means n² checks."
+          "text": "Nine walls stand in a row, and you must pick the pair that holds the most water. Trying every pair means measuring 36 containers."
         },
         {
           "t": 15,
@@ -91,11 +91,11 @@
         },
         {
           "t": 32,
-          "text": "The shorter wall is the limit, so move it inward. The taller wall never needs to move first."
+          "text": "The shorter wall is the limit, so move it inward. Moving the taller wall instead could never hold more."
         },
         {
           "t": 48,
-          "text": "Each wall moves once, so one pass finds the best: 49. That’s two pointers."
+          "text": "Each wall moves at most once, so 8 measurements find the best: 49. That’s two pointers."
         }
       ]
     },
@@ -133,7 +133,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Say you need the longest stretch of a string with no repeated letters. The obvious way checks every start and every end. That’s n² work."
+          "text": "Say you need the longest stretch of a string with no repeated letters. The obvious way checks every start and every end: 36 windows for 8 letters."
         },
         {
           "t": 15,
@@ -180,7 +180,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Six brackets, and each closer must meet the right opener. Scanning ahead for every match is slow."
+          "text": "Six brackets, nested inside each other, and each closer must meet the right opener. Stripping pairs and rescanning reads the string again and again."
         },
         {
           "t": 15,
@@ -188,7 +188,7 @@
         },
         {
           "t": 32,
-          "text": "Each closer checks only the top plate. If they match, the pair is settled."
+          "text": "Each closer checks only the top plate, the newest opener still waiting. If they match, the pair is settled."
         },
         {
           "t": 48,
@@ -228,7 +228,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Seven numbers, sorted but rotated, and you need the smallest. Scanning all seven works, but slowly."
+          "text": "Seven numbers, sorted but rotated, and you need the smallest. Reading all seven works, but it touches every number."
         },
         {
           "t": 15,
@@ -292,7 +292,7 @@
         },
         {
           "t": 48,
-          "text": "One pass, O(n) time. That’s the linked list."
+          "text": "One pass, O(n) time, and not a single new node. That’s the linked list."
         }
       ]
     },
@@ -336,11 +336,11 @@
       "transcript": [
         {
           "t": 0,
-          "text": "A tree with five nodes, and you need its depth. Counting levels by hand means tracking every branch."
+          "text": "A tree with five nodes, and you need its depth. Walking every root-to-leaf path visits the shared nodes again and again."
         },
         {
           "t": 15,
-          "text": "Instead, ask each child how deep its side goes. Leaves answer 1: just themselves."
+          "text": "Instead, ask each child how deep its side goes. An empty side answers 0, so a leaf answers 1."
         },
         {
           "t": 32,
@@ -385,15 +385,15 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Searching a word list means checking every word from its first letter. When thousands of words share beginnings, all that repeated reading adds up."
+          "text": "Searching a word list means comparing the query with every word. “car”, “cat” and “cart” all start the same, so the same letters get read again and again."
         },
         {
           "t": 15,
-          "text": "A trie stores each shared beginning once. “apple” and “app” walk the same a-p-p path and branch only where they differ."
+          "text": "A trie stores each shared beginning once. “car” and “cat” share c-a, then branch only where they differ."
         },
         {
           "t": 32,
-          "text": "Inserting reuses every node already there, then marks where the word ends. Looking up “app” walks the same path letter by letter."
+          "text": "Inserting reuses every node already there and marks where a word ends. Looking up “ca” walks c, then a, but no word ends there: search says no, startsWith says yes."
         },
         {
           "t": 48,
@@ -432,7 +432,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Numbers arrive one at a time and you must report the median after each. Sorting everything so far each time costs n log n per number."
+          "text": "Numbers arrive one at a time and you must report the median after each. Re-sorting everything so far after every number does the same work over and over."
         },
         {
           "t": 15,
@@ -480,7 +480,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Which sets of 2, 3, 6 and 7 add to 7? Trying every multiset blindly repeats dead ends, because most sets overshoot or miss."
+          "text": "Which sets of 2, 3, 6 and 7 add to 7? Trying every branch blindly means 28 nodes, most of them dead ends that overshoot."
         },
         {
           "t": 15,
@@ -532,7 +532,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "A grid of land and water hides joined-up islands. Re-exploring from every land cell repeats the same ground over and over."
+          "text": "A grid of land and water hides joined-up islands. Flooding again from every land cell repeats the same ground over and over."
         },
         {
           "t": 15,
@@ -588,11 +588,11 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Five houses hold 2, 7, 9, 3 and 1, but neighbours share an alarm. Trying every subset rechecks the same endings again and again."
+          "text": "Five houses hold 2, 7, 9, 3 and 1, but neighbours share an alarm. Trying all 32 sets of houses rechecks the same endings again and again."
         },
         {
           "t": 15,
-          "text": "Write down the best haul for the first house, then the first two. Each answer only needs the two lines above it."
+          "text": "Write down the best haul for the first house, then the first two. Each answer only needs the two cells before it."
         },
         {
           "t": 32,
@@ -636,7 +636,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "“abcde” and “ace” share letters in order, but which run is longest? Listing every subsequence of each word explodes fast."
+          "text": "“abcde” and “ace” share letters in order, but which run is longest? Listing every subsequence of “abcde” takes 32 checks, and it doubles with every letter."
         },
         {
           "t": 15,
@@ -683,7 +683,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Five stones hold jumps of 2, 3, 1, 1 and 4. Can you reach the end? Trying every route from every stone blows up fast."
+          "text": "Five stones hold jumps of 2, 3, 1, 1 and 4. Can you reach the end? Trying every route means following the same jumps again and again."
         },
         {
           "t": 15,
@@ -691,11 +691,11 @@
         },
         {
           "t": 32,
-          "text": "Stone 1 jumps 3, landing on stone 4 and stretching the reach to 4. Every later stone sits inside it."
+          "text": "Stone 1 jumps 3, stretching the reach to 4, the end. Now try 3, 2, 1, 0, 4: the reach stalls at 3, so stone 4 is out of reach."
         },
         {
           "t": 48,
-          "text": "One scan, O(n) time: yes, you reach the end. That’s greedy: the best move now, never looking back."
+          "text": "One scan, O(n) time: a stone past the reach means you’re stuck. That’s greedy: the best move now, never looking back."
         }
       ]
     },
@@ -734,7 +734,7 @@
       "transcript": [
         {
           "t": 0,
-          "text": "Four bookings cover 1–3, 2–6, 8–10 and 15–18. Which busy blocks do they really form? Comparing every pair is n² work."
+          "text": "Four bookings cover 8–10, 1–3, 15–18 and 2–6. Which busy blocks do they really form? Comparing every pair means six checks."
         },
         {
           "t": 15,

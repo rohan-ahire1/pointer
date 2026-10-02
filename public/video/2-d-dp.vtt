@@ -1,10 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:08.207
+00:00.000 --> 00:06.395
 “abcde” and “ace” share letters in order, but which run is longest?
 
-00:08.207 --> 00:14.700
-Listing every subsequence of each word explodes fast.
+00:06.395 --> 00:14.700
+Listing every subsequence of “abcde” takes 32 checks, and it doubles with every letter.
 
 00:15.000 --> 00:18.788
 Build a table instead.
@@ -29,4 +29,3 @@ One pass over the table, O(m·n) time.
 
 00:57.573 --> 00:59.700
 That’s 2-D DP.
-

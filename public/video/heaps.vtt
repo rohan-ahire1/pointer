@@ -1,10 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:07.907
+00:00.000 --> 00:06.866
 Numbers arrive one at a time and you must report the median after each.
 
-00:07.907 --> 00:14.700
-Sorting everything so far each time costs n log n per number.
+00:06.866 --> 00:14.700
+Re-sorting everything so far after every number does the same work over and over.
 
 00:15.000 --> 00:23.916
 Instead, split the numbers into a lower half and an upper half.
@@ -23,4 +23,3 @@ Each number costs one heap push and pop: O(log n).
 
 00:55.597 --> 00:59.700
 That’s the two-heap median.
-
