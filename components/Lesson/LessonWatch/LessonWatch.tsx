@@ -29,8 +29,8 @@ function formatTimestamp(seconds: number): string {
  * The Watch section (design/mocks/C2-Pattern.dc.html #watch): the 60-second
  * explainer, captions-on-by-default, and a transcript toggle. The explainer is
  * not a video file: it is the lesson's animation code running in the browser
- * (animation/), drawn from the same traces as the visualizer. Captions are an
- * overlay fed by the small .vtt file in public/video/.
+ * (animation/), drawn from the same traces as the visualizer. Captions come
+ * from the small .vtt file in public/video/ and show in a bar under the picture.
  */
 export function LessonWatch({ video, title, slug }: LessonWatchProps) {
   const [captions, setCaptions] = useState(true);
@@ -213,11 +213,17 @@ function ExplainerStage({ slug, title, poster, captionsUrl, showCaptions, durati
 
   const cue = showCaptions ? cues.find((c) => time >= c.start && time < c.end) : undefined;
   return (
-    <div className={styles.player}>
-      <ExplainerPlayer slug={slug} onTime={setTime} autoPlay />
-      <div aria-live="off" className={styles.captionLayer}>
-        {cue && <span className={styles.caption}>{cue.text}</span>}
+    <div>
+      <div className={styles.player}>
+        <ExplainerPlayer slug={slug} onTime={setTime} autoPlay />
       </div>
+      {/* Captions sit under the picture, never on top of the animation. The bar keeps
+          its height between cues so the page doesn't jump. */}
+      {showCaptions && (
+        <div aria-live="off" className={styles.captionBar}>
+          {cue && <span className={styles.caption}>{cue.text}</span>}
+        </div>
+      )}
     </div>
   );
 }
