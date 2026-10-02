@@ -80,7 +80,7 @@ export function trace(input: MaxDepthInput): Step<MaxDepthState>[] {
         null,
         null,
         [0, 2],
-        `Go down to ${byId[left].value}. First ask its left side.`,
+        `Ask ${node.value}’s left side first: go down to ${byId[left].value}.`,
         `At ${byId[left].value}, depth ${byId[left].depth} from the root. Call stack: ${stackValues()}. Waiting on ${node.value}’s left.`,
       );
       l = solve(left);

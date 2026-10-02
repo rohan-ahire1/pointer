@@ -9,6 +9,7 @@
 - `inputHint`: `2–8 whole numbers from -99 to 99, then | and the target.`
 - Format: numbers separated by spaces or commas, a `|`, then the target. Target range -198..198.
 - Presets and expected answers:
+  - `1 6 2 4 5 | 9` → `[3, 4]` (the explainer's example: brute force only finds it on the last pair)
   - `2 7 11 15 | 9` → `[0, 1]`
   - `3 2 4 | 6` → `[1, 2]`
   - `3 3 | 6` → `[0, 1]`

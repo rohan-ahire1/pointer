@@ -6,7 +6,7 @@
 export const meta = {
   id: "implement-trie",
   title: "Implement Trie (Prefix Tree)",
-  presets: ["apple app | app", "car cat cart | ca", "tea ten to | tex"],
+  presets: ["car cat cart | ca", "apple app | app", "tea ten to | tex"],
   inputLabel: "words | query =",
   inputHint: "Up to 4 words of 1–6 letters (a–z), then | and a word to look up.",
   inputMaxLength: 60,

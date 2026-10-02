@@ -2,7 +2,7 @@ import {AbsoluteFill, interpolate, interpolateColors, useCurrentFrame} from 'rem
 // Same trace the site's visualizer plays, so video and lesson never disagree.
 import {trace} from '@/visualizers/sliding-window/trace';
 // Same tokens as the site (source of truth for colour, type, radius).
-import {Backdrop, BeatBar, Card, Confetti, FPS, Headline, clamp, lerp, tok, useSpr} from './motion';
+import {Backdrop, BeatBar, Card, Confetti, FPS, Headline, clamp, inkOn, lerp, tok, useSpr} from './motion';
 
 export {FPS};
 export const DURATION_SEC = 60;
@@ -15,6 +15,7 @@ const S = 'abcabcbb';
 const STEPS = trace(S);
 const N = S.length;
 const LAST = STEPS.length - 1;
+const NOTE_HOLD = 1.5;
 
 // Layout (1080p space; rendered 4/3x for QHD).
 const CW = 112;
@@ -111,11 +112,11 @@ const Tile = ({i, label, children, tint, pop = 0, w = TILE_W}: {i: number; label
   <div
     style={{
       position: 'absolute', left: tileX(i), top: TILES_Y, width: w, height: 132, boxSizing: 'border-box',
-      padding: '16px 28px', borderRadius: 24, border: '3px solid var(--line)', background: tint,
+      padding: '16px 28px', borderRadius: 24, border: '3px solid var(--line)', background: tint, color: inkOn(tint),
       boxShadow: 'var(--shadow-md)', transform: `scale(${1 + pop * 0.06})`,
     }}
   >
-    <div style={{fontFamily: body, fontWeight: 700, fontSize: 20, color: 'var(--muted)'}}>{label}</div>
+    <div style={{fontFamily: body, fontWeight: 700, fontSize: 20, color: inkOn(tint) === 'var(--on-accent)' ? 'var(--on-accent)' : 'var(--muted)', opacity: 0.85}}>{label}</div>
     {children}
   </div>
 );
@@ -297,10 +298,19 @@ export const SlidingWindow = () => {
   const barsGrow = spr(51.2, 'soft');
   const stamp = spr(52.4, 'bouncy');
 
-  // ---- note ----
-  const noteOn = interpolate(t, [15.6, 16.4, 50.6, 51.4], [0, 1, 1, 0], clamp);
-  const noteK = STEPS[k].note;
-  const noteP = STEPS[prev].note;
+  // ---- note: each stays up at least NOTE_HOLD s, so the fast run in beat 3 skips the ones that would flash by ----
+  const noteOn = interpolate(t, [15.6, 16.4, 48, 48.8], [0, 1, 1, 0], clamp);
+  let noteI = 0;
+  let noteSince = stepTime(0);
+  for (let i = 1; i <= k; i++) {
+    const at = Math.max(stepTime(i), noteSince + NOTE_HOLD);
+    const next = i < STEPS.length - 1 ? stepTime(i + 1) : Infinity;
+    if (at <= t && (i === k || at < next)) {
+      noteI = i;
+      noteSince = at;
+    }
+  }
+  const noteIn = spr(noteSince, 'snappy');
 
   const tagBumpL = b.l !== a.l ? Math.sin(Math.min(1, stepAge / 0.5) * Math.PI) : 0;
   const tagBumpR = b.r !== a.r ? Math.sin(Math.min(1, stepAge / 0.5) * Math.PI) : 0;
@@ -338,9 +348,10 @@ export const SlidingWindow = () => {
         {windowLive && dupK >= 0 && (
           <div
             style={{
-              position: 'absolute', left: arcMid - 70, top: -190 + 186 - arcH - 36, width: 140, textAlign: 'center',
+              position: 'absolute', left: arcX1 + CW / 2 + 6, top: -78, width: 160, textAlign: 'left',
+              padding: '2px 0', borderRadius: 12, background: 'var(--paper)',
               fontFamily: display, fontWeight: 800, fontSize: 24, color: 'var(--pen)', opacity: Math.min(1, badge),
-              transform: `scale(${0.4 + 0.6 * Math.min(1.2, badge)}) rotate(${(1 - Math.min(1, badge)) * -8}deg)`,
+              transform: `scale(${0.4 + 0.6 * Math.min(1.2, badge)}) rotate(${(1 - Math.min(1, badge)) * -8}deg)`, transformOrigin: 'left center',
             }}
           >
             ✕ repeat!
@@ -408,7 +419,7 @@ export const SlidingWindow = () => {
           <div style={{fontFamily: body, fontWeight: 700, fontSize: 20, color: 'var(--muted)'}}>windows checked</div>
           <div style={{fontFamily: mono, fontWeight: 500, fontSize: 44, marginTop: 6}}>
             {pairIdx + 1}
-            <span style={{color: 'var(--muted)', fontSize: 30}}> / {PAIRS.length} · n²</span>
+            <span style={{color: 'var(--muted)', fontSize: 30}}> of {PAIRS.length}</span>
           </div>
         </div>
         <div style={{position: 'absolute', left: 1040, top: TILES_Y - 14}}>
@@ -421,7 +432,7 @@ export const SlidingWindow = () => {
                 style={{
                   position: 'absolute', left: j * 30, top: i * 30, width: 24, height: 24, borderRadius: 8,
                   border: `2.5px ${ok ? 'solid' : 'dashed'} ${ok ? tok('--line') : tok('--past-line')}`, background: ok ? 'var(--mint)' : 'var(--past-bg)',
-                  transform: `scale(${Math.min(1.3, pop)})`, fontFamily: body, fontWeight: 700, fontSize: 14, color: 'var(--on-accent)',
+                  transform: `scale(${Math.min(1.3, pop)})`, fontFamily: body, fontWeight: 700, fontSize: 14, color: ok ? 'var(--on-accent)' : 'var(--faint)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
@@ -481,23 +492,16 @@ export const SlidingWindow = () => {
 
       {/* step note */}
       <div style={{position: 'absolute', left: 0, right: 0, top: 900, display: 'flex', justifyContent: 'center', opacity: noteOn}}>
-        <div style={{position: 'relative'}}>
-          {prev !== k && (
-            <div style={{position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', opacity: 1 - sFade, transform: `translateY(${-sFade * 14}px)`}}>
-              <Card style={{whiteSpace: 'nowrap'}}>{noteP}</Card>
-            </div>
-          )}
-          <div style={{opacity: prev === k ? 1 : sFade, transform: `translateY(${(prev === k ? 0 : 1 - sFade) * 16}px)`}}>
-            <Card style={{whiteSpace: 'nowrap'}}>{noteK}</Card>
-          </div>
+        <div style={{opacity: Math.min(1, noteIn * 1.4), transform: `translateY(${(1 - Math.min(1, noteIn)) * 14}px)`}}>
+          <Card style={{whiteSpace: 'nowrap'}}>{STEPS[noteI].note}</Card>
         </div>
       </div>
 
-      {/* beat 4: n² vs n */}
+      {/* beat 4: every window vs one sliding window */}
       <div style={{position: 'absolute', top: 690, left: 360, right: 360, opacity: barsIn}}>
         {[
-          {label: 'check every pair', value: `n² = ${N * N}`, w: 1, fill: 'var(--peach)'},
-          {label: 'sliding window', value: `n = ${N}`, w: N / (N * N), fill: 'var(--mint)'},
+          {label: 'check every window', value: `${PAIRS.length} windows`, w: 1, fill: 'var(--peach)'},
+          {label: 'slide one window', value: `${N} windows`, w: N / PAIRS.length, fill: 'var(--mint)'},
         ].map((row, i) => (
           <div key={row.label} style={{display: 'flex', alignItems: 'center', gap: 24, marginBottom: 24}}>
             <div style={{width: 290, fontFamily: body, fontWeight: 700, fontSize: 28, textAlign: 'right'}}>{row.label}</div>
@@ -510,7 +514,7 @@ export const SlidingWindow = () => {
                 }}
               />
             </div>
-            <div style={{width: 170, fontFamily: display, fontWeight: 800, fontSize: 32}}>{row.value}</div>
+            <div style={{width: 260, whiteSpace: 'nowrap', fontFamily: display, fontWeight: 800, fontSize: 32}}>{row.value}</div>
           </div>
         ))}
       </div>
@@ -519,7 +523,7 @@ export const SlidingWindow = () => {
           <div
             style={{
               padding: '14px 44px', borderRadius: 26, border: '3px solid var(--line)', background: 'var(--yellow)', boxShadow: 'var(--shadow-md)',
-              fontFamily: display, fontWeight: 800, fontSize: 50, letterSpacing: '-0.03em',
+              fontFamily: display, fontWeight: 800, fontSize: 50, letterSpacing: '-0.03em', color: 'var(--on-accent)',
               transform: `scale(${0.5 + 0.5 * Math.min(1.2, stamp)}) rotate(${(1 - Math.min(1, stamp)) * -7}deg)`,
             }}
           >

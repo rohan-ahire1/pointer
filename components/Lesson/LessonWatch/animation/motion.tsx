@@ -4,15 +4,47 @@ import type {ReactNode} from 'react';
 export const FPS = 30;
 export const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
-/** Read a design token (tokens.css) at render time so JS can blend colours. */
+/** Read a design token (tokens.css) at render time so JS can blend colours.
+ * Cached per theme, so switching light/dark mid-session picks up the new palette. */
 const memo = new Map<string, string>();
+let memoTheme = '';
+const themeKey = () => {
+  const attr = document.documentElement.getAttribute('data-theme') ?? '';
+  const sys = typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches ? 'd' : 'l';
+  return attr + sys;
+};
 export const tok = (name: string): string => {
+  if (typeof document === 'undefined') return '#000';
+  const key = themeKey();
+  if (key !== memoTheme) {
+    memo.clear();
+    memoTheme = key;
+  }
   let v = memo.get(name);
   if (!v) {
     v = getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#000';
     memo.set(name, v);
   }
   return v;
+};
+
+const rgbOf = (c: string): number[] | null => {
+  const m = c.match(/^rgba?\(([^)]+)\)$/);
+  if (m) return m[1].split(',').slice(0, 3).map((x) => parseFloat(x));
+  const h = c.replace('#', '');
+  if (!/^[0-9a-f]{3}([0-9a-f]{3})?$/i.test(h)) return null;
+  const n = h.length === 3 ? h.split('').map((x) => x + x).join('') : h;
+  return [0, 2, 4].map((i) => parseInt(n.slice(i, i + 2), 16));
+};
+
+/** Readable text colour for a fill: dark ink on light fills (accents), the theme's ink on dark ones. */
+export const inkOn = (fill: string | undefined): string => {
+  if (!fill) return 'var(--ink)';
+  const v = fill.startsWith('var(') ? tok(fill.slice(4, -1).trim()) : fill;
+  const rgb = rgbOf(v);
+  if (!rgb) return 'var(--ink)';
+  const lum = (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255;
+  return lum > 0.55 ? 'var(--on-accent)' : 'var(--ink)';
 };
 
 export const lerp = (a: number, b: number, p: number) => a + (b - a) * p;

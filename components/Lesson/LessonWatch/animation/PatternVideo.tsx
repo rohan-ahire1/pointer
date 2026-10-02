@@ -1,9 +1,9 @@
-import type {ComponentType} from 'react';
-import {Run, Scene, Step, useRun, Hook, Outro} from './scene';
+import {useMemo, type ComponentType} from 'react';
+import {Run, Scene, Step, Timing, bruteK, timeline, useRun, type Hook, type Outro} from './scene';
 import {CONFIG, PATTERNS} from './patterns';
-import {ContainerStage, FindMinStage, JumpStage, ParenStage, RobberStage, TwoSumStage, containerConfetti, findMinConfetti, jumpConfetti, parenConfetti, robberConfetti, twoSumConfetti} from './stages-rows';
-import {ComboStage, HeapStage, ListStage, TreeStage, TrieStage, comboConfetti, heapConfetti, listConfetti, treeConfetti, trieConfetti} from './stages-graph';
-import {IntervalsStage, IslandsStage, LcsStage, intervalsConfetti, islandsConfetti, lcsConfetti} from './stages-grid';
+import {ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
+import {ComboBrute, ComboStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, fullTree, heapConfetti, heapSorts, listConfetti, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
+import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti} from './stages-grid';
 import {meta as twoSumMeta} from '@/visualizers/two-sum/meta';
 import {parseInput as twoSumParse} from '@/visualizers/two-sum/parseInput';
 import {trace as twoSumTrace} from '@/visualizers/two-sum/trace';
@@ -50,85 +50,207 @@ import {trace as intervalsTrace} from '@/visualizers/merge-intervals/trace';
 type Def = {
   steps: Step[];
   Stage: ComponentType<{r: Run}>;
+  Brute: ComponentType<{r: Run}>;
   confetti: {x: number; y: number};
-  hook: Hook;
-  outro: Outro;
+  /** label and unit shared by the beat-1 counter and the beat-4 bars */
+  label: string;
+  unit: string;
+  /** how many checks brute force makes, and how many this pattern makes */
+  naive: number;
+  fast: number;
+  naiveLabel: string;
+  fastLabel: string;
+  timing?: Timing;
+  stamp?: string;
 };
 
-// Preset 0 of each visualizer is the example the transcript narrates.
+// Preset 0 of each visualizer is the example the transcript narrates, so "Try it" starts where the video ends.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const run0 = (m: any, parse: any, trace: any): Step[] => trace(parse(m.presets[0]));
+const run = (m: any, parse: any, trace: any, input?: string): Step[] => {
+  const parsed = parse(input ?? m.presets[0]);
+  if (parsed && typeof parsed === 'object' && 'error' in parsed) throw new Error(`Bad video input for ${m.id}: ${parsed.error}`);
+  return trace(parsed);
+};
 
-const o = (naiveLabel: string, naive: string, naiveVal: number, fastLabel: string, fast: string, fastVal: number): Outro => ({naiveLabel, naive, naiveVal, fastLabel, fast, fastVal});
+const isMeasure = (st: Step) => st.state.phase === 'measure';
+
+/** The heap trace drops a number into the lower half and may bounce it straight back; in the
+ * video that reads as a glitch, so skip a move-up that is undone by the very next step. */
+const dropBounces = (steps: Step[]) =>
+  steps.filter((st, i) => {
+    const next = steps[i + 1];
+    const prev = steps[i - 1];
+    if (st.state.phase === 'moveUp' && next?.state.phase === 'rebalance' && next.state.moving === st.state.moving) return false;
+    if (st.state.phase === 'rebalance' && prev?.state.phase === 'moveUp' && prev.state.moving === st.state.moving) return false;
+    return true;
+  });
 
 const DEFS: Record<string, () => Def> = {
-  'arrays-and-hashing': () => ({
-    steps: run0(twoSumMeta, twoSumParse, twoSumTrace), Stage: TwoSumStage, confetti: twoSumConfetti,
-    hook: {label: 'Check every pair', count: 6, unit: 'pairs'}, outro: o('check every pair', 'n² = 16', 16, 'one pass + map', 'n = 4', 4),
-  }),
-  'two-pointers': () => ({
-    steps: run0(containerMeta, containerParse, containerTrace), Stage: ContainerStage, confetti: containerConfetti,
-    hook: {label: 'Try every pair', count: 36, unit: 'pairs'}, outro: o('try every pair', 'n² = 81', 81, 'two pointers', 'n = 9', 9),
-  }),
-  stack: () => ({
-    steps: run0(parenMeta, parenParse, parenTrace), Stage: ParenStage, confetti: parenConfetti,
-    hook: {label: 'Strip pairs, rescan, repeat', count: 18, unit: 'comparisons'}, outro: o('rescan again and again', 'n² = 36', 36, 'one stack', 'n = 6', 6),
-  }),
-  'binary-search': () => ({
-    steps: run0(findMinMeta, findMinParse, findMinTrace), Stage: FindMinStage, confetti: findMinConfetti,
-    hook: {label: 'Read every number', count: 7, unit: 'numbers'}, outro: o('read them all', 'n = 7', 7, 'halve each time', 'log n = 3', 3),
-  }),
-  'linked-list': () => ({
-    steps: run0(listMeta, listParse, listTrace), Stage: ListStage, confetti: listConfetti,
-    hook: {label: 'Copy into an array', count: 5, unit: 'nodes copied'}, outro: o('copy to an array', 'memory n = 5', 5, 'flip in place', 'memory 1', 1),
-  }),
-  trees: () => ({
-    steps: run0(treeMeta, treeParse, treeTrace), Stage: TreeStage, confetti: treeConfetti,
-    hook: {label: 'Re-measure from every node', count: 11, unit: 'visits'}, outro: o('re-measure each node', '11 visits', 11, 'each node once', '5 visits', 5),
-  }),
-  tries: () => ({
-    steps: run0(trieMeta, trieParse, trieTrace), Stage: TrieStage, confetti: trieConfetti,
-    hook: {label: 'Scan every stored word', count: 6, unit: 'letters compared'}, outro: o('scan every word', 'n·L = 6', 6, 'walk the trie', 'L = 3', 3),
-  }),
-  heaps: () => ({
-    steps: run0(heapMeta, heapParse, heapTrace), Stage: HeapStage, confetti: heapConfetti,
-    hook: {label: 'Re-sort after every number', count: 9, unit: 'comparisons'}, outro: o('re-sort each time', 'n log n = 8', 8, 'two heaps', 'log n = 2', 2),
-  }),
-  backtracking: () => ({
-    steps: run0(comboMeta, comboParse, comboTrace), Stage: ComboStage, confetti: comboConfetti,
-    hook: {label: 'Try every path', count: 85, unit: 'paths'}, outro: o('try every path', '85 paths', 85, 'cut dead branches', '17 visited', 17),
-  }),
-  graphs: () => ({
-    steps: run0(islandsMeta, islandsParse, islandsTrace), Stage: IslandsStage, confetti: islandsConfetti,
-    hook: {label: 'Rescan the grid per land cell', count: 140, unit: 'cells checked'}, outro: o('rescan per land cell', '140 checks', 140, 'flood each once', '20 checks', 20),
-  }),
-  '1-d-dp': () => ({
-    steps: run0(robberMeta, robberParse, robberTrace), Stage: RobberStage, confetti: robberConfetti,
-    hook: {label: 'Try every set of houses', count: 32, unit: 'sets'}, outro: o('try every set', '2ⁿ = 32', 32, 'build up once', 'n = 5', 5),
-  }),
-  '2-d-dp': () => ({
-    steps: run0(lcsMeta, lcsParse, lcsTrace), Stage: LcsStage, confetti: lcsConfetti,
-    hook: {label: 'Try every subsequence', count: 32, unit: 'subsequences'}, outro: o('every subsequence', '2ᵐ = 32', 32, 'fill the table', 'm·n = 15', 15),
-  }),
-  greedy: () => ({
-    steps: run0(jumpMeta, jumpParse, jumpTrace), Stage: JumpStage, confetti: jumpConfetti,
-    hook: {label: 'Try every jump path', count: 16, unit: 'paths'}, outro: o('try every path', '2ⁿ = 16', 16, 'track the reach', 'n = 5', 5),
-  }),
-  intervals: () => ({
-    steps: run0(intervalsMeta, intervalsParse, intervalsTrace), Stage: IntervalsStage, confetti: intervalsConfetti,
-    hook: {label: 'Compare every pair', count: 6, unit: 'pairs'}, outro: o('compare every pair', 'n² = 16', 16, 'sort and walk', 'n log n = 8', 8),
-  }),
+  'arrays-and-hashing': () => {
+    const steps = run(twoSumMeta, twoSumParse, twoSumTrace);
+    return {
+      steps, Stage: TwoSumStage, Brute: TwoSumBrute, confetti: twoSumConfetti,
+      label: 'Check every pair', unit: 'checks', naive: twoSumPairs(steps[0].state.nums).length, fast: steps[0].state.nums.length,
+      naiveLabel: 'check every pair', fastLabel: 'one pass + map',
+      timing: {anchors: {[steps.length - 3]: 34, [steps.length - 2]: 38.5}},
+    };
+  },
+  'two-pointers': () => {
+    const steps = run(containerMeta, containerParse, containerTrace);
+    return {
+      steps, Stage: ContainerStage, Brute: ContainerBrute, confetti: containerConfetti,
+      label: 'Try every pair', unit: 'containers', naive: twoSumPairs(steps[0].state.height).length, fast: steps.filter(isMeasure).length,
+      naiveLabel: 'try every pair', fastLabel: 'two pointers',
+      timing: {weight: (st, i) => (i === 0 ? 0.7 : st.best >= 49 && st.phase !== 'done' && !st.newBest ? 0.8 : 1)},
+    };
+  },
+  stack: () => {
+    const steps = run(parenMeta, parenParse, parenTrace);
+    const firstMatch = steps.findIndex((st) => st.state.phase === 'match');
+    return {
+      steps, Stage: ParenStage, Brute: ParenBrute, confetti: parenConfetti,
+      label: 'Strip pairs, rescan, repeat', unit: 'reads', naive: stripReads(steps[0].state.s).length, fast: steps[0].state.s.length,
+      naiveLabel: 'strip and rescan', fastLabel: 'one stack',
+      timing: {anchors: {[firstMatch]: 32.5}, end: 45.5},
+    };
+  },
+  'binary-search': () => {
+    const steps = run(findMinMeta, findMinParse, findMinTrace);
+    return {
+      steps, Stage: FindMinStage, Brute: FindMinBrute, confetti: findMinConfetti,
+      label: 'Read every number', unit: 'reads', naive: steps[0].state.nums.length, fast: steps.filter((st) => st.state.phase === 'probe').length,
+      naiveLabel: 'read every number', fastLabel: 'halve each time',
+      timing: {anchors: {1: 22, 2: 31.5}},
+    };
+  },
+  'linked-list': () => {
+    const steps = run(listMeta, listParse, listTrace);
+    return {
+      steps, Stage: ListStage, Brute: ListBrute, confetti: listConfetti,
+      label: 'Copy into a new list', unit: 'new nodes', naive: steps[0].state.values.length, fast: 0,
+      naiveLabel: 'copy into a new list', fastLabel: 'flip the arrows in place',
+      stamp: 'O(n) time · O(1) space',
+    };
+  },
+  trees: () => {
+    const steps = run(treeMeta, treeParse, treeTrace);
+    const nodes = steps[0].state.nodes;
+    const ret = steps.findIndex((st) => st.state.phase === 'return');
+    return {
+      steps, Stage: TreeStage, Brute: TreeBrute, confetti: treeConfetti,
+      label: 'Walk every root-to-leaf path', unit: 'visits', naive: treeVisits(nodes).length, fast: nodes.length,
+      naiveLabel: 'walk every path', fastLabel: 'ask each node once',
+      timing: {anchors: {[ret]: 33.5, [ret + 1]: 39}},
+    };
+  },
+  tries: () => {
+    const steps = run(trieMeta, trieParse, trieTrace);
+    const {words, query} = steps[0].state;
+    const second = steps.findIndex((st) => st.state.wordIndex === 1);
+    const branch = steps.findIndex((st, i) => i > second && st.state.phase === 'new');
+    const third = steps.findIndex((st) => st.state.wordIndex === 2);
+    const walk = steps.findIndex((st) => st.state.phase === 'walk');
+    return {
+      steps, Stage: TrieStage, Brute: TrieBrute, confetti: trieConfetti,
+      label: 'Compare with every stored word', unit: 'letters read', naive: trieCompares(words, query).length, fast: query.length,
+      naiveLabel: 'scan every word', fastLabel: 'walk the trie',
+      timing: {anchors: {[second]: 25, [branch]: 28, ...(third > 0 ? {[third]: 32.2} : {}), [walk]: 39.5}},
+    };
+  },
+  heaps: () => {
+    const steps = dropBounces(run(heapMeta, heapParse, heapTrace));
+    const secondMedian = steps.findIndex((st) => st.state.phase === 'median' && st.state.medians.length === 2);
+    return {
+      steps, Stage: HeapStage, Brute: HeapBrute, confetti: heapConfetti,
+      label: 'Re-sort after every number', unit: 'moves', naive: heapSorts(steps[0].state.stream).length,
+      fast: steps.filter((st) => ['push', 'moveUp', 'rebalance'].includes(st.state.phase)).length,
+      naiveLabel: 're-sort every time', fastLabel: 'two heaps',
+      timing: {anchors: {[secondMedian]: 32.5}},
+    };
+  },
+  backtracking: () => {
+    const steps = run(comboMeta, comboParse, comboTrace);
+    const {candidates, target} = steps[0].state;
+    const firstCut = steps.findIndex((st) => st.state.phase === 'prune');
+    const firstFound = steps.findIndex((st) => st.state.phase === 'found');
+    return {
+      steps, Stage: ComboStage, Brute: ComboBrute, confetti: comboConfetti,
+      label: 'Try every branch', unit: 'nodes', naive: fullTree(candidates, target).length, fast: steps[steps.length - 1].state.tree.length,
+      naiveLabel: 'try every branch', fastLabel: 'cut dead branches',
+      timing: {anchors: {[firstCut - 1]: 29.5, [firstCut]: 32.4, [firstFound]: 36.8}, end: 47},
+    };
+  },
+  graphs: () => {
+    const steps = run(islandsMeta, islandsParse, islandsTrace);
+    const land = steps[0].state.land as boolean[][];
+    return {
+      steps, Stage: IslandsStage, Brute: IslandsBrute, confetti: islandsConfetti,
+      label: 'Flood from every land cell', unit: 'cell visits', naive: floodVisits(land).length, fast: land.flat().filter(Boolean).length,
+      naiveLabel: 'flood from every land cell', fastLabel: 'claim each cell once',
+    };
+  },
+  '1-d-dp': () => {
+    const steps = run(robberMeta, robberParse, robberTrace);
+    const n = steps[0].state.nums.length;
+    return {
+      steps, Stage: RobberStage, Brute: RobberBrute, confetti: robberConfetti,
+      label: 'Try every set of houses', unit: 'checks', naive: 2 ** n, fast: n,
+      naiveLabel: 'try every set', fastLabel: 'build the row once',
+    };
+  },
+  '2-d-dp': () => {
+    const steps = run(lcsMeta, lcsParse, lcsTrace);
+    const {a, b} = steps[0].state;
+    const secondMatch = steps.findIndex((st, i) => st.state.kind === 'match' && steps.slice(0, i).some((x) => x.state.kind === 'match'));
+    return {
+      steps, Stage: LcsStage, Brute: LcsBrute, confetti: lcsConfetti,
+      label: 'Try every subsequence', unit: 'checks', naive: 2 ** a.length, fast: a.length * b.length,
+      naiveLabel: 'try every subsequence', fastLabel: 'fill the table',
+      timing: {
+        anchors: {[secondMatch]: 31.6},
+        weight: (st, i) => (i === 0 ? 0.8 : st.phase === 'traceback' ? 3.2 : st.kind === 'match' ? 1.5 : 0.75),
+      },
+    };
+  },
+  greedy: () => {
+    const main = run(jumpMeta, jumpParse, jumpTrace);
+    const fail = run(jumpMeta, jumpParse, jumpTrace, '3 2 1 0 4').map((st, i) => (i === 0 ? {...st, note: 'Now try 3, 2, 1, 0, 4. Stand on stone 0.'} : st));
+    const steps = [...main, ...fail];
+    const M = main.length;
+    const big = main.findIndex((st) => st.state.phase === 'extend' && st.state.reach >= 4 && st.state.i === 1);
+    return {
+      steps, Stage: ({r}) => <JumpStage r={r} split={M} />, Brute: JumpBrute, confetti: jumpConfetti,
+      label: 'Try every route', unit: 'steps', naive: jumpRoutes(main[0].state.nums).length, fast: main[0].state.nums.length,
+      naiveLabel: 'try every route', fastLabel: 'track the reach',
+      timing: {anchors: {...(big > 0 ? {[big]: 31.5} : {}), [M - 1]: 37, [M]: 38.4}},
+    };
+  },
+  intervals: () => {
+    const steps = run(intervalsMeta, intervalsParse, intervalsTrace);
+    const n = steps[0].state.items.length;
+    const stretch = steps.findIndex((st) => st.state.phase === 'stretch');
+    return {
+      steps, Stage: IntervalsStage, Brute: IntervalsBrute, confetti: intervalsConfetti,
+      label: 'Compare every pair', unit: 'checks', naive: intervalPairs(steps[0].state.items).length, fast: n - 1,
+      naiveLabel: 'compare every pair', fastLabel: 'sort, then walk',
+      timing: {anchors: {1: 21, ...(stretch > 0 ? {[stretch]: 32.4} : {})}},
+    };
+  },
 };
 
 export type PatternVideoProps = {slug: string};
 
 export const PatternVideo = ({slug}: PatternVideoProps) => {
-  const def = DEFS[slug]();
-  const run = useRun(def.steps);
+  const def = useMemo(() => DEFS[slug](), [slug]);
+  const times = useMemo(() => timeline(def.steps, def.timing), [def]);
+  const r = useRun(def.steps, times);
   const pat = PATTERNS.find((p) => p.slug === slug)!;
+  const total = def.naive;
+  const hook: Hook = {label: def.label, unit: def.unit, total, count: (t) => bruteK(t, total) + 1};
+  const outro: Outro = {naiveLabel: def.naiveLabel, naiveVal: def.naive, fastLabel: def.fastLabel, fastVal: def.fast, unit: def.unit};
   return (
-    <Scene run={run} headlines={CONFIG[slug].headlines} hook={def.hook} outro={def.outro} complexity={pat.complexity} confetti={def.confetti}>
-      <def.Stage r={run} />
+    <Scene run={r} headlines={CONFIG[slug].headlines} hook={hook} outro={outro} stamp={def.stamp ?? pat.complexity} confetti={def.confetti} brute={<def.Brute r={r} />}>
+      <def.Stage r={r} />
     </Scene>
   );
 };

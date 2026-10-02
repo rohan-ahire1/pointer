@@ -6,7 +6,7 @@
 export const meta = {
   id: "valid-parentheses",
   title: "Valid Parentheses",
-  presets: ["()[]{}", "{[()]}", "([)]"],
+  presets: ["{[()]}", "()[]{}", "([)]"],
   inputLabel: "s =",
   inputHint: "Up to 12 brackets: ( ) [ ] { }. Anything else is ignored.",
   inputMaxLength: 12,

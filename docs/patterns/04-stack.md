@@ -8,8 +8,8 @@
 - `inputLabel`: `s =` · `inputMaxLength`: 12
 - `inputHint`: `Up to 12 brackets: ( ) [ ] { }. Anything else is ignored.`
 - Presets and expected answers:
+  - `{[()]}` → `true` (the explainer's example: nesting fills the stack three deep)
   - `()[]{}` → `true`
-  - `{[()]}` → `true`
   - `([)]` → `false`
 
 ## Reference solution

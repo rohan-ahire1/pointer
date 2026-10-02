@@ -22,7 +22,7 @@ export const CONFIG: Record<string, Config> = {
     headlines: ['Find the *smallest* number.', 'Compare *mid* with the right end.', 'Throw away *half*.', 'Halve again. *O(log n)*.'],
   },
   'linked-list': {
-    headlines: ['Reverse it. *Keep the nodes*.', 'Two pointers: *prev* and *curr*.', 'Save *next*, then flip the arrow.', 'One pass. *O(n)*.'],
+    headlines: ['Reverse it. *Keep the nodes*.', 'Two pointers: *prev* and *curr*.', 'Save *next*, then flip the arrow.', 'One pass. *No new nodes*.'],
   },
   trees: {
     headlines: ['How *deep* is the tree?', 'Ask each child *how deep*.', 'Take the *deeper* side, add one.', 'Each node once. *O(n)*.'],

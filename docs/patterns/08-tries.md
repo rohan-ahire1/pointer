@@ -8,8 +8,8 @@
 - `inputLabel`: `words | query =` · `inputMaxLength`: 40
 - `inputHint`: `Up to 4 words of 1–6 letters (a–z), then | and a word to look up.`
 - Presets and expected answers (`search`, `startsWith`):
+  - `car cat cart | ca` → `false`, `true` (the explainer's example: the trie branches, and a prefix isn't a word)
   - `apple app | app` → `true`, `true`
-  - `car cat cart | ca` → `false`, `true`
   - `tea ten to | tex` → `false`, `false`
 
 ## Reference solution

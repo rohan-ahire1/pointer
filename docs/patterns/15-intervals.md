@@ -8,6 +8,7 @@
 - `inputLabel`: `intervals =` · `inputMaxLength`: 40
 - `inputHint`: `1–6 intervals like 1-3, with 0 ≤ start ≤ end ≤ 20, separated by spaces.`
 - Presets and expected answers:
+  - `8-10 1-3 15-18 2-6` → `[[1, 6], [8, 10], [15, 18]]` (the explainer's example: unsorted, so the sort is visible)
   - `1-3 2-6 8-10 15-18` → `[[1, 6], [8, 10], [15, 18]]`
   - `1-4 4-5` → `[[1, 5]]` (touching counts as overlapping)
   - `1-4 0-4` → `[[0, 4]]` (shows why sorting comes first)
