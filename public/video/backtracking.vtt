@@ -1,0 +1,26 @@
+WEBVTT
+
+00:00.000 --> 00:04.458
+Which sets of 2, 3, 6 and 7 add to 7?
+
+00:04.458 --> 00:14.700
+Trying every multiset blindly repeats dead ends, because most sets overshoot or miss.
+
+00:15.000 --> 00:22.937
+Try one number at a time and carry what is left.
+
+00:22.937 --> 00:31.700
+Each choice narrows the question to a smaller target.
+
+00:32.000 --> 00:40.381
+2, 2, 2 leaves only 1, and 2 is already too big, so that branch is cut.
+
+00:40.381 --> 00:47.700
+Back up: 2, 2 then 3 reaches exactly 7, so [2, 2, 3] is saved.
+
+00:48.000 --> 00:57.157
+Trying every branch is exponential, but each cut prunes a whole subtree.
+
+00:57.157 --> 00:59.700
+That’s backtracking.
+

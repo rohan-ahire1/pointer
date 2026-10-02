@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00.000 --> 00:05.497
+Five stones hold jumps of 2, 3, 1, 1 and 4.
+
+00:05.497 --> 00:08.309
+Can you reach the end?
+
+00:08.309 --> 00:14.700
+Trying every route from every stone blows up fast.
+
+00:15.000 --> 00:18.340
+Forget the route.
+
+00:18.340 --> 00:31.700
+Track one number instead: the farthest stone you could reach so far.
+
+00:32.000 --> 00:42.467
+Stone 1 jumps 3, landing on stone 4 and stretching the reach to 4.
+
+00:42.467 --> 00:47.700
+Every later stone sits inside it.
+
+00:48.000 --> 00:53.307
+One scan, O(n) time: yes, you reach the end.
+
+00:53.307 --> 00:59.700
+That’s greedy: the best move now, never looking back.
+

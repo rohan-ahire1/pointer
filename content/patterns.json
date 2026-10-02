@@ -29,9 +29,9 @@
       "Brute force compares every pair of items"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/arrays-and-hashing.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/arrays-and-hashing.vtt",
       "transcript": [
         {
           "t": 0,
@@ -77,9 +77,9 @@
       "Each step rules out a whole row of options"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/two-pointers.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/two-pointers.vtt",
       "transcript": [
         {
           "t": 0,
@@ -127,9 +127,9 @@
       "Brute force is two nested loops"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/sliding-window.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/sliding-window.vtt",
       "transcript": [
         {
           "t": 0,
@@ -174,9 +174,9 @@
       "You need to undo steps in reverse order"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/stack.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/stack.vtt",
       "transcript": [
         {
           "t": 0,
@@ -222,9 +222,9 @@
       "You need log n, not a full scan"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/binary-search.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/binary-search.vtt",
       "transcript": [
         {
           "t": 0,
@@ -274,9 +274,9 @@
       "One pass with a few pointers is enough"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/linked-list.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/linked-list.vtt",
       "transcript": [
         {
           "t": 0,
@@ -330,9 +330,9 @@
       "Each subtree looks like the whole tree"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/trees.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/trees.vtt",
       "transcript": [
         {
           "t": 0,
@@ -379,9 +379,9 @@
       "Lookups must cost one step per letter"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/tries.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/tries.vtt",
       "transcript": [
         {
           "t": 0,
@@ -426,9 +426,9 @@
       "Brute force sorts after every arrival"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/heaps.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/heaps.vtt",
       "transcript": [
         {
           "t": 0,
@@ -474,9 +474,9 @@
       "A wrong turn can be undone cleanly"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/backtracking.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/backtracking.vtt",
       "transcript": [
         {
           "t": 0,
@@ -526,9 +526,9 @@
       "You must count joined-up regions"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/graphs.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/graphs.vtt",
       "transcript": [
         {
           "t": 0,
@@ -582,9 +582,9 @@
       "You only need the last few answers"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/1-d-dp.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/1-d-dp.vtt",
       "transcript": [
         {
           "t": 0,
@@ -630,9 +630,9 @@
       "Brute force checks every pair of prefixes"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/2-d-dp.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/2-d-dp.vtt",
       "transcript": [
         {
           "t": 0,
@@ -677,9 +677,9 @@
       "Brute force tries every combination"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/greedy.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/greedy.vtt",
       "transcript": [
         {
           "t": 0,
@@ -728,9 +728,9 @@
       "Order by start, then walk once"
     ],
     "video": {
-      "src": "[EXPLAINER VIDEO URL]",
+      "poster": "/video/intervals.jpg",
       "durationSec": 60,
-      "captions": "[VTT URL]",
+      "captions": "/video/intervals.vtt",
       "transcript": [
         {
           "t": 0,

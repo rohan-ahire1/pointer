@@ -17,10 +17,10 @@ export type VideoTranscriptEntry = {
 };
 
 export type PatternVideo = {
-  /** Placeholder until Rohan supplies the real asset, e.g. "[EXPLAINER VIDEO URL]". */
-  src: string;
+  /** Still frame shown before playback, e.g. "/video/two-sum.jpg". */
+  poster?: string;
   durationSec: number;
-  /** Placeholder VTT URL, e.g. "[VTT URL]". */
+  /** Path to the WebVTT captions, e.g. "/video/two-sum.vtt", or a `[BRACKETED]` placeholder. */
   captions: string;
   transcript: VideoTranscriptEntry[];
 };

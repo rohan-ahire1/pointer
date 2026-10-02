@@ -1,18 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useId, useRef, useState } from "react";
 import type { PatternVideo } from "@/content";
+import { parseVtt, type Cue } from "./animation/captions";
 import styles from "./LessonWatch.module.css";
+
+// The explainer runs live as code (Remotion's <Player>), loaded only when
+// someone presses play so the lesson page stays light.
+const ExplainerPlayer = dynamic(() => import("./animation/ExplainerPlayer"), {
+  ssr: false,
+  loading: () => <span className={styles.loading}>Loading animation…</span>,
+});
 
 type LessonWatchProps = {
   video: PatternVideo;
   title: string;
+  slug: string;
 };
-
-/** A `[BRACKETED]` placeholder value Rohan hasn't supplied yet (see CLAUDE.md). */
-function isPlaceholder(value: string): boolean {
-  return value.startsWith("[") && value.endsWith("]");
-}
 
 function formatTimestamp(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -22,14 +27,12 @@ function formatTimestamp(seconds: number): string {
 
 /**
  * The Watch section (design/mocks/C2-Pattern.dc.html #watch): the 60-second
- * explainer, captions-on-by-default, and a transcript toggle. `video.src`
- * and `video.captions` are still `[EXPLAINER VIDEO URL]` / `[VTT URL]`
- * placeholders (CLAUDE.md's placeholder list) until Rohan supplies the real
- * assets, so this renders a clearly-marked placeholder poster instead of a
- * <video> pointed at a URL that isn't real — that would either throw or
- * silently fail to load.
+ * explainer, captions-on-by-default, and a transcript toggle. The explainer is
+ * not a video file: it is the lesson's animation code running in the browser
+ * (animation/), drawn from the same traces as the visualizer. Captions are an
+ * overlay fed by the small .vtt file in public/video/.
  */
-export function LessonWatch({ video, title }: LessonWatchProps) {
+export function LessonWatch({ video, title, slug }: LessonWatchProps) {
   const [captions, setCaptions] = useState(true);
   const [transcriptOpen, setTranscriptOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -45,31 +48,20 @@ export function LessonWatch({ video, title }: LessonWatchProps) {
     if (!expanded && dialog.open) dialog.close();
   }, [expanded]);
 
-  const placeholderVideo = isPlaceholder(video.src);
-  const placeholderCaptions = isPlaceholder(video.captions);
-
   const duration = formatTimestamp(video.durationSec);
   const teaser = video.transcript[0]?.text;
 
-  const placeholderPoster = (large: boolean) => (
-    <span className={styles.poster}>
-      <span className={large ? styles.playDiscLarge : styles.playDisc}>
-        <PlayIcon size={large ? 40 : 28} />
-      </span>
-      <span className={styles.posterFooter}>
-        {large && <span className={`soft ${styles.posterTitle}`}>{title}</span>}
-        <span className={styles.posterBadge}>[EXPLAINER VIDEO] · {duration}</span>
-      </span>
-    </span>
-  );
-
-  const realVideo = (
-    <video controls className={styles.video}>
-      <source src={video.src} />
-      {!placeholderCaptions && (
-        <track kind="captions" src={video.captions} srcLang="en" label="English" default={captions} />
-      )}
-    </video>
+  const stage = (large: boolean) => (
+    <ExplainerStage
+      slug={slug}
+      title={title}
+      poster={video.poster}
+      captionsUrl={video.captions}
+      showCaptions={captions}
+      duration={duration}
+      large={large}
+      startPlaying={large}
+    />
   );
 
   return (
@@ -84,18 +76,7 @@ export function LessonWatch({ video, title }: LessonWatchProps) {
       </div>
 
       <div className={styles.card}>
-        {placeholderVideo ? (
-          <button
-            type="button"
-            onClick={() => setExpanded(true)}
-            aria-label={`${title} — explainer video not yet available. Open larger`}
-            className={styles.thumbButton}
-          >
-            {placeholderPoster(false)}
-          </button>
-        ) : (
-          <div className={styles.thumb}>{realVideo}</div>
-        )}
+        <div className={styles.thumb}>{!expanded && stage(false)}</div>
 
         <div className={styles.info}>
           <h3 className={`soft ${styles.title}`}>{title}</h3>
@@ -151,7 +132,7 @@ export function LessonWatch({ video, title }: LessonWatchProps) {
           <button type="button" onClick={() => setExpanded(false)} className={styles.closeButton}>
             Close
           </button>
-          {expanded && (placeholderVideo ? placeholderPoster(true) : realVideo)}
+          {expanded && stage(true)}
         </div>
       </dialog>
     </section>
@@ -174,5 +155,69 @@ function ExpandIcon() {
       <line x1="21" y1="3" x2="14" y2="10" />
       <line x1="3" y1="21" x2="10" y2="14" />
     </svg>
+  );
+}
+
+type ExplainerStageProps = {
+  slug: string;
+  title: string;
+  poster?: string;
+  captionsUrl: string;
+  showCaptions: boolean;
+  duration: string;
+  large: boolean;
+  startPlaying: boolean;
+};
+
+/** Poster with a play button; pressing it mounts the live animation. */
+function ExplainerStage({ slug, title, poster, captionsUrl, showCaptions, duration, large, startPlaying }: ExplainerStageProps) {
+  const [started, setStarted] = useState(startPlaying);
+  const [cues, setCues] = useState<Cue[]>([]);
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    if (!started) return;
+    let cancelled = false;
+    fetch(captionsUrl)
+      .then((r) => (r.ok ? r.text() : ""))
+      .then((text) => {
+        if (!cancelled) setCues(parseVtt(text));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [started, captionsUrl]);
+
+  if (!started) {
+    return (
+      <button
+        type="button"
+        onClick={() => setStarted(true)}
+        aria-label={`Play ${title}`}
+        className={styles.thumbButton}
+      >
+        <span className={styles.poster}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {poster && <img src={poster} alt="" className={styles.posterImage} />}
+          <span className={large ? styles.playDiscLarge : styles.playDisc}>
+            <PlayIcon size={large ? 40 : 28} />
+          </span>
+          <span className={styles.posterFooter}>
+            <span className={styles.posterBadge}>{duration}</span>
+          </span>
+        </span>
+      </button>
+    );
+  }
+
+  const cue = showCaptions ? cues.find((c) => time >= c.start && time < c.end) : undefined;
+  return (
+    <div className={styles.player}>
+      <ExplainerPlayer slug={slug} onTime={setTime} autoPlay />
+      <div aria-live="off" className={styles.captionLayer}>
+        {cue && <span className={styles.caption}>{cue.text}</span>}
+      </div>
+    </div>
   );
 }

@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00.000 --> 00:05.953
+A grid of land and water hides joined-up islands.
+
+00:05.953 --> 00:14.700
+Re-exploring from every land cell repeats the same ground over and over.
+
+00:15.000 --> 00:19.555
+Scan row by row instead.
+
+00:19.555 --> 00:31.700
+The first unclaimed land, at row 0, col 0, must be a new island.
+
+00:32.000 --> 00:42.005
+A queue floods from it to every joined square, claiming island 1.
+
+00:42.005 --> 00:47.700
+The scan moves on and finds two more.
+
+00:48.000 --> 00:52.520
+Each cell is claimed once: O(m·n).
+
+00:52.520 --> 00:57.041
+Three drops of ink, three islands.
+
+00:57.041 --> 00:59.700
+That’s graph search.
+

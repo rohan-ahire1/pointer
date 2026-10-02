@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00.000 --> 00:05.026
+Two Sum asks which two numbers add to 9.
+
+00:05.026 --> 00:12.690
+Trying every pair means each number meets every other number.
+
+00:12.690 --> 00:14.700
+That is n² work.
+
+00:15.000 --> 00:24.013
+Instead, walk the list once and keep a map of numbers you have seen.
+
+00:24.013 --> 00:31.700
+Each entry remembers a number and the index where it sits.
+
+00:32.000 --> 00:38.252
+For each number, ask the map for its partner.
+
+00:38.252 --> 00:47.700
+9 minus 7 is 2, and 2 is already in the map, so the pair is 0 and 1.
+
+00:48.000 --> 00:52.703
+One pass, one map lookup each: O(n) time.
+
+00:52.703 --> 00:59.700
+That’s arrays and hashing: memory traded for instant lookups.
+

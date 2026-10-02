@@ -1,0 +1,26 @@
+WEBVTT
+
+00:00.000 --> 00:09.150
+Seven numbers, sorted but rotated, and you need the smallest.
+
+00:09.150 --> 00:14.700
+Scanning all seven works, but slowly.
+
+00:15.000 --> 00:23.092
+Instead, compare the middle with the right end.
+
+00:23.092 --> 00:31.700
+That single check names the half holding the drop.
+
+00:32.000 --> 00:39.233
+7 beats 2, so the drop sits right of mid.
+
+00:39.233 --> 00:47.700
+The left half goes, and the search space halves.
+
+00:48.000 --> 00:55.064
+Halve again and again: O(log n).
+
+00:55.064 --> 00:59.700
+That’s binary search.
+

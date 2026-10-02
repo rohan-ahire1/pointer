@@ -68,7 +68,7 @@ export default async function PatternPage({ params }: PatternPageProps) {
 
       <div className={styles.main}>
         <LessonHero pattern={pattern} groupLabel={groupLabel} />
-        <LessonWatch video={pattern.video} title={`${pattern.name} in 60 seconds`} />
+        <LessonWatch video={pattern.video} slug={pattern.slug} title={`${pattern.name} in 60 seconds`} />
 
         <section id="try" aria-labelledby="try-h" className={styles.trySection}>
           <div className={styles.tryHead}>

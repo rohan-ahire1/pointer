@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00.000 --> 00:08.728
+Six brackets, and each closer must meet the right opener.
+
+00:08.728 --> 00:14.700
+Scanning ahead for every match is slow.
+
+00:15.000 --> 00:23.350
+Instead, stack each opener as you read it.
+
+00:23.350 --> 00:31.700
+The stack remembers what is still waiting.
+
+00:32.000 --> 00:40.173
+Each closer checks only the top plate.
+
+00:40.173 --> 00:47.700
+If they match, the pair is settled.
+
+00:48.000 --> 00:51.714
+One pass, O(n) time.
+
+00:51.714 --> 00:56.543
+Empty stack, valid string.
+
+00:56.543 --> 00:59.700
+That’s the stack.
+

@@ -1,0 +1,26 @@
+WEBVTT
+
+00:00.000 --> 00:10.316
+Nine walls stand in a row, and you must pick the pair that holds the most water.
+
+00:10.316 --> 00:14.700
+Trying every pair means n² checks.
+
+00:15.000 --> 00:27.572
+Instead, start with the widest container: the first and last walls.
+
+00:27.572 --> 00:31.700
+Measure what it holds.
+
+00:32.000 --> 00:40.454
+The shorter wall is the limit, so move it inward.
+
+00:40.454 --> 00:47.700
+The taller wall never needs to move first.
+
+00:48.000 --> 00:56.495
+Each wall moves once, so one pass finds the best: 49.
+
+00:56.495 --> 00:59.700
+That’s two pointers.
+

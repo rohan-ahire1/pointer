@@ -1,0 +1,32 @@
+WEBVTT
+
+00:00.000 --> 00:07.679
+Say you need the longest stretch of a string with no repeated letters.
+
+00:07.679 --> 00:13.054
+The obvious way checks every start and every end.
+
+00:13.054 --> 00:14.700
+That’s n² work.
+
+00:15.000 --> 00:19.221
+Instead, keep a window.
+
+00:19.221 --> 00:31.700
+Move its right edge one letter at a time and remember what’s inside.
+
+00:32.000 --> 00:42.947
+When a letter repeats, slide the left edge forward until the repeat is gone.
+
+00:42.947 --> 00:47.700
+The window never moves backwards.
+
+00:48.000 --> 00:53.778
+Each letter enters once and leaves once.
+
+00:53.778 --> 00:55.944
+One pass, O(n).
+
+00:55.944 --> 00:59.700
+That’s the sliding window.
+
