@@ -159,9 +159,6 @@ export function SoonLesson({ pattern, groupLabel, totalPatterns, prev, next }: S
               )}
               <span className={styles.placeholderNote}>[EMAIL SIGNUP SERVICE] — this form is a placeholder and does not submit anywhere yet.</span>
             </form>
-            <span className={styles.instagramPlaceholder}>
-              Or follow along on Instagram <span className={styles.placeholderNote}>[INSTAGRAM]</span>
-            </span>
           </div>
         </section>
 

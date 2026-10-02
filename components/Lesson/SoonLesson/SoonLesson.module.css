@@ -305,18 +305,6 @@
   font-size: 13px;
 }
 
-.instagramPlaceholder {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 22px;
-  background: var(--card);
-  border: var(--border);
-  border-radius: 20px;
-  box-shadow: var(--shadow-md);
-  font-weight: 700;
-  color: var(--muted);
-}
 
 .meanwhileSection {
   display: flex;

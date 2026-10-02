@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CONTACT_EMAIL, SOCIAL_LINKS } from "@/lib/site";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -46,7 +47,7 @@ const FAQS = [
   },
   {
     q: "How often do new patterns come out?",
-    a: "When they’re ready. Each one takes a while to animate properly. Follow on Instagram to hear first.",
+    a: "When they’re ready. Each one takes a while to animate properly.",
   },
   {
     q: "Is this enough to pass interviews?",
@@ -70,26 +71,19 @@ export default function AboutPage() {
           </p>
         </div>
         <div className={styles.profileCard}>
-          <div role="img" aria-label="Photo of Rohan" className={styles.photo}>
-            [PHOTO]
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/rohan.jpg" alt="Photo of Rohan" width={96} height={96} className={styles.photo} />
           <span className={`soft ${styles.profileName}`}>Made by Rohan</span>
           <p className={styles.profileBody}>
             Software engineer. Builds the animations in code, and learns best by seeing things move.
           </p>
           <div className={styles.profileLinks}>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              [GITHUB]
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              [LINKEDIN]
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              [INSTAGRAM]
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
+            {SOCIAL_LINKS.map((link) => (
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            ))}
           </div>
         </div>
       </header>
@@ -110,7 +104,7 @@ export default function AboutPage() {
           </h2>
           <p className={styles.sectionLead}>
             Pointer aims to meet WCAG 2.2 AA. Found something that gets in your way? Tell me at{" "}
-            <a href="mailto:#">[EMAIL]</a> and I&rsquo;ll fix it.
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and I&rsquo;ll fix it.
           </p>
         </div>
         <ul className={styles.a11yList}>
