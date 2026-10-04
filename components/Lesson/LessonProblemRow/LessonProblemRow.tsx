@@ -3,9 +3,9 @@
 import type { Problem } from "@/content";
 import { useProgress } from "@/lib/progress";
 import { padPatternNumber } from "@/lib/pattern-nav";
-import styles from "./ProblemCard.module.css";
+import styles from "./LessonProblemRow.module.css";
 
-type ProblemCardProps = {
+type LessonProblemRowProps = {
   problem: Problem;
   /** 1-indexed position within the pattern's problem list, for the "01" badge. */
   index: number;
@@ -24,26 +24,26 @@ const DIFFICULTY_CLASS: Record<Problem["difficulty"], string> = {
 };
 
 /**
- * One problem card in the Solve section (design/mocks/C2-Pattern.dc.html
- * #solve): difficulty tag, twist copy, a "Mark solved" toggle shared with
- * /problems via the progress store, and a LeetCode link that announces it
- * opens a new tab. Also reused (read-only context differs) by /problems.
+ * One row in the lesson's "Practice problems" list, styled to match
+ * /problems' ProblemRow: number, title (struck through once solved), twist,
+ * difficulty tag, a "Mark solved" toggle shared with /problems via the
+ * progress store, and a LeetCode link that announces it opens a new tab.
  */
-export function ProblemCard({ problem, index }: ProblemCardProps) {
+export function LessonProblemRow({ problem, index }: LessonProblemRowProps) {
   const { isSolved, toggleSolved } = useProgress();
   const solved = isSolved(problem.slug);
 
   return (
-    <li className={solved ? `tilt ${styles.cardSolved}` : `tilt ${styles.card}`}>
-      <div className={styles.head}>
-        <span className={`${styles.diffTag} ${DIFFICULTY_CLASS[problem.difficulty]}`}>
-          {DIFFICULTY_LABEL[problem.difficulty]}
-        </span>
-        <span className={styles.index}>{padPatternNumber(index)}</span>
-      </div>
-      <h3 className={`soft ${styles.title}`}>{problem.title}</h3>
-      {problem.premium && <span className={styles.premium}>LeetCode Premium</span>}
-      <p className={styles.twist}>{problem.twist}</p>
+    <li className={solved ? styles.rowSolved : styles.row}>
+      <span className={styles.index}>{padPatternNumber(index)}</span>
+      <h3 className={solved ? styles.titleSolved : styles.title}>{problem.title}</h3>
+      <p className={styles.twist}>
+        {problem.premium && <span className={styles.premium}>LeetCode Premium</span>}
+        {problem.twist}
+      </p>
+      <span className={`${styles.diffTag} ${DIFFICULTY_CLASS[problem.difficulty]}`}>
+        {DIFFICULTY_LABEL[problem.difficulty]}
+      </span>
       <div className={styles.actions}>
         <button
           type="button"

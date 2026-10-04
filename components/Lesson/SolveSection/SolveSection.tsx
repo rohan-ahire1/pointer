@@ -2,14 +2,14 @@
 
 import type { Problem } from "@/content";
 import { useProgress } from "@/lib/progress";
-import { ProblemCard } from "@/components/Lesson/ProblemCard/ProblemCard";
+import { LessonProblemRow } from "@/components/Lesson/LessonProblemRow/LessonProblemRow";
 import styles from "./SolveSection.module.css";
 
 type SolveSectionProps = {
   problems: Problem[];
 };
 
-/** The Solve section (design/mocks/C2-Pattern.dc.html #solve): progress bar + problem cards. */
+/** The Solve section (design/mocks/C2-Pattern.dc.html #solve): progress bar + a compact list of problem rows. */
 export function SolveSection({ problems }: SolveSectionProps) {
   const { progress } = useProgress();
   const done = problems.filter((p) => progress.solved[p.slug]).length;
@@ -19,7 +19,7 @@ export function SolveSection({ problems }: SolveSectionProps) {
     <section id="solve" aria-labelledby="solve-h" className={styles.section}>
       <div className={styles.head}>
         <h2 id="solve-h" className={`soft ${styles.heading}`}>
-          <span className={styles.headingIndex}>4 · </span>Your turn
+          <span className={styles.headingIndex}>4 · </span>Practice problems
         </h2>
         <div className={styles.progressWrap}>
           <span id="solve-progress-label" className={styles.progressLabel}>
@@ -37,9 +37,9 @@ export function SolveSection({ problems }: SolveSectionProps) {
           </div>
         </div>
       </div>
-      <ol className={styles.grid}>
+      <ol className={styles.list}>
         {problems.map((problem, index) => (
-          <ProblemCard key={problem.slug} problem={problem} index={index + 1} />
+          <LessonProblemRow key={problem.slug} problem={problem} index={index + 1} />
         ))}
       </ol>
     </section>
