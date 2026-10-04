@@ -51,7 +51,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ### Hard rules
 
 1. **Never push to `master`, merge PRs, or run a deploy.** Work on a branch, open a PR, and stop. A human merges.
-2. Don't edit `.github/workflows/` unless the issue asks for it explicitly.
+2. Don't edit `.github/workflows/`, `scripts/deploy-vps.sh` unless the issue asks for it explicitly.
 3. No secrets in code, logs, PRs or screenshots.
 
 ### Definition of done
