@@ -1,0 +1,40 @@
+{
+  "kit": "1.0.0",
+  "branch": "master",
+  "node": "22",
+  "setup": [
+    "npm ci --no-audit --no-fund"
+  ],
+  "gates": [
+    {
+      "name": "Typecheck",
+      "run": "npm run typecheck"
+    },
+    {
+      "name": "Lint",
+      "run": "npm run lint"
+    },
+    {
+      "name": "Tests",
+      "run": "npm test"
+    },
+    {
+      "name": "Build",
+      "run": "npm run build"
+    }
+  ],
+  "app": {
+    "start": "npx next start -p $PORT",
+    "routes": "sitemap",
+    "ignore": []
+  },
+  "protect": [
+    ".github/workflows/",
+    "scripts/deploy-vps.sh"
+  ],
+  "worker": {
+    "model": "claude-opus-5-5",
+    "maxTurns": 150,
+    "tools": []
+  }
+}

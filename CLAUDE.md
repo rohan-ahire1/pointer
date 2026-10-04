@@ -73,3 +73,5 @@ Placeholders to leave clearly marked until Rohan supplies them: `[EXPLAINER VIDE
 - Small, typed components; no `any`. Co-locate component styles.
 - Every pattern-specific visualizer is a pure `trace(input) => Step[]` function plus a small render component; the player UI (controls, keyboard, speed, narration) is shared.
 - Commit in small steps with clear messages. Run lint, typecheck and tests before saying a step is done.
+
+@AGENTS.md

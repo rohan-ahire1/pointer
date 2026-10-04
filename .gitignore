@@ -50,3 +50,6 @@ AGENTS.md
 
 # local Claude Code config
 /.claude/
+
+# factory evidence (screenshots, reports)
+.factory/evidence/
