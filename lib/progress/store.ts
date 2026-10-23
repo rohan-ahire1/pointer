@@ -1,7 +1,7 @@
 /**
  * Module-level progress store, mirroring lib/theme.ts + lib/use-theme.ts's
  * split (framework-agnostic read/write + validation vs. the React binding
- * in use-progress.ts): every <ProblemCard> "Mark solved" toggle and every
+ * in use-progress.ts): every <LessonProblemRow> "Mark solved" toggle and every
  * /problems checkbox reads from and writes to this single in-memory value,
  * so they stay in sync with each other in the same tab without prop
  * drilling or context. A `storage` event listener keeps multiple tabs in
