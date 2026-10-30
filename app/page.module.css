@@ -287,3 +287,91 @@
   line-height: 1.55;
   color: var(--muted);
 }
+
+/* Motion. The highlight is drawn on like a marker, the hero copy settles in
+   line by line, and the buttons behave like blocks: they lift on hover and
+   press flat into their shadow on click. */
+
+.highlight {
+  background: linear-gradient(var(--yellow), var(--yellow)) no-repeat 0 0 / 100% 100%;
+  animation: marker 700ms var(--ease-out) 350ms backwards;
+}
+
+@keyframes marker {
+  from {
+    background-size: 0% 100%;
+    color: var(--ink);
+  }
+  40% {
+    color: var(--ink);
+  }
+}
+
+.heroCopy > * {
+  animation: settle var(--dur-slow) var(--ease-out) backwards;
+}
+
+.heroCopy > :nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.heroCopy > :nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.heroCopy > :nth-child(4) {
+  animation-delay: 180ms;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.primaryButton,
+.secondaryButton {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .primaryButton:hover,
+  .secondaryButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.primaryButton:active,
+.secondaryButton:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.grid > li {
+  animation: settle var(--dur-slow) var(--ease-out) backwards;
+}
+
+.grid > li:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.grid > li:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.grid > li:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+.grid > li:nth-child(5) {
+  animation-delay: 160ms;
+}
+
+.grid > li:nth-child(n + 6) {
+  animation-delay: 200ms;
+}

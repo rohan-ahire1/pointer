@@ -82,3 +82,49 @@
     margin-left: auto;
   }
 }
+
+/* Motion: the bar fills up when it first appears and glides to its new
+   length when a problem is marked solved. */
+.progressFill {
+  transform-origin: left;
+  animation: fill 800ms var(--ease-out) 250ms backwards;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Motion: the banner drops in once saved progress is found, and its resume
+   button rises into a block when the banner is hovered. */
+.banner {
+  animation: drop var(--dur-slow) var(--ease-out);
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.resume {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .banner:hover .resume {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.banner:active .resume {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}

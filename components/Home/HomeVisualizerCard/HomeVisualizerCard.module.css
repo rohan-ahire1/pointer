@@ -25,3 +25,26 @@
   font-weight: 700;
   color: var(--pen);
 }
+
+/* Motion: the card is set down like a toy block, tipped at first and
+   settling flat as it lands. */
+.card {
+  animation: place 650ms var(--ease-out) 150ms backwards;
+}
+
+@keyframes place {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) rotate(-3deg);
+    box-shadow: 16px 16px 0 transparent;
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
