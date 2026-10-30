@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import Link from "next/link";
 import { getPatterns, getProblems, problemsForPattern, type Difficulty } from "@/content";
-import { useProgress } from "@/lib/progress";
+import { currentStreak, localDay, useProgress } from "@/lib/progress";
+import { ReviewQueue } from "@/components/Progress/ReviewQueue/ReviewQueue";
 import { getContinueLesson } from "@/lib/continue-lesson";
 import { isPatternStarted, solvedCountForPattern } from "@/lib/pattern-progress";
 import { chipColorForNumber } from "@/lib/pattern-style";
@@ -55,6 +56,7 @@ export function ProgressDashboard() {
 
   const hasAnyProgress = Object.keys(progress.solved).length > 0 || Object.keys(progress.lessons).length > 0;
   const continueLesson = getContinueLesson(progress);
+  const streak = currentStreak(progress.activity, localDay());
 
   const solvedTotal = allProblems.filter((problem) => progress.solved[problem.slug] === true).length;
   const startedTotal = allPatterns.filter((pattern) => isPatternStarted(pattern, progress)).length;
@@ -196,7 +198,14 @@ export function ProgressDashboard() {
           <span className={styles.statLabel}>Lessons finished</span>
           <span className={`soft ${styles.statValue}`}>
             {lessonsFinished}
-            <span className={styles.statOf}> / {livePatterns.length} live</span>
+            <span className={styles.statOf}> / {livePatterns.length}</span>
+          </span>
+        </div>
+        <div className={styles.statTile}>
+          <span className={styles.statLabel}>Practice streak</span>
+          <span className={`soft ${styles.statValue}`}>
+            {streak}
+            <span className={styles.statOf}> {streak === 1 ? "day" : "days"}</span>
           </span>
         </div>
         <div className={styles.statTile}>
@@ -214,6 +223,8 @@ export function ProgressDashboard() {
           ))}
         </div>
       </div>
+
+      <ReviewQueue />
 
       {continueLesson ? (
         <Link
