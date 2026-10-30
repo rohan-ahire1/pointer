@@ -1,9 +1,10 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useState } from "react";
 import Link from "next/link";
-import type { Problem } from "@/content";
+import { problemVisualizerHref, type Problem } from "@/content";
 import { useProgress } from "@/lib/progress";
+import { ProblemHint, ProblemHintToggle } from "@/components/Problems/ProblemHint/ProblemHint";
 import styles from "./ProblemRow.module.css";
 
 type ProblemRowProps = {
@@ -34,6 +35,9 @@ export function ProblemRow({ problem, lessonHref, lessonLabel }: ProblemRowProps
   const { isSolved, toggleSolved } = useProgress();
   const solved = isSolved(problem.slug);
   const checkboxId = useId();
+  const hintId = useId();
+  const [hintOpen, setHintOpen] = useState(false);
+  const visualizerHref = problemVisualizerHref(problem);
 
   return (
     <li className={styles.row}>
@@ -51,9 +55,17 @@ export function ProblemRow({ problem, lessonHref, lessonLabel }: ProblemRowProps
           className={styles.checkbox}
         />
       </label>
-      <label htmlFor={checkboxId} className={solved ? styles.nameSolved : styles.name}>
-        {problem.title}
-      </label>
+      <div className={styles.nameCell}>
+        <label htmlFor={checkboxId} className={solved ? styles.nameSolved : styles.name}>
+          {problem.title}
+        </label>
+        <ProblemHintToggle
+          controls={hintId}
+          open={hintOpen}
+          title={problem.title}
+          onToggle={() => setHintOpen((open) => !open)}
+        />
+      </div>
       <span className={`${styles.diffTag} ${DIFFICULTY_CLASS[problem.difficulty]}`}>
         {DIFFICULTY_LABEL[problem.difficulty]}
       </span>
@@ -73,6 +85,13 @@ export function ProblemRow({ problem, lessonHref, lessonLabel }: ProblemRowProps
       >
         <span aria-hidden="true">LeetCode ↗</span>
       </a>
+      <ProblemHint id={hintId} problem={problem} open={hintOpen} className={styles.hint}>
+        {visualizerHref && (
+          <Link href={visualizerHref} className={styles.watchLink}>
+            <span aria-hidden="true">▶ </span>Watch it run
+          </Link>
+        )}
+      </ProblemHint>
     </li>
   );
 }

@@ -33,7 +33,7 @@ function lessonInfo(group: ProblemGroupSummary): { href?: string; label: string 
   }
   return {
     href: `/patterns/${group.pattern.slug}`,
-    label: group.pattern.status === "live" ? "Lesson: live" : "Lesson: coming soon",
+    label: group.pattern.status === "live" ? "Go to lesson →" : "Lesson: coming soon",
   };
 }
 
