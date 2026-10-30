@@ -1,0 +1,66 @@
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  padding: 22px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 900px) {
+  .card {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 32px;
+  }
+}
+
+.codeColumn {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pitfallsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+.pitfalls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pitfall {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.mark {
+  flex-shrink: 0;
+  font-size: 12px;
+  line-height: 22px;
+  color: var(--pen);
+}

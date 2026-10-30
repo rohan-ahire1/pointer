@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 24px;
   padding-top: 72px;
+  /* Tab jumps land on the heading, like the other sections. */
+  scroll-margin-top: -72px;
 }
 
 .head {
@@ -72,6 +74,29 @@
 @media (min-width: 1100px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* The section's flex gap would otherwise leave a hole under the grid. */
+.status:empty {
+  margin-top: -24px;
+}
+
+.complete {
+  margin: 0;
+  padding: 14px 18px;
+  background: var(--tint-mint);
+  border: var(--border);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  animation: complete-in var(--dur-slow) var(--ease-out);
+}
+
+@keyframes complete-in {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
   }
 }
 
