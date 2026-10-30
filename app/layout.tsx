@@ -75,6 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${unbounded.variable} ${dmSans.variable} ${dmMono.variable}`}
       suppressHydrationWarning
     >
