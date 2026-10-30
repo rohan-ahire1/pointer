@@ -56,3 +56,17 @@
   font-weight: 700;
   color: var(--ink);
 }
+
+/* Motion: the bar fills up when it first appears and glides to its new
+   length when a problem is marked solved. */
+.fill {
+  transform-origin: left;
+  animation: fill 800ms var(--ease-out) 250ms backwards;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}

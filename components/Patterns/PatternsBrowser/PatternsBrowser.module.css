@@ -135,3 +135,65 @@
 .extrasLink {
   font-weight: 700;
 }
+
+/* Motion: the chosen filter fills in, cards that come into view after a
+   filter change settle in one after another, and the extras link rises
+   into a block on hover. */
+.filterButton,
+.filterButtonActive {
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .filterButton:hover {
+    background: var(--tint-yellow);
+  }
+}
+
+.grid > li {
+  animation: settle var(--dur-slow) var(--ease-out) backwards;
+}
+
+.grid > li:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.grid > li:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.grid > li:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+.grid > li:nth-child(n + 5) {
+  animation-delay: 160ms;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.extrasCallout {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .extrasCallout:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.extrasCallout:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}

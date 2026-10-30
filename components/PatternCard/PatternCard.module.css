@@ -100,3 +100,50 @@
   height: 100%;
   background: var(--mint);
 }
+
+/* Motion: the card lifts off the page on hover and its number chip tips,
+   like picking up a block. Pressing flattens it into its shadow. */
+.card {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.number {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .card:hover .number {
+    transform: rotate(-6deg);
+  }
+}
+
+.card:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.progressFill {
+  transform-origin: left;
+  animation: fill 800ms var(--ease-out) 250ms backwards;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover .number {
+    transform: none;
+  }
+}
