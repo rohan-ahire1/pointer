@@ -12,17 +12,21 @@ Each pattern gets one lesson page with:
 
 - **The idea in one line**, an everyday analogy, when to reach for it, and its time and space complexity.
 - **An animated explainer** with captions and a transcript, built in code with Remotion rather than recorded as video.
-- **A step-through visualizer** for a classic problem (for example, longest substring without repeating characters for Sliding Window). It highlights the matching line of a TypeScript solution and narrates each step. You can paste your own LeetCode-style input, such as `[2,7,11,15]`.
-- **The Blind 75 problems for that pattern**, each with a one-line hint and a link to LeetCode.
+- **Step-through visualizers** for classic problems (for example, longest substring without repeating characters for Sliding Window). They highlight the matching line of a TypeScript or Python solution and narrate each step. You can paste your own LeetCode-style input, such as `[2,7,11,15]`, or pause and guess the next step.
+- **The Blind 75 problems for that pattern**, each with a hint, its time and space cost, and a link to LeetCode.
+- **A code template and common mistakes**, so you have something to start from when you open a blank editor.
 
 Progress is saved in the browser, so there's no sign-up and no backend.
 
 ## Key features
 
-- 15 lessons and 15 visualizers, one per pattern
-- Visualizer player with play/pause, step, reset, speed control and keyboard shortcuts (arrow keys, space, `R`)
+- 15 lessons and 28 visualizers
+- Visualizer player with play/pause, step, reset, speed control, predict mode, share links and keyboard shortcuts (arrow keys, space, `R`)
+- Spaced review: solved problems come back after a day, then less and less often
+- Pattern drill: read a problem, pick the pattern, see how you did
+- Printable cheat sheet with every pattern's template on one page
 - Command-palette search across patterns and problems
-- Progress page and "continue where you left off"
+- Progress page with a practice streak and "continue where you left off"
 - Light and dark themes, a phone layout, skip links and screen-reader step summaries
 - Generated Open Graph images, sitemap, robots and web manifest
 
@@ -38,7 +42,7 @@ Progress is saved in the browser, so there's no sign-up and no backend.
 
 - **Content is data.** `content/patterns.json` and `content/problems.json` drive every page. A test (`content/data.test.ts`) checks that the two files stay consistent.
 - **One trace, many views.** Each visualizer exposes a pure, deterministic `trace(input)` function that returns a list of steps (state, highlighted code lines, narration, screen-reader text). Traces are unit tested directly. A shared `VisualizerPlayer` handles input parsing, presets, playback, speed, keyboard control and the code panel, so a new visualizer is mostly its trace and a view.
-- **Shared kit.** `visualizers/kit` holds reusable pieces (cells, strips, pointer tags, panels, stats) so 15 different algorithms look like one product.
+- **Shared kit.** `visualizers/kit` holds reusable pieces (cells, strips, pointer tags, panels, stats) so 28 different algorithms look like one product.
 - **Local-only progress.** `lib/progress` wraps `localStorage` behind a small store with a React hook.
 - **Atomic deploys.** `scripts/deploy-vps.sh` builds the static export, uploads it to a new release folder, swaps the symlink Caddy serves from, and keeps the last five releases.
 
@@ -58,11 +62,11 @@ No environment variables are needed.
 ## Project layout
 
 ```
-app/          Routes: /, /patterns, /patterns/[slug], /problems, /progress, /about
+app/          Routes: /, /patterns, /patterns/[slug], /problems, /drill, /cheatsheet, /progress, /about
 components/   UI, one folder per component with its .module.css
-content/      Pattern and problem data
+content/      Pattern and problem data, plus code templates and common mistakes
 visualizers/  One folder per visualizer, plus the shared player and kit
-lib/          Progress store, theme, search, navigation helpers
+lib/          Progress store, review schedule, drill rounds, theme, search, navigation helpers
 design/       Design mocks, tokens.css and the visualizer spec
 public/video/ Explainer posters and caption files
 ```
