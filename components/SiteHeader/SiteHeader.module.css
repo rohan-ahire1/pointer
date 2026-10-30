@@ -146,3 +146,43 @@
     position: relative;
   }
 }
+
+/* Motion: nav links get a marker underline that draws in from the left,
+   and the buttons rise into blocks on hover and press back down. */
+.navLink {
+  background: linear-gradient(var(--hl), var(--hl)) no-repeat 16px calc(100% - 10px) / 0 6px;
+  transition: background-size var(--dur-base) var(--ease-out);
+}
+
+.navLink:hover,
+.navLink[aria-current="page"] {
+  background-size: calc(100% - 32px) 6px;
+}
+
+.searchButton,
+.searchButtonMobile,
+.menuButton,
+.startLearningButton {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .searchButton:hover,
+  .searchButtonMobile:hover,
+  .menuButton:hover,
+  .startLearningButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.searchButton:active,
+.searchButtonMobile:active,
+.menuButton:active,
+.startLearningButton:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}

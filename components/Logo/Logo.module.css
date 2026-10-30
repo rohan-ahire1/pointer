@@ -20,3 +20,23 @@
   font-size: 15px;
   font-weight: 700;
 }
+
+/* Motion: hovering a link that holds the logo makes the arrow hop, a small
+   nod to the pointer moving through an array. */
+@media (hover: hover) {
+  a:hover .mark {
+    animation: hop 450ms var(--ease-out);
+  }
+}
+
+@keyframes hop {
+  40% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a:hover .mark {
+    animation: none;
+  }
+}
