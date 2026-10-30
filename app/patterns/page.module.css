@@ -78,3 +78,14 @@
     font-size: 20px;
   }
 }
+
+.sheetLink {
+  align-self: flex-start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pen);
+  text-decoration: none;
+}

@@ -1,4 +1,4 @@
-import { EXTRAS_KEY, getPattern, getPatterns, getProblems, type Difficulty } from "@/content";
+import { EXTRAS_KEY, getPattern, getPatterns, getProblems, problemHref, type Difficulty } from "@/content";
 import { chipColorForNumber } from "@/lib/pattern-style";
 import { padPatternNumber } from "@/lib/pattern-nav";
 import type { SearchItem, SearchSection } from "./types";
@@ -17,6 +17,8 @@ const STATIC_PAGES: readonly { title: string; href: string }[] = [
   { title: "Home", href: "/" },
   { title: "All patterns", href: "/patterns" },
   { title: "The Blind 75 problems", href: "/problems" },
+  { title: "Pattern drill", href: "/drill" },
+  { title: "Cheat sheet", href: "/cheatsheet" },
   { title: "Your progress", href: "/progress" },
   { title: "About Pointer", href: "/about" },
 ];
@@ -31,7 +33,7 @@ export function getSearchItems(): SearchItem[] {
     id: `pattern:${pattern.slug}`,
     kind: "pattern",
     title: pattern.name,
-    sub: pattern.status === "live" ? "Lesson · live now" : "Lesson · coming soon",
+    sub: pattern.status === "live" ? pattern.idea : "Lesson · coming soon",
     href: `/patterns/${pattern.slug}`,
     badge: padPatternNumber(pattern.number),
     badgeBg: chipColorForNumber(pattern.number),
@@ -44,7 +46,7 @@ export function getSearchItems(): SearchItem[] {
       kind: "problem",
       title: problem.title,
       sub: `${DIFFICULTY_LABEL[problem.difficulty]} · ${pattern ? pattern.name : "Extras"}`,
-      href: "/problems",
+      href: problemHref(problem),
       badge: problem.difficulty[0].toUpperCase(),
       badgeBg: DIFFICULTY_BADGE_BG[problem.difficulty],
     };
@@ -69,7 +71,7 @@ const SECTION_TITLES: Record<SearchItem["kind"], string> = {
   page: "PAGES",
 };
 
-const DEFAULT_CAPS: Record<SearchItem["kind"], number> = { pattern: 6, problem: 8, page: 5 };
+const DEFAULT_CAPS: Record<SearchItem["kind"], number> = { pattern: 6, problem: 8, page: 7 };
 
 function scoreOf(item: SearchItem, q: string): number {
   const title = item.title.toLowerCase();

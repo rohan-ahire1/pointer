@@ -6,7 +6,7 @@ import styles from "./SkipLink.module.css";
  */
 export function SkipLink() {
   return (
-    <a href="#main" className={styles.skip}>
+    <a href="#main" data-no-print className={styles.skip}>
       Skip to content
     </a>
   );

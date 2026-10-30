@@ -78,7 +78,7 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className={styles.wrap}>
+    <header data-no-print className={styles.wrap}>
       <nav aria-label="Main" className={styles.nav}>
         <Link href="/" aria-label="Pointer home" className={styles.logoLink}>
           <Logo />

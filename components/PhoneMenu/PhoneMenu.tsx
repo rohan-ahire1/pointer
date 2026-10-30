@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle/ThemeToggle";
 import { CloseIcon, SearchIcon } from "@/components/icons/Icons";
-import { NAV_LINKS } from "@/lib/nav-links";
+import { MORE_LINKS, NAV_LINKS } from "@/lib/nav-links";
 import { useProgress } from "@/lib/progress";
 import { getContinueLesson } from "@/lib/continue-lesson";
 import { padPatternNumber } from "@/lib/pattern-nav";
@@ -97,7 +97,7 @@ export function PhoneMenu({ id, open, onClose, onOpenSearch }: PhoneMenuProps) {
         >
           Home
         </Link>
-        {NAV_LINKS.map((link) => (
+        {[...NAV_LINKS, ...MORE_LINKS].map((link) => (
           <Link
             key={link.href}
             href={link.href}

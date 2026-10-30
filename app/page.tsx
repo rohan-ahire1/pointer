@@ -4,6 +4,8 @@ import { groupNumberRange } from "@/lib/pattern-style";
 import { PatternCard } from "@/components/PatternCard/PatternCard";
 import { WelcomeBackBanner } from "@/components/Home/WelcomeBackBanner/WelcomeBackBanner";
 import { HomeVisualizerCard } from "@/components/Home/HomeVisualizerCard/HomeVisualizerCard";
+import { JsonLd } from "@/components/JsonLd/JsonLd";
+import { SITE_URL } from "@/lib/site";
 import styles from "./page.module.css";
 
 const FEATURE_TILES = [
@@ -27,6 +29,11 @@ const FEATURE_TILES = [
   },
 ];
 
+const SHARP_LINKS = [
+  { href: "/drill", title: "Pattern drill", body: "Read a problem and name the pattern. Ten quick questions." },
+  { href: "/cheatsheet", title: "Cheat sheet", body: "All 15 patterns on one page. Print it for the night before." },
+];
+
 /** Home (design/mocks/C2-Home.dc.html / C2-Home-Dark.dc.html). */
 export default function HomePage() {
   const patterns = getPatterns();
@@ -45,6 +52,7 @@ export default function HomePage() {
 
   return (
     <>
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: "Pointer", url: SITE_URL }} />
       <WelcomeBackBanner />
 
       <section className={styles.hero}>
@@ -110,6 +118,23 @@ export default function HomePage() {
             <p className={styles.featureBody}>{tile.body}</p>
           </div>
         ))}
+      </section>
+
+      <section aria-labelledby="sharp-h" className={styles.sharp}>
+        <h2 id="sharp-h" className={`soft ${styles.patternsHeading}`}>
+          Keep it sharp
+        </h2>
+        <div className={styles.sharpGrid}>
+          {SHARP_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className={styles.sharpLink}>
+              <span className={`soft ${styles.sharpTitle}`}>{link.title}</span>
+              <span className={styles.sharpBody}>{link.body}</span>
+              <span aria-hidden="true" className={styles.sharpArrow}>
+                →
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
     </>
   );

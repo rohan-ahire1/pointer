@@ -8,6 +8,8 @@ const STATIC_ROUTES: readonly { path: string; changeFrequency: MetadataRoute.Sit
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/patterns", changeFrequency: "weekly", priority: 0.9 },
   { path: "/problems", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/drill", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/cheatsheet", changeFrequency: "monthly", priority: 0.7 },
   { path: "/progress", changeFrequency: "monthly", priority: 0.3 },
   { path: "/about", changeFrequency: "monthly", priority: 0.5 },
 ];

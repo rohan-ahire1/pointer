@@ -288,6 +288,89 @@
   color: var(--muted);
 }
 
+.sharp {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 16px 64px;
+}
+
+@media (min-width: 768px) {
+  .sharp {
+    padding: 0 32px 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sharp {
+    padding: 0 88px 112px;
+  }
+}
+
+.sharpGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .sharpGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.sharpLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 16px;
+  align-items: center;
+  padding: 22px 26px;
+  background: var(--tint-lilac);
+  border: var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.sharpLink:nth-child(2) {
+  background: var(--tint-mint);
+}
+
+@media (hover: hover) {
+  .sharpLink:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.sharpLink:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.sharpTitle {
+  font-size: 20px;
+}
+
+.sharpBody {
+  grid-column: 1;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.sharpArrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  font-size: 22px;
+  font-weight: 700;
+}
+
 /* Motion. The highlight is drawn on like a marker, the hero copy settles in
    line by line, and the buttons behave like blocks: they lift on hover and
    press flat into their shadow on click. */
