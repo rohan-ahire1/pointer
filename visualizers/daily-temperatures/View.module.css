@@ -1,0 +1,9 @@
+.stackWrap {
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .stackWrap {
+    width: 190px;
+  }
+}
