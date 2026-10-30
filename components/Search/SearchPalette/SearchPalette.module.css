@@ -208,3 +208,51 @@
 .countLabel {
   margin-left: auto;
 }
+
+/* Motion: the palette pops up from just above where it settles while the
+   page dims behind it; the highlighted result slides its tint along. */
+.dialog[open] {
+  animation: pop var(--dur-base) var(--ease-out);
+}
+
+.dialog[open]::backdrop {
+  animation: dim var(--dur-base) var(--ease-out);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
+@keyframes dim {
+  from {
+    opacity: 0;
+  }
+}
+
+.option,
+.optionActive {
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.optionActive .badge {
+  animation: nudge var(--dur-base) var(--ease-out);
+}
+
+@keyframes nudge {
+  from {
+    transform: translateX(-4px);
+  }
+}
+
+.closeButton {
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.closeButton:hover {
+  background: var(--past-bg);
+}
