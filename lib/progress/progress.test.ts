@@ -1,10 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EMPTY_PROGRESS, mergeProgress, validateProgress, type Progress } from "./types";
 import { readStoredProgress, writeStoredProgress } from "./storage";
+import { addDays, bumpActivity, currentStreak, dueReviews, newCard, nextCard } from "./review";
 import {
   exportProgress,
   importProgress,
+  recordDrillRound,
   resetProgress,
+  reviewProblem,
   setLessonSection,
   toggleSolved,
 } from "./store";
@@ -240,5 +243,87 @@ describe("progress store (mutators)", () => {
     expect(() => toggleSolved("two-sum")).not.toThrow();
     expect(JSON.parse(exportProgress()).solved).toEqual({ "two-sum": true });
     spy.mockRestore();
+  });
+});
+
+describe("spaced review", () => {
+  const TODAY = "2026-10-30";
+
+  beforeEach(() => {
+    resetProgress();
+  });
+
+  it("schedules a new card for tomorrow and walks up the boxes", () => {
+    expect(newCard(TODAY)).toEqual({ box: 0, due: "2026-10-31" });
+    const first = nextCard({ box: 0, due: TODAY }, true, TODAY);
+    expect(first).toEqual({ box: 1, due: "2026-11-02" });
+    expect(nextCard({ box: 5, due: TODAY }, true, TODAY).box).toBe(5);
+  });
+
+  it("sends a forgotten problem back to tomorrow", () => {
+    expect(nextCard({ box: 4, due: TODAY }, false, TODAY)).toEqual({ box: 0, due: "2026-10-31" });
+  });
+
+  it("crosses month and year ends", () => {
+    expect(addDays("2026-12-31", 1)).toBe("2027-01-01");
+    expect(addDays("2027-03-01", -1)).toBe("2027-02-28");
+  });
+
+  it("lists due problems, counting old solves with no card as due", () => {
+    const progress: Progress = {
+      ...EMPTY_PROGRESS,
+      solved: { old: true, due: true, later: true },
+      reviews: { due: { box: 1, due: "2026-10-29" }, later: { box: 2, due: "2026-11-05" } },
+    };
+    expect(dueReviews(progress, TODAY)).toEqual(["old", "due"]);
+  });
+
+  it("adds a card on solve and drops it on unsolve", () => {
+    toggleSolved("two-sum");
+    expect(JSON.parse(exportProgress()).reviews["two-sum"].box).toBe(0);
+    toggleSolved("two-sum");
+    expect(JSON.parse(exportProgress()).reviews["two-sum"]).toBeUndefined();
+  });
+
+  it("stores a review answer and counts it as practice", () => {
+    toggleSolved("two-sum");
+    reviewProblem("two-sum", true);
+    const stored = JSON.parse(exportProgress());
+    expect(stored.reviews["two-sum"].box).toBe(1);
+    expect(Object.values(stored.activity)).toEqual([2]);
+  });
+
+  it("keeps the best drill score", () => {
+    recordDrillRound(7);
+    recordDrillRound(4);
+    expect(JSON.parse(exportProgress()).drillBest).toBe(7);
+  });
+
+  it("counts a streak, and today not done yet doesn't break it", () => {
+    expect(currentStreak(undefined, TODAY)).toBe(0);
+    expect(currentStreak({ "2026-10-29": 1, "2026-10-28": 3 }, TODAY)).toBe(2);
+    expect(currentStreak({ "2026-10-30": 1, "2026-10-29": 1 }, TODAY)).toBe(2);
+    expect(currentStreak({ "2026-10-27": 1 }, TODAY)).toBe(0);
+  });
+
+  it("forgets activity too old to show", () => {
+    expect(bumpActivity({ "2020-01-01": 5 }, TODAY)).toEqual({ [TODAY]: 1 });
+  });
+
+  it("merges review data from an import", () => {
+    const merged = mergeProgress(
+      { ...EMPTY_PROGRESS, reviews: { a: { box: 1, due: "2026-11-01" } }, activity: { [TODAY]: 1 }, drillBest: 4 },
+      { ...EMPTY_PROGRESS, reviews: { a: { box: 3, due: "2026-11-09" } }, activity: { [TODAY]: 3 }, drillBest: 9 },
+    );
+    expect(merged.reviews?.a.box).toBe(3);
+    expect(merged.activity?.[TODAY]).toBe(3);
+    expect(merged.drillBest).toBe(9);
+  });
+
+  it("rejects malformed review data but accepts exports without it", () => {
+    expect(validateProgress({ ...VALID, reviews: { a: { box: "1", due: "2026-11-01" } } }).ok).toBe(false);
+    expect(validateProgress({ ...VALID, activity: { yesterday: 1 } }).ok).toBe(false);
+    expect(validateProgress({ ...VALID, drillBest: "ten" }).ok).toBe(false);
+    expect(validateProgress(VALID).ok).toBe(true);
   });
 });

@@ -21,6 +21,7 @@ import {
   type LessonSection,
   type Progress,
 } from "./types";
+import { bumpActivity, localDay, newCard, nextCard } from "./review";
 import { readStoredProgress, writeStoredProgress } from "./storage";
 
 type Listener = () => void;
@@ -79,16 +80,42 @@ export function getServerProgressSnapshot(): Progress {
   return EMPTY_PROGRESS;
 }
 
-/** Flips a problem between solved and not solved. */
+/** Flips a problem between solved and not solved, adding or dropping its review card with it. */
 export function toggleSolved(problemSlug: string): void {
   ensureInitialized();
+  const today = localDay();
   const solved = { ...current.solved };
+  const reviews = { ...current.reviews };
   if (solved[problemSlug]) {
     delete solved[problemSlug];
-  } else {
-    solved[problemSlug] = true;
+    delete reviews[problemSlug];
+    set({ ...current, solved, reviews });
+    return;
   }
-  set({ ...current, solved });
+  solved[problemSlug] = true;
+  reviews[problemSlug] = newCard(today);
+  set({ ...current, solved, reviews, activity: bumpActivity(current.activity, today) });
+}
+
+/** Records a review answer and schedules the problem's next one. */
+export function reviewProblem(problemSlug: string, remembered: boolean): void {
+  ensureInitialized();
+  const today = localDay();
+  set({
+    ...current,
+    reviews: { ...current.reviews, [problemSlug]: nextCard(current.reviews?.[problemSlug], remembered, today) },
+    activity: bumpActivity(current.activity, today),
+  });
+}
+
+/** Records a finished drill round. */
+export function recordDrillRound(score: number): void {
+  ensureInitialized();
+  set({
+    ...current,
+    drillBest: Math.max(current.drillBest ?? 0, score),
+    activity: bumpActivity(current.activity, localDay()),
+  });
 }
 
 /** Records the section a lesson page has scrolled to, for "continue where you left off". */
