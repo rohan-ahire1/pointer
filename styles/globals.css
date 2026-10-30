@@ -98,3 +98,32 @@ ol {
   white-space: nowrap;
   border: 0;
 }
+
+/*
+ * Theme switch reveal. ThemeToggle sets --theme-x / --theme-y to the
+ * button's centre and marks <html> with data-theme-reveal for the length of
+ * a view transition; the new theme then grows out from there as a circle.
+ */
+:root[data-theme-reveal]::view-transition-old(root),
+:root[data-theme-reveal]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+:root[data-theme-reveal]::view-transition-new(root) {
+  animation: theme-reveal 550ms var(--ease-out);
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 0));
+  }
+  to {
+    clip-path: circle(150vmax at var(--theme-x, 50%) var(--theme-y, 0));
+  }
+}
+
+::selection {
+  background: var(--hl);
+  color: var(--ink);
+}

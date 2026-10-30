@@ -1,5 +1,6 @@
 "use client";
 
+import type { MouseEvent } from "react";
 import { useTheme } from "@/lib/use-theme";
 import { MoonIcon, SunIcon } from "@/components/icons/Icons";
 import styles from "./ThemeToggle.module.css";
@@ -17,6 +18,27 @@ type ThemeToggleProps = {
  */
 export function ThemeToggle({ variant = "icon" }: ThemeToggleProps) {
   const { isDark, toggle } = useTheme();
+
+  // The new theme spreads out as a circle from the button that was pressed.
+  // Browsers without view transitions, and anyone who prefers reduced
+  // motion, get the plain instant switch.
+  function handleClick(event: MouseEvent<HTMLButtonElement>) {
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (typeof document.startViewTransition !== "function" || reduceMotion) {
+      toggle();
+      return;
+    }
+    const rect = event.currentTarget.getBoundingClientRect();
+    root.style.setProperty("--theme-x", `${rect.left + rect.width / 2}px`);
+    root.style.setProperty("--theme-y", `${rect.top + rect.height / 2}px`);
+    root.dataset.themeReveal = "";
+    const transition = document.startViewTransition(toggle);
+    transition.finished.finally(() => {
+      delete root.dataset.themeReveal;
+    });
+  }
+
   const label = isDark ? "Switch to light theme" : "Switch to dark theme";
 
   if (variant === "switch") {
@@ -30,7 +52,7 @@ export function ThemeToggle({ variant = "icon" }: ThemeToggleProps) {
           role="switch"
           aria-checked={isDark}
           aria-labelledby="theme-switch-label"
-          onClick={toggle}
+          onClick={handleClick}
           className={styles.switchTrack}
           data-checked={isDark}
         >
@@ -43,12 +65,14 @@ export function ThemeToggle({ variant = "icon" }: ThemeToggleProps) {
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={handleClick}
       aria-label={label}
       aria-pressed={isDark}
       className={styles.iconButton}
     >
-      {isDark ? <SunIcon /> : <MoonIcon />}
+      <span key={isDark ? "sun" : "moon"} className={styles.icon}>
+        {isDark ? <SunIcon /> : <MoonIcon />}
+      </span>
     </button>
   );
 }

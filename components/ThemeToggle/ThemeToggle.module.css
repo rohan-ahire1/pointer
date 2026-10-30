@@ -53,3 +53,50 @@
   border: 2px solid var(--line);
   box-sizing: border-box;
 }
+
+/* Motion: the knob slides across the track, the icon spins in when it
+   swaps, and the button presses like a block. The page-wide reveal lives
+   in styles/globals.css. */
+.switchKnob {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.switchTrack[data-checked="true"] {
+  justify-content: flex-start;
+}
+
+.switchTrack[data-checked="true"] .switchKnob {
+  /* Track 64px, minus 2px borders and 3px padding each side, minus the knob. */
+  transform: translateX(26px);
+}
+
+.icon {
+  display: flex;
+  animation: spin-in var(--dur-slow) var(--ease-out);
+}
+
+@keyframes spin-in {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.6);
+  }
+}
+
+.iconButton {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .iconButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.iconButton:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
