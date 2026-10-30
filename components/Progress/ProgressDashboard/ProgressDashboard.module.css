@@ -334,3 +334,106 @@
 .tableScroll:focus-visible {
   outline-offset: -3px;
 }
+
+/* Motion: the bar fills up when it first appears and glides to its new
+   length when a problem is marked solved. */
+.problemsFill,
+.diffFill {
+  transform-origin: left;
+  animation: fill 800ms var(--ease-out) 250ms backwards;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Motion: flat buttons rise into blocks on hover and press back down; the
+   continue card lifts and its arrow nudges forward; the reset confirm
+   drops in so it reads as a response to the click. */
+.controlButton,
+.resetButton,
+.confirmButton,
+.continueCard {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.continueArrow {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .controlButton:hover,
+  .resetButton:hover,
+  .confirmButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .continueCard:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .continueCard:hover .continueArrow {
+    transform: translateX(4px);
+  }
+}
+
+.controlButton:active,
+.resetButton:active,
+.confirmButton:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.continueCard:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.confirm {
+  animation: drop var(--dur-base) var(--ease-out);
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.statTile {
+  animation: settle var(--dur-slow) var(--ease-out) backwards;
+}
+
+.statTile:nth-child(2) {
+  animation-delay: 50ms;
+}
+
+.statTile:nth-child(3) {
+  animation-delay: 100ms;
+}
+
+.statTile:nth-child(4) {
+  animation-delay: 150ms;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continueCard:hover .continueArrow {
+    transform: none;
+  }
+}

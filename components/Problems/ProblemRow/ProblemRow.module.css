@@ -94,3 +94,20 @@
     justify-self: end;
   }
 }
+
+/* Motion: a solved row fades to muted so the strike-through reads as a
+   change, not a jump; the row tints on hover to show it's clickable. */
+.row {
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .row:hover {
+    background: var(--card-2);
+  }
+}
+
+.name,
+.nameSolved {
+  transition: color var(--dur-base) var(--ease-out);
+}
