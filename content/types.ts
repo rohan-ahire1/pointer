@@ -56,11 +56,15 @@ export type LivePattern = PatternBase & {
   needs: string[];
   /** Big-O time complexity of the reference solution, e.g. "O(n)". */
   complexity: string;
+  /** Big-O extra space of the reference solution, e.g. "O(1)". */
+  space: string;
   /** Bullet list for the "Reach for it when…" callout. */
   whenToUse: string[];
   video: PatternVideo;
   /** Matches a key in the visualizers registry (visualizers/index.ts). */
   visualizer: string;
+  /** Further visualizers offered beside the main one, in the order shown. */
+  moreVisualizers?: string[];
 };
 
 /** A discriminated union on `status`: `"soon"` patterns show the coming-soon state. */
@@ -79,4 +83,15 @@ export type Problem = {
    * pattern's problems so far.
    */
   twist?: string;
+  /** The problem in our own plain words, with no clue to the pattern. Used by the drill and review queue. */
+  prompt: string;
+  /** What gives the pattern away: the hint shown after you've had a go. */
+  signal: string;
+  /** Big-O of the best known approach. */
+  time: string;
+  space: string;
+  /** Other patterns that fairly solve it, so the drill never offers them as wrong answers. */
+  alsoFits?: string[];
+  /** Id of a visualizer that runs this exact problem (visualizers/index.ts). */
+  visualizer?: string;
 };

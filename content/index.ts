@@ -39,6 +39,17 @@ export function getProblem(slug: string): Problem | undefined {
   return problems.find((problem) => problem.slug === slug);
 }
 
+/** Where to read about a problem: its lesson's Solve section, or the list for an Extras problem. */
+export function problemHref(problem: Problem): string {
+  return problem.pattern === EXTRAS_KEY ? "/problems" : `/patterns/${problem.pattern}#solve`;
+}
+
+/** A lesson link that opens the visualizer for this problem, when it has one. */
+export function problemVisualizerHref(problem: Problem): string | undefined {
+  if (!problem.visualizer || problem.pattern === EXTRAS_KEY) return undefined;
+  return `/patterns/${problem.pattern}?v=${problem.visualizer}#try`;
+}
+
 /**
  * The problems taught by a pattern, in the order the pattern lists them
  * (patterns.json's `problems` array of slugs) rather than problems.json's
