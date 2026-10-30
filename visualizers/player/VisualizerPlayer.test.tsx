@@ -130,7 +130,7 @@ describe("VisualizerPlayer autoplay + aria-live", () => {
     expect(stepLabel(/step 3 of 25/i)).toBeInTheDocument();
   });
 
-  it("stops autoplay and flips the Play button back once it reaches the last step", () => {
+  it("stops autoplay and offers a replay once it reaches the last step", () => {
     const region = renderPlayer();
 
     fireEvent.keyDown(region, { key: " " }); // play
@@ -139,7 +139,7 @@ describe("VisualizerPlayer autoplay + aria-live", () => {
     });
 
     expect(stepLabel(/step 25 of 25/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Play ▶" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Replay ↻" })).toBeInTheDocument();
   });
 
   it("ignores Space when it lands on a button (native activation only)", () => {
