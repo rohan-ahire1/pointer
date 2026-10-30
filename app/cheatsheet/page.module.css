@@ -1,0 +1,215 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 16px 64px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px 32px 96px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    padding: 32px 88px 96px;
+  }
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.headCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.lead {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.groupHeading {
+  margin: 8px 0 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.number {
+  flex-shrink: 0;
+  padding: 4px 9px;
+  border: var(--border);
+  border-radius: 9px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--on-accent);
+}
+
+.name {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.name a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.name a:hover {
+  text-decoration: underline;
+}
+
+.idea {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.big {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.fact {
+  display: flex;
+  gap: 6px;
+}
+
+.fact dt {
+  font-weight: 700;
+}
+
+.fact dd {
+  margin: 0;
+}
+
+.label {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.list li {
+  padding-left: 14px;
+  text-indent: -14px;
+}
+
+.list li::before {
+  content: "· ";
+  font-weight: 700;
+}
+
+/* Paper version: ink on white whatever the theme, and no card breaks across a page. */
+@media print {
+  .page {
+    padding: 0;
+  }
+
+  .page,
+  .page * {
+    color: black !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-color: black !important;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    padding: 10px;
+    gap: 4px;
+    border-width: 1px;
+    border-radius: 8px;
+    break-inside: avoid;
+  }
+
+  .groupHeading {
+    break-after: avoid;
+  }
+}
