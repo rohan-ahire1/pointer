@@ -93,3 +93,66 @@
   color: var(--ink);
   font-family: var(--font-body);
 }
+
+/* Motion: the pointer walks the array cell by cell, then runs off the end
+   and lands on "undef", acting out the headline. */
+.chipAccent {
+  position: relative;
+  animation: run-off 1400ms var(--ease-out) 300ms backwards;
+}
+
+/* Each cell is 56px wide with a 10px gap, so one step is 66px. */
+@keyframes run-off {
+  0% {
+    transform: translate(-264px, -8px);
+  }
+  18% {
+    transform: translate(-264px, -8px);
+  }
+  30% {
+    transform: translate(-198px, -8px);
+  }
+  42% {
+    transform: translate(-132px, -8px);
+  }
+  54% {
+    transform: translate(-66px, -8px);
+  }
+  70% {
+    transform: translate(6px, 2px) rotate(6deg);
+  }
+  85% {
+    transform: translate(0, -10px) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+.primaryButton,
+.secondaryButton {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .primaryButton:hover,
+  .secondaryButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.primaryButton:active,
+.secondaryButton:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chipAccent {
+    animation: none;
+  }
+}
