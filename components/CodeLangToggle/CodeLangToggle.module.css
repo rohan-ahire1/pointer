@@ -1,0 +1,30 @@
+.group {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.option,
+.optionActive {
+  min-height: 44px;
+  padding: 0 12px;
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--card);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.optionActive {
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+}
+
+@media (hover: hover) {
+  .option:hover {
+    background: var(--tint-cream);
+  }
+}

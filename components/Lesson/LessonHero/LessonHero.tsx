@@ -43,6 +43,8 @@ export function LessonHero({ pattern, groupLabel }: LessonHeroProps) {
           <span>Needs: {pattern.needs.join(", ")}</span>
           <span aria-hidden="true">·</span>
           <span>Time {pattern.complexity}</span>
+          <span aria-hidden="true">·</span>
+          <span>Space {pattern.space}</span>
         </div>
       </div>
 

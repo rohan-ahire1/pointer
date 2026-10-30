@@ -6,6 +6,7 @@
 export const meta = {
   id: "max-depth-binary-tree",
   title: "Maximum Depth of Binary Tree",
+  shortTitle: "Max Depth",
   presets: ["3 9 20 null null 15 7", "1 null 2", "1 2 3 4 5 6 7"],
   inputLabel: "root =",
   inputHint: "Level order, like LeetCode: 3 9 20 null null 15 7. Up to 4 levels.",

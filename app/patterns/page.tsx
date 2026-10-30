@@ -28,6 +28,9 @@ export default function PatternsPage() {
             Most interview problems are one of these in disguise. Learn them in order, or jump to the one
             you need.
           </p>
+          <Link href="/cheatsheet" className={styles.sheetLink}>
+            See them all on one page →
+          </Link>
         </div>
         <div className={styles.progressCardSlot}>
           <YourProgressCard />

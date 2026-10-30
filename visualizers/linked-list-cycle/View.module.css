@@ -1,0 +1,36 @@
+.wrap {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.loop path {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2px;
+  stroke-dasharray: 6 4;
+  transition: stroke var(--dur-fast) ease;
+}
+
+.loop polygon {
+  fill: var(--line);
+  transition: fill var(--dur-fast) ease;
+}
+
+.loop[data-met="true"] path {
+  stroke: var(--orange);
+  stroke-width: 3px;
+}
+
+.loop[data-met="true"] polygon {
+  fill: var(--orange);
+}
+
+.tag {
+  fill: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-anchor: middle;
+}

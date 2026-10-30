@@ -1,6 +1,7 @@
 import type { Visualizer } from "../types";
 import { code } from "./code";
 import { parseInput } from "./parseInput";
+import { python } from "./python";
 import { trace, type SWState } from "./trace";
 import { SlidingWindowView } from "./View";
 
@@ -10,7 +11,9 @@ export const SLIDING_WINDOW_VISUALIZER_ID = "longest-substring-no-repeat";
 export const slidingWindowVisualizer: Visualizer<string, SWState> = {
   id: SLIDING_WINDOW_VISUALIZER_ID,
   title: "Longest Substring Without Repeating Characters",
+  shortTitle: "Longest Substring",
   code,
+  python,
   parseInput,
   presets: ["abcabcbb", "bbbbb", "pwwkew"],
   trace,

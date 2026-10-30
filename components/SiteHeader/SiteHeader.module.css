@@ -48,13 +48,15 @@
   gap: 8px;
 }
 
-@media (min-width: 768px) {
+/* The full nav needs about 1100px, so tablets keep the menu button. */
+@media (min-width: 1100px) {
   .desktopLinks {
     display: flex;
     align-items: center;
     gap: 4px;
     font-size: 16px;
     font-weight: 500;
+    white-space: nowrap;
   }
 
   .mobileControls {

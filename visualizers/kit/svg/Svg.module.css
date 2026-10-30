@@ -113,6 +113,35 @@
   stroke-dasharray: 5 4;
 }
 
+.arrow line {
+  stroke: var(--line);
+  stroke-width: 2px;
+  transition: stroke var(--dur-fast) ease;
+}
+
+.arrow polygon {
+  fill: var(--line);
+  transition: fill var(--dur-fast) ease;
+}
+
+.arrow[data-tone="path"] line {
+  stroke: var(--orange);
+  stroke-width: 3.5px;
+}
+
+.arrow[data-tone="path"] polygon {
+  fill: var(--orange);
+}
+
+.arrow[data-tone="past"] line {
+  stroke: var(--past-line);
+  stroke-dasharray: 5 4;
+}
+
+.arrow[data-tone="past"] polygon {
+  fill: var(--past-line);
+}
+
 .edgeLabel {
   transition: transform var(--dur-slow) ease-in-out;
 }

@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPattern, getPatterns, getPatternGroups, problemsForPattern, PATTERN_GROUPS } from "@/content";
 import { getAdjacentPatterns } from "@/lib/pattern-nav";
-import { VisualizerById } from "@/visualizers/player/VisualizerById";
+import { LessonVisualizers } from "@/visualizers/player/LessonVisualizers";
 import { LessonNav } from "@/components/Lesson/LessonNav/LessonNav";
 import { LessonHero } from "@/components/Lesson/LessonHero/LessonHero";
 import { LessonWatch } from "@/components/Lesson/LessonWatch/LessonWatch";
 import { SolveSection } from "@/components/Lesson/SolveSection/SolveSection";
+import { PATTERN_GUIDES } from "@/content/guides";
 import { UpNextCard } from "@/components/Lesson/UpNextCard/UpNextCard";
 import { SoonLesson } from "@/components/Lesson/SoonLesson/SoonLesson";
+import { JsonLd } from "@/components/JsonLd/JsonLd";
+import { SITE_URL } from "@/lib/site";
 import styles from "./page.module.css";
 
 type PatternPageProps = {
@@ -54,8 +57,36 @@ export default async function PatternPage({ params }: PatternPageProps) {
   const problems = problemsForPattern(pattern.slug);
   const groups = getPatternGroups();
 
+  const url = `${SITE_URL}/patterns/${pattern.slug}`;
+
   return (
     <div className={styles.page}>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "LearningResource",
+              name: `${pattern.name} coding interview pattern`,
+              description: pattern.analogy,
+              url,
+              learningResourceType: "Lesson",
+              teaches: pattern.name,
+              timeRequired: `PT${pattern.minutes}M`,
+              isAccessibleForFree: true,
+              inLanguage: "en",
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+                { "@type": "ListItem", position: 2, name: "Patterns", item: `${SITE_URL}/patterns` },
+                { "@type": "ListItem", position: 3, name: pattern.name, item: url },
+              ],
+            },
+          ],
+        }}
+      />
       <LessonNav
         patternSlug={pattern.slug}
         patternName={pattern.name}
@@ -81,12 +112,14 @@ export default async function PatternPage({ params }: PatternPageProps) {
               <kbd className={styles.key}>→</kbd> step
               <kbd className={styles.key}>Space</kbd> play
               <kbd className={styles.key}>R</kbd> reset
+              <kbd className={styles.key}>Home</kbd>
+              <kbd className={styles.key}>End</kbd> jump
             </div>
           </div>
-          <VisualizerById id={pattern.visualizer} />
+          <LessonVisualizers ids={[pattern.visualizer, ...(pattern.moreVisualizers ?? [])]} />
         </section>
 
-        <SolveSection problems={problems} />
+        <SolveSection problems={problems} patternName={pattern.name} guide={PATTERN_GUIDES[pattern.slug]} />
 
         <UpNextCard totalPatterns={totalPatterns} prev={prev} next={next} />
       </div>

@@ -123,6 +123,10 @@
   box-sizing: border-box;
 }
 
+.narration[data-done="true"] {
+  background: var(--tint-mint);
+}
+
 .narrationEyebrow {
   font-family: var(--font-body);
   font-size: 13px;
@@ -239,9 +243,62 @@
   color: var(--inverse-fg);
 }
 
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .stepLabel {
   font-family: var(--font-mono);
   font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tall hit area around a thin track, so it's easy to grab with a thumb. */
+.scrubber {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--pen);
+  background: transparent;
+  cursor: pointer;
+}
+
+.scrubber:disabled {
+  cursor: not-allowed;
+}
+
+.shareRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: -10px;
+}
+
+.linkButton {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.linkButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.copyStatus {
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -273,8 +330,54 @@
   border-radius: 9px;
 }
 
-.codeHint {
-  font-size: 13px;
+.langGroup {
+  display: flex;
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  overflow: hidden;
+}
+
+.langGroup .speedButton,
+.langGroup .speedButtonActive {
+  padding: 0 12px;
+}
+
+.guessBar {
+  padding: 2px 24px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.guessToggle,
+.guessToggleActive {
+  min-height: 44px;
+  padding: 0 14px;
+  border: var(--border);
+  border-radius: var(--radius-btn);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.guessToggle {
+  background: var(--card);
+  color: var(--ink);
+}
+
+.guessToggleActive {
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+}
+
+.guessToggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.guessStatus {
+  flex: 1 1 180px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -285,17 +388,51 @@
   font-size: 14px;
   line-height: 1.5;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--past-line) transparent;
+}
+
+.codeRow {
+  display: flex;
+  min-width: max-content;
 }
 
 .codeLine,
-.codeLineActive {
+.codeLineActive,
+.codeLineWrong {
   display: flex;
+  flex: 1 1 auto;
   gap: 10px;
   padding: 6px 16px 6px 10px;
   margin: 0 12px;
   border-radius: 8px;
   font-weight: 500;
   white-space: pre;
+}
+
+.codeLineButton {
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.codeLineButton.codeLineActive {
+  background: var(--hl);
+}
+
+@media (hover: hover) {
+  .codeLineButton:hover:not(.codeLineActive) {
+    background: var(--tint-cream);
+  }
+}
+
+/* A dashed outline and a ✕, so a wrong guess never relies on colour alone. */
+.codeLineWrong {
+  outline: 2px dashed var(--pen);
+  outline-offset: -2px;
 }
 
 .codeLineActive {
@@ -400,7 +537,12 @@
   }
 
   .stepLabel {
+    width: 100%;
     text-align: center;
+  }
+
+  .scrubber {
+    display: none;
   }
 }
 
@@ -462,6 +604,19 @@
 .codeLine,
 .codeLineActive {
   transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.codeLineWrong {
+  animation: nudge var(--dur-base) var(--ease-out);
+}
+
+@keyframes nudge {
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
 }
 
 .codeLineActive .codeMark {

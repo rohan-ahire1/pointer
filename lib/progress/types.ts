@@ -13,12 +13,26 @@ export type LessonProgress = {
   updatedAt: string;
 };
 
+/** Where a solved problem sits in the spaced review (see review.ts). */
+export type ReviewCard = {
+  /** Index into REVIEW_INTERVALS. */
+  box: number;
+  /** Local day it comes back, `YYYY-MM-DD`. */
+  due: string;
+};
+
 export type Progress = {
   version: 1;
   /** Keyed by `Problem["slug"]`; presence (always `true`) means solved. */
   solved: Record<string, true>;
   /** Keyed by `Pattern["slug"]`. */
   lessons: Record<string, LessonProgress>;
+  /** Keyed by `Problem["slug"]`. Added after launch, so older exports don't have it. */
+  reviews?: Record<string, ReviewCard>;
+  /** Practice actions per local day, `YYYY-MM-DD`. */
+  activity?: Record<string, number>;
+  /** Best score out of 10 on the pattern drill. */
+  drillBest?: number;
 };
 
 /** The value used for both the very first run and every server render. */
@@ -41,6 +55,10 @@ export type ImportResult = { ok: true } | { ok: false; error: string };
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isDay(value: unknown): value is string {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
 /**
@@ -82,20 +100,49 @@ export function validateProgress(value: unknown): { ok: true; value: Progress } 
     }
   }
 
-  return {
-    ok: true,
-    value: {
-      version: 1,
-      solved: { ...(value.solved as Record<string, true>) },
-      lessons: { ...(value.lessons as Record<string, LessonProgress>) },
-    },
+  if (value.reviews !== undefined) {
+    if (!isPlainObject(value.reviews)) {
+      return { ok: false, error: "\"reviews\" must be an object." };
+    }
+    for (const [slug, card] of Object.entries(value.reviews)) {
+      if (!isPlainObject(card) || !Number.isInteger(card.box) || (card.box as number) < 0 || !isDay(card.due)) {
+        return { ok: false, error: `"reviews.${slug}" must have a whole box number and a YYYY-MM-DD due date.` };
+      }
+    }
+  }
+  if (value.activity !== undefined) {
+    if (!isPlainObject(value.activity)) {
+      return { ok: false, error: "\"activity\" must be an object." };
+    }
+    for (const [day, count] of Object.entries(value.activity)) {
+      if (!isDay(day) || !Number.isInteger(count) || (count as number) < 1) {
+        return { ok: false, error: `"activity.${day}" must be a YYYY-MM-DD day with a whole count.` };
+      }
+    }
+  }
+  if (value.drillBest !== undefined) {
+    if (!Number.isInteger(value.drillBest) || (value.drillBest as number) < 0) {
+      return { ok: false, error: "\"drillBest\" must be a whole number." };
+    }
+  }
+
+  const progress: Progress = {
+    version: 1,
+    solved: { ...(value.solved as Record<string, true>) },
+    lessons: { ...(value.lessons as Record<string, LessonProgress>) },
   };
+  if (value.reviews !== undefined) progress.reviews = { ...(value.reviews as Record<string, ReviewCard>) };
+  if (value.activity !== undefined) progress.activity = { ...(value.activity as Record<string, number>) };
+  if (value.drillBest !== undefined) progress.drillBest = value.drillBest as number;
+  return { ok: true, value: progress };
 }
 
 /**
  * Merges `incoming` into `base`: solved problems are unioned (once solved,
  * always solved through a merge), and per-pattern lesson progress keeps
- * whichever side is more recent by `updatedAt`.
+ * whichever side is more recent by `updatedAt`. For reviews the card from the
+ * further-along box wins, activity keeps the higher count for a day, and the
+ * better drill score stays.
  */
 export function mergeProgress(base: Progress, incoming: Progress): Progress {
   const solved: Record<string, true> = { ...base.solved, ...incoming.solved };
@@ -108,5 +155,30 @@ export function mergeProgress(base: Progress, incoming: Progress): Progress {
     }
   }
 
-  return { version: 1, solved, lessons };
+  const merged: Progress = { version: 1, solved, lessons };
+
+  if (base.reviews || incoming.reviews) {
+    const reviews: Record<string, ReviewCard> = { ...base.reviews };
+    for (const [slug, card] of Object.entries(incoming.reviews ?? {})) {
+      const existing = reviews[slug];
+      if (!existing || card.box > existing.box || (card.box === existing.box && card.due > existing.due)) {
+        reviews[slug] = card;
+      }
+    }
+    merged.reviews = reviews;
+  }
+
+  if (base.activity || incoming.activity) {
+    const activity: Record<string, number> = { ...base.activity };
+    for (const [day, count] of Object.entries(incoming.activity ?? {})) {
+      activity[day] = Math.max(activity[day] ?? 0, count);
+    }
+    merged.activity = activity;
+  }
+
+  if (base.drillBest !== undefined || incoming.drillBest !== undefined) {
+    merged.drillBest = Math.max(base.drillBest ?? 0, incoming.drillBest ?? 0);
+  }
+
+  return merged;
 }

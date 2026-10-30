@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { EXTRAS_KEY, getPattern, getPatterns, getProblem, getProblems, problemsForPattern } from "./index";
+import { PATTERN_GUIDES } from "./guides";
 
 const LEETCODE_URL_RE = /^https:\/\/leetcode\.com\/problems\/[a-z0-9-]+\/$/;
 
@@ -54,6 +55,48 @@ describe("problems.json", () => {
       if (problem.pattern === EXTRAS_KEY) continue;
       const owner = getPattern(problem.pattern);
       expect(owner?.problems, `${problem.slug} listed by ${problem.pattern}`).toContain(problem.slug);
+    }
+  });
+});
+
+describe("problem hints and drill copy", () => {
+  const problems = getProblems();
+
+  it("every problem has a prompt, a signal and its complexity", () => {
+    for (const problem of problems) {
+      expect(problem.prompt.length, `${problem.slug} prompt`).toBeGreaterThan(10);
+      expect(problem.signal.length, `${problem.slug} signal`).toBeGreaterThan(10);
+      expect(problem.time, `${problem.slug} time`).toMatch(/^O\(/);
+      expect(problem.space, `${problem.slug} space`).toMatch(/^O\(/);
+    }
+  });
+
+  it("no prompt names its own pattern, since the drill asks you to guess it", () => {
+    for (const problem of problems) {
+      const pattern = getPattern(problem.pattern);
+      if (!pattern) continue;
+      expect(problem.prompt.toLowerCase(), problem.slug).not.toContain(pattern.name.toLowerCase());
+    }
+  });
+
+  it("alsoFits only lists real patterns other than the problem's own", () => {
+    for (const problem of problems) {
+      for (const slug of problem.alsoFits ?? []) {
+        expect(getPattern(slug), `${problem.slug} alsoFits ${slug}`).toBeDefined();
+        expect(slug, problem.slug).not.toBe(problem.pattern);
+      }
+    }
+  });
+});
+
+describe("pattern guides", () => {
+  it("every pattern has a template in both languages and at least two pitfalls", () => {
+    for (const pattern of getPatterns()) {
+      const guide = PATTERN_GUIDES[pattern.slug];
+      expect(guide, pattern.slug).toBeDefined();
+      expect(guide?.template.ts.length).toBeGreaterThan(20);
+      expect(guide?.template.py.length).toBeGreaterThan(20);
+      expect(guide?.pitfalls.length).toBeGreaterThanOrEqual(2);
     }
   });
 });

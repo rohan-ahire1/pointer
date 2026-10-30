@@ -76,6 +76,34 @@
   flex-grow: 1;
 }
 
+.extras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 8px;
+}
+
+.watchLink {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--pen);
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .watchLink:hover {
+    background: var(--tint-cream);
+  }
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

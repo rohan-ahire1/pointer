@@ -32,6 +32,14 @@
   cursor: pointer;
 }
 
+.nameCell {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+}
+
 .name,
 .nameSolved {
   font-size: 16px;
@@ -68,7 +76,10 @@
 }
 
 .lessonLink {
-  grid-column: 2 / -1;
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 14px;
   color: var(--muted);
   text-decoration: none;
@@ -81,8 +92,11 @@
 }
 
 .leetcodeLink {
-  grid-column: 2 / -1;
-  justify-self: start;
+  grid-column: 3 / -1;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
@@ -91,8 +105,22 @@
 @media (min-width: 640px) {
   .leetcodeLink {
     grid-column: auto;
-    justify-self: end;
   }
+}
+
+.hint {
+  grid-column: 2 / -1;
+  margin-bottom: 12px;
+}
+
+.watchLink {
+  align-self: flex-start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--pen);
+  text-decoration: none;
 }
 
 /* Motion: a solved row fades to muted so the strike-through reads as a

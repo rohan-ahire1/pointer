@@ -15,6 +15,34 @@ body {
 
 html {
   height: 100%;
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 120px;
+}
+
+/* A phone lesson pins its own taller bar to the top instead of the site header. */
+@media (max-width: 767px) {
+  html:has([data-lesson-nav]) {
+    scroll-padding-top: 172px;
+  }
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+/* Off during route changes too: `data-scroll-behavior` on <html> tells Next to
+   jump, not glide, when it resets the scroll position. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /*
@@ -43,6 +71,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
 img,
 picture,
 video,
@@ -60,12 +101,33 @@ select {
   color: inherit;
 }
 
-button {
+button,
+summary {
   cursor: pointer;
 }
 
 a {
   color: inherit;
+}
+
+/* No grey flash on tap and no double-tap zoom delay. The site's own press
+   states show the tap instead. */
+a,
+button,
+label,
+summary,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
 }
 
 ul,
@@ -126,4 +188,18 @@ ol {
 ::selection {
   background: var(--hl);
   color: var(--ink);
+}
+
+/* Breadcrumb links read as small text but tap as 44px tall. The negative
+   margin keeps the extra height from pushing the page around. */
+nav[aria-label="Breadcrumb"] a {
+  display: inline-block;
+  padding-block: 13px;
+  margin-block: -13px;
+}
+
+@media print {
+  [data-no-print] {
+    display: none !important;
+  }
 }

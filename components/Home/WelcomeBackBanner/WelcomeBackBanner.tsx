@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useProgress } from "@/lib/progress";
+import { dueReviews, localDay, useProgress } from "@/lib/progress";
 import { getContinueLesson } from "@/lib/continue-lesson";
 import { padPatternNumber } from "@/lib/pattern-nav";
 import styles from "./WelcomeBackBanner.module.css";
@@ -16,22 +16,31 @@ import styles from "./WelcomeBackBanner.module.css";
 export function WelcomeBackBanner() {
   const { progress } = useProgress();
   const continueLesson = getContinueLesson(progress);
-  if (!continueLesson) return null;
-
-  const { pattern, sectionLabel, sectionIndex, done, total } = continueLesson;
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  const due = dueReviews(progress, localDay()).length;
+  const pct = continueLesson && continueLesson.total > 0 ? Math.round((continueLesson.done / continueLesson.total) * 100) : 0;
 
   return (
-    <Link href={`/patterns/${pattern.slug}#${continueLesson.section}`} className={styles.banner}>
-      <span className={styles.eyebrow}>WELCOME BACK</span>
-      <span className={styles.copy}>
-        Continue <b>{padPatternNumber(pattern.number)} {pattern.name}</b>. You stopped at{" "}
-        <b>{sectionIndex} · {sectionLabel}</b>, with {done} of {total} problems solved.
-      </span>
-      <span aria-hidden="true" className={styles.progressTrack}>
-        <span className={styles.progressFill} style={{ width: `${pct}%` }} />
-      </span>
-      <span className={styles.resume}>Resume →</span>
-    </Link>
+    <>
+      {continueLesson && (
+        <Link href={`/patterns/${continueLesson.pattern.slug}#${continueLesson.section}`} className={styles.banner}>
+          <span className={styles.eyebrow}>WELCOME BACK</span>
+          <span className={styles.copy}>
+            Continue <b>{padPatternNumber(continueLesson.pattern.number)} {continueLesson.pattern.name}</b>. You stopped at{" "}
+            <b>{continueLesson.sectionIndex} · {continueLesson.sectionLabel}</b>, with {continueLesson.done} of{" "}
+            {continueLesson.total} problems solved.
+          </span>
+          <span aria-hidden="true" className={styles.progressTrack}>
+            <span className={styles.progressFill} style={{ width: `${pct}%` }} />
+          </span>
+          <span className={styles.resume}>Resume →</span>
+        </Link>
+      )}
+      {/* Problems ticked on /problems come due even if no lesson was opened. */}
+      {due > 0 && (
+        <Link href="/progress#review" className={styles.dueLink}>
+          {due === 1 ? "1 problem" : `${due} problems`} due for review →
+        </Link>
+      )}
+    </>
   );
 }

@@ -23,6 +23,7 @@
       "hash maps"
     ],
     "complexity": "O(n)",
+    "space": "O(n)",
     "whenToUse": [
       "You check the same values again and again",
       "Counts, pairs or duplicates decide the answer",
@@ -51,7 +52,10 @@
         }
       ]
     },
-    "visualizer": "two-sum-hash-map"
+    "visualizer": "two-sum-hash-map",
+    "moreVisualizers": [
+      "product-except-self"
+    ]
   },
   {
     "number": 2,
@@ -71,6 +75,7 @@
       "arrays"
     ],
     "complexity": "O(n)",
+    "space": "O(1)",
     "whenToUse": [
       "The input is sorted, or can be sorted first",
       "You compare a pair from opposite ends",
@@ -99,7 +104,10 @@
         }
       ]
     },
-    "visualizer": "container-with-most-water"
+    "visualizer": "container-with-most-water",
+    "moreVisualizers": [
+      "three-sum"
+    ]
   },
   {
     "number": 3,
@@ -121,6 +129,7 @@
       "sets"
     ],
     "complexity": "O(n)",
+    "space": "O(k)",
     "whenToUse": [
       "The answer is a contiguous run (subarray or substring)",
       "It asks for the longest, shortest or a count",
@@ -149,7 +158,10 @@
         }
       ]
     },
-    "visualizer": "longest-substring-no-repeat"
+    "visualizer": "longest-substring-no-repeat",
+    "moreVisualizers": [
+      "min-window"
+    ]
   },
   {
     "number": 4,
@@ -168,6 +180,7 @@
       "arrays"
     ],
     "complexity": "O(n)",
+    "space": "O(n)",
     "whenToUse": [
       "The last thing seen must be handled first",
       "Pairs nest inside each other, like brackets",
@@ -196,7 +209,10 @@
         }
       ]
     },
-    "visualizer": "valid-parentheses"
+    "visualizer": "valid-parentheses",
+    "moreVisualizers": [
+      "daily-temperatures"
+    ]
   },
   {
     "number": 5,
@@ -216,6 +232,7 @@
       "sorted order"
     ],
     "complexity": "O(log n)",
+    "space": "O(1)",
     "whenToUse": [
       "The input is sorted (or rotated sorted)",
       "One check rules out half the input",
@@ -244,7 +261,10 @@
         }
       ]
     },
-    "visualizer": "find-min-rotated"
+    "visualizer": "find-min-rotated",
+    "moreVisualizers": [
+      "search-rotated"
+    ]
   },
   {
     "number": 6,
@@ -268,6 +288,7 @@
       "references"
     ],
     "complexity": "O(n)",
+    "space": "O(1)",
     "whenToUse": [
       "Nodes link onward instead of sitting in a row",
       "You rewire links without losing the chain",
@@ -296,7 +317,10 @@
         }
       ]
     },
-    "visualizer": "reverse-linked-list"
+    "visualizer": "reverse-linked-list",
+    "moreVisualizers": [
+      "linked-list-cycle"
+    ]
   },
   {
     "number": 7,
@@ -324,6 +348,7 @@
       "recursion"
     ],
     "complexity": "O(n)",
+    "space": "O(h)",
     "whenToUse": [
       "Data branches into left and right children",
       "Answers combine upward from the leaves",
@@ -352,7 +377,10 @@
         }
       ]
     },
-    "visualizer": "max-depth-binary-tree"
+    "visualizer": "max-depth-binary-tree",
+    "moreVisualizers": [
+      "level-order"
+    ]
   },
   {
     "number": 8,
@@ -373,6 +401,7 @@
       "hash maps"
     ],
     "complexity": "O(L)",
+    "space": "O(total letters)",
     "whenToUse": [
       "The task is prefix search or autocomplete",
       "Many words share the same beginnings",
@@ -420,6 +449,7 @@
       "trees"
     ],
     "complexity": "O(log n)",
+    "space": "O(n)",
     "whenToUse": [
       "Items arrive one at a time, unsorted",
       "You need the middle, min or max so far",
@@ -448,7 +478,10 @@
         }
       ]
     },
-    "visualizer": "median-two-heaps"
+    "visualizer": "median-two-heaps",
+    "moreVisualizers": [
+      "kth-largest"
+    ]
   },
   {
     "number": 10,
@@ -468,6 +501,7 @@
       "arrays"
     ],
     "complexity": "Exponential",
+    "space": "O(depth)",
     "whenToUse": [
       "You must list every valid arrangement",
       "Each step tries one of a few options",
@@ -496,7 +530,10 @@
         }
       ]
     },
-    "visualizer": "combination-sum"
+    "visualizer": "combination-sum",
+    "moreVisualizers": [
+      "word-search"
+    ]
   },
   {
     "number": 11,
@@ -520,6 +557,7 @@
       "queues"
     ],
     "complexity": "O(m·n)",
+    "space": "O(V + E)",
     "whenToUse": [
       "The input is a grid or a network",
       "Answers spread through neighbours",
@@ -548,7 +586,10 @@
         }
       ]
     },
-    "visualizer": "number-of-islands"
+    "visualizer": "number-of-islands",
+    "moreVisualizers": [
+      "course-schedule"
+    ]
   },
   {
     "number": 12,
@@ -576,6 +617,7 @@
       "recursion"
     ],
     "complexity": "O(n)",
+    "space": "O(n)",
     "whenToUse": [
       "Today’s answer builds on yesterday’s",
       "Brute force retries the same subproblem",
@@ -604,7 +646,10 @@
         }
       ]
     },
-    "visualizer": "house-robber"
+    "visualizer": "house-robber",
+    "moreVisualizers": [
+      "coin-change"
+    ]
   },
   {
     "number": 13,
@@ -624,6 +669,7 @@
       "1-D DP"
     ],
     "complexity": "O(m·n)",
+    "space": "O(m·n)",
     "whenToUse": [
       "Two strings or grids must be compared",
       "Each answer builds on smaller prefixes",
@@ -652,7 +698,10 @@
         }
       ]
     },
-    "visualizer": "longest-common-subsequence"
+    "visualizer": "longest-common-subsequence",
+    "moreVisualizers": [
+      "unique-paths"
+    ]
   },
   {
     "number": 14,
@@ -671,6 +720,7 @@
       "arrays"
     ],
     "complexity": "O(n)",
+    "space": "O(1)",
     "whenToUse": [
       "A single choice now never needs revisiting",
       "Only the best option so far matters",
@@ -699,7 +749,10 @@
         }
       ]
     },
-    "visualizer": "jump-game"
+    "visualizer": "jump-game",
+    "moreVisualizers": [
+      "max-subarray"
+    ]
   },
   {
     "number": 15,
@@ -722,6 +775,7 @@
       "arrays"
     ],
     "complexity": "O(n log n)",
+    "space": "O(n)",
     "whenToUse": [
       "Inputs are ranges with a start and end",
       "Overlap or touching decides the answer",

@@ -6,5 +6,7 @@ export { Stats, type StatItem } from "./Stats";
 export { Panel, Chips, Chip } from "./Panel";
 export { ViewRoot, Split, Fit } from "./ViewRoot";
 export { Svg, Node, Edge, EdgeLabel } from "./svg/Svg";
+export { Arrow } from "./svg/Arrow";
 export { heapPosition, heapIndexToPos, tidyLayout, LEVEL_GAP, NODE_SIZE, type Point } from "./svg/treeLayout";
 export { q, qq, list } from "./format";
+export { parseNumbers, splitOnBar } from "./parseNumbers";

@@ -1,0 +1,60 @@
+.grid {
+  --cell: clamp(30px, calc((100cqi - (var(--cols) - 1) * 4px) / var(--cols)), 54px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 4px;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.cell {
+  width: var(--cell);
+  height: var(--cell);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: calc(var(--cell) * 0.2);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: calc(var(--cell) * 0.34);
+  font-weight: 700;
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease;
+}
+
+.cell[data-state="empty"] {
+  border-style: dashed;
+  border-color: var(--past-line);
+  background: transparent;
+}
+
+.cell[data-state="source"] {
+  background: var(--tint-yellow);
+}
+
+.cell[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  transform: translateY(-4px);
+  z-index: 1;
+}
+
+.cell[data-state="found"] {
+  background: var(--tint-mint);
+  border-width: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+
+  .cell[data-state="current"] {
+    transform: none;
+  }
+}

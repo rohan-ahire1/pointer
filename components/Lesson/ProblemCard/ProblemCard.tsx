@@ -1,8 +1,12 @@
 "use client";
 
-import type { Problem } from "@/content";
+import { useId, useState, type MouseEvent } from "react";
+import Link from "next/link";
+import { problemVisualizerHref, type Problem } from "@/content";
 import { useProgress } from "@/lib/progress";
 import { padPatternNumber } from "@/lib/pattern-nav";
+import { dispatchShowVisualizer } from "@/lib/visualizer-events";
+import { ProblemHint, ProblemHintToggle } from "@/components/Problems/ProblemHint/ProblemHint";
 import styles from "./ProblemCard.module.css";
 
 type ProblemCardProps = {
@@ -32,6 +36,16 @@ const DIFFICULTY_CLASS: Record<Problem["difficulty"], string> = {
 export function ProblemCard({ problem, index }: ProblemCardProps) {
   const { isSolved, toggleSolved } = useProgress();
   const solved = isSolved(problem.slug);
+  const [hintOpen, setHintOpen] = useState(false);
+  const hintId = useId();
+  const visualizerHref = problemVisualizerHref(problem);
+
+  /** Stays on the page so the reader keeps their place; a modified click still opens a new tab. */
+  function watchItRun(event: MouseEvent<HTMLAnchorElement>) {
+    if (!problem.visualizer || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    dispatchShowVisualizer(problem.visualizer);
+  }
 
   return (
     <li className={solved ? `tilt ${styles.cardSolved}` : `tilt ${styles.card}`}>
@@ -44,6 +58,25 @@ export function ProblemCard({ problem, index }: ProblemCardProps) {
       <h3 className={`soft ${styles.title}`}>{problem.title}</h3>
       {problem.premium && <span className={styles.premium}>LeetCode Premium</span>}
       <p className={styles.twist}>{problem.twist}</p>
+      <div className={styles.extras}>
+        <ProblemHintToggle
+          controls={hintId}
+          open={hintOpen}
+          title={problem.title}
+          onToggle={() => setHintOpen((open) => !open)}
+        />
+        {visualizerHref && (
+          <Link
+            href={visualizerHref}
+            onClick={watchItRun}
+            aria-label={`Watch it run: ${problem.title}`}
+            className={styles.watchLink}
+          >
+            <span aria-hidden="true">▶ </span>Watch it run
+          </Link>
+        )}
+      </div>
+      <ProblemHint id={hintId} problem={problem} open={hintOpen} />
       <div className={styles.actions}>
         <button
           type="button"

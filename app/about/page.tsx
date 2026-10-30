@@ -23,7 +23,7 @@ const PRINCIPLES = [
   {
     bg: "var(--lilac)",
     title: "Made in code",
-    body: "Explainers are animated with Manim, the open-source library created for 3Blue1Brown. Visualizers run the real algorithm.",
+    body: "Explainers are animated with Remotion, which turns React code into video. Visualizers run the real algorithm.",
   },
 ];
 
@@ -43,11 +43,11 @@ const FAQS = [
   },
   {
     q: "Which language is the code in?",
-    a: "TypeScript. The ideas carry over to any language, and each lesson explains the logic in plain English first.",
+    a: "TypeScript and Python. Switch with the toggle on any code panel. Each lesson explains the logic in plain English first, so the ideas carry over to any language.",
   },
   {
-    q: "How often do new patterns come out?",
-    a: "When they’re ready. Each one takes a while to animate properly.",
+    q: "How do I remember all this?",
+    a: "Mark a problem solved and it comes back for review a day later, then less and less often. The pattern drill practises the first step of any interview: working out which pattern fits.",
   },
   {
     q: "Is this enough to pass interviews?",
@@ -136,7 +136,7 @@ export default function AboutPage() {
         </h2>
         <p className={styles.creditsBody}>
           Problem list: the Blind 75, compiled by Yangshun Tay. Pattern grouping inspired by NeetCode.
-          Problems link to LeetCode. Animations made with Manim Community.
+          Problems link to LeetCode. Animations made with Remotion.
         </p>
       </section>
     </div>

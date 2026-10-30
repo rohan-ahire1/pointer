@@ -17,6 +17,16 @@ export type Step<S> = {
   sr: string;
 };
 
+/** A visualizer's solution in Python. */
+export type PythonCode = {
+  code: string[];
+  /**
+   * For each TypeScript line, the Python line it runs as, or -1 when Python has
+   * no counterpart (a closing brace, say). Same length as `Visualizer["code"]`.
+   */
+  lines: number[];
+};
+
 /**
  * A single pattern-specific visualizer. `trace` is pure and deterministic —
  * given the same parsed input it always returns the same steps — so it's
@@ -30,8 +40,12 @@ export type Visualizer<I, S> = {
   id: string;
   /** e.g. "Longest Substring Without Repeating Characters". */
   title: string;
+  /** Short name for the picker when a lesson has several, e.g. "3Sum". Falls back to `title`. */
+  shortTitle?: string;
   /** TypeScript solution, one entry per line (indices match Step["lines"]). */
   code: string[];
+  /** The same solution in Python, with a map so the highlight follows along. */
+  python?: PythonCode;
   /** Parses and validates the raw input field value. */
   parseInput(raw: string): I | { error: string };
   /** Example inputs shown as chips. */

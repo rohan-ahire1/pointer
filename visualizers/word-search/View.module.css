@@ -1,0 +1,86 @@
+.word {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.board {
+  --cell: clamp(36px, calc((100cqi - (var(--cols) - 1) * 6px) / var(--cols)), 56px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 6px;
+  justify-content: center;
+}
+
+.cell {
+  position: relative;
+  width: var(--cell);
+  height: var(--cell);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: calc(var(--cell) * 0.2);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: calc(var(--cell) * 0.4);
+  font-weight: 700;
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease;
+}
+
+.cell[data-state="path"] {
+  background: var(--tint-yellow);
+}
+
+.cell[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  transform: translateY(-4px);
+  z-index: 1;
+}
+
+.cell[data-state="found"] {
+  background: var(--tint-mint);
+}
+
+/* Dashed as well as pale, so "left behind" never rests on colour alone. */
+.cell[data-state="dead"] {
+  background: var(--past-bg);
+  border-color: var(--past-line);
+  border-style: dashed;
+  color: var(--muted);
+}
+
+.order {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 10px;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+
+  .cell[data-state="current"] {
+    transform: none;
+  }
+}
