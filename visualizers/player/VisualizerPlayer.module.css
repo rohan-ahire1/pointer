@@ -408,3 +408,69 @@
 .codeList:focus-visible {
   outline-offset: -3px;
 }
+
+/* Motion: the transport buttons press flat into their shadow like keys,
+   and the running-line highlight crossfades from line to line with its ▶
+   marker stepping in, so you can follow where execution went. */
+.iconButton,
+.button,
+.buttonAccent,
+.buttonPlay,
+.presetChip {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .iconButton:hover:not(:disabled),
+  .button:hover:not(:disabled),
+  .buttonAccent:hover:not(:disabled),
+  .buttonPlay:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .presetChip:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.iconButton:active:not(:disabled),
+.button:active:not(:disabled),
+.buttonAccent:active:not(:disabled),
+.buttonPlay:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.presetChip:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.speedButton,
+.speedButtonActive {
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.codeLine,
+.codeLineActive {
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.codeLineActive .codeMark {
+  animation: step-in var(--dur-base) var(--ease-out);
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+}

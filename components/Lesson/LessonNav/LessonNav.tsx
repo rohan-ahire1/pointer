@@ -45,6 +45,8 @@ export function LessonNav({
   const [current, setCurrent] = useState<LessonSection>("idea");
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const switcherButtonRef = useRef<HTMLButtonElement>(null);
+  const tabsRef = useRef<HTMLOListElement>(null);
+  const pillRef = useRef<HTMLLIElement>(null);
 
   const patternProblems = problemsForPattern(patternSlug);
   const total = patternProblems.length;
@@ -73,6 +75,37 @@ export function LessonNav({
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [patternSlug, setLessonSection]);
+
+  // Slides one pill between the section tabs so the active marker travels
+  // with the reader instead of jumping. Until it has measured, the active
+  // tab keeps its own background, so nothing depends on this running.
+  useEffect(() => {
+    const list = tabsRef.current;
+    const pill = pillRef.current;
+    if (!list || !pill) return;
+
+    function place() {
+      const active = list?.querySelector<HTMLElement>('[aria-current="true"]');
+      if (!list || !pill || !active) return;
+      pill.style.width = `${active.offsetWidth}px`;
+      pill.style.height = `${active.offsetHeight}px`;
+      pill.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
+      if (!list.dataset.pill) {
+        list.dataset.pill = "placed";
+        // Turn transitions on only after the first placement, so the pill
+        // doesn't slide in from the corner on load.
+        requestAnimationFrame(() => {
+          if (list.dataset.pill) list.dataset.pill = "moving";
+        });
+      }
+    }
+
+    place();
+    if (typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(place);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [current]);
 
   useEffect(() => {
     if (!switcherOpen) return;
@@ -107,7 +140,8 @@ export function LessonNav({
           </button>
         </div>
 
-        <ol className={styles.tabs}>
+        <ol ref={tabsRef} className={styles.tabs}>
+          <li ref={pillRef} aria-hidden="true" className={styles.pill} />
           {SECTIONS.map((section) => (
             <li key={section.id}>
               <a

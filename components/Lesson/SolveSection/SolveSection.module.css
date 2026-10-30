@@ -74,3 +74,17 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Motion: the bar fills up when it first appears and glides to its new
+   length when a problem is marked solved. */
+.progressFill {
+  transform-origin: left;
+  animation: fill 800ms var(--ease-out) 250ms backwards;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}

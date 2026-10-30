@@ -85,3 +85,50 @@
   font-weight: 700;
   color: var(--ink);
 }
+
+/* Motion: the next lesson card lifts and its arrow nudges toward where
+   you're going; pressing flattens it into its shadow. */
+.nextCard,
+.linkButton {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.nextArrow {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .nextCard:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .nextCard:hover .nextArrow {
+    transform: translateX(6px);
+  }
+
+  .linkButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.nextCard:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.linkButton:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nextCard:hover .nextArrow {
+    transform: none;
+  }
+}

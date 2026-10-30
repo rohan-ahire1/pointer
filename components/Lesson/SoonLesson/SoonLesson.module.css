@@ -378,3 +378,58 @@
 .meanwhileCopy {
   font-size: 15px;
 }
+
+/* Motion: cards and buttons behave like blocks: they lift on hover and
+   press flat into their shadow on click. */
+.switcherLink,
+.adjacentButton,
+.notifyButton,
+.meanwhileCard,
+.meanwhileLiveCard {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .switcherLink:hover,
+  .adjacentButton:hover,
+  .notifyButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .meanwhileCard:hover,
+  .meanwhileLiveCard:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.switcherLink:active,
+.adjacentButton:active,
+.notifyButton:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.meanwhileCard:active,
+.meanwhileLiveCard:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.readyIconDone {
+  animation: tick var(--dur-slow) var(--ease-out) 300ms backwards;
+}
+
+@keyframes tick {
+  from {
+    transform: scale(0.4) rotate(-20deg);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+}

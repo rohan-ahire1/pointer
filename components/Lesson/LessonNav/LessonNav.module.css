@@ -262,3 +262,102 @@
     max-height: calc(100vh - 140px);
   }
 }
+
+/* Motion: one pill slides between the section tabs as you scroll, like the
+   pointer in a visualizer moving to the next step. LessonNav.tsx places it;
+   until then .tabActive draws its own background. The pattern switcher
+   drops open from its button, and the buttons press like blocks. */
+.tabs {
+  position: relative;
+}
+
+.pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 10px;
+  background: var(--inverse-bg);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.tabs[data-pill] .pill {
+  visibility: visible;
+}
+
+.tabs[data-pill="moving"] .pill {
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    width var(--dur-slow) var(--ease-out);
+}
+
+.tab,
+.tabActive {
+  position: relative;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.tabs[data-pill] .tabActive {
+  background: transparent;
+}
+
+@media (hover: hover) {
+  .tab:hover {
+    background: var(--tint-yellow);
+  }
+}
+
+.switcherPanel {
+  transform-origin: top left;
+  animation: open var(--dur-base) var(--ease-out);
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+}
+
+.switcherButton svg {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.switcherButton[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.switcherButton,
+.adjacentButton,
+.adjacentButtonAccent {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .switcherButton:hover,
+  .adjacentButton:hover,
+  .adjacentButtonAccent:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.switcherButton:active,
+.adjacentButton:active,
+.adjacentButtonAccent:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--shadow);
+  transition-duration: 60ms;
+}
+
+.switcherItem {
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.switcherItem:hover {
+  background: var(--tint-yellow);
+}

@@ -97,3 +97,31 @@
   font-size: 16px;
   line-height: 1.4;
 }
+
+/* Motion: the title highlight is drawn on like a marker, and the "reach for
+   it when" note is stuck onto the page, swinging into its tilt. */
+.highlight {
+  background: linear-gradient(var(--yellow), var(--yellow)) no-repeat 0 0 / 100% 100%;
+  animation: marker 700ms var(--ease-out) 300ms backwards;
+}
+
+@keyframes marker {
+  from {
+    background-size: 0% 100%;
+    color: var(--ink);
+  }
+  40% {
+    color: var(--ink);
+  }
+}
+
+.callout {
+  animation: stick 600ms var(--ease-out) 200ms backwards;
+}
+
+@keyframes stick {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) rotate(-3deg);
+  }
+}
