@@ -12,17 +12,23 @@ export type PatternGuide = {
 export const PATTERN_GUIDES: Record<string, PatternGuide> = {
   "arrays-and-hashing": {
     template: {
-      ts: `const seen = new Map<number, number>();
+      ts: `// Remember each number and where you saw it.
+const seen = new Map<number, number>();
 for (let i = 0; i < nums.length; i++) {
+  // What would pair with this number?
   const key = wanted(nums[i]);
   if (seen.has(key)) return [seen.get(key)!, i];
+  // Store after the check so it can't match itself.
   seen.set(nums[i], i);
 }`,
-      py: `seen = {}
+      py: `# Remember each number and where you saw it.
+seen = {}
 for i, x in enumerate(nums):
+    # What would pair with this number?
     key = wanted(x)
     if key in seen:
         return [seen[key], i]
+    # Store after the check so it can't match itself.
     seen[x] = i`,
     },
     pitfalls: [
@@ -33,16 +39,20 @@ for i, x in enumerate(nums):
   },
   "two-pointers": {
     template: {
-      ts: `let l = 0, r = nums.length - 1;
+      ts: `// Start at both ends of the sorted array.
+let l = 0, r = nums.length - 1;
 while (l < r) {
   if (isAnswer(l, r)) return [l, r];
+  // Each step rules out one end for good.
   if (needBigger(l, r)) l++;
   else r--;
 }`,
-      py: `l, r = 0, len(nums) - 1
+      py: `# Start at both ends of the sorted array.
+l, r = 0, len(nums) - 1
 while l < r:
     if is_answer(l, r):
         return [l, r]
+    # Each step rules out one end for good.
     if need_bigger(l, r):
         l += 1
     else:
@@ -58,16 +68,22 @@ while l < r:
     template: {
       ts: `let left = 0, best = 0;
 for (let right = 0; right < s.length; right++) {
+  // Grow: take in the next item.
   add(s[right]);
+  // Shrink from the left until the window is valid.
   while (!valid()) remove(s[left++]);
+  // Only count the window once it's valid.
   best = Math.max(best, right - left + 1);
 }`,
       py: `left = best = 0
 for right, ch in enumerate(s):
+    # Grow: take in the next item.
     add(ch)
+    # Shrink from the left until the window is valid.
     while not valid():
         remove(s[left])
         left += 1
+    # Only count the window once it's valid.
     best = max(best, right - left + 1)`,
     },
     pitfalls: [
@@ -78,17 +94,23 @@ for right, ch in enumerate(s):
   },
   stack: {
     template: {
-      ts: `const stack: number[] = [];
+      ts: `// Items still waiting for their answer.
+const stack: number[] = [];
 for (const x of items) {
+  // Pop every item that x settles.
   while (stack.length && shouldPop(stack.at(-1)!, x)) {
     resolve(stack.pop()!, x);
   }
+  // x now waits for its own answer.
   stack.push(x);
 }`,
-      py: `stack = []
+      py: `# Items still waiting for their answer.
+stack = []
 for x in items:
+    # Pop every item that x settles.
     while stack and should_pop(stack[-1], x):
         resolve(stack.pop(), x)
+    # x now waits for its own answer.
     stack.append(x)`,
     },
     pitfalls: [
@@ -100,18 +122,26 @@ for x in items:
   "binary-search": {
     template: {
       ts: `let lo = 0, hi = nums.length - 1;
+// Stop when lo and hi meet on the answer.
 while (lo < hi) {
+  // Rounds down, so mid is never hi.
   const mid = Math.floor((lo + hi) / 2);
+  // mid is ruled out, so skip past it.
   if (answerIsRightOf(mid)) lo = mid + 1;
+  // mid could be the answer, so keep it.
   else hi = mid;
 }
 return lo;`,
       py: `lo, hi = 0, len(nums) - 1
+# Stop when lo and hi meet on the answer.
 while lo < hi:
+    # Rounds down, so mid is never hi.
     mid = (lo + hi) // 2
     if answer_is_right_of(mid):
+        # mid is ruled out, so skip past it.
         lo = mid + 1
     else:
+        # mid could be the answer, so keep it.
         hi = mid
 return lo`,
     },
@@ -123,21 +153,27 @@ return lo`,
   },
   "linked-list": {
     template: {
-      ts: `const dummy = new ListNode(0, head);
+      ts: `// Fake node in front, so the head isn't special.
+const dummy = new ListNode(0, head);
 let prev = dummy, curr = head;
 while (curr) {
+  // Save this before rewiring cuts the link.
   const next = curr.next;
   rewire(prev, curr);
   prev = curr;
   curr = next;
 }
+// The real head, even if the old one moved.
 return dummy.next;`,
-      py: `dummy = ListNode(0, head)
+      py: `# Fake node in front, so the head isn't special.
+dummy = ListNode(0, head)
 prev, curr = dummy, head
 while curr:
+    # Save this before rewiring cuts the link.
     nxt = curr.next
     rewire(prev, curr)
     prev, curr = curr, nxt
+# The real head, even if the old one moved.
 return dummy.next`,
     },
     pitfalls: [
@@ -149,16 +185,22 @@ return dummy.next`,
   trees: {
     template: {
       ts: `function dfs(node: TreeNode | null): number {
+  // Empty node: the smallest case, answer it directly.
   if (!node) return 0;
+  // Trust each call to solve its own subtree.
   const left = dfs(node.left);
   const right = dfs(node.right);
+  // Build this node's answer from its children's.
   return combine(node, left, right);
 }`,
       py: `def dfs(node):
+    # Empty node: the smallest case, answer it directly.
     if not node:
         return 0
+    # Trust each call to solve its own subtree.
     left = dfs(node.left)
     right = dfs(node.right)
+    # Build this node's answer from its children's.
     return combine(node, left, right)`,
     },
     pitfalls: [
@@ -171,17 +213,21 @@ return dummy.next`,
     template: {
       ts: `let node = root;
 for (const ch of word) {
+  // Make the path if this letter isn't there yet.
   if (!node.children.has(ch)) {
     node.children.set(ch, new TrieNode());
   }
   node = node.children.get(ch)!;
 }
+// Without this, "app" matches because of "apple".
 node.isWord = true;`,
       py: `node = root
 for ch in word:
+    # Make the path if this letter isn't there yet.
     if ch not in node.children:
         node.children[ch] = TrieNode()
     node = node.children[ch]
+# Without this, "app" matches because of "apple".
 node.is_word = True`,
     },
     pitfalls: [
@@ -192,17 +238,23 @@ node.is_word = True`,
   },
   heaps: {
     template: {
-      ts: `const heap = new MinHeap<number>();
+      ts: `// Min-heap: the smallest kept item is on top.
+const heap = new MinHeap<number>();
 for (const x of nums) {
   heap.push(x);
+  // Too many: drop the smallest, keep the k largest.
   if (heap.size() > k) heap.pop();
 }
+// The top is now the kth largest.
 return heap.peek();`,
-      py: `heap = []
+      py: `# heapq is a min-heap: the smallest item is on top.
+heap = []
 for x in nums:
     heapq.heappush(heap, x)
+    # Too many: drop the smallest, keep the k largest.
     if len(heap) > k:
         heapq.heappop(heap)
+# The top is now the kth largest.
 return heap[0]`,
     },
     pitfalls: [
@@ -215,22 +267,30 @@ return heap[0]`,
     template: {
       ts: `function dfs(path: number[], start: number) {
   if (isDone(path)) {
+    // Save a copy: path keeps changing after this.
     results.push([...path]);
     return;
   }
   for (let i = start; i < choices.length; i++) {
+    // Choose.
     path.push(choices[i]);
+    // Explore everything from here.
     dfs(path, i + 1);
+    // Undo, so the next choice starts clean.
     path.pop();
   }
 }`,
       py: `def dfs(path, start):
     if is_done(path):
+        # Save a copy: path keeps changing after this.
         results.append(path[:])
         return
     for i in range(start, len(choices)):
+        # Choose.
         path.append(choices[i])
+        # Explore everything from here.
         dfs(path, i + 1)
+        # Undo, so the next choice starts clean.
         path.pop()`,
     },
     pitfalls: [
@@ -241,9 +301,11 @@ return heap[0]`,
   },
   graphs: {
     template: {
-      ts: `const seen = new Set([start]);
+      ts: `// Mark on push, so no node is queued twice.
+const seen = new Set([start]);
 const queue = [start];
 while (queue.length) {
+  // Oldest first: the closest nodes go first.
   const node = queue.shift()!;
   for (const next of neighbours(node)) {
     if (seen.has(next)) continue;
@@ -251,9 +313,11 @@ while (queue.length) {
     queue.push(next);
   }
 }`,
-      py: `seen = {start}
+      py: `# Mark on push, so no node is queued twice.
+seen = {start}
 queue = deque([start])
 while queue:
+    # Oldest first: the closest nodes go first.
     node = queue.popleft()
     for nxt in neighbours(node):
         if nxt in seen:
@@ -269,15 +333,21 @@ while queue:
   },
   "1-d-dp": {
     template: {
-      ts: `const dp = new Array(n + 1).fill(0);
+      ts: `// dp[i] is the answer for the first i items.
+const dp = new Array(n + 1).fill(0);
+// The smallest case, known without any work.
 dp[0] = base;
 for (let i = 1; i <= n; i++) {
+  // Build from answers you already have.
   dp[i] = best(dp[i - 1], fromEarlier(dp, i));
 }
 return dp[n];`,
-      py: `dp = [0] * (n + 1)
+      py: `# dp[i] is the answer for the first i items.
+dp = [0] * (n + 1)
+# The smallest case, known without any work.
 dp[0] = base
 for i in range(1, n + 1):
+    # Build from answers you already have.
     dp[i] = best(dp[i - 1], from_earlier(dp, i))
 return dp[n]`,
     },
@@ -289,17 +359,23 @@ return dp[n]`,
   },
   "2-d-dp": {
     template: {
-      ts: `const dp = Array.from({ length: m + 1 }, () =>
+      ts: `// dp[i][j]: answer for first i and first j items.
+const dp = Array.from({ length: m + 1 }, () =>
   new Array(n + 1).fill(0));
+// Row 0 and column 0 stay as the empty cases.
 for (let i = 1; i <= m; i++) {
   for (let j = 1; j <= n; j++) {
+    // Each cell reads above, left and diagonal.
     dp[i][j] = combine(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
   }
 }
 return dp[m][n];`,
-      py: `dp = [[0] * (n + 1) for _ in range(m + 1)]
+      py: `# dp[i][j]: answer for first i and first j items.
+dp = [[0] * (n + 1) for _ in range(m + 1)]
+# Row 0 and column 0 stay as the empty cases.
 for i in range(1, m + 1):
     for j in range(1, n + 1):
+        # Each cell reads above, left and diagonal.
         dp[i][j] = combine(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
 return dp[m][n]`,
     },
@@ -311,16 +387,22 @@ return dp[m][n]`,
   },
   greedy: {
     template: {
-      ts: `let state = start;
+      ts: `// One running value sums up every choice so far.
+let state = start;
 for (const x of items) {
+  // Check you can still go on before choosing.
   if (isStuck(state, x)) return fail;
+  // Take the best move now and never look back.
   state = bestChoice(state, x);
 }
 return state;`,
-      py: `state = start
+      py: `# One running value sums up every choice so far.
+state = start
 for x in items:
+    # Check you can still go on before choosing.
     if is_stuck(state, x):
         return fail
+    # Take the best move now and never look back.
     state = best_choice(state, x)
 return state`,
     },
@@ -332,19 +414,25 @@ return state`,
   },
   intervals: {
     template: {
-      ts: `intervals.sort((a, b) => a[0] - b[0]);
+      ts: `// Sort by start, so overlaps end up side by side.
+intervals.sort((a, b) => a[0] - b[0]);
 const out = [intervals[0]];
 for (const [start, end] of intervals.slice(1)) {
   const last = out[out.length - 1];
+  // Overlap: extend the last one to the later end.
   if (start <= last[1]) last[1] = Math.max(last[1], end);
+  // No overlap: this one starts a new interval.
   else out.push([start, end]);
 }`,
-      py: `intervals.sort(key=lambda x: x[0])
+      py: `# Sort by start, so overlaps end up side by side.
+intervals.sort(key=lambda x: x[0])
 out = [intervals[0]]
 for start, end in intervals[1:]:
+    # Overlap: extend the last one to the later end.
     if start <= out[-1][1]:
         out[-1][1] = max(out[-1][1], end)
     else:
+        # No overlap: this one starts a new interval.
         out.append([start, end])`,
     },
     pitfalls: [
