@@ -3,8 +3,9 @@ import Link from "next/link";
 import { getPatternGroups } from "@/content";
 import { PATTERN_GUIDES } from "@/content/guides";
 import { padPatternNumber } from "@/lib/pattern-nav";
-import { chipColorForNumber } from "@/lib/pattern-style";
+import { chipColorForNumber, groupNumberRange } from "@/lib/pattern-style";
 import { CodeLangToggle } from "@/components/CodeLangToggle/CodeLangToggle";
+import { CheckIcon, CrossIcon } from "@/components/icons/Icons";
 import { PatternCode } from "@/components/PatternCode/PatternCode";
 import { PrintButton } from "@/components/Cheatsheet/PrintButton/PrintButton";
 import styles from "./page.module.css";
@@ -15,9 +16,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/cheatsheet" },
 };
 
+/** One band colour per group, in the order the groups are listed. */
+const BAND_COLORS = ["var(--yellow)", "var(--lilac)", "var(--mint)"];
+
 /** Every pattern on one printable page, for the night before an interview. */
 export default function CheatsheetPage() {
-  const groups = getPatternGroups();
+  const groups = getPatternGroups().map((group) => ({
+    ...group,
+    entries: group.patterns.flatMap((pattern) => {
+      const guide = PATTERN_GUIDES[pattern.slug];
+      return pattern.status === "live" && guide ? [{ pattern, guide }] : [];
+    }),
+  }));
 
   return (
     <div className={styles.page}>
@@ -35,18 +45,53 @@ export default function CheatsheetPage() {
         </div>
       </div>
 
-      {groups.map((group) => (
-        <section key={group.key} aria-labelledby={`group-${group.key}`} className={styles.group}>
-          <h2 id={`group-${group.key}`} className={`soft ${styles.groupHeading}`}>
-            {group.label}
-          </h2>
-          <div className={styles.grid}>
-            {group.patterns.map((pattern) => {
-              const guide = PATTERN_GUIDES[pattern.slug];
-              if (pattern.status !== "live" || !guide) return null;
-              return (
-                <article key={pattern.slug} id={pattern.slug} className={styles.card}>
-                  <div className={styles.cardHead}>
+      <div className={styles.sheet}>
+        <nav id="spot" aria-labelledby="spot-heading" className={styles.index}>
+          <div className={styles.indexBand}>
+            <h2 id="spot-heading" className={`soft ${styles.indexHeading}`}>
+              Spot the pattern
+            </h2>
+            <p className={styles.indexHint}>Read the clue, jump to the pattern.</p>
+          </div>
+          <div className={styles.indexGroups}>
+            {groups.map((group) => (
+              <div key={group.key} className={styles.indexGroup}>
+                <h3 className={styles.indexLabel}>{group.label}</h3>
+                <ol className={styles.indexList}>
+                  {group.entries.map(({ pattern }) => (
+                    <li key={pattern.slug}>
+                      <a href={`#${pattern.slug}`} className={styles.indexLink}>
+                        <span className={styles.number} style={{ background: chipColorForNumber(pattern.number) }}>
+                          {padPatternNumber(pattern.number)}
+                        </span>
+                        <span className={styles.indexText}>
+                          <span className={styles.indexName}>{pattern.name}</span>
+                          <span className={styles.indexClue}>{pattern.whenToUse[0]}</span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+          </div>
+        </nav>
+
+        {groups.map((group, index) => (
+          <section key={group.key} aria-labelledby={`group-${group.key}`}>
+            <div className={styles.band} style={{ background: BAND_COLORS[index % BAND_COLORS.length] }}>
+              <h2 id={`group-${group.key}`} className={`soft ${styles.bandHeading}`}>
+                {group.label}
+              </h2>
+              <span className={styles.bandRange}>{groupNumberRange(group.patterns)}</span>
+              <a href="#spot" className={styles.bandLink} data-no-print>
+                All patterns
+              </a>
+            </div>
+            {group.entries.map(({ pattern, guide }) => (
+              <article key={pattern.slug} id={pattern.slug} className={styles.row}>
+                <div className={styles.identity}>
+                  <div className={styles.nameLine}>
                     <span className={styles.number} style={{ background: chipColorForNumber(pattern.number) }}>
                       {padPatternNumber(pattern.number)}
                     </span>
@@ -65,26 +110,39 @@ export default function CheatsheetPage() {
                       <dd>{pattern.space}</dd>
                     </div>
                   </dl>
-                  <h4 className={styles.label}>Reach for it when</h4>
-                  <ul className={styles.list}>
-                    {pattern.whenToUse.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <h4 className={styles.label}>Start from this</h4>
-                  <PatternCode template={guide.template} patternName={pattern.name} />
-                  <h4 className={styles.label}>Easy ways to go wrong</h4>
-                  <ul className={styles.list}>
-                    {guide.pitfalls.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-      ))}
+                </div>
+                <div className={styles.notes}>
+                  <div>
+                    <h4 className={styles.label}>Reach for it when</h4>
+                    <ul className={styles.list}>
+                      {pattern.whenToUse.map((item) => (
+                        <li key={item} className={styles.item}>
+                          <CheckIcon />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className={styles.label}>Easy ways to go wrong</h4>
+                    <ul className={styles.list}>
+                      {guide.pitfalls.map((item) => (
+                        <li key={item} className={`${styles.item} ${styles.pitfall}`}>
+                          <CrossIcon />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className={styles.codeCell}>
+                  <PatternCode template={guide.template} patternName={pattern.name} heading="Start from this" />
+                </div>
+              </article>
+            ))}
+          </section>
+        ))}
+      </div>
     </div>
   );
 }
