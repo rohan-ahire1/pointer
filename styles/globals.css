@@ -64,6 +64,8 @@ html[data-theme="dark"] {
 
 body {
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
@@ -199,6 +201,10 @@ nav[aria-label="Breadcrumb"] a {
 }
 
 @media print {
+  body {
+    display: block;
+  }
+
   [data-no-print] {
     display: none !important;
   }
