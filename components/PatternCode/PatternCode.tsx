@@ -8,7 +8,7 @@ import styles from "./PatternCode.module.css";
 type PatternCodeProps = {
   template: PatternGuide["template"];
   patternName: string;
-  /** Puts this h4 and the copy button above bare code, for a page that gives the code its own cell. */
+  /** Puts this h4 and the copy button in a row above the code. */
   heading?: string;
 };
 
@@ -52,11 +52,7 @@ export function PatternCode({ template, patternName, heading }: PatternCodeProps
         </div>
       )}
       {/* Long lines scroll, so the block has to be reachable by keyboard. */}
-      <pre
-        tabIndex={0}
-        aria-label={`${patternName} template in ${CODE_LANG_LABELS[lang]}`}
-        className={heading ? `${styles.code} ${styles.bare}` : styles.code}
-      >
+      <pre tabIndex={0} aria-label={`${patternName} template in ${CODE_LANG_LABELS[lang]}`} className={styles.code}>
         <code>{code}</code>
       </pre>
       {!heading && controls}

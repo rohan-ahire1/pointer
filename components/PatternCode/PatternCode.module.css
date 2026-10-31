@@ -23,13 +23,6 @@
   font: inherit;
 }
 
-.bare {
-  padding: 0;
-  background: none;
-  border: 0;
-  border-radius: 0;
-}
-
 .header {
   display: flex;
   align-items: center;

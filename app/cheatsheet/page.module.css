@@ -646,6 +646,9 @@
   }
 
   .codeCell pre {
+    padding: 3px 4px;
+    border-width: 1px;
+    border-radius: 3px;
     font-size: 7pt;
     line-height: 1.3;
   }
