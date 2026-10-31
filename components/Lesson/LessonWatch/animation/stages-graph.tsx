@@ -721,3 +721,138 @@ export const ComboStage = ({r}: {r: Run}) => {
   );
 };
 export const comboConfetti = {x: 1680, y: 360};
+
+// ───────────────────────── dijkstra ─────────────────────────
+type Road = [number, number, number];
+const DJ = {
+  D: 120,
+  NODE: [{x: 220, y: 560}, {x: 520, y: 370}, {x: 620, y: 730}, {x: 930, y: 680}, {x: 1030, y: 370}],
+  /** Each node's time sits on the side its roads leave free. */
+  BADGE: [-104, -104, 104, 104, -104],
+};
+const djLine = (from: number, to: number) => {
+  const a = DJ.NODE[from], b = DJ.NODE[to];
+  const len = Math.hypot(b.x - a.x, b.y - a.y);
+  const ux = (b.x - a.x) / len, uy = (b.y - a.y) / len;
+  const near = DJ.D / 2 + 6, far = DJ.D / 2 + 18;
+  return {x1: a.x + ux * near, y1: a.y + uy * near, x2: b.x - ux * far, y2: b.y - uy * far, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2};
+};
+const DJ_TONE = {ink: '--ink', hot: '--orange', soft: '--past-line'} as const;
+const DjRoads = ({roads, toneOf}: {roads: Road[]; toneOf: (i: number) => keyof typeof DJ_TONE}) => (
+  <Svg>
+    <defs>
+      {Object.entries(DJ_TONE).map(([tone, color]) => (
+        <marker key={tone} id={`dj-${tone}`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10z" fill={tok(color)} />
+        </marker>
+      ))}
+    </defs>
+    {roads.map(([from, to], i) => {
+      const {x1, y1, x2, y2} = djLine(from, to);
+      const tone = toneOf(i);
+      return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={tok(DJ_TONE[tone])} strokeWidth={tone === 'hot' ? 9 : 6} strokeLinecap="round" markerEnd={`url(#dj-${tone})`} />;
+    })}
+  </Svg>
+);
+
+/** Brute force: walk every route from node 0. The same roads get walked again and again. */
+export const roadWalks = (roads: Road[]) => {
+  const out: {route: number[]; road: number}[] = [];
+  const walk = (route: number[]) => {
+    roads.forEach(([from, to], road) => {
+      if (from !== route[route.length - 1] || route.includes(to)) return;
+      const next = [...route, to];
+      out.push({route: next, road});
+      walk(next);
+    });
+  };
+  walk([0]);
+  return out;
+};
+
+export const DijkstraBrute = ({r}: {r: Run}) => {
+  const roads: Road[] = r.steps[0].state.roads;
+  const walks = roadWalks(roads);
+  const q = bruteK(r.t, walks.length);
+  if (q < 0) return null;
+  const {route} = walks[q];
+  const onRoute = (i: number) => route.some((node, k) => k > 0 && roads[i][0] === route[k - 1] && roads[i][1] === node);
+  const times = (i: number) => walks.slice(0, q + 1).filter((walk) => walk.road === i).length;
+  return (
+    <>
+      <DjRoads roads={roads} toneOf={(i) => (onRoute(i) ? 'hot' : 'soft')} />
+      {roads.map((_, i) => {
+        const {mx, my} = djLine(roads[i][0], roads[i][1]);
+        return times(i) > 1 && (
+          <div key={i} style={{position: 'absolute', left: mx + 34, top: my - 58, fontFamily: display, fontWeight: 800, fontSize: 34, color: 'var(--pen)'}}>×{times(i)}</div>
+        );
+      })}
+      <Verdict x={1500} y={420} w={540}>
+        <span style={{fontFamily: mono, fontWeight: 500, fontSize: 34}}>{route.join(' → ')}</span>
+      </Verdict>
+    </>
+  );
+};
+
+export const DijkstraStage = ({r}: {r: Run}) => {
+  const {s, o} = r;
+  const roads: Road[] = s.roads;
+  const n: number = s.n;
+  const heap: [number, number][] = s.heap;
+  const best: (number | null)[] = s.best;
+  const road = s.trying != null ? roads[s.trying] : null;
+  const before = road ? o.best[road[1]] : null;
+  const cheaper = road != null && best[road[1]] === s.offer && before !== s.offer;
+  const fillOf = (i: number) => (i === s.current ? 'var(--yellow)' : s.settled.includes(i) ? 'var(--mint)' : best[i] != null ? 'var(--sky)' : 'var(--card)');
+  return (
+    <>
+      <div style={{opacity: r.live}}>
+        <DjRoads roads={roads} toneOf={(i) => (i === s.trying ? 'hot' : s.settled.includes(roads[i][0]) ? 'ink' : 'soft')} />
+      </div>
+      {roads.map(([from, to, cost], i) => {
+        const {mx, my} = djLine(from, to);
+        return (
+          <div key={i} style={{...popStyle(r.pop(i + n, n + roads.length)), position: 'absolute', left: 0, top: 0}}>
+            <Tile x={mx - 30} y={my - 24} w={60} h={48} radius={14} fill={i === s.trying ? 'var(--peach)' : 'var(--card)'} style={{fontSize: 28}}>{cost}</Tile>
+          </div>
+        );
+      })}
+      {Array.from({length: n}, (_, i) => {
+        const {x, y} = DJ.NODE[i];
+        const done = s.settled.includes(i);
+        const changed = road?.[1] === i && cheaper;
+        return (
+          <div key={i} style={{...popStyle(r.pop(i, n + roads.length)), position: 'absolute', left: 0, top: 0}}>
+            <Dot x={x} y={y} d={DJ.D} fill={fillOf(i)} size={44}>{i}</Dot>
+            <Tile x={x - 48} y={y + DJ.BADGE[i] - 28} w={96} h={56} radius={16} fill={changed ? 'var(--peach)' : 'var(--card)'} style={{fontFamily: mono, fontWeight: 500, fontSize: 30, transform: `scale(${1 + (changed ? 0.14 * Math.sin(Math.PI * r.pb) : 0)})`}}>
+              {done && '✓ '}{best[i] ?? '∞'}
+            </Tile>
+          </div>
+        );
+      })}
+      <div style={{opacity: r.live}}>
+        <Label x={1240} y={262}>heap · smallest first</Label>
+        {heap.length === 0 && <Tile x={1240} y={302} w={300} h={64} radius={16} fill="var(--card-2)" shadow={false} style={{borderStyle: 'dashed', fontFamily: mono, fontWeight: 400, fontSize: 26, color: 'var(--faint)'}}>empty</Tile>}
+        {heap.map(([time, node], i) => (
+          <Tile key={`${time}-${node}`} x={1240} y={302 + i * 78} w={300} h={64} radius={16} fill={i === 0 ? 'var(--yellow)' : 'var(--card)'} style={{fontFamily: mono, fontWeight: 500, fontSize: 28}}>
+            time {time} → node {node}
+          </Tile>
+        ))}
+        {road && (
+          <Verdict x={1500} y={600} w={520} ok={cheaper}>
+            <span style={{fontFamily: mono, fontWeight: 500, fontSize: 32}}>
+              {best[road[0]]} + {road[2]} = {s.offer} {before == null ? 'first way' : cheaper ? `beats ${before}` : `keeps ${before}`}
+            </span>
+          </Verdict>
+        )}
+        {s.phase === 'skip' && <Verdict x={1500} y={600} w={520}>old entry, skip</Verdict>}
+        {s.phase === 'done' && (
+          <div style={{transform: `scale(${0.7 + 0.3 * r.pb})`, transformOrigin: '1500px 650px'}}>
+            <Verdict x={1500} y={600} w={520} ok>last hears at {s.delay}</Verdict>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+export const dijkstraConfetti = {x: 1500, y: 620};

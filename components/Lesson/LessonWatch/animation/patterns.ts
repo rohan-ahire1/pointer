@@ -51,6 +51,9 @@ export const CONFIG: Record<string, Config> = {
   intervals: {
     headlines: ['Which *busy blocks* do they form?', '*Sort* by start.', 'Overlap? *Stretch*. Gap? *New block*.', 'Sort and walk. *O(n log n)*.'],
   },
+  'advanced-graphs': {
+    headlines: ['How long until *everyone* hears?', 'Always take the *closest* node.', 'A cheaper road? *Update* the time.', 'Each road once. *O(E log V)*.'],
+  },
 };
 
 export const PATTERNS: Pattern[] = content as Pattern[];

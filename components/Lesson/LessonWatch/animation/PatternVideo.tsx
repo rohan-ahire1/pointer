@@ -2,7 +2,7 @@ import {useMemo, type ComponentType} from 'react';
 import {Run, Scene, Step, Timing, bruteK, timeline, useRun, type Hook, type Outro} from './scene';
 import {CONFIG, PATTERNS} from './patterns';
 import {ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
-import {ComboBrute, ComboStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, fullTree, heapConfetti, heapSorts, listConfetti, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
+import {ComboBrute, ComboStage, DijkstraBrute, DijkstraStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, dijkstraConfetti, fullTree, heapConfetti, heapSorts, listConfetti, roadWalks, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
 import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti} from './stages-grid';
 import {meta as twoSumMeta} from '@/visualizers/two-sum/meta';
 import {parseInput as twoSumParse} from '@/visualizers/two-sum/parseInput';
@@ -46,6 +46,9 @@ import {trace as jumpTrace} from '@/visualizers/jump-game/trace';
 import {meta as intervalsMeta} from '@/visualizers/merge-intervals/meta';
 import {parseInput as intervalsParse} from '@/visualizers/merge-intervals/parseInput';
 import {trace as intervalsTrace} from '@/visualizers/merge-intervals/trace';
+import {meta as networkMeta} from '@/visualizers/network-delay-time/meta';
+import {parseInput as networkParse} from '@/visualizers/network-delay-time/parseInput';
+import {trace as networkTrace} from '@/visualizers/network-delay-time/trace';
 
 type Def = {
   steps: Step[];
@@ -234,6 +237,21 @@ const DEFS: Record<string, () => Def> = {
       label: 'Compare every pair', unit: 'checks', naive: intervalPairs(steps[0].state.items).length, fast: n - 1,
       naiveLabel: 'compare every pair', fastLabel: 'sort, then walk',
       timing: {anchors: {1: 21, ...(stretch > 0 ? {[stretch]: 32.4} : {})}},
+    };
+  },
+  'advanced-graphs': () => {
+    const steps = run(networkMeta, networkParse, networkTrace);
+    const roads = steps[0].state.roads;
+    const cheaper = steps.findIndex((st, i) => {
+      if (st.state.trying == null) return false;
+      const to = roads[st.state.trying][1];
+      return steps[i - 1].state.best[to] != null && st.state.best[to] === st.state.offer;
+    });
+    return {
+      steps, Stage: DijkstraStage, Brute: DijkstraBrute, confetti: dijkstraConfetti,
+      label: 'Walk every route', unit: 'roads walked', naive: roadWalks(roads).length, fast: steps.filter((st) => st.state.phase === 'road').length,
+      naiveLabel: 'walk every route', fastLabel: 'each road once',
+      timing: {anchors: {[cheaper]: 32.4}},
     };
   },
 };

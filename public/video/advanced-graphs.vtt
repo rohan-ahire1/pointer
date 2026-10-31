@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00.000 --> 00:07.287
+A signal leaves node 0 and the roads have different costs.
+
+00:07.287 --> 00:14.700
+Walking every route repeats the same roads again and again.
+
+00:15.000 --> 00:20.264
+Keep a heap of arrival times.
+
+00:20.264 --> 00:31.700
+The smallest one can’t be beaten, so that node’s time is final.
+
+00:32.000 --> 00:43.214
+Going through node 1 reaches node 2 at time 3, which beats the direct road of 4.
+
+00:43.214 --> 00:47.700
+A cheaper road updates the time.
+
+00:48.000 --> 00:53.850
+Each road is checked once, so it’s O(E log V).
+
+00:53.850 --> 00:57.665
+The last node hears at time 7.
+
+00:57.665 --> 00:59.700
+That’s Dijkstra.
