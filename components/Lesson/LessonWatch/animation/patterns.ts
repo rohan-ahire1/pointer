@@ -57,6 +57,9 @@ export const CONFIG: Record<string, Config> = {
   'math-and-geometry': {
     headlines: ['Read the grid in a *spiral*.', 'Four *walls* mark what’s left.', 'Walk a side, pull the *wall* in.', 'No extra grid. *O(1)* space.'],
   },
+  'bit-manipulation': {
+    headlines: ['How many *1 bits* are in 172?', 'A number is a row of *switches*.', '*n & (n − 1)* clears the lowest 1.', 'One hop per 1 bit. *O(k)*.'],
+  },
 };
 
 export const PATTERNS: Pattern[] = content as Pattern[];

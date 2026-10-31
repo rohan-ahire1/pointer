@@ -791,3 +791,66 @@ export const RobberStage = ({r}: {r: Run}) => {
   );
 };
 export const robberConfetti = {x: 960, y: 520};
+
+// ───────────────────────── number of 1 bits ─────────────────────────
+const NB = {W: 110, H: 104, GAP: 14, X0: 440, Y: [300, 440, 580], CX: 1600};
+const nbX = (i: number) => NB.X0 + i * (NB.W + NB.GAP);
+const nbBits = (n: number) => Array.from({length: 8}, (_, i) => (n >> (7 - i)) & 1);
+
+const BitRow = ({y, label, value, lowest = -1, opacity = 1}: {y: number; label: string; value: number; lowest?: number; opacity?: number}) => (
+  <div style={{opacity}}>
+    <Label x={NB.X0 - 26} y={y + 34} align="right" size={30}>{label} = {value}</Label>
+    {nbBits(value).map((bit, i) => (
+      <Tile key={i} x={nbX(i)} y={y} w={NB.W} h={NB.H} radius={18} fill={7 - i === lowest ? 'var(--peach)' : bit ? 'var(--yellow)' : 'var(--card)'} shadow={bit === 1} style={{fontSize: 48}}>
+        {bit}
+      </Tile>
+    ))}
+  </div>
+);
+
+/** Brute force: check all eight bits, from the right, zeros included. */
+export const BitsBrute = ({r}: {r: Run}) => {
+  const bits = nbBits(r.steps[0].state.n);
+  const q = bruteK(r.t, bits.length);
+  if (q < 0) return null;
+  const i = bits.length - 1 - q;
+  return (
+    <>
+      <Ring x={nbX(i) - 10} y={NB.Y[0] - 10} w={NB.W + 20} h={NB.H + 20} color="--orange" radius={24} />
+      <Tag x={nbX(i) + NB.W / 2} y={NB.Y[0] + NB.H + 22} label="check" dir="up" />
+      <Tile x={NB.CX - 130} y={NB.Y[0]} w={260} h={150} fill="var(--card)" style={{fontSize: 64, flexDirection: 'column', gap: 0}}>
+        <span style={{fontFamily: mono, fontWeight: 500, fontSize: 24, color: 'var(--muted)'}}>ones so far</span>
+        {bits.slice(i).filter(Boolean).length}
+      </Tile>
+    </>
+  );
+};
+
+export const BitsStage = ({r}: {r: Run}) => {
+  const {s} = r;
+  const lowest = s.lowest ?? -1;
+  const belowOn = visBlend(r, (st) => st.below != null);
+  const resultOn = visBlend(r, (st) => st.result != null);
+  const below = s.below ?? r.o.below;
+  const result = s.result ?? r.o.result;
+  const bumped = s.phase === 'count';
+  return (
+    <>
+      <div style={popStyle(r.pop(0, 3))}>
+        <BitRow y={NB.Y[0]} label="n" value={s.n} lowest={lowest} />
+      </div>
+      {below != null && <BitRow y={NB.Y[1]} label="n − 1" value={below} lowest={lowest} opacity={belowOn} />}
+      {result != null && <BitRow y={NB.Y[2]} label="AND" value={result} opacity={resultOn} />}
+      {s.lowest != null && (
+        <Ring x={nbX(7 - lowest) - 8} y={NB.Y[0] - 8} w={NB.W + 16} h={(s.result != null ? NB.Y[2] : NB.Y[1]) - NB.Y[0] + NB.H + 16} color="--orange" radius={24} />
+      )}
+      <div style={{opacity: r.live}}>
+        <Tile x={NB.CX - 130} y={NB.Y[0]} w={260} h={190} fill={s.phase === 'done' ? 'var(--mint)' : 'var(--yellow)'} style={{fontSize: 84, flexDirection: 'column', gap: 0, transform: `scale(${1 + (bumped ? 0.12 * Math.sin(Math.PI * r.pb) : 0)})`}}>
+          <span style={{fontFamily: mono, fontWeight: 500, fontSize: 24}}>count</span>
+          {s.count}
+        </Tile>
+      </div>
+    </>
+  );
+};
+export const bitsConfetti = {x: NB.CX, y: 420};

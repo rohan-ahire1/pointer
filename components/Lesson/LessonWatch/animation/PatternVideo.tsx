@@ -1,7 +1,7 @@
 import {useMemo, type ComponentType} from 'react';
 import {Run, Scene, Step, Timing, bruteK, timeline, useRun, type Hook, type Outro} from './scene';
 import {CONFIG, PATTERNS} from './patterns';
-import {ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
+import {BitsBrute, BitsStage, ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, bitsConfetti, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
 import {ComboBrute, ComboStage, DijkstraBrute, DijkstraStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, dijkstraConfetti, fullTree, heapConfetti, heapSorts, listConfetti, roadWalks, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
 import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, SpiralBrute, SpiralStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti, spiralConfetti} from './stages-grid';
 import {meta as twoSumMeta} from '@/visualizers/two-sum/meta';
@@ -52,6 +52,9 @@ import {trace as networkTrace} from '@/visualizers/network-delay-time/trace';
 import {meta as spiralMeta} from '@/visualizers/spiral-matrix/meta';
 import {parseInput as spiralParse} from '@/visualizers/spiral-matrix/parseInput';
 import {trace as spiralTrace} from '@/visualizers/spiral-matrix/trace';
+import {meta as bitsMeta} from '@/visualizers/number-of-1-bits/meta';
+import {parseInput as bitsParse} from '@/visualizers/number-of-1-bits/parseInput';
+import {trace as bitsTrace} from '@/visualizers/number-of-1-bits/trace';
 
 type Def = {
   steps: Step[];
@@ -267,6 +270,16 @@ const DEFS: Record<string, () => Def> = {
       naiveLabel: 'a seen grid', fastLabel: 'four walls',
       timing: {anchors: {1: 22, [firstWall]: 32.4}},
       stamp: 'O(m·n) time · O(1) space',
+    };
+  },
+  'bit-manipulation': () => {
+    const steps = run(bitsMeta, bitsParse, bitsTrace);
+    return {
+      steps, Stage: BitsStage, Brute: BitsBrute, confetti: bitsConfetti,
+      label: 'Check every bit', unit: 'checks', naive: 8, fast: steps[steps.length - 1].state.count,
+      naiveLabel: 'check every bit', fastLabel: 'one hop per 1 bit',
+      timing: {anchors: {1: 24, 2: 27, 3: 30, 4: 32.4}},
+      stamp: 'O(k) for k one bits',
     };
   },
 };
