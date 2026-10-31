@@ -47,9 +47,10 @@ describe("buildRound", () => {
   });
 
   it("leaves out Extras, which have no pattern to name", () => {
-    const round = buildRound(problems, patterns, { random: seeded(3), size: 75 });
+    const [first, ...rest] = problems;
+    const round = buildRound([{ ...first, pattern: "extras" }, ...rest], patterns, { random: seeded(3), size: 75 });
     expect(round.some((q) => q.problem.pattern === "extras")).toBe(false);
-    expect(round).toHaveLength(66);
+    expect(round).toHaveLength(74);
   });
 
   it("can stick to one group", () => {

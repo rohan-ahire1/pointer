@@ -7,13 +7,13 @@ const LEETCODE_URL_RE = /^https:\/\/leetcode\.com\/problems\/[a-z0-9-]+\/$/;
 describe("patterns.json", () => {
   const patterns = getPatterns();
 
-  it("has exactly 15 patterns", () => {
-    expect(patterns).toHaveLength(15);
+  it("has exactly 18 patterns", () => {
+    expect(patterns).toHaveLength(18);
   });
 
-  it("is numbered 1..15 with no gaps or repeats", () => {
+  it("is numbered 1..18 with no gaps or repeats", () => {
     const numbers = patterns.map((pattern) => pattern.number).sort((a, b) => a - b);
-    expect(numbers).toEqual(Array.from({ length: 15 }, (_, i) => i + 1));
+    expect(numbers).toEqual(Array.from({ length: 18 }, (_, i) => i + 1));
   });
 
   it("has unique slugs", () => {

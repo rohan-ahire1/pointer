@@ -26,7 +26,7 @@ export type PatternVideo = {
 };
 
 type PatternBase = {
-  /** 1-indexed position, 1..15, also shown as the lesson number. */
+  /** 1-indexed position, 1..18, also shown as the lesson number. */
   number: number;
   slug: string;
   name: string;

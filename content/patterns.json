@@ -546,9 +546,7 @@
       "number-of-islands",
       "clone-graph",
       "pacific-atlantic-water-flow",
-      "course-schedule",
-      "number-of-connected-components",
-      "graph-valid-tree"
+      "course-schedule"
     ],
     "analogy": "Drop ink on any land square you have not coloured yet. It spreads to every square joined to it, but never crosses water. Each drop is one island, and counting the drops counts the islands.",
     "minutes": 15,
@@ -593,6 +591,59 @@
   },
   {
     "number": 12,
+    "slug": "advanced-graphs",
+    "name": "Advanced Graphs",
+    "group": "advanced",
+    "idea": "Cheapest paths with Dijkstra, joined groups with Union-Find.",
+    "status": "live",
+    "problems": [
+      "alien-dictionary",
+      "number-of-connected-components",
+      "graph-valid-tree"
+    ],
+    "analogy": "Ripples on a pond reach the closest shore first. Dijkstra works the same way: always finish the nearest place you know about, because nothing later can get there sooner. Union-Find is the other tool here: give every group one leader, and two people are in the same group when they name the same leader.",
+    "minutes": 20,
+    "needs": [
+      "graphs",
+      "heaps"
+    ],
+    "complexity": "O(E log V)",
+    "space": "O(V + E)",
+    "whenToUse": [
+      "Roads have different costs",
+      "You want the cheapest or fastest route",
+      "Groups keep merging as links arrive"
+    ],
+    "video": {
+      "poster": "/video/advanced-graphs.jpg",
+      "durationSec": 60,
+      "captions": "/video/advanced-graphs.vtt",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "A signal leaves node 0 and the roads have different costs. Walking every route repeats the same roads again and again."
+        },
+        {
+          "t": 15,
+          "text": "Keep a heap of arrival times. The smallest one can’t be beaten, so that node’s time is final."
+        },
+        {
+          "t": 32,
+          "text": "Going through node 1 reaches node 2 at time 3, which beats the direct road of 4. A cheaper road updates the time."
+        },
+        {
+          "t": 48,
+          "text": "Each road is checked once, so it’s O(E log V). The last node hears at time 7. That’s Dijkstra."
+        }
+      ]
+    },
+    "visualizer": "network-delay-time",
+    "moreVisualizers": [
+      "connected-components"
+    ]
+  },
+  {
+    "number": 13,
     "slug": "1-d-dp",
     "name": "1-D DP",
     "group": "advanced",
@@ -652,7 +703,7 @@
     ]
   },
   {
-    "number": 13,
+    "number": 14,
     "slug": "2-d-dp",
     "name": "2-D DP",
     "group": "advanced",
@@ -704,7 +755,7 @@
     ]
   },
   {
-    "number": 14,
+    "number": 15,
     "slug": "greedy",
     "name": "Greedy",
     "group": "advanced",
@@ -755,7 +806,7 @@
     ]
   },
   {
-    "number": 15,
+    "number": 16,
     "slug": "intervals",
     "name": "Intervals",
     "group": "advanced",
@@ -805,5 +856,105 @@
       ]
     },
     "visualizer": "merge-intervals"
+  },
+  {
+    "number": 17,
+    "slug": "math-and-geometry",
+    "name": "Math & Geometry",
+    "group": "advanced",
+    "idea": "Walk and transform grids with simple coordinates.",
+    "status": "live",
+    "problems": [
+      "spiral-matrix",
+      "rotate-image",
+      "set-matrix-zeroes"
+    ],
+    "analogy": "Peel an orange in one long strip: go around the outside, then around what’s left, and never touch the same skin twice. A grid works the same way. Four walls mark what’s left, and each side you walk pulls one wall in.",
+    "minutes": 10,
+    "needs": [
+      "2D arrays"
+    ],
+    "complexity": "O(m·n)",
+    "space": "O(1)",
+    "whenToUse": [
+      "You must change a grid in place",
+      "The path follows the grid’s shape",
+      "A formula or flip replaces the simulation"
+    ],
+    "video": {
+      "poster": "/video/math-and-geometry.jpg",
+      "durationSec": 60,
+      "captions": "/video/math-and-geometry.vtt",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Read this grid in a spiral, from the outside in. One way is a second grid that marks every cell you’ve seen. That’s 12 extra numbers."
+        },
+        {
+          "t": 15,
+          "text": "You only need four walls: top, bottom, left and right. Everything between them is still unread."
+        },
+        {
+          "t": 32,
+          "text": "Walk along one wall, then pull it in. The next side starts where the last one ended, and the box keeps shrinking."
+        },
+        {
+          "t": 48,
+          "text": "Every cell is read once, so it’s O(m·n) time. Four walls are all the extra memory you need."
+        }
+      ]
+    },
+    "visualizer": "spiral-matrix"
+  },
+  {
+    "number": 18,
+    "slug": "bit-manipulation",
+    "name": "Bit Manipulation",
+    "group": "advanced",
+    "idea": "Use AND, XOR and shifts to work on single bits.",
+    "status": "live",
+    "problems": [
+      "number-of-1-bits",
+      "counting-bits",
+      "reverse-bits",
+      "missing-number",
+      "sum-of-two-integers"
+    ],
+    "analogy": "A number is a row of light switches. Binary tricks flip or read those switches directly. One trick turns off the rightmost lit switch in a single move, so counting the lit ones takes one move per light, and the dark ones are skipped.",
+    "minutes": 10,
+    "needs": [
+      "binary numbers"
+    ],
+    "complexity": "O(k)",
+    "space": "O(1)",
+    "whenToUse": [
+      "The problem mentions bits or binary",
+      "Pairs cancel out (XOR)",
+      "You can’t use + or extra memory"
+    ],
+    "video": {
+      "poster": "/video/bit-manipulation.jpg",
+      "durationSec": 60,
+      "captions": "/video/bit-manipulation.vtt",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "172 in binary is 10101100. Checking all eight bits works, but half of those checks land on zeros."
+        },
+        {
+          "t": 15,
+          "text": "Think of a row of light switches. One trick turns off only the rightmost switch that’s lit."
+        },
+        {
+          "t": 32,
+          "text": "Subtract one and the lowest 1 flips off. AND that with n, and only that one bit disappears."
+        },
+        {
+          "t": 48,
+          "text": "Four 1 bits, four hops. That’s O(k) for k one bits, and the zeros are skipped."
+        }
+      ]
+    },
+    "visualizer": "number-of-1-bits"
   }
 ]

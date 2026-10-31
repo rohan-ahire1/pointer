@@ -16,10 +16,10 @@ export type {
 const patterns = patternsData as Pattern[];
 const problems = problemsData as Problem[];
 
-/** The problems.json `pattern` value for the 9 Blind-75 problems that don't map to one of the 15 patterns. */
+/** The problems.json `pattern` value for any Blind-75 problem that doesn't map to a pattern. None do today. */
 export const EXTRAS_KEY = "extras";
 
-/** All 15 patterns, in lesson order (by `number`). */
+/** All 18 patterns, in lesson order (by `number`). */
 export function getPatterns(): Pattern[] {
   return patterns;
 }
@@ -77,7 +77,7 @@ export const PATTERN_GROUPS: Record<PatternGroup, { label: string; description: 
   },
   advanced: {
     label: "Advanced",
-    description: "Graphs, dynamic programming, greedy choices and intervals.",
+    description: "Graphs, dynamic programming, greedy choices, intervals, grids and bits.",
   },
 };
 
@@ -108,9 +108,8 @@ export type ProblemGroupSummary = {
 
 /**
  * Problems grouped by pattern (in lesson order) with a trailing "Extras"
- * group for the 9 problems that round out the Blind 75 but aren't taught by
- * any of the 15 patterns (math, bit tricks, one advanced graph problem —
- * see design/mocks/C2-Problems.dc.html).
+ * group for any problem that isn't taught by a pattern. Every problem has a
+ * pattern today, so that group is left out.
  */
 export function getProblemGroups(): ProblemGroupSummary[] {
   const groups: ProblemGroupSummary[] = patterns.map((pattern) => ({

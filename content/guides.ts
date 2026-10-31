@@ -441,4 +441,169 @@ for start, end in intervals[1:]:
       "Deciding whether touching ends count as overlap. Read the problem.",
     ],
   },
+  "advanced-graphs": {
+    template: {
+      ts: `// Dijkstra: the heap hands back the closest node first.
+const best = new Array(n).fill(Infinity);
+best[start] = 0;
+const heap = new MinHeap([[0, start]]);
+while (heap.size > 0) {
+  const [time, node] = heap.pop();
+  // Old entry: a faster way here was already found.
+  if (time > best[node]) continue;
+  for (const [next, cost] of roads[node]) {
+    // A cheaper way to next? Save it and queue it.
+    if (time + cost < best[next]) {
+      best[next] = time + cost;
+      heap.push([best[next], next]);
+    }
+  }
+}
+
+// Union-Find: each node points toward its group's leader.
+const parent = Array.from({ length: n }, (_, i) => i);
+const find = (x: number): number => {
+  // Point straight at the leader, so the next find is quick.
+  if (parent[x] !== x) parent[x] = find(parent[x]);
+  return parent[x];
+};
+// Join two groups by linking one leader to the other.
+const union = (a: number, b: number) => {
+  parent[find(b)] = find(a);
+};`,
+      py: `# Dijkstra: the heap hands back the closest node first.
+best = [inf] * n
+best[start] = 0
+heap = [(0, start)]
+while heap:
+    time, node = heappop(heap)
+    # Old entry: a faster way here was already found.
+    if time > best[node]:
+        continue
+    for nxt, cost in roads[node]:
+        # A cheaper way to nxt? Save it and queue it.
+        if time + cost < best[nxt]:
+            best[nxt] = time + cost
+            heappush(heap, (best[nxt], nxt))
+
+# Union-Find: each node points toward its group's leader.
+parent = list(range(n))
+def find(x: int) -> int:
+    # Point straight at the leader, so the next find is quick.
+    if parent[x] != x:
+        parent[x] = find(parent[x])
+    return parent[x]
+# Join two groups by linking one leader to the other.
+def union(a: int, b: int) -> None:
+    parent[find(b)] = find(a)`,
+    },
+    pitfalls: [
+      "Using Dijkstra with negative costs. It assumes a finished node can't get cheaper.",
+      "Skipping the old-entry check, which redoes work on finished nodes.",
+      "Reading parent[x] directly. That may not be the leader, so call find(x).",
+      "Dropping the shortcut in find, which lets long chains slow every lookup.",
+    ],
+  },
+  "math-and-geometry": {
+    template: {
+      ts: `// Four walls mark what's left to read.
+let top = 0, bottom = grid.length - 1;
+let left = 0, right = grid[0].length - 1;
+while (top <= bottom && left <= right) {
+  // Walk one side, then pull that wall in.
+  for (let c = left; c <= right; c++) out.push(grid[top][c]);
+  top++;
+  for (let r = top; r <= bottom; r++) out.push(grid[r][right]);
+  right--;
+  // Recheck: a single row or column has no way back.
+  if (top <= bottom) {
+    for (let c = right; c >= left; c--) out.push(grid[bottom][c]);
+    bottom--;
+  }
+  if (left <= right) {
+    for (let r = bottom; r >= top; r--) out.push(grid[r][left]);
+    left++;
+  }
+}
+
+// Rotate 90° clockwise: flip across the diagonal, then mirror each row.
+for (let r = 0; r < n; r++) {
+  for (let c = r + 1; c < n; c++) {
+    [grid[r][c], grid[c][r]] = [grid[c][r], grid[r][c]];
+  }
+}
+for (const row of grid) row.reverse();`,
+      py: `# Four walls mark what's left to read.
+top, bottom = 0, len(grid) - 1
+left, right = 0, len(grid[0]) - 1
+while top <= bottom and left <= right:
+    # Walk one side, then pull that wall in.
+    for c in range(left, right + 1):
+        out.append(grid[top][c])
+    top += 1
+    for r in range(top, bottom + 1):
+        out.append(grid[r][right])
+    right -= 1
+    # Recheck: a single row or column has no way back.
+    if top <= bottom:
+        for c in range(right, left - 1, -1):
+            out.append(grid[bottom][c])
+        bottom -= 1
+    if left <= right:
+        for r in range(bottom, top - 1, -1):
+            out.append(grid[r][left])
+        left += 1
+
+# Rotate 90° clockwise: flip across the diagonal, then mirror each row.
+for r in range(n):
+    for c in range(r + 1, n):
+        grid[r][c], grid[c][r] = grid[c][r], grid[r][c]
+for row in grid:
+    row.reverse()`,
+    },
+    pitfalls: [
+      "Dropping the recheck, so a single row or column gets read twice.",
+      "Mixing up rows and columns on a grid that isn't square.",
+      "Overwriting a cell you still need. Change the order, or save it first.",
+    ],
+  },
+  "bit-manipulation": {
+    template: {
+      ts: `// n & (n - 1) clears the lowest 1 bit.
+let count = 0;
+while (n !== 0) {
+  n &= n - 1;
+  count++;
+}
+
+// x ^ x is 0, so every pair cancels and the lone value stays.
+let lone = 0;
+for (const num of nums) lone ^= num;
+
+// Read bit i, set it, or clear it.
+const bit = (n >> i) & 1;
+n |= 1 << i;
+n &= ~(1 << i);`,
+      py: `# n & (n - 1) clears the lowest 1 bit.
+count = 0
+while n != 0:
+    n &= n - 1
+    count += 1
+
+# x ^ x is 0, so every pair cancels and the lone value stays.
+lone = 0
+for num in nums:
+    lone ^= num
+
+# Read bit i, set it, or clear it.
+bit = (n >> i) & 1
+n |= 1 << i
+n &= ~(1 << i)`,
+    },
+    pitfalls: [
+      "Using >> on a negative number in JavaScript. Use >>> to shift in zeros.",
+      "Forgetting Python ints never overflow. Mask with 0xFFFFFFFF to act like 32 bits.",
+      "Leaving out brackets. === runs before & in JavaScript, so write (n & 1) === 1.",
+    ],
+  },
 };

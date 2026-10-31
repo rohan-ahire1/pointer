@@ -4,7 +4,7 @@ import { countItems, flattenSections, getSearchItems, searchItems, type SearchIt
 describe("getSearchItems", () => {
   it("includes every pattern, every problem and every static page", () => {
     const items = getSearchItems();
-    expect(items.filter((i) => i.kind === "pattern")).toHaveLength(15);
+    expect(items.filter((i) => i.kind === "pattern")).toHaveLength(18);
     expect(items.filter((i) => i.kind === "problem")).toHaveLength(75);
     expect(items.filter((i) => i.kind === "page")).toHaveLength(7);
   });
