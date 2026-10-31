@@ -23,6 +23,35 @@
   font: inherit;
 }
 
+.bare {
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.header .footer {
+  flex-direction: row-reverse;
+}
+
+.header .copy {
+  margin: 0 -8px 0 0;
+}
+
 .footer {
   display: flex;
   align-items: center;
@@ -46,9 +75,29 @@
   .copy:hover {
     background: var(--tint-cream);
   }
+
+  .header .copy:hover {
+    background: var(--hl);
+  }
 }
 
 .status {
   font-size: 13px;
   color: var(--muted);
+}
+
+/* Paper can't scroll, so long lines wrap. */
+@media print {
+  .code {
+    overflow: visible;
+    white-space: pre-wrap;
+  }
+
+  .header {
+    min-height: 0;
+  }
+
+  .heading {
+    font-size: 7.5pt;
+  }
 }

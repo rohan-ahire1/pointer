@@ -8,10 +8,12 @@ import styles from "./PatternCode.module.css";
 type PatternCodeProps = {
   template: PatternGuide["template"];
   patternName: string;
+  /** Puts this h4 and the copy button above bare code, for a page that gives the code its own cell. */
+  heading?: string;
 };
 
 /** A pattern's code skeleton in the reader's language, with a copy button. */
-export function PatternCode({ template, patternName }: PatternCodeProps) {
+export function PatternCode({ template, patternName, heading }: PatternCodeProps) {
   const lang = useCodeLang();
   const [copyStatus, setCopyStatus] = useState("");
   const code = template[lang];
@@ -25,25 +27,39 @@ export function PatternCode({ template, patternName }: PatternCodeProps) {
     }
   }
 
+  const controls = (
+    <div className={styles.footer} data-no-print>
+      <button
+        type="button"
+        onClick={copy}
+        aria-label={`Copy the ${patternName} template`}
+        className={styles.copy}
+      >
+        Copy
+      </button>
+      <span role="status" className={styles.status}>
+        {copyStatus}
+      </span>
+    </div>
+  );
+
   return (
     <div className={styles.root}>
+      {heading && (
+        <div className={styles.header}>
+          <h4 className={styles.heading}>{heading}</h4>
+          {controls}
+        </div>
+      )}
       {/* Long lines scroll, so the block has to be reachable by keyboard. */}
-      <pre tabIndex={0} aria-label={`${patternName} template in ${CODE_LANG_LABELS[lang]}`} className={styles.code}>
+      <pre
+        tabIndex={0}
+        aria-label={`${patternName} template in ${CODE_LANG_LABELS[lang]}`}
+        className={heading ? `${styles.code} ${styles.bare}` : styles.code}
+      >
         <code>{code}</code>
       </pre>
-      <div className={styles.footer} data-no-print>
-        <button
-          type="button"
-          onClick={copy}
-          aria-label={`Copy the ${patternName} template`}
-          className={styles.copy}
-        >
-          Copy
-        </button>
-        <span role="status" className={styles.status}>
-          {copyStatus}
-        </span>
-      </div>
+      {!heading && controls}
     </div>
   );
 }
