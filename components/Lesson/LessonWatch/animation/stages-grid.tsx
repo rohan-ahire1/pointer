@@ -391,3 +391,94 @@ export const IntervalsStage = ({r}: {r: Run}) => {
   );
 };
 export const intervalsConfetti = {x: 960, y: 590};
+
+// ───────────────────────── spiral matrix ─────────────────────────
+const SP = {CS: 140, G: 14, GX: 200, GY: 310, GAP: 14, PX: 980};
+const spX = (c: number) => SP.GX + c * (SP.CS + SP.G);
+const spY = (rr: number) => SP.GY + rr * (SP.CS + SP.G);
+const spOrder = (r: Run): [number, number][] => r.steps[r.steps.length - 1].state.read;
+
+/** Brute force: read the spiral while marking every cell in a second grid of the same size. */
+export const SpiralBrute = ({r}: {r: Run}) => {
+  const grid: number[][] = r.steps[0].state.grid;
+  const order = spOrder(r);
+  const q = bruteK(r.t, order.length);
+  if (q < 0) return null;
+  const SEEN = 92;
+  const done = order.slice(0, q + 1);
+  const [cr, cc] = order[q];
+  return (
+    <>
+      {done.map(([rr, c]) => (
+        <div key={`${rr}-${c}`} style={{position: 'absolute', left: spX(c), top: spY(rr), width: SP.CS, height: SP.CS, borderRadius: 20, background: tok('--orange'), opacity: 0.3}} />
+      ))}
+      <div style={{position: 'absolute', left: spX(cc) - 10, top: spY(cr) - 10, width: SP.CS + 20, height: SP.CS + 20, borderRadius: 28, border: `6px solid ${tok('--orange')}`}} />
+      <Label x={SP.PX} y={310}>a second grid, just to remember</Label>
+      {grid.map((row, rr) =>
+        row.map((_, c) => {
+          const seen = done.some(([a, b]) => a === rr && b === c);
+          return (
+            <Tile key={`${rr}-${c}`} x={SP.PX + c * (SEEN + 10)} y={350 + rr * (SEEN + 10)} w={SEEN} h={SEEN} radius={14} fill={seen ? 'var(--peach)' : 'var(--card)'} style={{fontSize: 34}}>
+              {seen ? '✓' : ''}
+            </Tile>
+          );
+        }),
+      )}
+    </>
+  );
+};
+
+export const SpiralStage = ({r}: {r: Run}) => {
+  const {s, o} = r;
+  const grid: number[][] = s.grid;
+  const read: [number, number][] = s.read;
+  const R = grid.length, C = grid[0].length;
+  const {CS, GAP} = SP;
+  const left = spX(r.mix(o.left, s.left)) - GAP, top = spY(r.mix(o.top, s.top)) - GAP;
+  const right = spX(r.mix(o.right, s.right)) + CS + GAP, bottom = spY(r.mix(o.bottom, s.bottom)) + CS + GAP;
+  const open = s.top <= s.bottom && s.left <= s.right;
+  return (
+    <>
+      {grid.map((row, rr) =>
+        row.map((value, c) => {
+          const k = rr * C + c;
+          const isRead = read.some(([a, b]) => a === rr && b === c);
+          const isCur = s.current?.[0] === rr && s.current[1] === c;
+          const scale = isCur ? 1 + 0.08 * Math.sin(Math.PI * r.pb) : 1;
+          return (
+            <div key={k} style={{...popStyle(r.pop(k, R * C)), position: 'absolute', left: 0, top: 0}}>
+              <Tile x={spX(c)} y={spY(rr)} w={CS} h={CS} radius={20} fill={isCur ? 'var(--yellow)' : isRead ? 'var(--mint)' : 'var(--card)'} style={{fontSize: 48, transform: `scale(${scale})`}}>
+                {value}
+              </Tile>
+            </div>
+          );
+        }),
+      )}
+      {open && (
+        <div style={{opacity: r.live}}>
+          <div style={{position: 'absolute', left, top, width: right - left, height: bottom - top, border: '6px dashed var(--ink)', borderRadius: 26}} />
+          {/* named outside the grid, so a shrinking box never sits a label on a cell */}
+          <Label x={SP.GX - 26} y={top - 18} align="right">top</Label>
+          <Label x={SP.GX - 26} y={bottom - 18} align="right">bottom</Label>
+          <Label x={left} y={SP.GY - 56} align="center">left</Label>
+          <Label x={right} y={SP.GY - 56} align="center">right</Label>
+        </div>
+      )}
+      <div style={{opacity: r.live}}>
+        <Label x={SP.PX} y={290}>read so far</Label>
+        <div style={{position: 'absolute', left: SP.PX, top: 330, display: 'flex', flexWrap: 'wrap', gap: 12, width: 720}}>
+          {read.map(([rr, c]) => (
+            <Tile key={`${rr}-${c}`} x={0} y={0} w={106} h={72} radius={16} fill="var(--card)" style={{position: 'relative', fontSize: 34, transform: `scale(${s.current?.[0] === rr && s.current[1] === c ? 0.7 + 0.3 * r.pb : 1})`}}>
+              {grid[rr][c]}
+            </Tile>
+          ))}
+        </div>
+        <Label x={SP.PX} y={536}>the only extra memory</Label>
+        <Tile x={SP.PX} y={576} w={720} h={96} radius={20} fill={s.phase === 'done' ? 'var(--mint)' : 'var(--yellow)'} style={{fontFamily: mono, fontWeight: 500, fontSize: 30}}>
+          top {s.top} · bottom {s.bottom} · left {s.left} · right {s.right}
+        </Tile>
+      </div>
+    </>
+  );
+};
+export const spiralConfetti = {x: 1340, y: 420};

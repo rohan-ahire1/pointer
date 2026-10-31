@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00.000 --> 00:05.386
+Read this grid in a spiral, from the outside in.
+
+00:05.386 --> 00:12.007
+One way is a second grid that marks every cell you’ve seen.
+
+00:12.007 --> 00:14.700
+That’s 12 extra numbers.
+
+00:15.000 --> 00:24.594
+You only need four walls: top, bottom, left and right.
+
+00:24.594 --> 00:31.700
+Everything between them is still unread.
+
+00:32.000 --> 00:37.187
+Walk along one wall, then pull it in.
+
+00:37.187 --> 00:47.700
+The next side starts where the last one ended, and the box keeps shrinking.
+
+00:48.000 --> 00:53.850
+Every cell is read once, so it’s O(m·n) time.
+
+00:53.850 --> 00:59.700
+Four walls are all the extra memory you need.

@@ -54,6 +54,9 @@ export const CONFIG: Record<string, Config> = {
   'advanced-graphs': {
     headlines: ['How long until *everyone* hears?', 'Always take the *closest* node.', 'A cheaper road? *Update* the time.', 'Each road once. *O(E log V)*.'],
   },
+  'math-and-geometry': {
+    headlines: ['Read the grid in a *spiral*.', 'Four *walls* mark what’s left.', 'Walk a side, pull the *wall* in.', 'No extra grid. *O(1)* space.'],
+  },
 };
 
 export const PATTERNS: Pattern[] = content as Pattern[];

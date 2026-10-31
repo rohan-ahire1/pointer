@@ -3,7 +3,7 @@ import {Run, Scene, Step, Timing, bruteK, timeline, useRun, type Hook, type Outr
 import {CONFIG, PATTERNS} from './patterns';
 import {ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
 import {ComboBrute, ComboStage, DijkstraBrute, DijkstraStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, dijkstraConfetti, fullTree, heapConfetti, heapSorts, listConfetti, roadWalks, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
-import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti} from './stages-grid';
+import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, SpiralBrute, SpiralStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti, spiralConfetti} from './stages-grid';
 import {meta as twoSumMeta} from '@/visualizers/two-sum/meta';
 import {parseInput as twoSumParse} from '@/visualizers/two-sum/parseInput';
 import {trace as twoSumTrace} from '@/visualizers/two-sum/trace';
@@ -49,6 +49,9 @@ import {trace as intervalsTrace} from '@/visualizers/merge-intervals/trace';
 import {meta as networkMeta} from '@/visualizers/network-delay-time/meta';
 import {parseInput as networkParse} from '@/visualizers/network-delay-time/parseInput';
 import {trace as networkTrace} from '@/visualizers/network-delay-time/trace';
+import {meta as spiralMeta} from '@/visualizers/spiral-matrix/meta';
+import {parseInput as spiralParse} from '@/visualizers/spiral-matrix/parseInput';
+import {trace as spiralTrace} from '@/visualizers/spiral-matrix/trace';
 
 type Def = {
   steps: Step[];
@@ -252,6 +255,18 @@ const DEFS: Record<string, () => Def> = {
       label: 'Walk every route', unit: 'roads walked', naive: roadWalks(roads).length, fast: steps.filter((st) => st.state.phase === 'road').length,
       naiveLabel: 'walk every route', fastLabel: 'each road once',
       timing: {anchors: {[cheaper]: 32.4}},
+    };
+  },
+  'math-and-geometry': () => {
+    const steps = run(spiralMeta, spiralParse, spiralTrace);
+    const grid = steps[0].state.grid;
+    const firstWall = steps.findIndex((st) => st.state.phase === 'wall');
+    return {
+      steps, Stage: SpiralStage, Brute: SpiralBrute, confetti: spiralConfetti,
+      label: 'Keep a seen grid', unit: 'numbers stored', naive: grid.length * grid[0].length, fast: 4,
+      naiveLabel: 'a seen grid', fastLabel: 'four walls',
+      timing: {anchors: {1: 22, [firstWall]: 32.4}},
+      stamp: 'O(m·n) time · O(1) space',
     };
   },
 };
