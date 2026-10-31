@@ -18,7 +18,7 @@ type PatternPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-/** All 15 patterns get a static route, whether they're live or "coming soon" (CLAUDE.md). */
+/** All 18 patterns get a static route, whether they're live or "coming soon" (CLAUDE.md). */
 export function generateStaticParams() {
   return getPatterns().map((pattern) => ({ slug: pattern.slug }));
 }

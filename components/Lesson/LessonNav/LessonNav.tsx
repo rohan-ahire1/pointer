@@ -27,7 +27,7 @@ type LessonNavProps = {
 
 /**
  * The lesson bar on a live pattern page (design/mocks/C2-Pattern.dc.html):
- * a pattern switcher listing all 15 patterns, the 4 numbered section tabs
+ * a pattern switcher listing all 18 patterns, the 4 numbered section tabs
  * (highlighted via IntersectionObserver as the reader scrolls), the
  * solved-count label and prev/next. Also the one place that records lesson
  * scroll progress (setLessonSection) — see the effect below.

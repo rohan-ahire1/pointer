@@ -12,7 +12,7 @@ import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Cheat sheet",
-  description: "All 15 coding interview patterns on one page: when to use each, the code skeleton, the Big-O and the usual mistakes.",
+  description: "All 18 coding interview patterns on one page: when to use each, the code skeleton, the Big-O and the usual mistakes.",
   alternates: { canonical: "/cheatsheet" },
 };
 
@@ -37,7 +37,7 @@ export default function CheatsheetPage() {
       <div className={styles.head}>
         <div className={styles.headCopy}>
           <h1 className={`soft ${styles.title}`}>Cheat sheet</h1>
-          <p className={styles.lead}>All 15 patterns on one page. Good for the night before an interview.</p>
+          <p className={styles.lead}>All 18 patterns on one page. Good for the night before an interview.</p>
         </div>
         <div className={styles.tools} data-no-print>
           <CodeLangToggle />

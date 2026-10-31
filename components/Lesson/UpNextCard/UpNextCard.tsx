@@ -31,7 +31,7 @@ export function UpNextCard({ totalPatterns, prev, next }: UpNextCardProps) {
       ) : (
         <Link href="/patterns" className={styles.nextCard}>
           <span className={styles.nextCopy}>
-            <span className={styles.eyebrow}>THAT&rsquo;S ALL 15</span>
+            <span className={styles.eyebrow}>THAT&rsquo;S ALL 18</span>
             <span className={`soft ${styles.nextName}`}>See every pattern</span>
           </span>
           <span aria-hidden="true" className={styles.nextArrow}>

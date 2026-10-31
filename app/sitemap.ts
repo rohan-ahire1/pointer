@@ -14,7 +14,7 @@ const STATIC_ROUTES: readonly { path: string; changeFrequency: MetadataRoute.Sit
   { path: "/about", changeFrequency: "monthly", priority: 0.5 },
 ];
 
-/** All static routes plus the 15 pattern lesson pages (live or "coming soon" — every pattern gets a static route per CLAUDE.md). */
+/** All static routes plus the 18 pattern lesson pages (live or "coming soon" — every pattern gets a static route per CLAUDE.md). */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 

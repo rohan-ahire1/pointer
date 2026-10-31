@@ -1,6 +1,6 @@
 # Pointer: agent guide
 
-Pointer (pointer.rohanahire.com) teaches the 15 coding-interview patterns with lessons, animated explainers, step-through visualizers and the Blind 75 problems. Next.js (App Router) + React 19 + TypeScript, CSS Modules. The full brief is in `CLAUDE.md`.
+Pointer (pointer.rohanahire.com) teaches the 18 coding-interview patterns with lessons, animated explainers, step-through visualizers and the Blind 75 problems. Next.js (App Router) + React 19 + TypeScript, CSS Modules. The full brief is in `CLAUDE.md`.
 
 ## Map
 

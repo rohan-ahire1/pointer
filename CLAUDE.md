@@ -1,6 +1,6 @@
 # Pointer — project brief for Claude Code
 
-Pointer (pointer.rohanahire.com) teaches the 15 patterns behind most coding interviews by showing them move. Each lesson has an analogy, a 60-second animated explainer, a step-through visualizer that runs the real algorithm, and the Blind 75 problems for that pattern.
+Pointer (pointer.rohanahire.com) teaches the 18 patterns behind most coding interviews by showing them move. Each lesson has an analogy, a 60-second animated explainer, a step-through visualizer that runs the real algorithm, and the Blind 75 problems for that pattern.
 
 **Owner:** Rohan. Ask before large structural decisions; small ones, just make and mention.
 
@@ -36,7 +36,7 @@ Ship **one complete pattern (Sliding Window) live on the real URL** before build
 Phone layouts: the `C2-Phone*` mocks. Breakpoint at ~768px; lesson on phone has sticky section tabs at the top and sticky Back / Play / Step controls at the bottom.
 
 ## Lesson page anatomy (live)
-Main nav → lesson bar (pattern switcher, numbered sections 1 The idea · 2 Watch · 3 Try it · 4 Solve with the current one filled, "Lesson N of 15 · x of y solved", prev/next) → hero (breadcrumb, title with highlight, analogy, meta, "Reach for it when…" callout) → Watch (video, captions on by default, transcript toggle) → Try it (visualizer) → Solve (problem cards with "Mark solved" + "Open on LeetCode ↗") → Up next card.
+Main nav → lesson bar (pattern switcher, numbered sections 1 The idea · 2 Watch · 3 Try it · 4 Solve with the current one filled, "Lesson N of 18 · x of y solved", prev/next) → hero (breadcrumb, title with highlight, analogy, meta, "Reach for it when…" callout) → Watch (video, captions on by default, transcript toggle) → Try it (visualizer) → Solve (problem cards with "Mark solved" + "Open on LeetCode ↗") → Up next card.
 
 ## Progress (localStorage)
 Key `pointer:v1`:

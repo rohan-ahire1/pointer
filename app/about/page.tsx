@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Pointer teaches the 15 patterns behind most coding interviews by showing them move, one step at a time.",
+    "Pointer teaches the 18 patterns behind most coding interviews by showing them move, one step at a time.",
   alternates: { canonical: "/about" },
 };
 
@@ -65,7 +65,7 @@ export default function AboutPage() {
             About <span className={styles.titleHighlight}>pointer</span>
           </h1>
           <p className={styles.lead}>
-            Pointer teaches the 15 patterns behind most coding interviews by showing them move, one step at
+            Pointer teaches the 18 patterns behind most coding interviews by showing them move, one step at
             a time. Watch a one-minute animation, drive the visualizer yourself, then solve the real
             problems.
           </p>

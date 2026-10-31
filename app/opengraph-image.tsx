@@ -110,7 +110,7 @@ export default async function OpengraphImage() {
           </div>
 
           <div style={{ display: "flex", fontSize: 24, color: COLOR.muted }}>
-            15 interview patterns · animated explainers · free
+            18 interview patterns · animated explainers · free
           </div>
           <div
             style={{

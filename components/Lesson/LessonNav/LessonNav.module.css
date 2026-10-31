@@ -189,7 +189,7 @@
    both use `position: sticky; top: 0` and appear in that order in the
    document). The solved-count label and prev/next pattern arrows are
    dropped here: the same information already appears in LessonHero's
-   "Lesson N of 15" line and the Up next card. */
+   "Lesson N of 18" line and the Up next card. */
 @media (max-width: 767px) {
   .wrap {
     position: sticky;

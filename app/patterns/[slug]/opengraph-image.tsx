@@ -100,7 +100,7 @@ export default async function LessonOpengraphImage({ params }: { params: Promise
               fontWeight: 500,
             }}
           >
-            Lesson {padPatternNumber(pattern?.number ?? 0)} of 15
+            Lesson {padPatternNumber(pattern?.number ?? 0)} of 18
           </div>
           <div style={{ display: "flex", fontFamily: display, fontWeight: 800, fontSize: 76, lineHeight: 1.05 }}>
             {pattern?.name ?? "Pointer"}

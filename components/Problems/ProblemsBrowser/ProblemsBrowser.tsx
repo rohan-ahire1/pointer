@@ -40,7 +40,7 @@ function lessonInfo(group: ProblemGroupSummary): { href?: string; label: string 
 /**
  * The interactive body of /problems (design/mocks/C2-Problems.dc.html):
  * search + difficulty/status filters, difficulty stat tiles, and the 16
- * collapsible groups (15 patterns + Extras). Solved state comes from the
+ * collapsible groups (18 patterns, plus Extras if any problem has no pattern). Solved state comes from the
  * shared progress store, so checking a box here matches a lesson page's
  * "Mark solved" for the same problem.
  */

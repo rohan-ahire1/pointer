@@ -1,6 +1,6 @@
 # Pointer
 
-**Learn the 15 coding-interview patterns by watching them run.**
+**Learn the 18 coding-interview patterns by watching them run.**
 
 Live: [pointer.rohanahire.com](https://pointer.rohanahire.com)
 
@@ -20,7 +20,7 @@ Progress is saved in the browser, so there's no sign-up and no backend.
 
 ## Key features
 
-- 15 lessons and 28 visualizers
+- 18 lessons and 32 visualizers
 - Visualizer player with play/pause, step, reset, speed control, predict mode, share links and keyboard shortcuts (arrow keys, space, `R`)
 - Spaced review: solved problems come back after a day, then less and less often
 - Pattern drill: read a problem, pick the pattern, see how you did
