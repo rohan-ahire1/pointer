@@ -27,6 +27,8 @@ import { courseScheduleVisualizer } from "./course-schedule";
 import { coinChangeVisualizer } from "./coin-change";
 import { uniquePathsVisualizer } from "./unique-paths";
 import { maxSubarrayVisualizer } from "./max-subarray";
+import { networkDelayVisualizer } from "./network-delay-time";
+import { connectedComponentsVisualizer } from "./connected-components";
 
 /**
  * Registry of every visualizer, keyed by the id a live pattern's
@@ -68,6 +70,8 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [coinChangeVisualizer.id]: coinChangeVisualizer as Visualizer<unknown, unknown>,
   [uniquePathsVisualizer.id]: uniquePathsVisualizer as Visualizer<unknown, unknown>,
   [maxSubarrayVisualizer.id]: maxSubarrayVisualizer as Visualizer<unknown, unknown>,
+  [networkDelayVisualizer.id]: networkDelayVisualizer as Visualizer<unknown, unknown>,
+  [connectedComponentsVisualizer.id]: connectedComponentsVisualizer as Visualizer<unknown, unknown>,
 };
 
 export function getVisualizer(id: string): Visualizer<unknown, unknown> | undefined {
