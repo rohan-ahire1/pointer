@@ -23,6 +23,26 @@
   font: inherit;
 }
 
+.comment {
+  color: var(--muted);
+}
+
+.keyword {
+  color: var(--code-keyword);
+}
+
+.string {
+  color: var(--code-string);
+}
+
+.number {
+  color: var(--code-number);
+}
+
+.function {
+  color: var(--code-function);
+}
+
 .header {
   display: flex;
   align-items: center;

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CODE_LANG_LABELS, useCodeLang } from "@/lib/code-lang";
+import { tokenize } from "@/lib/highlight";
 import type { PatternGuide } from "@/content/guides";
 import styles from "./PatternCode.module.css";
 
@@ -53,7 +54,17 @@ export function PatternCode({ template, patternName, heading }: PatternCodeProps
       )}
       {/* Long lines scroll, so the block has to be reachable by keyboard. */}
       <pre tabIndex={0} aria-label={`${patternName} template in ${CODE_LANG_LABELS[lang]}`} className={styles.code}>
-        <code>{code}</code>
+        <code>
+          {tokenize(code, lang).map((token, index) =>
+            token.kind ? (
+              <span key={index} className={styles[token.kind]}>
+                {token.text}
+              </span>
+            ) : (
+              token.text
+            ),
+          )}
+        </code>
       </pre>
       {!heading && controls}
     </div>
