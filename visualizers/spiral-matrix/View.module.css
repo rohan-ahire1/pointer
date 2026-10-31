@@ -1,0 +1,26 @@
+/* Grid cells top out smaller than array cells, like Number of Islands. Set
+   here so it overrides the kit's default. */
+.grid {
+  --cell: clamp(28px, calc((100cqi - (var(--cols) - 1) * 6px) / var(--cols)), 52px);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 6px;
+  justify-content: center;
+  padding: 8px;
+}
+
+/* The box around what's unread. It shares the cells' grid, so it lines up on its own. */
+.walls {
+  margin: -5px;
+  border: 3px dashed var(--ink);
+  border-radius: 12px;
+  pointer-events: none;
+  transition: all var(--dur-base) ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walls {
+    transition: none;
+  }
+}
