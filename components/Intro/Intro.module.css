@@ -1,0 +1,143 @@
+/* Hidden unless the head script marked <html>, so returning visitors, blocked
+   storage and reduced motion never see it. See lib/intro-script.ts. */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+:global(html[data-intro]) .overlay {
+  display: block;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+}
+
+/* Intro.tsx reveals this once the sizes below are set. */
+.world {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  visibility: hidden;
+  transform-origin: 0 0;
+}
+
+.tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--intro-tile);
+  height: var(--intro-tile);
+}
+
+.box {
+  position: absolute;
+  inset: 0;
+  border: calc(var(--intro-tile) * 0.03 + 1.5px) solid var(--line);
+  border-radius: calc(var(--intro-tile) * 0.2);
+  box-shadow: calc(var(--intro-tile) * 0.05) calc(var(--intro-tile) * 0.05) 0 var(--shadow);
+}
+
+.letter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--intro-font);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 25;
+  width: calc(var(--intro-tile) * 0.13);
+  height: calc(var(--intro-tile) * 0.13);
+  border-radius: 20%;
+  opacity: 0;
+}
+
+.sparkRound {
+  border-radius: 50%;
+}
+
+/* Same proportions as the logo mark in components/Logo. */
+.chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--intro-mark);
+  height: var(--intro-mark);
+  border: calc(var(--intro-mark) / 15) solid var(--line);
+  border-radius: calc(var(--intro-mark) / 3);
+  color: var(--on-accent);
+  font-family: var(--font-body);
+  font-size: calc(var(--intro-mark) / 2);
+  font-weight: 700;
+  transform: scale(0);
+}
+
+.leftChip {
+  z-index: 30;
+  background: var(--orange);
+}
+
+.rightChip {
+  z-index: 29;
+  background: var(--lilac);
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: clamp(13px, calc(var(--intro-tile) * 0.16), 18px);
+  font-weight: 500;
+  opacity: 0;
+}
+
+.code {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  color: var(--pen);
+  font-family: var(--font-mono);
+  font-size: clamp(15px, calc(var(--intro-tile) * 0.2), 22px);
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+}
+
+.skip {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: var(--radius-btn);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.skip:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}

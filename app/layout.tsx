@@ -4,8 +4,10 @@ import { DM_Mono, DM_Sans, Unbounded } from "next/font/google";
 import Script from "next/script";
 import "@/styles/tokens.css";
 import "@/styles/globals.css";
+import { INTRO_INIT_SCRIPT } from "@/lib/intro-script";
 import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import { SITE_URL } from "@/lib/site";
+import { Intro } from "@/components/Intro/Intro";
 import { SiteHeader } from "@/components/SiteHeader/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter/SiteFooter";
 import { SkipLink } from "@/components/SkipLink/SkipLink";
@@ -95,12 +97,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             makes the static site render per request) or the experimental
             app/global-not-found.tsx, and neither is worth it. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {/* Same reason: the intro has to cover the homepage before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_INIT_SCRIPT }} />
       </head>
       <body>
         <SkipLink />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <Intro />
         {/* Cloudflare Web Analytics */}
         <Script src="https://static.cloudflareinsights.com/beacon.min.js" strategy="afterInteractive" data-cf-beacon='{"token": "cc42599ca7f040a59b75be0a42cc5a02"}' />
       </body>

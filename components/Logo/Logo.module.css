@@ -21,6 +21,11 @@
   font-weight: 700;
 }
 
+/* The intro (components/Intro) lands on this spot, then the real logo takes over. */
+:global(html[data-intro]) header .wordmark {
+  visibility: hidden;
+}
+
 /* Motion: hovering a link that holds the logo makes the arrow hop, a small
    nod to the pointer moving through an array. */
 @media (hover: hover) {
