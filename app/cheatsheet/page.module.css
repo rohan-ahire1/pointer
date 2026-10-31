@@ -89,7 +89,7 @@
   border: var(--border);
   border-radius: 9px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--on-accent);
 }
@@ -113,7 +113,7 @@
 
 .indexHint {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .indexGroups {
@@ -131,7 +131,7 @@
 
 .indexLabel {
   margin: 0 0 6px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--muted);
 }
@@ -164,7 +164,7 @@
 }
 
 .indexName {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.3;
   background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 90% / 0 6px;
@@ -178,7 +178,7 @@
 /* A phone shows names only: the clues sit in each row just below. */
 .indexClue {
   display: none;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.35;
   color: var(--muted);
 }
@@ -193,7 +193,7 @@
   }
 
   .indexName {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .indexClue {
@@ -233,14 +233,14 @@
 
 .bandHeading {
   margin: 0;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.2;
 }
 
 .bandRange {
   flex-shrink: 0;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .bandLink {
@@ -249,7 +249,7 @@
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--on-accent);
   text-underline-offset: 3px;
@@ -290,7 +290,7 @@
 
 .name {
   margin: 0;
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1.2;
 }
 
@@ -319,7 +319,7 @@
 
 .idea {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.45;
   color: var(--muted);
 }
@@ -330,7 +330,7 @@
   flex-wrap: wrap;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .fact {
@@ -362,7 +362,7 @@
 
 .label {
   margin: 0 0 6px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -373,7 +373,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.45;
   color: var(--muted);
 }
@@ -385,7 +385,7 @@
 }
 
 .item svg {
-  margin-top: 3px;
+  margin-top: 4px;
   color: var(--ink);
 }
 
@@ -398,6 +398,10 @@
   padding: 6px var(--gutter) 18px;
   background: var(--tint-cream);
   border-top: var(--border);
+}
+
+.codeCell pre {
+  font-size: 14px;
 }
 
 @media (min-width: 768px) {
