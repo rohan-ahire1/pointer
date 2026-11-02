@@ -25,7 +25,6 @@ Work goes in as GitHub issues. Verified PRs come out. You choose what goes in an
 | What exists and what proves it works | `docs/factory/feature-map.md` |
 | Runs every gate, same locally and in CI | `.factory/gates.mjs` (`node .factory/gates.mjs --help`) |
 | Browser proof: drives the app in Chromium | `.factory/verify.mjs` (`node .factory/verify.mjs --help`) |
-| Blocks agents from pushing the protected branch or merging | `.factory/guard.mjs`, wired in `.claude/settings.json` |
 | Skills: worker, verify, file work from chat, inspect a PR | `.claude/skills/factory-*` |
 | Cloud worker | `.github/workflows/factory-worker.yml` |
 | Gates + results comment on every PR | `.github/workflows/factory-gates.yml` |
