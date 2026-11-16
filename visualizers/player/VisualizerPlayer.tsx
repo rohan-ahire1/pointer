@@ -164,7 +164,7 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
       setStepIndex((prev) => {
         const max = steps.length - 1;
         if (max < 0) return 0;
-        return Math.max(0, Math.min(max, prev + delta));
+        return Math.max(0, Math.min(max, Math.min(prev, max) + delta));
       });
     },
     [steps.length, clearGuess],
@@ -240,7 +240,7 @@ export function VisualizerPlayer<I, S>({ visualizer }: VisualizerPlayerProps<I, 
         if (prev >= max) {
           stopTimer();
           setPlaying(false);
-          return prev;
+          return max;
         }
         return prev + 1;
       });

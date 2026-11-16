@@ -40,6 +40,20 @@ describe("VisualizerPlayer", () => {
     expect(stepLabel(/step 1 of 25/i)).toBeInTheDocument();
   });
 
+  it("steps back one step from a share link whose step is past the end", () => {
+    const original = window.location.href;
+    window.history.replaceState(null, "", "?input=abcabcbb&step=999");
+    try {
+      const region = renderPlayer();
+      expect(stepLabel(/step 25 of 25/i)).toBeInTheDocument();
+
+      fireEvent.keyDown(region, { key: "ArrowLeft" });
+      expect(stepLabel(/step 24 of 25/i)).toBeInTheDocument();
+    } finally {
+      window.history.replaceState(null, "", original);
+    }
+  });
+
   it("resets to step 1 with R", () => {
     const region = renderPlayer();
 
