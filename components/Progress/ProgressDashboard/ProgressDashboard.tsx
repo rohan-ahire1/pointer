@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import type { ChangeEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ChangeEvent, KeyboardEvent } from "react";
 import Link from "next/link";
 import { getPatterns, getProblems, problemsForPattern, type Difficulty } from "@/content";
 import { currentStreak, localDay, useProgress } from "@/lib/progress";
@@ -53,6 +53,10 @@ export function ProgressDashboard() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const resetButtonRef = useRef<HTMLButtonElement>(null);
   const keepButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (confirmingReset) keepButtonRef.current?.focus();
+  }, [confirmingReset]);
 
   const hasAnyProgress = Object.keys(progress.solved).length > 0 || Object.keys(progress.lessons).length > 0;
   const continueLesson = getContinueLesson(progress);
@@ -131,6 +135,12 @@ export function ProgressDashboard() {
     setConfirmingReset(false);
     resetButtonRef.current?.focus();
   }
+  function handleConfirmKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      cancelReset();
+    }
+  }
   function confirmReset() {
     resetProgress();
     setConfirmingReset(false);
@@ -165,10 +175,19 @@ export function ProgressDashboard() {
       </p>
 
       {confirmingReset && (
-        <div role="alertdialog" aria-labelledby="reset-confirm-h" className={styles.confirm}>
-          <span id="reset-confirm-h" className={styles.confirmText}>
-            <b>Reset everything?</b> Your solved problems and lesson progress will be cleared. This
-            can&rsquo;t be undone. Export first if you want a backup.
+        <div
+          role="alertdialog"
+          aria-labelledby="reset-confirm-h"
+          aria-describedby="reset-confirm-desc"
+          onKeyDown={handleConfirmKeyDown}
+          className={styles.confirm}
+        >
+          <span className={styles.confirmText}>
+            <b id="reset-confirm-h">Reset everything?</b>{" "}
+            <span id="reset-confirm-desc">
+              Your solved problems and lesson progress will be cleared. This can&rsquo;t be undone. Export
+              first if you want a backup.
+            </span>
           </span>
           <button type="button" ref={keepButtonRef} onClick={cancelReset} className={styles.controlButton}>
             Keep my progress
