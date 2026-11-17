@@ -35,7 +35,8 @@ export function ReviewQueue() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  const hasSolved = Object.keys(progress.solved).length > 0;
+  // Progress can hold slugs the content no longer has; only known problems count.
+  const hasSolved = Object.keys(progress.solved).some((slug) => getProblem(slug));
 
   // The section only exists after hydration, too late for the browser's own jump to #review.
   useEffect(() => {
@@ -55,8 +56,9 @@ export function ReviewQueue() {
     reviewProblem(current.slug, remembered);
   }
 
-  const nextDue = Object.values(progress.reviews ?? {})
-    .map((card) => card.due)
+  const nextDue = Object.entries(progress.reviews ?? {})
+    .filter(([slug, card]) => getProblem(slug) && card.due > today)
+    .map(([, card]) => card.due)
     .sort()[0];
 
   const box = current ? progress.reviews?.[current.slug]?.box : undefined;
