@@ -45,6 +45,33 @@ describe("ReviewQueue", () => {
     expect(screen.getByRole("status")).toHaveTextContent("Nothing due today.");
   });
 
+  it("ignores progress for problems that no longer exist", () => {
+    const stored = { version: 1, solved: { "gone-problem": true }, lessons: {} };
+    window.dispatchEvent(new StorageEvent("storage", { key: "pointer:v1", newValue: JSON.stringify(stored) }));
+    const { container } = render(<ReviewQueue />);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it("shows the next review from known problems only", () => {
+    toggleSolved(first.slug);
+    const stored = JSON.parse(window.localStorage.getItem("pointer:v1") ?? "{}");
+    const today = localDay();
+    stored.solved["gone-problem"] = true;
+    stored.reviews[first.slug].due = addDays(today, 3);
+    stored.reviews["gone-problem"] = { box: 0, due: addDays(today, -1) };
+    window.dispatchEvent(new StorageEvent("storage", { key: "pointer:v1", newValue: JSON.stringify(stored) }));
+
+    render(<ReviewQueue />);
+    const [year, month, date] = addDays(today, 3).split("-").map(Number);
+    const expected = new Date(year, month - 1, date).toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    expect(screen.getByRole("status")).toHaveTextContent("Nothing due today.");
+    expect(screen.getByRole("status")).toHaveTextContent(`Next review ${expected}.`);
+  });
+
   it("keeps a forgotten problem coming back tomorrow", () => {
     toggleSolved(first.slug);
     reviewProblem(first.slug, false);
