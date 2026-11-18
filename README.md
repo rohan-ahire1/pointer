@@ -1,26 +1,26 @@
 # Pointer
 
-**Learn the 18 coding-interview patterns by watching them run.**
+**Learn the 19 coding-interview patterns by watching them run.**
 
 Live: [pointer.rohanahire.com](https://pointer.rohanahire.com)
 
 ## What it does
 
-Pointer teaches the patterns behind the Blind 75 problem list: Arrays & Hashing, Two Pointers, Sliding Window, Stack, Binary Search, Linked List, Trees, Tries, Heaps, Backtracking, Graphs, 1-D DP, 2-D DP, Greedy and Intervals.
+Pointer teaches the patterns behind the Blind 75 and NeetCode 150 problem lists: Arrays & Hashing, Two Pointers, Sliding Window, Stack, Binary Search, Linked List, Design, Trees, Tries, Heaps, Backtracking, Graphs, Advanced Graphs, 1-D DP, 2-D DP, Greedy, Intervals, Math & Geometry and Bit Manipulation.
 
 Each pattern gets one lesson page with:
 
 - **The idea in one line**, an everyday analogy, when to reach for it, and its time and space complexity.
 - **An animated explainer** with captions and a transcript, built in code with Remotion rather than recorded as video.
 - **Step-through visualizers** for classic problems (for example, longest substring without repeating characters for Sliding Window). They highlight the matching line of a TypeScript or Python solution and narrate each step. You can paste your own LeetCode-style input, such as `[2,7,11,15]`, or pause and guess the next step.
-- **The Blind 75 problems for that pattern**, each with a hint, its time and space cost, and a link to LeetCode.
+- **The problems for that pattern**: the Blind 75 ones plus a few more from NeetCode 150 and beyond, each with a hint, its time and space cost, and a link to LeetCode. Problems outside the Blind 75 come with a worked solution, and the problem list filters by study list.
 - **A code template and common mistakes**, so you have something to start from when you open a blank editor.
 
 Progress is saved in the browser, so there's no sign-up and no backend.
 
 ## Key features
 
-- 18 lessons and 33 visualizers
+- 19 lessons and 34 visualizers
 - Visualizer player with play/pause, step, reset, speed control, predict mode, share links and keyboard shortcuts (arrow keys, space, `R`)
 - Spaced review: solved problems come back after a day, then less and less often
 - Pattern drill: read a problem, pick the pattern, see how you did
