@@ -597,9 +597,9 @@
     "idea": "Cheapest paths with Dijkstra, joined groups with Union-Find.",
     "status": "live",
     "problems": [
-      "alien-dictionary",
       "number-of-connected-components",
-      "graph-valid-tree"
+      "graph-valid-tree",
+      "alien-dictionary"
     ],
     "analogy": "Ripples on a pond reach the closest shore first. Dijkstra works the same way: always finish the nearest place you know about, because nothing later can get there sooner. Union-Find is the other tool here: give every group one leader, and two people are in the same group when they name the same leader.",
     "minutes": 20,
@@ -813,10 +813,10 @@
     "idea": "Sort by start, then merge or split.",
     "status": "live",
     "problems": [
-      "insert-interval",
-      "merge-intervals",
-      "non-overlapping-intervals",
       "meeting-rooms",
+      "merge-intervals",
+      "insert-interval",
+      "non-overlapping-intervals",
       "meeting-rooms-ii"
     ],
     "analogy": "Lay every meeting of a shared day on one timeline in start order. Meetings that overlap or touch fuse into one busy block. What is left is the day’s true shape, with every gap visible.",
