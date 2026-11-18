@@ -695,7 +695,7 @@
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/house-robber/",
     "premium": false,
-    "twist": "The one you just watched. Write it from memory.",
+    "twist": "The one you just watched. Write it from memory, then keep only the last two cells for O(1) space.",
     "prompt": "Pick values from a row, never two side by side, for the biggest total.",
     "signal": "At each spot: take it plus the best from two back, or skip it.",
     "time": "O(n)",
