@@ -20,6 +20,7 @@ import { minWindowVisualizer } from "./min-window";
 import { dailyTemperaturesVisualizer } from "./daily-temperatures";
 import { trappingRainWaterVisualizer } from "./trapping-rain-water";
 import { lruCacheVisualizer } from "./lru-cache";
+import { kokoEatingBananasVisualizer } from "./koko-eating-bananas";
 import { searchRotatedVisualizer } from "./search-rotated";
 import { linkedListCycleVisualizer } from "./linked-list-cycle";
 import { levelOrderVisualizer } from "./level-order";
@@ -67,6 +68,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [dailyTemperaturesVisualizer.id]: dailyTemperaturesVisualizer as Visualizer<unknown, unknown>,
   [trappingRainWaterVisualizer.id]: trappingRainWaterVisualizer as Visualizer<unknown, unknown>,
   [lruCacheVisualizer.id]: lruCacheVisualizer as Visualizer<unknown, unknown>,
+  [kokoEatingBananasVisualizer.id]: kokoEatingBananasVisualizer as Visualizer<unknown, unknown>,
   [searchRotatedVisualizer.id]: searchRotatedVisualizer as Visualizer<unknown, unknown>,
   [linkedListCycleVisualizer.id]: linkedListCycleVisualizer as Visualizer<unknown, unknown>,
   [levelOrderVisualizer.id]: levelOrderVisualizer as Visualizer<unknown, unknown>,
