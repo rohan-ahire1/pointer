@@ -4,6 +4,41 @@ import { PATTERN_GUIDES } from "./guides";
 
 const LEETCODE_URL_RE = /^https:\/\/leetcode\.com\/problems\/[a-z0-9-]+\/$/;
 
+/** The Blind 75 as LeetCode slugs (NeetCode's list, which uses Combination Sum rather than Combination Sum IV). */
+const BLIND_75 = [
+  "two-sum", "best-time-to-buy-and-sell-stock", "contains-duplicate", "product-of-array-except-self",
+  "maximum-subarray", "maximum-product-subarray", "find-minimum-in-rotated-sorted-array",
+  "search-in-rotated-sorted-array", "3sum", "container-with-most-water",
+  "sum-of-two-integers", "number-of-1-bits", "counting-bits", "missing-number", "reverse-bits",
+  "climbing-stairs", "coin-change", "longest-increasing-subsequence", "longest-common-subsequence",
+  "word-break", "combination-sum", "house-robber", "house-robber-ii", "decode-ways", "unique-paths",
+  "jump-game",
+  "clone-graph", "course-schedule", "pacific-atlantic-water-flow", "number-of-islands",
+  "longest-consecutive-sequence", "alien-dictionary", "graph-valid-tree",
+  "number-of-connected-components-in-an-undirected-graph",
+  "insert-interval", "merge-intervals", "non-overlapping-intervals", "meeting-rooms", "meeting-rooms-ii",
+  "reverse-linked-list", "linked-list-cycle", "merge-two-sorted-lists", "merge-k-sorted-lists",
+  "remove-nth-node-from-end-of-list", "reorder-list",
+  "set-matrix-zeroes", "spiral-matrix", "rotate-image", "word-search",
+  "longest-substring-without-repeating-characters", "longest-repeating-character-replacement",
+  "minimum-window-substring", "valid-anagram", "group-anagrams", "valid-parentheses", "valid-palindrome",
+  "longest-palindromic-substring", "palindromic-substrings", "encode-and-decode-strings",
+  "maximum-depth-of-binary-tree", "same-tree", "invert-binary-tree", "binary-tree-maximum-path-sum",
+  "binary-tree-level-order-traversal", "serialize-and-deserialize-binary-tree", "subtree-of-another-tree",
+  "construct-binary-tree-from-preorder-and-inorder-traversal", "validate-binary-search-tree",
+  "kth-smallest-element-in-a-bst", "lowest-common-ancestor-of-a-binary-search-tree",
+  "implement-trie-prefix-tree", "design-add-and-search-words-data-structure", "word-search-ii",
+  "top-k-frequent-elements", "find-median-from-data-stream",
+];
+
+/** LeetCode's premium-only problems on the list. */
+const PREMIUM = [
+  "encode-and-decode-strings", "alien-dictionary", "graph-valid-tree",
+  "number-of-connected-components-in-an-undirected-graph", "meeting-rooms", "meeting-rooms-ii",
+];
+
+const leetcodeSlug = (url: string) => url.replace("https://leetcode.com/problems/", "").replace(/\/$/, "");
+
 describe("patterns.json", () => {
   const patterns = getPatterns();
 
@@ -40,6 +75,23 @@ describe("problems.json", () => {
   it("every leetcodeUrl has the https://leetcode.com/problems/<slug>/ shape", () => {
     for (const problem of problems) {
       expect(problem.leetcodeUrl, `${problem.slug} leetcodeUrl`).toMatch(LEETCODE_URL_RE);
+    }
+  });
+
+  it("links to exactly the Blind 75, each once", () => {
+    expect(BLIND_75).toHaveLength(75);
+    const linked = problems.map((problem) => leetcodeSlug(problem.leetcodeUrl));
+    expect([...linked].sort()).toEqual([...BLIND_75].sort());
+  });
+
+  it("marks exactly LeetCode's premium problems as premium", () => {
+    const premium = problems.filter((problem) => problem.premium).map((problem) => leetcodeSlug(problem.leetcodeUrl));
+    expect(premium.sort()).toEqual([...PREMIUM].sort());
+  });
+
+  it("every difficulty is easy, medium or hard", () => {
+    for (const problem of problems) {
+      expect(["easy", "medium", "hard"], problem.slug).toContain(problem.difficulty);
     }
   });
 
@@ -85,6 +137,29 @@ describe("problem hints and drill copy", () => {
         expect(getPattern(slug), `${problem.slug} alsoFits ${slug}`).toBeDefined();
         expect(slug, problem.slug).not.toBe(problem.pattern);
       }
+    }
+  });
+});
+
+describe("lesson copy", () => {
+  it("only the problem a lesson's video shows says it was just watched", () => {
+    for (const pattern of getPatterns()) {
+      if (pattern.status !== "live") continue;
+      for (const problem of problemsForPattern(pattern.slug)) {
+        const watched = problem.twist?.startsWith("The one you just watched") ?? false;
+        expect(watched, `${problem.slug} twist`).toBe(problem.visualizer === pattern.visualizer);
+      }
+    }
+  });
+
+  it("every video transcript has four beats inside the video, in order", () => {
+    for (const pattern of getPatterns()) {
+      if (pattern.status !== "live") continue;
+      const times = pattern.video.transcript.map((entry) => entry.t);
+      expect(times, pattern.slug).toHaveLength(4);
+      expect(times[0], pattern.slug).toBe(0);
+      expect([...times].sort((a, b) => a - b), pattern.slug).toEqual(times);
+      expect(times.at(-1)!, pattern.slug).toBeLessThan(pattern.video.durationSec);
     }
   });
 });
