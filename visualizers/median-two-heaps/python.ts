@@ -3,6 +3,8 @@ import type { PythonCode } from "../types";
 /** The same solution in Python. `lines[n]` is the Python line that TypeScript line n runs as. */
 export const python: PythonCode = {
   code: [
+    "from heapq import heappop, heappush",
+    "",
     "class MedianFinder:",
     "    def __init__(self):",
     "        self.low = []   # smaller half, negated to act as a max-heap",
@@ -19,5 +21,5 @@ export const python: PythonCode = {
     "            return -self.low[0]",
     "        return (-self.low[0] + self.high[0]) / 2",
   ],
-  lines: [0, 2, 3, 4, 5, 6, 7, 8, 9, -1, -1, 10, 11, 12, 14, -1, -1],
+  lines: [2, 4, 5, 6, 7, 8, 9, 10, 11, -1, -1, 12, 13, 14, 16, -1, -1],
 };

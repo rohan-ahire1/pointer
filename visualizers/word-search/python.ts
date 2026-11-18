@@ -7,7 +7,7 @@ export const python: PythonCode = {
     "    def dfs(r: int, c: int, i: int) -> bool:",
     "        if i == len(word):",
     "            return True",
-    "        if not in_bounds(r, c) or board[r][c] != word[i]:",
+    "        if not (0 <= r < len(board) and 0 <= c < len(board[0])) or board[r][c] != word[i]:",
     "            return False",
     "        saved = board[r][c]",
     "        board[r][c] = \"#\"",

@@ -3,6 +3,8 @@ import type { PythonCode } from "../types";
 /** The same solution in Python. `lines[n]` is the Python line that TypeScript line n runs as. */
 export const python: PythonCode = {
   code: [
+    "from collections import Counter",
+    "",
     "def min_window(s: str, t: str) -> str:",
     "    need = Counter(t)",
     "    missing = len(need)",
@@ -24,5 +26,5 @@ export const python: PythonCode = {
     "                need[out] += 1",
     "    return best",
   ],
-  lines: [0, 1, 1, 2, 5, 5, 6, 7, 8, -1, 10, 11, 13, 15, 16, 18, -1, -1, -1, 19, -1],
+  lines: [2, 3, 3, 4, 7, 7, 8, 9, 10, -1, 12, 13, 15, 17, 18, 20, -1, -1, -1, 21, -1],
 };
