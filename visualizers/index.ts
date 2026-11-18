@@ -18,6 +18,7 @@ import { productExceptSelfVisualizer } from "./product-except-self";
 import { threeSumVisualizer } from "./three-sum";
 import { minWindowVisualizer } from "./min-window";
 import { dailyTemperaturesVisualizer } from "./daily-temperatures";
+import { trappingRainWaterVisualizer } from "./trapping-rain-water";
 import { searchRotatedVisualizer } from "./search-rotated";
 import { linkedListCycleVisualizer } from "./linked-list-cycle";
 import { levelOrderVisualizer } from "./level-order";
@@ -63,6 +64,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [threeSumVisualizer.id]: threeSumVisualizer as Visualizer<unknown, unknown>,
   [minWindowVisualizer.id]: minWindowVisualizer as Visualizer<unknown, unknown>,
   [dailyTemperaturesVisualizer.id]: dailyTemperaturesVisualizer as Visualizer<unknown, unknown>,
+  [trappingRainWaterVisualizer.id]: trappingRainWaterVisualizer as Visualizer<unknown, unknown>,
   [searchRotatedVisualizer.id]: searchRotatedVisualizer as Visualizer<unknown, unknown>,
   [linkedListCycleVisualizer.id]: linkedListCycleVisualizer as Visualizer<unknown, unknown>,
   [levelOrderVisualizer.id]: levelOrderVisualizer as Visualizer<unknown, unknown>,

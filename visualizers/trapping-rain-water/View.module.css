@@ -1,0 +1,120 @@
+.chart {
+  --unit: 16px;
+  --value-h: 22px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cell-gap);
+  padding-top: 8px;
+  min-width: 0;
+}
+
+@media (max-width: 479px) {
+  .chart {
+    --unit: 12px;
+  }
+}
+
+.slot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: var(--cell);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Every column is as tall as the tallest bar (9 units), with the bar anchored
+   to the bottom, so the water layers share one baseline. */
+.column {
+  height: calc(9 * var(--unit) + var(--value-h));
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.value {
+  height: var(--value-h);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bar {
+  width: 70%;
+  height: calc(var(--h) * var(--unit));
+  min-height: 3px;
+  box-sizing: border-box;
+  border: 2px solid var(--line);
+  border-radius: 6px 6px 2px 2px;
+  background: var(--card);
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.bar[data-state="current"] {
+  background: var(--orange);
+  transform: translateY(-8px);
+}
+
+/* On the stack, waiting to be a wall. */
+.bar[data-state="waiting"] {
+  background: var(--tint-yellow);
+}
+
+.bar[data-state="popped"] {
+  background: var(--tint-lilac);
+}
+
+/* Settled: popped earlier, or never needed. */
+.bar[data-state="past"] {
+  background: var(--past-bg);
+  border-style: dashed;
+  border-color: var(--past-line);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* A layer covers whole cells from `--from` to `--to`, between heights `--base`
+   and `--top`. It sits behind the bars, which never reach into it. */
+.layer {
+  position: absolute;
+  z-index: 0;
+  left: calc(var(--from) * (var(--cell) + var(--cell-gap)) - var(--cell-gap) / 2);
+  width: calc((var(--to) - var(--from) + 1) * (var(--cell) + var(--cell-gap)));
+  top: calc(8px + var(--value-h) + (9 - var(--top)) * var(--unit));
+  height: calc((var(--top) - var(--base)) * var(--unit));
+  box-sizing: border-box;
+  background: color-mix(in srgb, var(--sky) 55%, transparent);
+  border-top: 2px solid var(--line);
+}
+
+.layer[data-fresh="true"] {
+  outline: 2px dashed var(--pen);
+  outline-offset: -2px;
+  animation: pour var(--dur-slow) ease-out;
+}
+
+@keyframes pour {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer[data-fresh="true"] {
+    animation: none;
+  }
+}
