@@ -61,6 +61,8 @@ function expression(int: Rand): [string, number] {
 
 type Check =
   | { cases: (int: Rand) => { args: unknown[]; want: unknown } }
+  /** More than one answer is right: check the one returned. */
+  | { judge: (int: Rand) => { args: unknown[]; ok: (got: unknown) => boolean } }
   /** A design problem: drive the class with random calls and compare with a plain model. */
   | { name?: string; calls: (Class: new (...args: never[]) => Record<string, (...a: never[]) => unknown>, int: Rand) => void };
 
@@ -198,6 +200,81 @@ const CHECKS: Record<string, Check> = {
       }
     },
   },
+  "binary-search": {
+    cases: (int) => {
+      const nums = [...new Set(ints(int, 1, 20, -50, 50))].sort((a, b) => a - b);
+      const target = int(-55, 55);
+      return { args: [nums, target], want: nums.indexOf(target) };
+    },
+  },
+  "search-a-2d-matrix": {
+    cases: (int) => {
+      const rows = int(1, 5);
+      const cols = int(1, 5);
+      const flat = [...new Set(ints(int, 40, 40, -60, 60))].slice(0, rows * cols).sort((a, b) => a - b);
+      const width = Math.min(cols, flat.length);
+      const matrix = Array.from({ length: Math.ceil(flat.length / width) }, (_, r) => flat.slice(r * width, (r + 1) * width)).filter((row) => row.length === width);
+      const target = int(-62, 62);
+      return { args: [matrix, target], want: matrix.flat().includes(target) };
+    },
+  },
+  "find-first-and-last-position-of-element-in-sorted-array": {
+    cases: (int) => {
+      const nums = ints(int, 0, 15, -5, 5).sort((a, b) => a - b);
+      const target = int(-6, 6);
+      return { args: [nums, target], want: [nums.indexOf(target), nums.lastIndexOf(target)] };
+    },
+  },
+  "find-peak-element": {
+    judge: (int) => {
+      const nums = [int(-9, 9)];
+      for (let n = int(0, 15); n > 0; n--) {
+        let v = int(-9, 9);
+        while (v === nums.at(-1)) v = int(-9, 9);
+        nums.push(v);
+      }
+      const at = (i: number) => (i < 0 || i >= nums.length ? -Infinity : nums[i]);
+      return { args: [nums], ok: (got) => typeof got === "number" && at(got) > at(got - 1) && at(got) > at(got + 1) };
+    },
+  },
+  "koko-eating-bananas": {
+    cases: (int) => {
+      const piles = ints(int, 1, 10, 1, 60);
+      const h = int(piles.length, 80);
+      let k = 1;
+      while (piles.reduce((sum, p) => sum + Math.ceil(p / k), 0) > h) k++;
+      return { args: [piles, h], want: k };
+    },
+  },
+  "split-array-largest-sum": {
+    cases: (int) => {
+      const nums = ints(int, 1, 9, 0, 30);
+      const k = int(1, nums.length);
+      // Brute force: try every place to end the first piece.
+      const best = (i: number, parts: number): number => {
+        const rest = nums.slice(i).reduce((a, b) => a + b, 0);
+        if (parts === 1) return rest;
+        let out = Infinity;
+        let first = 0;
+        for (let j = i + 1; j <= nums.length - parts + 1; j++) {
+          first += nums[j - 1];
+          out = Math.min(out, Math.max(first, best(j, parts - 1)));
+        }
+        return out;
+      };
+      return { args: [nums, k], want: best(0, k) };
+    },
+  },
+  "median-of-two-sorted-arrays": {
+    cases: (int) => {
+      const a = ints(int, 0, 8, -20, 20).sort((x, y) => x - y);
+      const b = ints(int, a.length ? 0 : 1, 8, -20, 20).sort((x, y) => x - y);
+      const all = [...a, ...b].sort((x, y) => x - y);
+      const mid = all.length >> 1;
+      const want = all.length % 2 ? all[mid] : (all[mid - 1] + all[mid]) / 2;
+      return { args: [a, b], want };
+    },
+  },
 };
 
 describe("worked solutions", () => {
@@ -225,11 +302,19 @@ describe("worked solutions", () => {
         for (let k = 0; k < 300; k++) check.calls(Class, int);
         return;
       }
-      const run = load(solution.ts);
+      const run = load(solution.ts) as (...a: unknown[]) => unknown;
+      if ("judge" in check) {
+        for (let k = 0; k < 300; k++) {
+          const { args, ok } = check.judge(int);
+          const got = run(...structuredClone(args));
+          expect(ok(got), `${JSON.stringify(args)} gave ${JSON.stringify(got)}`).toBe(true);
+        }
+        return;
+      }
       for (let k = 0; k < 300; k++) {
         const { args, want } = check.cases(int);
         const copy = structuredClone(args);
-        expect((run as (...a: unknown[]) => unknown)(...copy), JSON.stringify(args)).toEqual(want);
+        expect(run(...copy), JSON.stringify(args)).toEqual(want);
       }
     });
   }
