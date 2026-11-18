@@ -358,6 +358,57 @@
   },
   {
     "number": 7,
+    "slug": "design",
+    "name": "Design",
+    "group": "structures",
+    "idea": "Pair simple structures so every call is fast.",
+    "status": "live",
+    "problems": [
+      "min-stack",
+      "lru-cache",
+      "time-based-key-value-store",
+      "insert-delete-getrandom-o1"
+    ],
+    "analogy": "Think of a cloakroom. Your ticket number takes the attendant straight to your coat, and the rail keeps coats in the order they were handed in. Two simple tools, each answering a different question fast.",
+    "minutes": 15,
+    "needs": [
+      "hash maps",
+      "pointers"
+    ],
+    "complexity": "O(1)",
+    "space": "O(n)",
+    "whenToUse": [
+      "You build a class whose every call must be fast",
+      "One structure finds, another keeps the order",
+      "A single array or map answers only half the calls"
+    ],
+    "video": {
+      "poster": "/video/design.jpg",
+      "durationSec": 60,
+      "captions": "/video/design.vtt",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "A cache holds 2 keys, and when it fills, the key used longest ago has to go. Keep the keys in a plain list and every call scans it to find one."
+        },
+        {
+          "t": 15,
+          "text": "Instead, pair two structures. A hash map jumps straight to a key’s node, and a linked list keeps the nodes from oldest to newest."
+        },
+        {
+          "t": 32,
+          "text": "Every get or put moves its node to the newest end. When the cache overflows, the node next to the head is the oldest, so it goes."
+        },
+        {
+          "t": 48,
+          "text": "Not one call scans. Each is O(1) time. That’s design: pick a structure for each question."
+        }
+      ]
+    },
+    "visualizer": "lru-cache"
+  },
+  {
+    "number": 8,
     "slug": "trees",
     "name": "Trees",
     "group": "structures",
@@ -417,7 +468,7 @@
     ]
   },
   {
-    "number": 8,
+    "number": 9,
     "slug": "tries",
     "name": "Tries",
     "group": "structures",
@@ -467,7 +518,7 @@
     "visualizer": "implement-trie"
   },
   {
-    "number": 9,
+    "number": 10,
     "slug": "heaps",
     "name": "Heaps",
     "group": "structures",
@@ -518,7 +569,7 @@
     ]
   },
   {
-    "number": 10,
+    "number": 11,
     "slug": "backtracking",
     "name": "Backtracking",
     "group": "structures",
@@ -570,7 +621,7 @@
     ]
   },
   {
-    "number": 11,
+    "number": 12,
     "slug": "graphs",
     "name": "Graphs",
     "group": "advanced",
@@ -624,7 +675,7 @@
     ]
   },
   {
-    "number": 12,
+    "number": 13,
     "slug": "advanced-graphs",
     "name": "Advanced Graphs",
     "group": "advanced",
@@ -677,7 +728,7 @@
     ]
   },
   {
-    "number": 13,
+    "number": 14,
     "slug": "1-d-dp",
     "name": "1-D DP",
     "group": "advanced",
@@ -737,7 +788,7 @@
     ]
   },
   {
-    "number": 14,
+    "number": 15,
     "slug": "2-d-dp",
     "name": "2-D DP",
     "group": "advanced",
@@ -789,7 +840,7 @@
     ]
   },
   {
-    "number": 15,
+    "number": 16,
     "slug": "greedy",
     "name": "Greedy",
     "group": "advanced",
@@ -840,7 +891,7 @@
     ]
   },
   {
-    "number": 16,
+    "number": 17,
     "slug": "intervals",
     "name": "Intervals",
     "group": "advanced",
@@ -892,7 +943,7 @@
     "visualizer": "merge-intervals"
   },
   {
-    "number": 17,
+    "number": 18,
     "slug": "math-and-geometry",
     "name": "Math & Geometry",
     "group": "advanced",
@@ -941,7 +992,7 @@
     "visualizer": "spiral-matrix"
   },
   {
-    "number": 18,
+    "number": 19,
     "slug": "bit-manipulation",
     "name": "Bit Manipulation",
     "group": "advanced",

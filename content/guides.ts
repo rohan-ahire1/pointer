@@ -184,6 +184,41 @@ return dummy.next`,
       "Reading .next on a node that might be null.",
     ],
   },
+  design: {
+    template: {
+      ts: `class Cache {
+  // One structure finds things fast...
+  private byKey = new Map<number, Node>();
+  // ...and another keeps them in the order you need.
+  private order = new DoublyLinkedList();
+
+  use(key: number): void {
+    const node = this.byKey.get(key);
+    if (!node) return;
+    // Every call touches both, in O(1) each.
+    this.order.moveToEnd(node);
+  }
+}`,
+      py: `class Cache:
+    def __init__(self):
+        # One structure finds things fast...
+        self.by_key = {}
+        # ...and another keeps them in the order you need.
+        self.order = DoublyLinkedList()
+
+    def use(self, key: int) -> None:
+        node = self.by_key.get(key)
+        if node is None:
+            return
+        # Every call touches both, in O(1) each.
+        self.order.move_to_end(node)`,
+    },
+    pitfalls: [
+      "Updating one structure and forgetting the other, so the map points at a node the list dropped.",
+      "Scanning an array to find or remove a value, which makes the call O(n).",
+      "Skipping the head and tail sentinels, then special-casing the empty list everywhere.",
+    ],
+  },
   trees: {
     template: {
       ts: `function dfs(node: TreeNode | null): number {

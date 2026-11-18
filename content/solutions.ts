@@ -233,4 +233,255 @@ def max_sliding_window(nums: list[int], k: int) -> list[int]:
             num = 0
     return sum(stack)`,
   },
+  "min-stack": {
+    ts: `class MinStack {
+  // Each entry keeps its value and the smallest value at or below it.
+  private stack: [number, number][] = [];
+
+  push(val: number): void {
+    const min = this.stack.length ? Math.min(val, this.stack.at(-1)![1]) : val;
+    this.stack.push([val, min]);
+  }
+
+  pop(): void {
+    this.stack.pop();
+  }
+
+  top(): number {
+    return this.stack.at(-1)![0];
+  }
+
+  getMin(): number {
+    return this.stack.at(-1)![1];
+  }
+}`,
+    py: `class MinStack:
+    def __init__(self):
+        # Each entry keeps its value and the smallest value at or below it.
+        self.stack = []
+
+    def push(self, val: int) -> None:
+        low = min(val, self.stack[-1][1]) if self.stack else val
+        self.stack.append((val, low))
+
+    def pop(self) -> None:
+        self.stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1][0]
+
+    def getMin(self) -> int:
+        return self.stack[-1][1]`,
+  },
+  "lru-cache": {
+    ts: `class Node {
+  prev: Node | null = null;
+  next: Node | null = null;
+  constructor(public key: number, public value: number) {}
+}
+
+class LRUCache {
+  // The map finds a node at once. The list keeps nodes from oldest to newest.
+  private map = new Map<number, Node>();
+  private head = new Node(0, 0); // oldest end
+  private tail = new Node(0, 0); // newest end
+
+  constructor(private capacity: number) {
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
+
+  get(key: number): number {
+    const node = this.map.get(key);
+    if (!node) return -1;
+    // Using a key makes it the newest.
+    this.remove(node);
+    this.append(node);
+    return node.value;
+  }
+
+  put(key: number, value: number): void {
+    const old = this.map.get(key);
+    if (old) this.remove(old);
+    const node = new Node(key, value);
+    this.map.set(key, node);
+    this.append(node);
+    if (this.map.size > this.capacity) {
+      // The node next to the head is the one used longest ago.
+      const oldest = this.head.next!;
+      this.remove(oldest);
+      this.map.delete(oldest.key);
+    }
+  }
+
+  private remove(node: Node): void {
+    node.prev!.next = node.next;
+    node.next!.prev = node.prev;
+  }
+
+  private append(node: Node): void {
+    node.prev = this.tail.prev;
+    node.next = this.tail;
+    this.tail.prev!.next = node;
+    this.tail.prev = node;
+  }
+}`,
+    py: `class Node:
+    def __init__(self, key: int, value: int):
+        self.key, self.value = key, value
+        self.prev = self.next = None
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        # The map finds a node at once. The list keeps nodes from oldest to newest.
+        self.capacity = capacity
+        self.map = {}
+        self.head = Node(0, 0)  # oldest end
+        self.tail = Node(0, 0)  # newest end
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def get(self, key: int) -> int:
+        node = self.map.get(key)
+        if node is None:
+            return -1
+        # Using a key makes it the newest.
+        self.remove(node)
+        self.append(node)
+        return node.value
+
+    def put(self, key: int, value: int) -> None:
+        old = self.map.get(key)
+        if old is not None:
+            self.remove(old)
+        node = Node(key, value)
+        self.map[key] = node
+        self.append(node)
+        if len(self.map) > self.capacity:
+            # The node next to the head is the one used longest ago.
+            oldest = self.head.next
+            self.remove(oldest)
+            del self.map[oldest.key]
+
+    def remove(self, node: Node) -> None:
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def append(self, node: Node) -> None:
+        node.prev = self.tail.prev
+        node.next = self.tail
+        self.tail.prev.next = node
+        self.tail.prev = node`,
+  },
+  "time-based-key-value-store": {
+    ts: `class TimeMap {
+  // Each key's values in the order they were set. Timestamps only grow.
+  private store = new Map<string, [number, string][]>();
+
+  set(key: string, value: string, timestamp: number): void {
+    if (!this.store.has(key)) this.store.set(key, []);
+    this.store.get(key)!.push([timestamp, value]);
+  }
+
+  get(key: string, timestamp: number): string {
+    const entries = this.store.get(key) ?? [];
+    // Binary search for the last entry set at or before timestamp.
+    let lo = 0;
+    let hi = entries.length - 1;
+    let answer = "";
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (entries[mid][0] <= timestamp) {
+        answer = entries[mid][1];
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    return answer;
+  }
+}`,
+    py: `class TimeMap:
+    def __init__(self):
+        # Each key's values in the order they were set. Timestamps only grow.
+        self.store = {}
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.store.setdefault(key, []).append((timestamp, value))
+
+    def get(self, key: str, timestamp: int) -> str:
+        entries = self.store.get(key, [])
+        # Binary search for the last entry set at or before timestamp.
+        lo, hi = 0, len(entries) - 1
+        answer = ""
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            if entries[mid][0] <= timestamp:
+                answer = entries[mid][1]
+                lo = mid + 1
+            else:
+                hi = mid - 1
+        return answer`,
+  },
+  "insert-delete-getrandom-o1": {
+    ts: `class RandomizedSet {
+  // The values packed into an array, and where each one sits.
+  private values: number[] = [];
+  private index = new Map<number, number>();
+
+  insert(val: number): boolean {
+    if (this.index.has(val)) return false;
+    this.index.set(val, this.values.length);
+    this.values.push(val);
+    return true;
+  }
+
+  remove(val: number): boolean {
+    const i = this.index.get(val);
+    if (i === undefined) return false;
+    // Move the last value into the gap, then drop the end. No shifting.
+    const last = this.values.at(-1)!;
+    this.values[i] = last;
+    this.index.set(last, i);
+    this.values.pop();
+    this.index.delete(val);
+    return true;
+  }
+
+  getRandom(): number {
+    return this.values[Math.floor(Math.random() * this.values.length)];
+  }
+}`,
+    py: `import random
+
+
+class RandomizedSet:
+    def __init__(self):
+        # The values packed into a list, and where each one sits.
+        self.values = []
+        self.index = {}
+
+    def insert(self, val: int) -> bool:
+        if val in self.index:
+            return False
+        self.index[val] = len(self.values)
+        self.values.append(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.index:
+            return False
+        # Move the last value into the gap, then drop the end. No shifting.
+        i = self.index[val]
+        last = self.values[-1]
+        self.values[i] = last
+        self.index[last] = i
+        self.values.pop()
+        del self.index[val]
+        return True
+
+    def getRandom(self) -> int:
+        return random.choice(self.values)`,
+  },
 };

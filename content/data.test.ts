@@ -43,6 +43,10 @@ const BEYOND_75: Record<string, [number, "easy" | "medium" | "hard", string[]]> 
   "largest-rectangle-in-histogram": [84, "hard", ["neetcode-150"]],
   "trapping-rain-water": [42, "hard", ["neetcode-150"]],
   "sliding-window-maximum": [239, "hard", ["neetcode-150"]],
+  "min-stack": [155, "medium", ["neetcode-150"]],
+  "lru-cache": [146, "medium", ["neetcode-150"]],
+  "time-based-key-value-store": [981, "medium", ["neetcode-150"]],
+  "insert-delete-getrandom-o1": [380, "medium", []],
 };
 
 /** LeetCode's premium-only problems on the list. */
@@ -56,13 +60,13 @@ const leetcodeSlug = (url: string) => url.replace("https://leetcode.com/problems
 describe("patterns.json", () => {
   const patterns = getPatterns();
 
-  it("has exactly 18 patterns", () => {
-    expect(patterns).toHaveLength(18);
+  it("has exactly 19 patterns", () => {
+    expect(patterns).toHaveLength(19);
   });
 
-  it("is numbered 1..18 with no gaps or repeats", () => {
+  it("is numbered 1..19 with no gaps or repeats", () => {
     const numbers = patterns.map((pattern) => pattern.number).sort((a, b) => a - b);
-    expect(numbers).toEqual(Array.from({ length: 18 }, (_, i) => i + 1));
+    expect(numbers).toEqual(Array.from({ length: 19 }, (_, i) => i + 1));
   });
 
   it("has unique slugs", () => {

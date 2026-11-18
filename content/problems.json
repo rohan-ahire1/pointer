@@ -572,6 +572,85 @@
     ]
   },
   {
+    "slug": "min-stack",
+    "title": "Min Stack",
+    "difficulty": "medium",
+    "pattern": "design",
+    "leetcodeUrl": "https://leetcode.com/problems/min-stack/",
+    "leetcodeNumber": 155,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Pair each value with the smallest value below it.",
+    "prompt": "Build a stack that can also tell you its smallest value at any moment, in constant time.",
+    "signal": "Each value can carry the minimum of everything under it, so a pop never loses the answer.",
+    "time": "O(1)",
+    "space": "O(n)",
+    "alsoFits": [
+      "stack"
+    ]
+  },
+  {
+    "slug": "lru-cache",
+    "title": "LRU Cache",
+    "difficulty": "medium",
+    "pattern": "design",
+    "leetcodeUrl": "https://leetcode.com/problems/lru-cache/",
+    "leetcodeNumber": 146,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "The one you just watched. Write it from memory.",
+    "prompt": "Build a fixed-size cache that throws out the key used longest ago when it fills up.",
+    "signal": "You need a fast lookup and an order of use at once: a map plus a doubly linked list.",
+    "time": "O(1)",
+    "space": "O(capacity)",
+    "alsoFits": [
+      "linked-list"
+    ],
+    "visualizer": "lru-cache"
+  },
+  {
+    "slug": "time-based-key-value-store",
+    "title": "Time Based Key-Value Store",
+    "difficulty": "medium",
+    "pattern": "design",
+    "leetcodeUrl": "https://leetcode.com/problems/time-based-key-value-store/",
+    "leetcodeNumber": 981,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "A map of lists, then a binary search inside one list.",
+    "prompt": "Store values with timestamps, and fetch what a key held at any given time.",
+    "signal": "Each key's timestamps arrive in order, so its list is already sorted for a binary search.",
+    "time": "O(log n)",
+    "space": "O(n)",
+    "alsoFits": [
+      "binary-search"
+    ]
+  },
+  {
+    "slug": "insert-delete-getrandom-o1",
+    "title": "Insert Delete GetRandom O(1)",
+    "difficulty": "medium",
+    "pattern": "design",
+    "leetcodeUrl": "https://leetcode.com/problems/insert-delete-getrandom-o1/",
+    "leetcodeNumber": 380,
+    "premium": false,
+    "lists": [],
+    "twist": "Swap the value you remove with the last one, so the array never has gaps.",
+    "prompt": "Build a set that can add, remove and return a random member, each in constant time.",
+    "signal": "A random pick needs an array, and a fast remove needs a map from value to its position.",
+    "time": "O(1)",
+    "space": "O(n)",
+    "alsoFits": [
+      "arrays-and-hashing"
+    ]
+  },
+  {
     "slug": "invert-binary-tree",
     "title": "Invert Binary Tree",
     "difficulty": "easy",
