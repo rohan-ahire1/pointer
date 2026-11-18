@@ -151,6 +151,7 @@ return lo`,
       "Setting lo = mid, which loops forever when lo and hi are neighbours.",
       "Mixing lo < hi with hi = mid - 1 without checking the last element.",
       "Assuming it needs a sorted array. It needs a yes/no that flips once.",
+      "Searching on the answer with the wrong range. Koko’s speeds start at 1, and a split’s cap starts at the biggest number.",
     ],
   },
   "linked-list": {

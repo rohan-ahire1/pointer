@@ -256,11 +256,47 @@
     "idea": "Halve the search space every step.",
     "status": "live",
     "problems": [
+      "binary-search",
+      "search-a-2d-matrix",
+      "find-first-and-last-position-of-element-in-sorted-array",
+      "find-peak-element",
       "find-minimum-in-rotated-sorted-array",
-      "search-in-rotated-sorted-array"
+      "search-in-rotated-sorted-array",
+      "koko-eating-bananas",
+      "split-array-largest-sum",
+      "median-of-two-sorted-arrays"
+    ],
+    "sections": [
+      {
+        "title": "Find a position",
+        "note": "Compare with the middle and keep the half that can still hold the answer.",
+        "problems": [
+          "binary-search",
+          "search-a-2d-matrix",
+          "find-first-and-last-position-of-element-in-sorted-array",
+          "find-peak-element"
+        ]
+      },
+      {
+        "title": "Rotated arrays",
+        "note": "One half around the middle is always in order. Work out which one first.",
+        "problems": [
+          "find-minimum-in-rotated-sorted-array",
+          "search-in-rotated-sorted-array"
+        ]
+      },
+      {
+        "title": "Search on the answer",
+        "note": "Guess an answer, check whether it works, and halve the range of answers.",
+        "problems": [
+          "koko-eating-bananas",
+          "split-array-largest-sum",
+          "median-of-two-sorted-arrays"
+        ]
+      }
     ],
     "analogy": "Finding a word in a paper dictionary, you open near the middle and see which side the word falls on. The other half closes for good. Binary search works the same way: one comparison rules out half of what is left.",
-    "minutes": 15,
+    "minutes": 20,
     "needs": [
       "arrays",
       "sorted order"
@@ -270,7 +306,7 @@
     "whenToUse": [
       "The input is sorted (or rotated sorted)",
       "One check rules out half the input",
-      "You need log n, not a full scan"
+      "You can test a guessed answer faster than you can find it"
     ],
     "video": {
       "poster": "/video/binary-search.jpg",
@@ -297,7 +333,8 @@
     },
     "visualizer": "find-min-rotated",
     "moreVisualizers": [
-      "search-rotated"
+      "search-rotated",
+      "koko-eating-bananas"
     ]
   },
   {

@@ -54,4 +54,16 @@ State: `{ nums, lo, hi, mid: number | null, compare: ">" | "<=" | null, ruledOut
 ## Content direction
 - Analogy seed: finding a word in a paper dictionary. Open the middle, see which side the word is on, and never look at the other side again.
 - `needs`: arrays, sorted order. `complexity`: `O(log n)`.
-- Problems: find-minimum-in-rotated-sorted-array (visualized), search-in-rotated-sorted-array.
+- Problems, in three sections:
+  - Find a position: binary-search (704), search-a-2d-matrix (74), find-first-and-last-position-of-element-in-sorted-array (34), find-peak-element (162).
+  - Rotated arrays: find-minimum-in-rotated-sorted-array (153, visualized), search-in-rotated-sorted-array (33, `search-rotated`).
+  - Search on the answer: koko-eating-bananas (875, `koko-eating-bananas`), split-array-largest-sum (410), median-of-two-sorted-arrays (4).
+- Problems outside the Blind 75 have worked solutions in `content/solutions.ts`, tested against brute force.
+
+## Second visualizer: Koko Eating Bananas (search on the answer)
+- **Visualizer id:** `koko-eating-bananas` · **Input:** `piles | h`, 1–6 piles of 1–30 bananas, h from the pile count to 99.
+- **Story:** nothing in the input is sorted. The possible answers are: if speed k is fast enough, every faster speed is too, so the yes/no flips once and binary search applies to the speeds.
+- Presets: `3 6 7 11 | 8` → 4 (LeetCode example), `30 11 23 4 20 | 6` → 23, `5 9 2 | 9` → 2.
+- Steps per round: `guess` (lines 2–3, pick k = middle of lo..hi), `count` (lines 4–5, hours per pile summed), `narrow` (line 6 `hi = k` or line 7 `lo = k + 1`). Then `done` on `return lo`.
+- **View:** a strip of every speed 1..max(piles) with the capsule over lo..hi and `lo`/`k`/`hi` tags, and a strip of piles with the hours each takes at k above it. Stats: hours of h, verdict, answer tile `speed`.
+- **Tests:** brute force tries every speed from 1 up; the trace must also keep the answer inside lo..hi on every step.

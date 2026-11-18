@@ -412,6 +412,70 @@
     ]
   },
   {
+    "slug": "binary-search",
+    "title": "Binary Search",
+    "difficulty": "easy",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/binary-search/",
+    "leetcodeNumber": 704,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "The plain version: compare with the middle and drop half.",
+    "prompt": "Find a target’s index in a sorted array of distinct numbers in log time, or return -1.",
+    "signal": "The array is sorted, so the middle value tells you which half the target is in.",
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "search-a-2d-matrix",
+    "title": "Search a 2D Matrix",
+    "difficulty": "medium",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/search-a-2d-matrix/",
+    "leetcodeNumber": 74,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Read the grid row by row as one long sorted list.",
+    "prompt": "Each row of a grid is sorted and starts after the previous row ends. Is the target in it?",
+    "signal": "Row by row, the grid is one sorted list, so index mid maps to row mid / cols, column mid % cols.",
+    "time": "O(log(m·n))",
+    "space": "O(1)"
+  },
+  {
+    "slug": "find-first-and-last-position-of-element-in-sorted-array",
+    "title": "Find First and Last Position of Element in Sorted Array",
+    "difficulty": "medium",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+    "leetcodeNumber": 34,
+    "premium": false,
+    "lists": [],
+    "twist": "Search twice: once for the first copy, once for the first bigger value.",
+    "prompt": "A sorted array may repeat the target. Return the first and last index where it appears, in log time.",
+    "signal": "Don’t stop at the first match. Keep halving to find the edge of the run of copies.",
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "find-peak-element",
+    "title": "Find Peak Element",
+    "difficulty": "medium",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/find-peak-element/",
+    "leetcodeNumber": 162,
+    "premium": false,
+    "lists": [],
+    "twist": "No sorting needed: walk uphill and half the array drops away.",
+    "prompt": "Return the index of any value bigger than both its neighbours, in log time. The ends count as next to minus infinity.",
+    "signal": "If the value after mid is bigger, a peak must lie to its right, because the climb has to stop somewhere.",
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  {
     "slug": "find-minimum-in-rotated-sorted-array",
     "title": "Find Minimum in Rotated Sorted Array",
     "difficulty": "medium",
@@ -448,6 +512,59 @@
     "time": "O(log n)",
     "space": "O(1)",
     "visualizer": "search-rotated"
+  },
+  {
+    "slug": "koko-eating-bananas",
+    "title": "Koko Eating Bananas",
+    "difficulty": "medium",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/koko-eating-bananas/",
+    "leetcodeNumber": 875,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Halve the possible answers, not the input.",
+    "prompt": "Koko eats k bananas an hour from one pile at a time. Find the smallest k that clears every pile in h hours.",
+    "signal": "If a speed is fast enough, every faster speed is too. That yes/no flips once.",
+    "time": "O(n log m)",
+    "space": "O(1)",
+    "visualizer": "koko-eating-bananas"
+  },
+  {
+    "slug": "split-array-largest-sum",
+    "title": "Split Array Largest Sum",
+    "difficulty": "hard",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/split-array-largest-sum/",
+    "leetcodeNumber": 410,
+    "premium": false,
+    "lists": [],
+    "twist": "Guess the largest sum, then check greedily how many pieces it needs.",
+    "prompt": "Cut an array into k pieces so that the biggest piece sum is as small as possible.",
+    "signal": "Checking a cap is easy: fill each piece until it would overflow. A bigger cap never needs more pieces.",
+    "time": "O(n log s)",
+    "space": "O(1)",
+    "alsoFits": [
+      "greedy"
+    ]
+  },
+  {
+    "slug": "median-of-two-sorted-arrays",
+    "title": "Median of Two Sorted Arrays",
+    "difficulty": "hard",
+    "pattern": "binary-search",
+    "leetcodeUrl": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+    "leetcodeNumber": 4,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Search for where to cut the shorter array, so both left parts make half.",
+    "prompt": "Find the median of two sorted arrays in O(log(m + n)) time, without merging them.",
+    "signal": "Taking i from the first array fixes how many come from the second. Check the four values at the cut.",
+    "time": "O(log min(m, n))",
+    "space": "O(1)"
   },
   {
     "slug": "reverse-linked-list",

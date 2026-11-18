@@ -47,6 +47,13 @@ const BEYOND_75: Record<string, [number, "easy" | "medium" | "hard", string[]]> 
   "lru-cache": [146, "medium", ["neetcode-150"]],
   "time-based-key-value-store": [981, "medium", ["neetcode-150"]],
   "insert-delete-getrandom-o1": [380, "medium", []],
+  "binary-search": [704, "easy", ["neetcode-150"]],
+  "search-a-2d-matrix": [74, "medium", ["neetcode-150"]],
+  "find-first-and-last-position-of-element-in-sorted-array": [34, "medium", []],
+  "find-peak-element": [162, "medium", []],
+  "koko-eating-bananas": [875, "medium", ["neetcode-150"]],
+  "split-array-largest-sum": [410, "hard", []],
+  "median-of-two-sorted-arrays": [4, "hard", ["neetcode-150"]],
 };
 
 /** LeetCode's premium-only problems on the list. */

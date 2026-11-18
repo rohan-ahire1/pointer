@@ -484,4 +484,249 @@ class RandomizedSet:
     def getRandom(self) -> int:
         return random.choice(self.values)`,
   },
+  "binary-search": {
+    ts: `function search(nums: number[], target: number): number {
+  let lo = 0;
+  let hi = nums.length - 1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >> 1;
+    if (nums[mid] === target) return mid;
+    // The target is bigger, so everything up to mid is out.
+    if (nums[mid] < target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return -1;
+}`,
+    py: `def search(nums: list[int], target: int) -> int:
+    lo, hi = 0, len(nums) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid
+        # The target is bigger, so everything up to mid is out.
+        if nums[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1`,
+  },
+  "search-a-2d-matrix": {
+    ts: `function searchMatrix(matrix: number[][], target: number): boolean {
+  const cols = matrix[0].length;
+  // Read the grid row by row as one sorted list of rows * cols numbers.
+  let lo = 0;
+  let hi = matrix.length * cols - 1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >> 1;
+    const value = matrix[Math.floor(mid / cols)][mid % cols];
+    if (value === target) return true;
+    if (value < target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return false;
+}`,
+    py: `def search_matrix(matrix: list[list[int]], target: int) -> bool:
+    cols = len(matrix[0])
+    # Read the grid row by row as one sorted list of rows * cols numbers.
+    lo, hi = 0, len(matrix) * cols - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        value = matrix[mid // cols][mid % cols]
+        if value == target:
+            return True
+        if value < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return False`,
+  },
+  "find-first-and-last-position-of-element-in-sorted-array": {
+    ts: `function searchRange(nums: number[], target: number): number[] {
+  // The first index whose value is at least x, or nums.length if none is.
+  const firstAtLeast = (x: number): number => {
+    let lo = 0;
+    let hi = nums.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (nums[mid] < x) lo = mid + 1;
+      else hi = mid;
+    }
+    return lo;
+  };
+  const first = firstAtLeast(target);
+  if (first === nums.length || nums[first] !== target) return [-1, -1];
+  // The last copy sits just before the first value bigger than target.
+  return [first, firstAtLeast(target + 1) - 1];
+}`,
+    py: `def search_range(nums: list[int], target: int) -> list[int]:
+    # The first index whose value is at least x, or len(nums) if none is.
+    def first_at_least(x: int) -> int:
+        lo, hi = 0, len(nums)
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if nums[mid] < x:
+                lo = mid + 1
+            else:
+                hi = mid
+        return lo
+
+    first = first_at_least(target)
+    if first == len(nums) or nums[first] != target:
+        return [-1, -1]
+    # The last copy sits just before the first value bigger than target.
+    return [first, first_at_least(target + 1) - 1]`,
+  },
+  "find-peak-element": {
+    ts: `function findPeakElement(nums: number[]): number {
+  let lo = 0;
+  let hi = nums.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    // Uphill to the right: the climb must top out somewhere past mid.
+    if (nums[mid] < nums[mid + 1]) lo = mid + 1;
+    // Downhill: mid itself, or something to its left, is a peak.
+    else hi = mid;
+  }
+  return lo;
+}`,
+    py: `def find_peak_element(nums: list[int]) -> int:
+    lo, hi = 0, len(nums) - 1
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if nums[mid] < nums[mid + 1]:
+            # Uphill to the right: the climb must top out somewhere past mid.
+            lo = mid + 1
+        else:
+            # Downhill: mid itself, or something to its left, is a peak.
+            hi = mid
+    return lo`,
+  },
+  "koko-eating-bananas": {
+    ts: `function minEatingSpeed(piles: number[], h: number): number {
+  // Every speed from 1 to the biggest pile is a possible answer.
+  let lo = 1;
+  let hi = Math.max(...piles);
+  while (lo < hi) {
+    const k = Math.floor((lo + hi) / 2);
+    let hours = 0;
+    for (const p of piles) hours += Math.ceil(p / k);
+    if (hours <= h) hi = k; // fast enough: try slower
+    else lo = k + 1; // too slow: go faster
+  }
+  return lo;
+}`,
+    py: `def min_eating_speed(piles: list[int], h: int) -> int:
+    # Every speed from 1 to the biggest pile is a possible answer.
+    lo, hi = 1, max(piles)
+    while lo < hi:
+        k = (lo + hi) // 2
+        hours = 0
+        for p in piles:
+            hours += (p + k - 1) // k  # round up
+        if hours <= h:
+            hi = k  # fast enough: try slower
+        else:
+            lo = k + 1  # too slow: go faster
+    return lo`,
+  },
+  "split-array-largest-sum": {
+    ts: `function splitArray(nums: number[], k: number): number {
+  // How many pieces do we need if no piece may add up to more than cap?
+  const piecesFor = (cap: number): number => {
+    let pieces = 1;
+    let sum = 0;
+    for (const x of nums) {
+      if (sum + x > cap) {
+        pieces++;
+        sum = 0;
+      }
+      sum += x;
+    }
+    return pieces;
+  };
+  // The answer is at least the biggest number and at most the whole sum.
+  let lo = Math.max(...nums);
+  let hi = nums.reduce((a, b) => a + b, 0);
+  while (lo < hi) {
+    const cap = Math.floor((lo + hi) / 2);
+    if (piecesFor(cap) <= k) hi = cap; // k pieces are enough: try a smaller cap
+    else lo = cap + 1;
+  }
+  return lo;
+}`,
+    py: `def split_array(nums: list[int], k: int) -> int:
+    # How many pieces do we need if no piece may add up to more than cap?
+    def pieces_for(cap: int) -> int:
+        pieces, total = 1, 0
+        for x in nums:
+            if total + x > cap:
+                pieces += 1
+                total = 0
+            total += x
+        return pieces
+
+    # The answer is at least the biggest number and at most the whole sum.
+    lo, hi = max(nums), sum(nums)
+    while lo < hi:
+        cap = (lo + hi) // 2
+        if pieces_for(cap) <= k:
+            hi = cap  # k pieces are enough: try a smaller cap
+        else:
+            lo = cap + 1
+    return lo`,
+  },
+  "median-of-two-sorted-arrays": {
+    ts: `function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
+  // Binary search the shorter array.
+  const [a, b] = nums1.length <= nums2.length ? [nums1, nums2] : [nums2, nums1];
+  const m = a.length;
+  const n = b.length;
+  const half = Math.floor((m + n + 1) / 2);
+  let lo = 0;
+  let hi = m;
+  while (lo <= hi) {
+    // The left half takes i values from a and the rest from b.
+    const i = (lo + hi) >> 1;
+    const j = half - i;
+    const aLeft = i > 0 ? a[i - 1] : -Infinity;
+    const aRight = i < m ? a[i] : Infinity;
+    const bLeft = j > 0 ? b[j - 1] : -Infinity;
+    const bRight = j < n ? b[j] : Infinity;
+    if (aLeft <= bRight && bLeft <= aRight) {
+      // A clean cut: everything on the left is at most everything on the right.
+      const leftMax = Math.max(aLeft, bLeft);
+      if ((m + n) % 2 === 1) return leftMax;
+      return (leftMax + Math.min(aRight, bRight)) / 2;
+    }
+    if (aLeft > bRight) hi = i - 1; // took too many from a
+    else lo = i + 1; // took too few from a
+  }
+  throw new Error("The arrays must be sorted.");
+}`,
+    py: `def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:
+    # Binary search the shorter array.
+    a, b = (nums1, nums2) if len(nums1) <= len(nums2) else (nums2, nums1)
+    m, n = len(a), len(b)
+    half = (m + n + 1) // 2
+    lo, hi = 0, m
+    while lo <= hi:
+        # The left half takes i values from a and the rest from b.
+        i = (lo + hi) // 2
+        j = half - i
+        a_left = a[i - 1] if i > 0 else float("-inf")
+        a_right = a[i] if i < m else float("inf")
+        b_left = b[j - 1] if j > 0 else float("-inf")
+        b_right = b[j] if j < n else float("inf")
+        if a_left <= b_right and b_left <= a_right:
+            # A clean cut: everything on the left is at most everything on the right.
+            left_max = max(a_left, b_left)
+            if (m + n) % 2 == 1:
+                return float(left_max)
+            return (left_max + min(a_right, b_right)) / 2
+        if a_left > b_right:
+            hi = i - 1  # took too many from a
+        else:
+            lo = i + 1  # took too few from a
+    raise ValueError("The arrays must be sorted.")`,
+  },
 };
