@@ -59,6 +59,10 @@ const BEYOND_75: Record<string, [number, "easy" | "medium" | "hard", string[]]> 
   "contiguous-array": [525, "medium", []],
   "continuous-subarray-sum": [523, "medium", []],
   "subarray-sums-divisible-by-k": [974, "medium", []],
+  "rotting-oranges": [994, "medium", ["neetcode-150"]],
+  "course-schedule-ii": [210, "medium", ["neetcode-150"]],
+  "word-ladder": [127, "hard", ["neetcode-150"]],
+  "bus-routes": [815, "hard", []],
 };
 
 /** LeetCode's premium-only problems on the list. */

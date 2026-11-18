@@ -1254,6 +1254,77 @@
     "visualizer": "course-schedule"
   },
   {
+    "slug": "rotting-oranges",
+    "title": "Rotting Oranges",
+    "difficulty": "medium",
+    "pattern": "graphs",
+    "leetcodeUrl": "https://leetcode.com/problems/rotting-oranges/",
+    "leetcodeNumber": 994,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Put every rotten orange in the queue first. Each BFS layer is one minute.",
+    "prompt": "Each minute, fresh oranges next to a rotten one go bad. How many minutes until none are fresh? Return -1 if some never rot.",
+    "signal": "Many starting points spread at the same speed, so start them all together and count the layers.",
+    "time": "O(m·n)",
+    "space": "O(m·n)",
+    "visualizer": "rotting-oranges"
+  },
+  {
+    "slug": "course-schedule-ii",
+    "title": "Course Schedule II",
+    "difficulty": "medium",
+    "pattern": "graphs",
+    "leetcodeUrl": "https://leetcode.com/problems/course-schedule-ii/",
+    "leetcodeNumber": 210,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Same queue as Course Schedule. The order you take courses in is the answer.",
+    "prompt": "Some courses must come before others. Return an order that takes them all, or an empty list if none exists.",
+    "signal": "Take whatever waits for nothing, then free up what came after it. The queue fills in a valid order.",
+    "time": "O(V + E)",
+    "space": "O(V + E)",
+    "alsoFits": [
+      "advanced-graphs"
+    ],
+    "visualizer": "course-schedule"
+  },
+  {
+    "slug": "word-ladder",
+    "title": "Word Ladder",
+    "difficulty": "hard",
+    "pattern": "graphs",
+    "leetcodeUrl": "https://leetcode.com/problems/word-ladder/",
+    "leetcodeNumber": 127,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Words are nodes, and one-letter changes are the links. BFS finds the fewest.",
+    "prompt": "Change one letter at a time, and every word on the way must be in the list. How many words long is the shortest chain from the start word to the end word?",
+    "signal": "Fewest moves, every move costs the same: that’s BFS. Group words under patterns like h*t to find neighbours fast.",
+    "time": "O(n·L²)",
+    "space": "O(n·L²)"
+  },
+  {
+    "slug": "bus-routes",
+    "title": "Bus Routes",
+    "difficulty": "hard",
+    "pattern": "graphs",
+    "leetcodeUrl": "https://leetcode.com/problems/bus-routes/",
+    "leetcodeNumber": 815,
+    "premium": false,
+    "lists": [],
+    "twist": "Search over buses, not stops. Each bus you board is one more layer.",
+    "prompt": "Each bus loops through its list of stops. What is the fewest buses you must take from the source stop to the target stop, or -1?",
+    "signal": "You count rides, not stops, so the buses are the nodes. Two buses link when they share a stop.",
+    "time": "O(s)",
+    "space": "O(s)"
+  },
+  {
     "slug": "number-of-connected-components",
     "title": "Number of Connected Components in an Undirected Graph",
     "difficulty": "medium",

@@ -400,6 +400,7 @@ while queue:
       "Marking a node when you pop it instead of when you push it, so it’s queued twice.",
       "Forgetting the graph may have more than one connected piece.",
       "Using DFS for a shortest path. BFS finds it when every edge costs the same; different costs need Dijkstra.",
+      "Counting steps per node popped instead of per layer. Finish the whole layer, then add one.",
     ],
   },
   "1-d-dp": {

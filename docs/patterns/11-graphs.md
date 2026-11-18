@@ -69,4 +69,22 @@ Recursive DFS flood fill counting components. The generator makes random grids w
 ## Content direction
 - Analogy seed: spilling ink on a map. Drop it on any land you haven't coloured, and it spreads to every square joined to it. Count the drops.
 - `needs`: 2D arrays, queues. `complexity`: `O(m·n)`.
-- Problems: number-of-islands (visualized), clone-graph, pacific-atlantic-water-flow, course-schedule, number-of-connected-components, graph-valid-tree.
+- Problems, in three sections:
+  - Flood fill: number-of-islands (200, visualized), clone-graph (133), pacific-atlantic-water-flow (417).
+  - Topological order: course-schedule (207, `course-schedule`), course-schedule-ii (210, `course-schedule`: its ready queue is the order).
+  - Fewest steps with BFS: rotting-oranges (994, `rotting-oranges`), word-ladder (127), bus-routes (815).
+- number-of-connected-components and graph-valid-tree are in the Advanced Graphs lesson.
+- Problems outside the Blind 75 have worked solutions in `content/solutions.ts`, tested against brute force.
+
+## Second visualizer: Rotting Oranges (multi-source BFS by layers)
+- **Visualizer id:** `rotting-oranges` · **Input:** `grid`, 1–5 rows of 0 (empty), 1 (fresh) and 2 (rotten), up to 6 wide. LeetCode `[[2,1,1],...]` pastes work.
+- **Story:** every rotten orange goes in the queue before the loop starts, so they all spread at once. One pass of the
+  outer loop drains exactly the oranges queued at its start: that pass is one minute.
+- Presets: `21100 11011 01110 00112` → 4 (two sources), `211 110 011` → 4 (LeetCode example 1), `211 011 101` → -1 (LeetCode example 2).
+- Steps: `setup` (lines 1–10, count fresh and queue the rotten), `spread` per orange taken off the queue (lines 14–21;
+  14–18 when it has no fresh neighbours), `tick` at the end of each minute (lines 24, 11), then `done` on line 26.
+- State: `{ grid, rotAt, queue (from head), front (how many queued are this minute's), current, justRotted, fresh, minutes, answer, phase }`.
+- **View:** the grid with empty cells dashed, fresh oranges as ●, rotten ones showing the minute they went bad, and the
+  orange spreading lifted. The queue panel splits this minute's oranges from the next minute's. Stats: fresh, minutes, answer tile.
+- **Tests:** brute force rots the whole grid in synchronous rounds; the answer and each orange's minute must match, and
+  a `tick` only happens once this minute's part of the queue is empty.

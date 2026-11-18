@@ -720,10 +720,42 @@
       "number-of-islands",
       "clone-graph",
       "pacific-atlantic-water-flow",
-      "course-schedule"
+      "course-schedule",
+      "course-schedule-ii",
+      "rotting-oranges",
+      "word-ladder",
+      "bus-routes"
+    ],
+    "sections": [
+      {
+        "title": "Flood fill",
+        "note": "Start at one cell or node and spread to every neighbour you haven’t seen yet.",
+        "problems": [
+          "number-of-islands",
+          "clone-graph",
+          "pacific-atlantic-water-flow"
+        ]
+      },
+      {
+        "title": "Topological order",
+        "note": "Take whatever has nothing left to wait for. If some never free up, there’s a loop.",
+        "problems": [
+          "course-schedule",
+          "course-schedule-ii"
+        ]
+      },
+      {
+        "title": "Fewest steps with BFS",
+        "note": "BFS moves out one layer at a time, so the first time it reaches something is the shortest way.",
+        "problems": [
+          "rotting-oranges",
+          "word-ladder",
+          "bus-routes"
+        ]
+      }
     ],
     "analogy": "Drop ink on any land square you have not coloured yet. It spreads to every square joined to it, but never crosses water. Each drop is one island, and counting the drops counts the islands.",
-    "minutes": 15,
+    "minutes": 25,
     "needs": [
       "2D arrays",
       "queues"
@@ -733,7 +765,8 @@
     "whenToUse": [
       "The input is a grid or a network",
       "Answers spread through neighbours",
-      "You must count joined-up regions"
+      "You must count joined-up regions",
+      "You need the fewest moves, and every move costs the same"
     ],
     "video": {
       "poster": "/video/graphs.jpg",
@@ -760,7 +793,8 @@
     },
     "visualizer": "number-of-islands",
     "moreVisualizers": [
-      "course-schedule"
+      "course-schedule",
+      "rotting-oranges"
     ]
   },
   {

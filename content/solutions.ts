@@ -858,4 +858,227 @@ class RandomizedSet:
         count[rem] += 1
     return answer`,
   },
+  "rotting-oranges": {
+    ts: `function orangesRotting(grid: number[][]): number {
+  // Every rotten orange starts in the queue, so they all spread at once.
+  const queue: [number, number][] = [];
+  let fresh = 0;
+  for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[r][c] === 2) queue.push([r, c]);
+      else if (grid[r][c] === 1) fresh++;
+    }
+  }
+  let minutes = 0;
+  let head = 0;
+  while (fresh > 0 && head < queue.length) {
+    // Everything in the queue now rots its neighbours this minute.
+    const end = queue.length;
+    for (; head < end; head++) {
+      const [r, c] = queue[head];
+      for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nr = r + dr, nc = c + dc;
+        if (grid[nr]?.[nc] !== 1) continue;
+        grid[nr][nc] = 2;
+        fresh--;
+        queue.push([nr, nc]);
+      }
+    }
+    minutes++;
+  }
+  // Fresh oranges left over were never next to anything rotten.
+  return fresh === 0 ? minutes : -1;
+}`,
+    py: `from collections import deque
+
+def oranges_rotting(grid: list[list[int]]) -> int:
+    rows, cols = len(grid), len(grid[0])
+    # Every rotten orange starts in the queue, so they all spread at once.
+    queue = deque()
+    fresh = 0
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 2:
+                queue.append((r, c))
+            elif grid[r][c] == 1:
+                fresh += 1
+    minutes = 0
+    while fresh > 0 and queue:
+        # Everything in the queue now rots its neighbours this minute.
+        for _ in range(len(queue)):
+            r, c = queue.popleft()
+            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
+                    grid[nr][nc] = 2
+                    fresh -= 1
+                    queue.append((nr, nc))
+        minutes += 1
+    # Fresh oranges left over were never next to anything rotten.
+    return minutes if fresh == 0 else -1`,
+  },
+  "course-schedule-ii": {
+    ts: `function findOrder(numCourses: number, prerequisites: number[][]): number[] {
+  const next: number[][] = Array.from({ length: numCourses }, () => []);
+  const needs = new Array(numCourses).fill(0); // how many courses each one still waits for
+  for (const [course, before] of prerequisites) {
+    next[before].push(course);
+    needs[course]++;
+  }
+  // Start with every course that waits for nothing. The queue is also the answer.
+  const order: number[] = [];
+  for (let c = 0; c < numCourses; c++) if (needs[c] === 0) order.push(c);
+  for (let head = 0; head < order.length; head++) {
+    for (const after of next[order[head]]) {
+      needs[after]--;
+      if (needs[after] === 0) order.push(after);
+    }
+  }
+  // A loop keeps some courses waiting forever.
+  return order.length === numCourses ? order : [];
+}`,
+    py: `def find_order(num_courses: int, prerequisites: list[list[int]]) -> list[int]:
+    nxt = [[] for _ in range(num_courses)]
+    needs = [0] * num_courses  # how many courses each one still waits for
+    for course, before in prerequisites:
+        nxt[before].append(course)
+        needs[course] += 1
+    # Start with every course that waits for nothing. The queue is also the answer.
+    order = [c for c in range(num_courses) if needs[c] == 0]
+    head = 0
+    while head < len(order):
+        for after in nxt[order[head]]:
+            needs[after] -= 1
+            if needs[after] == 0:
+                order.append(after)
+        head += 1
+    # A loop keeps some courses waiting forever.
+    return order if len(order) == num_courses else []`,
+  },
+  "word-ladder": {
+    ts: `function ladderLength(beginWord: string, endWord: string, wordList: string[]): number {
+  // Group words by pattern: "hot" sits under "*ot", "h*t" and "ho*".
+  const groups = new Map<string, string[]>();
+  for (const word of wordList) {
+    for (let i = 0; i < word.length; i++) {
+      const key = word.slice(0, i) + "*" + word.slice(i + 1);
+      const group = groups.get(key);
+      if (group) group.push(word);
+      else groups.set(key, [word]);
+    }
+  }
+  const seen = new Set([beginWord]);
+  let layer = [beginWord];
+  // Each layer is one more word in the sequence.
+  for (let length = 1; layer.length > 0; length++) {
+    const nextLayer: string[] = [];
+    for (const word of layer) {
+      if (word === endWord) return length;
+      for (let i = 0; i < word.length; i++) {
+        const key = word.slice(0, i) + "*" + word.slice(i + 1);
+        for (const next of groups.get(key) ?? []) {
+          if (seen.has(next)) continue;
+          seen.add(next);
+          nextLayer.push(next);
+        }
+        // Everyone in this group is queued now, so it never needs reading again.
+        groups.delete(key);
+      }
+    }
+    layer = nextLayer;
+  }
+  return 0;
+}`,
+    py: `from collections import defaultdict
+
+def ladder_length(begin_word: str, end_word: str, word_list: list[str]) -> int:
+    # Group words by pattern: "hot" sits under "*ot", "h*t" and "ho*".
+    groups = defaultdict(list)
+    for word in word_list:
+        for i in range(len(word)):
+            groups[word[:i] + "*" + word[i + 1:]].append(word)
+    seen = {begin_word}
+    layer = [begin_word]
+    length = 1
+    # Each layer is one more word in the sequence.
+    while layer:
+        next_layer = []
+        for word in layer:
+            if word == end_word:
+                return length
+            for i in range(len(word)):
+                # pop: everyone in this group is queued now, so it never needs reading again.
+                for nxt in groups.pop(word[:i] + "*" + word[i + 1:], []):
+                    if nxt not in seen:
+                        seen.add(nxt)
+                        next_layer.append(nxt)
+        layer = next_layer
+        length += 1
+    return 0`,
+  },
+  "bus-routes": {
+    ts: `function numBusesToDestination(routes: number[][], source: number, target: number): number {
+  if (source === target) return 0;
+  // Which buses call at each stop.
+  const buses = new Map<number, number[]>();
+  routes.forEach((route, bus) => {
+    for (const stop of route) {
+      const list = buses.get(stop);
+      if (list) list.push(bus);
+      else buses.set(stop, [bus]);
+    }
+  });
+  const rode = new Array(routes.length).fill(false);
+  // A layer holds the buses you can be on after that many rides.
+  let layer = buses.get(source) ?? [];
+  for (const bus of layer) rode[bus] = true;
+  for (let rides = 1; layer.length > 0; rides++) {
+    const nextLayer: number[] = [];
+    for (const bus of layer) {
+      for (const stop of routes[bus]) {
+        if (stop === target) return rides;
+        for (const other of buses.get(stop) ?? []) {
+          if (rode[other]) continue;
+          rode[other] = true;
+          nextLayer.push(other);
+        }
+        // Every bus at this stop is boarded now, so skip the stop next time.
+        buses.delete(stop);
+      }
+    }
+    layer = nextLayer;
+  }
+  return -1;
+}`,
+    py: `from collections import defaultdict
+
+def num_buses_to_destination(routes: list[list[int]], source: int, target: int) -> int:
+    if source == target:
+        return 0
+    # Which buses call at each stop.
+    buses = defaultdict(list)
+    for bus, route in enumerate(routes):
+        for stop in route:
+            buses[stop].append(bus)
+    rode = [False] * len(routes)
+    # A layer holds the buses you can be on after that many rides.
+    layer = buses.get(source, [])
+    for bus in layer:
+        rode[bus] = True
+    rides = 1
+    while layer:
+        next_layer = []
+        for bus in layer:
+            for stop in routes[bus]:
+                if stop == target:
+                    return rides
+                # pop: every bus at this stop is boarded now, so skip the stop next time.
+                for other in buses.pop(stop, []):
+                    if not rode[other]:
+                        rode[other] = True
+                        next_layer.append(other)
+        layer = next_layer
+        rides += 1
+    return -1`,
+  },
 };
