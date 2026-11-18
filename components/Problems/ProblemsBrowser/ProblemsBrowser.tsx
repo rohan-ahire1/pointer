@@ -2,13 +2,22 @@
 
 import { useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
-import { EXTRAS_KEY, type Difficulty, type Problem, type ProblemGroupSummary } from "@/content";
+import {
+  EXTRAS_KEY,
+  PROBLEM_LISTS,
+  isBlind75,
+  type Difficulty,
+  type Problem,
+  type ProblemGroupSummary,
+  type ProblemList,
+} from "@/content";
 import { useProgress } from "@/lib/progress";
 import { ProblemGroupSection } from "@/components/Problems/ProblemGroupSection/ProblemGroupSection";
 import styles from "./ProblemsBrowser.module.css";
 
 type DifficultyFilter = "all" | Difficulty;
 type StatusFilter = "all" | "todo" | "done";
+type ListFilter = "all" | ProblemList;
 
 const DIFFICULTY_OPTIONS: { value: DifficultyFilter; label: string }[] = [
   { value: "all", label: "Any" },
@@ -21,6 +30,11 @@ const STATUS_OPTIONS: { value: StatusFilter; label: string }[] = [
   { value: "all", label: "All" },
   { value: "todo", label: "To do" },
   { value: "done", label: "Solved" },
+];
+
+const LIST_OPTIONS: { value: ListFilter; label: string }[] = [
+  { value: "all", label: "Every problem" },
+  ...(Object.keys(PROBLEM_LISTS) as ProblemList[]).map((value) => ({ value, label: PROBLEM_LISTS[value] })),
 ];
 
 type ProblemsBrowserProps = {
@@ -39,8 +53,8 @@ function lessonInfo(group: ProblemGroupSummary): { href?: string; label: string 
 
 /**
  * The interactive body of /problems (design/mocks/C2-Problems.dc.html):
- * search + difficulty/status filters, difficulty stat tiles, and the 16
- * collapsible groups (18 patterns, plus Extras if any problem has no pattern). Solved state comes from the
+ * search + list/difficulty/status filters, difficulty stat tiles, and one
+ * collapsible group per pattern (plus Extras if any problem has no pattern). Solved state comes from the
  * shared progress store, so checking a box here matches a lesson page's
  * "Mark solved" for the same problem.
  */
@@ -49,9 +63,11 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
   const [query, setQuery] = useState("");
   const [difficulty, setDifficulty] = useState<DifficultyFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("all");
+  const [list, setList] = useState<ListFilter>("all");
   const [openOverrides, setOpenOverrides] = useState<Record<string, boolean>>({});
 
   const isFiltering = query.trim() !== "" || difficulty !== "all" || status !== "all";
+  const inList = (problem: Problem) => list === "all" || problem.lists.includes(list);
   const q = query.trim().toLowerCase();
 
   function isSolved(slug: string): boolean {
@@ -60,6 +76,7 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
 
   function matches(problem: Problem, groupLabel: string): boolean {
     const solved = isSolved(problem.slug);
+    if (!inList(problem)) return false;
     if (q && !problem.title.toLowerCase().includes(q) && !groupLabel.toLowerCase().includes(q)) return false;
     if (difficulty !== "all" && problem.difficulty !== difficulty) return false;
     if (status === "todo" && solved) return false;
@@ -75,6 +92,7 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
     };
     for (const group of groups) {
       for (const problem of group.problems) {
+        if (!inList(problem)) continue;
         counts[problem.difficulty].total += 1;
         if (isSolved(problem.slug)) counts[problem.difficulty].done += 1;
       }
@@ -82,16 +100,18 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
     return counts;
     // progress.solved is read through isSolved; groups is static per page load.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groups, progress]);
+  }, [groups, progress, list]);
 
-  const totalProblems = groups.reduce((sum, group) => sum + group.problems.length, 0);
+  const beyondBlind75 = groups.flatMap((group) => group.problems).filter((p) => !isBlind75(p)).length;
+  const totalProblems = groups.reduce((sum, group) => sum + group.problems.filter(inList).length, 0);
 
   const sections = groups.map((group) => {
     const { href, label } = lessonInfo(group);
-    const done = group.problems.filter((p) => isSolved(p.slug)).length;
+    const listed = group.problems.filter(inList);
+    const done = listed.filter((p) => isSolved(p.slug)).length;
     const rows = group.problems.filter((p) => matches(p, group.label));
     const open = isFiltering ? rows.length > 0 : (openOverrides[group.key] ?? true);
-    return { group, href, label, done, rows, open };
+    return { group, href, label, done, total: listed.length, rows, open };
   });
   const shown = sections.reduce((sum, section) => sum + section.rows.length, 0);
 
@@ -99,7 +119,11 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
     <div className={styles.wrap}>
       <header className={styles.header}>
         <div className={styles.headerCopy}>
-          <p className={styles.title}>The classic interview problem list, grouped by pattern.</p>
+          <p className={styles.title}>
+            {beyondBlind75 > 0
+              ? `The Blind 75, plus ${beyondBlind75} more that companies ask often, grouped by pattern.`
+              : "The classic interview problem list, grouped by pattern."}
+          </p>
           <p className={styles.subtitle}>Tick them off as you go. Your progress stays on this device.</p>
         </div>
         <div className={styles.statsGrid}>
@@ -139,6 +163,19 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
             className={styles.searchInput}
           />
         </div>
+        <div role="group" aria-label="List" className={styles.segmentGroup}>
+          {LIST_OPTIONS.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => setList(option.value)}
+              aria-pressed={list === option.value}
+              className={list === option.value ? styles.segmentActive : styles.segment}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
         <div role="group" aria-label="Difficulty" className={styles.segmentGroup}>
           {DIFFICULTY_OPTIONS.map((option) => (
             <button
@@ -171,8 +208,8 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
       </div>
 
       <div className={styles.groups}>
-        {sections.map(({ group, href, label, done, rows, open }) =>
-          isFiltering && rows.length === 0 ? null : (
+        {sections.map(({ group, href, label, done, total, rows, open }) =>
+          (isFiltering || list !== "all") && rows.length === 0 ? null : (
             <ProblemGroupSection
               key={group.key}
               groupKey={group.key}
@@ -180,7 +217,7 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
               number={group.pattern?.number}
               rows={rows}
               doneCount={done}
-              totalCount={group.problems.length}
+              totalCount={total}
               open={open}
               onToggle={() =>
                 setOpenOverrides((prev) => ({ ...prev, [group.key]: !(prev[group.key] ?? true) }))

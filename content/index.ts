@@ -1,12 +1,14 @@
 import patternsData from "./patterns.json";
 import problemsData from "./problems.json";
-import type { Pattern, PatternGroup, Problem } from "./types";
+import type { Pattern, PatternGroup, Problem, ProblemList } from "./types";
 
 export type {
   Pattern,
   PatternGroup,
   PatternVideo,
   Problem,
+  ProblemList,
+  LessonSection,
   Difficulty,
   LivePattern,
   SoonPattern,
@@ -16,10 +18,13 @@ export type {
 const patterns = patternsData as Pattern[];
 const problems = problemsData as Problem[];
 
-/** The problems.json `pattern` value for any Blind-75 problem that doesn't map to a pattern. None do today. */
+/** The problems.json `pattern` value for any problem that doesn't map to a pattern. None do today. */
 export const EXTRAS_KEY = "extras";
 
-/** All 18 patterns, in lesson order (by `number`). */
+/** How many patterns there are, for copy like "All 18 patterns". */
+export const PATTERN_COUNT = patterns.length;
+
+/** Every pattern, in lesson order (by `number`). */
 export function getPatterns(): Pattern[] {
   return patterns;
 }
@@ -29,9 +34,20 @@ export function getPattern(slug: string): Pattern | undefined {
   return patterns.find((pattern) => pattern.slug === slug);
 }
 
-/** All 75 Blind 75 problems. */
+/** Every problem: the Blind 75 and the ones added after it. */
 export function getProblems(): Problem[] {
   return problems;
+}
+
+/** Display names for the study lists in Problem["lists"]. */
+export const PROBLEM_LISTS: Record<ProblemList, string> = {
+  "blind-75": "Blind 75",
+  "neetcode-150": "NeetCode 150",
+};
+
+/** True for the 75 problems on the original Blind 75 list. */
+export function isBlind75(problem: Problem): boolean {
+  return problem.lists.includes("blind-75");
 }
 
 /** A single problem by slug, or `undefined` if it doesn't exist. */

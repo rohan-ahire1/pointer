@@ -172,7 +172,7 @@ export function SoonLesson({ pattern, groupLabel, totalPatterns, prev, next }: S
                 <span className={styles.meanwhileDiff}>{firstProblem.difficulty}</span>
                 <span className={`soft ${styles.meanwhileName}`}>{firstProblem.title}</span>
                 <span className={styles.meanwhileCopy}>
-                  A {pattern.name} problem from the Blind 75. Give it a shot while this lesson comes together.
+                  A {pattern.name} problem to try. Give it a shot while this lesson comes together.
                 </span>
               </Link>
             )}

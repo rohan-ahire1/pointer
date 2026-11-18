@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
+import { getPatterns, getProblems } from "@/content";
 import { countItems, flattenSections, getSearchItems, searchItems, type SearchItem } from "./index";
 
 describe("getSearchItems", () => {
   it("includes every pattern, every problem and every static page", () => {
     const items = getSearchItems();
-    expect(items.filter((i) => i.kind === "pattern")).toHaveLength(18);
-    expect(items.filter((i) => i.kind === "problem")).toHaveLength(75);
+    expect(items.filter((i) => i.kind === "pattern")).toHaveLength(getPatterns().length);
+    expect(items.filter((i) => i.kind === "problem")).toHaveLength(getProblems().length);
     expect(items.filter((i) => i.kind === "page")).toHaveLength(7);
   });
 });

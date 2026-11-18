@@ -9,6 +9,9 @@ export type PatternGroup = "foundations" | "structures" | "advanced";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
+/** A well-known study list a problem belongs to. */
+export type ProblemList = "blind-75" | "neetcode-150";
+
 /** One entry in a lesson's 60-second explainer video transcript. */
 export type VideoTranscriptEntry = {
   /** Seconds from the start of the video. */
@@ -26,7 +29,7 @@ export type PatternVideo = {
 };
 
 type PatternBase = {
-  /** 1-indexed position, 1..18, also shown as the lesson number. */
+  /** 1-indexed position, also shown as the lesson number. */
   number: number;
   slug: string;
   name: string;
@@ -65,6 +68,18 @@ export type LivePattern = PatternBase & {
   visualizer: string;
   /** Further visualizers offered beside the main one, in the order shown. */
   moreVisualizers?: string[];
+  /**
+   * Optional subheadings for the Solve section, for lessons that teach more than
+   * one shape of the pattern. Together they list every problem in `problems`, in order.
+   */
+  sections?: LessonSection[];
+};
+
+export type LessonSection = {
+  title: string;
+  /** One sentence on what changes in this group of problems. */
+  note: string;
+  problems: string[];
 };
 
 /** A discriminated union on `status`: `"soon"` patterns show the coming-soon state. */
@@ -77,7 +92,11 @@ export type Problem = {
   /** A Pattern["slug"], or the special "extras" bucket (see EXTRAS_KEY in content/index.ts). */
   pattern: string;
   leetcodeUrl: string;
+  /** LeetCode's problem number, e.g. 146 for LRU Cache. */
+  leetcodeNumber: number;
   premium: boolean;
+  /** The study lists it appears on. Empty for the extras picked by how often companies ask them. */
+  lists: ProblemList[];
   /**
    * Pattern-page card copy ("Warm-up: …"), only written for the live
    * pattern's problems so far.

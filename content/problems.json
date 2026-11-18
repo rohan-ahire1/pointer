@@ -5,7 +5,12 @@
     "difficulty": "easy",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/contains-duplicate/",
+    "leetcodeNumber": 217,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: one set remembers every number you have seen.",
     "prompt": "Does any number show up more than once in this array?",
     "signal": "You keep asking “have I seen this before?”, so keep a set.",
@@ -18,7 +23,12 @@
     "difficulty": "easy",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/valid-anagram/",
+    "leetcodeNumber": 242,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: count the letters here, count them there, compare.",
     "prompt": "Do two strings use exactly the same letters, the same number of times?",
     "signal": "Only the letter counts matter, so count and compare.",
@@ -31,7 +41,12 @@
     "difficulty": "easy",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/two-sum/",
+    "leetcodeNumber": 1,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Find the two numbers in an unsorted array that add up to a target.",
     "signal": "Each number tells you exactly which partner it needs, so look the partner up.",
@@ -45,7 +60,12 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/group-anagrams/",
+    "leetcodeNumber": 49,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same letter counts, now used as a key for each group.",
     "prompt": "Sort a list of words into buckets, so words made of the same letters land together.",
     "signal": "Words that belong together share a key: their sorted letters or letter counts.",
@@ -58,7 +78,12 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/top-k-frequent-elements/",
+    "leetcodeNumber": 347,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Count everything first, then keep the k biggest counts.",
     "prompt": "Return the k values that appear most often in an array.",
     "signal": "Count with a map, then bucket values by their count.",
@@ -74,7 +99,12 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/encode-and-decode-strings/",
+    "leetcodeNumber": 271,
     "premium": true,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Store each length up front, so decoding never guesses.",
     "prompt": "Squeeze a list of strings into one string and get them back, whatever characters they hold.",
     "signal": "Write each length first, so you never need a separator that could clash.",
@@ -87,7 +117,12 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/product-of-array-except-self/",
+    "leetcodeNumber": 238,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Prefix and suffix products, with no division allowed.",
     "prompt": "For each position, give the product of all the other numbers, without division.",
     "signal": "Everything to my left times everything to my right: two running products.",
@@ -101,7 +136,12 @@
     "difficulty": "medium",
     "pattern": "arrays-and-hashing",
     "leetcodeUrl": "https://leetcode.com/problems/longest-consecutive-sequence/",
+    "leetcodeNumber": 128,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "A set finds each run’s start in constant time.",
     "prompt": "Find the longest run of neighbouring values, like 4, 5, 6, in an unsorted array, in linear time.",
     "signal": "A set lets you count only from the true start of each run.",
@@ -114,7 +154,12 @@
     "difficulty": "easy",
     "pattern": "two-pointers",
     "leetcodeUrl": "https://leetcode.com/problems/valid-palindrome/",
+    "leetcodeNumber": 125,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: ends walk inward, skipping anything that isn’t a letter or digit.",
     "prompt": "Does this sentence read the same both ways once you ignore case and punctuation?",
     "signal": "Compare the outside pair, then work inward.",
@@ -127,7 +172,12 @@
     "difficulty": "medium",
     "pattern": "two-pointers",
     "leetcodeUrl": "https://leetcode.com/problems/3sum/",
+    "leetcodeNumber": 15,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Sort first, then run two pointers from every start.",
     "prompt": "Find every unique trio of numbers that adds up to zero.",
     "signal": "Sort, fix one number, then close in on the other two from both ends.",
@@ -141,7 +191,12 @@
     "difficulty": "medium",
     "pattern": "two-pointers",
     "leetcodeUrl": "https://leetcode.com/problems/container-with-most-water/",
+    "leetcodeNumber": 11,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Pick two vertical lines that hold the most water between them.",
     "signal": "Start with the widest pair. Only moving the shorter line can ever help.",
@@ -158,7 +213,12 @@
     "difficulty": "easy",
     "pattern": "sliding-window",
     "leetcodeUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    "leetcodeNumber": 121,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: the cheapest price so far is your window’s left edge.",
     "prompt": "Given daily prices, find the biggest profit from one buy followed by one sell.",
     "signal": "Hold the cheapest day so far on the left and let the right edge scan.",
@@ -175,7 +235,12 @@
     "difficulty": "medium",
     "pattern": "sliding-window",
     "leetcodeUrl": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    "leetcodeNumber": 3,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "How long is the longest unbroken stretch of a string with no repeated letter?",
     "signal": "An unbroken stretch with a rule: grow on the right, shrink on the left when it breaks.",
@@ -189,7 +254,12 @@
     "difficulty": "medium",
     "pattern": "sliding-window",
     "leetcodeUrl": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+    "leetcodeNumber": 424,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same window, but shrink only when replacements run out.",
     "prompt": "You may change up to k letters. How long a run of one letter can you make?",
     "signal": "A stretch is fine while its length minus the count of its most common letter is at most k.",
@@ -202,7 +272,12 @@
     "difficulty": "hard",
     "pattern": "sliding-window",
     "leetcodeUrl": "https://leetcode.com/problems/minimum-window-substring/",
+    "leetcodeNumber": 76,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Grow until the window is valid, then shrink it as small as it goes.",
     "prompt": "Find the shortest piece of a string that contains every letter of another string.",
     "signal": "Grow until it covers everything, then shrink while it still does.",
@@ -216,7 +291,12 @@
     "difficulty": "easy",
     "pattern": "stack",
     "leetcodeUrl": "https://leetcode.com/problems/valid-parentheses/",
+    "leetcodeNumber": 20,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Check that every bracket in a string closes in the right order.",
     "signal": "The newest open bracket must close first: last in, first out.",
@@ -230,7 +310,12 @@
     "difficulty": "medium",
     "pattern": "binary-search",
     "leetcodeUrl": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+    "leetcodeNumber": 153,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "A sorted array was rotated at an unknown point. Find its smallest value in log time.",
     "signal": "Comparing the middle to the right end tells you which half holds the drop.",
@@ -244,7 +329,12 @@
     "difficulty": "medium",
     "pattern": "binary-search",
     "leetcodeUrl": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+    "leetcodeNumber": 33,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same halving, but first ask which half is sorted.",
     "prompt": "Find a target in a sorted array that was rotated at an unknown point, in log time.",
     "signal": "One half is always in order. Check whether the target sits inside it.",
@@ -258,7 +348,12 @@
     "difficulty": "easy",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/reverse-linked-list/",
+    "leetcodeNumber": 206,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Flip a chain of nodes so the last one comes first.",
     "signal": "Repoint one arrow at a time, holding on to the rest of the chain.",
@@ -272,7 +367,12 @@
     "difficulty": "easy",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/merge-two-sorted-lists/",
+    "leetcodeNumber": 21,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: walk both lists, always taking the smaller head.",
     "prompt": "Combine two sorted chains of nodes into one sorted chain.",
     "signal": "Compare the two heads and relink the smaller one.",
@@ -285,7 +385,12 @@
     "difficulty": "easy",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/linked-list-cycle/",
+    "leetcodeNumber": 141,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "A fast pointer laps a slow one exactly when a loop exists.",
     "prompt": "Does this chain of nodes loop back on itself?",
     "signal": "A fast walker and a slow walker only meet if there’s a loop.",
@@ -302,7 +407,12 @@
     "difficulty": "medium",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/reorder-list/",
+    "leetcodeNumber": 143,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Find the middle, reverse the back half, then weave.",
     "prompt": "Rearrange a chain as first, last, second, second-last, and so on.",
     "signal": "Find the middle, reverse the back half, then weave the two.",
@@ -318,7 +428,12 @@
     "difficulty": "medium",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+    "leetcodeNumber": 19,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Two pointers, n apart, walk to the end together.",
     "prompt": "Delete the node n places from the end of a chain, in one pass.",
     "signal": "Two walkers n apart: when the front one hits the end, the back one is in place.",
@@ -334,7 +449,12 @@
     "difficulty": "hard",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/merge-k-sorted-lists/",
+    "leetcodeNumber": 23,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Merge pairs again and again until one list is left.",
     "prompt": "Combine k sorted chains of nodes into one sorted chain.",
     "signal": "Merge in pairs, halving the number of lists each round.",
@@ -350,7 +470,12 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/invert-binary-tree/",
+    "leetcodeNumber": 226,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: swap each node’s children, top down.",
     "prompt": "Mirror a tree so every left child swaps with its right child.",
     "signal": "Handle one node and let recursion do the rest.",
@@ -363,7 +488,12 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+    "leetcodeNumber": 104,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "How many levels does this tree have at its deepest point?",
     "signal": "My depth is one more than my deepest child.",
@@ -377,7 +507,12 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/same-tree/",
+    "leetcodeNumber": 100,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Walk both trees together; every pair must match.",
     "prompt": "Do these two tree shapes hold the same values in the same places?",
     "signal": "Walk both at once. One mismatch ends it.",
@@ -390,7 +525,12 @@
     "difficulty": "easy",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/subtree-of-another-tree/",
+    "leetcodeNumber": 572,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same-tree check, tried at every node.",
     "prompt": "Does a smaller tree appear exactly inside a bigger one?",
     "signal": "Run the same-tree check from every node.",
@@ -403,7 +543,12 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+    "leetcodeNumber": 235,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Split point where the targets part ways.",
     "prompt": "Find the lowest shared parent of two values, in a tree where left is smaller and right is bigger.",
     "signal": "Walk down until the two values fall on different sides, or you land on one of them.",
@@ -416,7 +561,12 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+    "leetcodeNumber": 102,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "A queue walks the tree one level at a time.",
     "prompt": "List a tree’s values row by row, from the top down.",
     "signal": "A queue hands you each level in turn.",
@@ -433,7 +583,12 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/validate-binary-search-tree/",
+    "leetcodeNumber": 98,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Each node inherits a valid range from above.",
     "prompt": "Check that everything left of a node is smaller and everything right of it is bigger, at every node.",
     "signal": "Pass an allowed range down as you go.",
@@ -446,7 +601,12 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+    "leetcodeNumber": 230,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "In-order walk, counting until you reach k.",
     "prompt": "Find the kth smallest value in a tree where left is smaller and right is bigger.",
     "signal": "An in-order walk visits values in sorted order.",
@@ -462,7 +622,12 @@
     "difficulty": "medium",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+    "leetcodeNumber": 105,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The preorder head splits the inorder list.",
     "prompt": "Rebuild a tree from its preorder and inorder listings.",
     "signal": "Preorder names the root. Inorder splits left from right.",
@@ -475,7 +640,12 @@
     "difficulty": "hard",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+    "leetcodeNumber": 124,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Like depth, but the best path may bend.",
     "prompt": "Find the largest total along any path in a tree. A path can start and end at any node, but can’t visit a node twice.",
     "signal": "Each node passes up its best straight arm and scores its best bend.",
@@ -488,7 +658,12 @@
     "difficulty": "hard",
     "pattern": "trees",
     "leetcodeUrl": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+    "leetcodeNumber": 297,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Level order out, level order back in.",
     "prompt": "Turn a tree into a string and rebuild the exact same tree from it.",
     "signal": "Walk it and write down the gaps too.",
@@ -501,7 +676,12 @@
     "difficulty": "medium",
     "pattern": "tries",
     "leetcodeUrl": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+    "leetcodeNumber": 208,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Build a word store that answers “is this a word?” and “does any word start with this?”",
     "signal": "Words with the same start share one path of letters.",
@@ -515,7 +695,12 @@
     "difficulty": "medium",
     "pattern": "tries",
     "leetcodeUrl": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+    "leetcodeNumber": 211,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Trie search where “.” matches any letter at that spot.",
     "prompt": "Store words and search them, where a dot can stand for any one letter.",
     "signal": "Walk a tree of letters, and branch everywhere on a dot.",
@@ -531,7 +716,12 @@
     "difficulty": "hard",
     "pattern": "tries",
     "leetcodeUrl": "https://leetcode.com/problems/word-search-ii/",
+    "leetcodeNumber": 212,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Walk the board and the trie together, pruning dead letters.",
     "prompt": "Find every word from a list that can be traced through a board of letters.",
     "signal": "A tree of all the words lets you search them at once and drop dead paths.",
@@ -547,7 +737,12 @@
     "difficulty": "hard",
     "pattern": "heaps",
     "leetcodeUrl": "https://leetcode.com/problems/find-median-from-data-stream/",
+    "leetcodeNumber": 295,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Numbers arrive one at a time. Report the middle value at any moment.",
     "signal": "Keep the small half and big half apart, with each top on hand.",
@@ -561,7 +756,12 @@
     "difficulty": "medium",
     "pattern": "backtracking",
     "leetcodeUrl": "https://leetcode.com/problems/combination-sum/",
+    "leetcodeNumber": 39,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "List every way to pick numbers, repeats allowed, that add up to a target.",
     "signal": "Choose, go deeper, undo, try the next one.",
@@ -578,7 +778,12 @@
     "difficulty": "medium",
     "pattern": "backtracking",
     "leetcodeUrl": "https://leetcode.com/problems/word-search/",
+    "leetcodeNumber": 79,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same try-and-undo walk, stepping to neighbour cells.",
     "prompt": "Can this word be traced through a letter grid without using a cell twice?",
     "signal": "Step to a neighbour, mark it, and unmark it on the way back.",
@@ -592,7 +797,12 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-islands/",
+    "leetcodeNumber": 200,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Count the separate groups of land cells on a grid of land and water.",
     "signal": "Each new land cell starts a flood that claims its whole group.",
@@ -609,7 +819,12 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/clone-graph/",
+    "leetcodeNumber": 133,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same flood, but copy each node as you claim it.",
     "prompt": "Make a full copy of a set of connected nodes, loops included.",
     "signal": "A map from old node to new node stops you copying anything twice.",
@@ -622,7 +837,12 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
+    "leetcodeNumber": 417,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Flood from both oceans, keep the overlap.",
     "prompt": "On a height map with one sea along the top and left edges and another along the bottom and right edges, find the cells where rain can drain into both seas.",
     "signal": "Work backwards: flood uphill from each sea and keep the overlap.",
@@ -635,7 +855,12 @@
     "difficulty": "medium",
     "pattern": "graphs",
     "leetcodeUrl": "https://leetcode.com/problems/course-schedule/",
+    "leetcodeNumber": 207,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Take what has nothing left to wait for. If some never free up, there’s a loop.",
     "prompt": "Some tasks must come before others. Can you finish them all?",
     "signal": "Tasks and rules form arrows. A loop makes it impossible.",
@@ -652,13 +877,20 @@
     "difficulty": "medium",
     "pattern": "advanced-graphs",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/",
+    "leetcodeNumber": 323,
     "premium": true,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Start with n groups. Each useful link removes one.",
     "prompt": "Given nodes and links, count how many separate groups there are.",
     "signal": "Flood from each unvisited node, or join groups as you read the links.",
     "time": "O(V + E)",
     "space": "O(V + E)",
-    "alsoFits": ["graphs"],
+    "alsoFits": [
+      "graphs"
+    ],
     "visualizer": "connected-components"
   },
   {
@@ -667,13 +899,21 @@
     "difficulty": "medium",
     "pattern": "advanced-graphs",
     "leetcodeUrl": "https://leetcode.com/problems/graph-valid-tree/",
+    "leetcodeNumber": 261,
     "premium": true,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "A link inside one group means a loop.",
     "prompt": "Do these links join all the nodes with no loops?",
     "signal": "Exactly n − 1 links, and one flood reaches everyone.",
     "time": "O(V + E)",
     "space": "O(V + E)",
-    "alsoFits": ["graphs", "trees"]
+    "alsoFits": [
+      "graphs",
+      "trees"
+    ]
   },
   {
     "slug": "climbing-stairs",
@@ -681,7 +921,12 @@
     "difficulty": "easy",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/climbing-stairs/",
+    "leetcodeNumber": 70,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: each step adds the two ways below it.",
     "prompt": "You climb one or two stairs at a time. How many ways can you reach the top?",
     "signal": "Ways to reach a stair: the ways to the two below it, added.",
@@ -694,7 +939,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/house-robber/",
+    "leetcodeNumber": 198,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory, then keep only the last two cells for O(1) space.",
     "prompt": "Pick values from a row, never two side by side, for the biggest total.",
     "signal": "At each spot: take it plus the best from two back, or skip it.",
@@ -708,7 +958,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/house-robber-ii/",
+    "leetcodeNumber": 213,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Same street, but the ends are neighbours too.",
     "prompt": "Pick values from a circle, never two side by side, for the biggest total.",
     "signal": "Solve the row twice: once without the first item, once without the last.",
@@ -721,7 +976,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/longest-palindromic-substring/",
+    "leetcodeNumber": 5,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Grow the answer out from each centre.",
     "prompt": "Find the longest stretch of a string that reads the same both ways.",
     "signal": "Expand from every centre: a long palindrome holds a shorter one.",
@@ -737,7 +997,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/palindromic-substrings/",
+    "leetcodeNumber": 647,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Count the palindromes around every centre.",
     "prompt": "Count how many stretches of a string read the same both ways.",
     "signal": "Every centre grows its own set of palindromes.",
@@ -753,7 +1018,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/decode-ways/",
+    "leetcodeNumber": 91,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Each digit stands alone or pairs with its neighbour.",
     "prompt": "Digits stand for letters, 1 for A up to 26 for Z. How many ways can this digit string be read?",
     "signal": "Each position builds on the one-digit and two-digit reads before it.",
@@ -766,7 +1036,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/coin-change/",
+    "leetcodeNumber": 322,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Fewest coins for each amount, built up amount by amount.",
     "prompt": "Find the fewest coins that add up to an amount.",
     "signal": "The best for an amount is one coin plus the best for what’s left.",
@@ -780,7 +1055,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/maximum-product-subarray/",
+    "leetcodeNumber": 152,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Track the best and worst ending at each step.",
     "prompt": "Find the unbroken run of numbers with the largest product.",
     "signal": "A negative swaps best and worst, so track both.",
@@ -793,7 +1073,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/word-break/",
+    "leetcodeNumber": 139,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Each cut asks whether the prefix already breaks.",
     "prompt": "Can this string be cut into words from a dictionary?",
     "signal": "A cut works if the part before it already breaks and the part after it is a word.",
@@ -809,7 +1094,12 @@
     "difficulty": "medium",
     "pattern": "1-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/longest-increasing-subsequence/",
+    "leetcodeNumber": 300,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Each number extends the best run before it.",
     "prompt": "Find the longest chain of values that keeps rising, with gaps allowed.",
     "signal": "Each value extends the best chain ending at a smaller value. That is O(n²); keeping the smallest tail for each length, found by binary search, gets it to O(n log n).",
@@ -825,7 +1115,12 @@
     "difficulty": "medium",
     "pattern": "2-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/unique-paths/",
+    "leetcodeNumber": 62,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: each cell adds the ways from above and left.",
     "prompt": "A robot moves only right or down across a grid. How many routes reach the far corner?",
     "signal": "Ways into a cell: the ways from above plus the ways from the left.",
@@ -842,7 +1137,12 @@
     "difficulty": "medium",
     "pattern": "2-d-dp",
     "leetcodeUrl": "https://leetcode.com/problems/longest-common-subsequence/",
+    "leetcodeNumber": 1143,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Find the longest sequence of letters two strings share, in order, with gaps allowed.",
     "signal": "Two strings, two indices: fill a table of answers for every pair of prefixes.",
@@ -856,7 +1156,12 @@
     "difficulty": "medium",
     "pattern": "greedy",
     "leetcodeUrl": "https://leetcode.com/problems/maximum-subarray/",
+    "leetcodeNumber": 53,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Extend the running sum or restart it, keeping the best seen.",
     "prompt": "Find the unbroken run of numbers with the largest sum.",
     "signal": "If the running total goes negative, drop it and restart.",
@@ -874,7 +1179,12 @@
     "difficulty": "medium",
     "pattern": "greedy",
     "leetcodeUrl": "https://leetcode.com/problems/jump-game/",
+    "leetcodeNumber": 55,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Each number says how far you can hop. Can you get from the first spot to the last?",
     "signal": "Only the farthest reachable spot matters.",
@@ -891,7 +1201,12 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/insert-interval/",
+    "leetcodeNumber": 57,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Slide the new interval into its sorted slot, then merge.",
     "prompt": "Add one new time range to a sorted list of ranges, joining any that touch.",
     "signal": "Copy what’s before, merge what overlaps, copy the rest.",
@@ -904,7 +1219,12 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/merge-intervals/",
+    "leetcodeNumber": 56,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Join every overlapping time range in a list.",
     "signal": "Sort by start. Each range either extends the last one or starts a new one.",
@@ -918,7 +1238,12 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/non-overlapping-intervals/",
+    "leetcodeNumber": 435,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Count the overlaps to remove instead of merging them.",
     "prompt": "Remove the fewest time ranges so the rest don’t overlap.",
     "signal": "Keep whichever ends first. It leaves the most room.",
@@ -934,7 +1259,12 @@
     "difficulty": "easy",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/meeting-rooms/",
+    "leetcodeNumber": 252,
     "premium": true,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Warm-up: sort by start; any overlap means a clash.",
     "prompt": "Can one person attend every meeting on this list?",
     "signal": "Sort by start. Any overlap means a clash.",
@@ -947,7 +1277,12 @@
     "difficulty": "medium",
     "pattern": "intervals",
     "leetcodeUrl": "https://leetcode.com/problems/meeting-rooms-ii/",
+    "leetcodeNumber": 253,
     "premium": true,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Track how many meetings run at once; keep the peak.",
     "prompt": "How many rooms do you need to hold all these meetings?",
     "signal": "Sort starts and ends apart and track how many run at once.",
@@ -964,13 +1299,20 @@
     "difficulty": "hard",
     "pattern": "advanced-graphs",
     "leetcodeUrl": "https://leetcode.com/problems/alien-dictionary/",
+    "leetcodeNumber": 269,
     "premium": true,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Turn word pairs into arrows, then sort them.",
     "prompt": "Work out a letter order from a sorted list of words in an unknown alphabet.",
     "signal": "Each neighbouring word pair gives one before-and-after rule, from its first different letter. Order the rules with a topological sort.",
     "time": "O(c)",
     "space": "O(1)",
-    "alsoFits": ["graphs"]
+    "alsoFits": [
+      "graphs"
+    ]
   },
   {
     "slug": "rotate-image",
@@ -978,7 +1320,12 @@
     "difficulty": "medium",
     "pattern": "math-and-geometry",
     "leetcodeUrl": "https://leetcode.com/problems/rotate-image/",
+    "leetcodeNumber": 48,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Flip across the diagonal, then mirror each row.",
     "prompt": "Turn a square grid 90 degrees clockwise, in place.",
     "signal": "Flip across the diagonal, then reverse each row.",
@@ -991,7 +1338,12 @@
     "difficulty": "medium",
     "pattern": "math-and-geometry",
     "leetcodeUrl": "https://leetcode.com/problems/spiral-matrix/",
+    "leetcodeNumber": 54,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Read a grid in a spiral from the top-left corner inward.",
     "signal": "Track four walls and pull each one in after you walk it.",
@@ -1005,7 +1357,12 @@
     "difficulty": "medium",
     "pattern": "math-and-geometry",
     "leetcodeUrl": "https://leetcode.com/problems/set-matrix-zeroes/",
+    "leetcodeNumber": 73,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Use the first row and column as notes.",
     "prompt": "If a cell is zero, set its whole row and column to zero, in place.",
     "signal": "Use the first row and column as your notepad.",
@@ -1018,7 +1375,12 @@
     "difficulty": "easy",
     "pattern": "bit-manipulation",
     "leetcodeUrl": "https://leetcode.com/problems/number-of-1-bits/",
+    "leetcodeNumber": 191,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "The one you just watched. Write it from memory.",
     "prompt": "Count the 1 bits in a number.",
     "signal": "n & (n − 1) clears the lowest 1 bit.",
@@ -1032,7 +1394,12 @@
     "difficulty": "easy",
     "pattern": "bit-manipulation",
     "leetcodeUrl": "https://leetcode.com/problems/counting-bits/",
+    "leetcodeNumber": 338,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Reuse the count for i >> 1.",
     "prompt": "For every number from 0 to n, count its 1 bits.",
     "signal": "bits(i) = bits(i >> 1) + (i & 1).",
@@ -1048,7 +1415,12 @@
     "difficulty": "easy",
     "pattern": "bit-manipulation",
     "leetcodeUrl": "https://leetcode.com/problems/reverse-bits/",
+    "leetcodeNumber": 190,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "Shift off one end, onto the other.",
     "prompt": "Flip the order of the 32 bits in a number.",
     "signal": "Shift bits off one end and onto the other.",
@@ -1061,7 +1433,12 @@
     "difficulty": "easy",
     "pattern": "bit-manipulation",
     "leetcodeUrl": "https://leetcode.com/problems/missing-number/",
+    "leetcodeNumber": 268,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "XOR cancels every pair.",
     "prompt": "One number from 0 to n is missing from an array. Find it.",
     "signal": "XOR everything, or compare against the expected sum.",
@@ -1078,7 +1455,12 @@
     "difficulty": "medium",
     "pattern": "bit-manipulation",
     "leetcodeUrl": "https://leetcode.com/problems/sum-of-two-integers/",
+    "leetcodeNumber": 371,
     "premium": false,
+    "lists": [
+      "blind-75",
+      "neetcode-150"
+    ],
     "twist": "XOR adds, AND finds the carries.",
     "prompt": "Add two numbers without using + or −.",
     "signal": "XOR gives the sum without carries, AND gives the carries. Repeat.",

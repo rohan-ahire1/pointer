@@ -16,7 +16,7 @@ const DIFFICULTY_BADGE_BG: Record<Difficulty, string> = {
 const STATIC_PAGES: readonly { title: string; href: string }[] = [
   { title: "Home", href: "/" },
   { title: "All patterns", href: "/patterns" },
-  { title: "The Blind 75 problems", href: "/problems" },
+  { title: "All problems: the Blind 75 and more", href: "/problems" },
   { title: "Pattern drill", href: "/drill" },
   { title: "Cheat sheet", href: "/cheatsheet" },
   { title: "Your progress", href: "/progress" },
