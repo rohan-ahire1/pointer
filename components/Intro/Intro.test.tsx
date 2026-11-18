@@ -22,6 +22,8 @@ describe("Intro", () => {
     vi.stubGlobal("requestAnimationFrame", (paint: FrameRequestCallback) =>
       setTimeout(() => paint((now += 500))),
     );
+    // The intro gives up if the page took over 2.5s to load; vitest's clock starts with the worker.
+    vi.spyOn(performance, "now").mockReturnValue(100);
     Object.defineProperty(document, "fonts", { configurable: true, value: { ready: Promise.resolve() } });
     Range.prototype.getBoundingClientRect = () => new DOMRect(40, 20, 90, 24);
     window.localStorage.clear();
@@ -30,6 +32,7 @@ describe("Intro", () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    vi.restoreAllMocks();
     document.documentElement.removeAttribute(INTRO_ATTRIBUTE);
   });
 
