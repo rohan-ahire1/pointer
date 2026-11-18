@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { COLOR, loadFonts } from "@/lib/og";
+import { PATTERN_COUNT } from "@/content";
 
 export const dynamic = "force-static";
 
@@ -110,7 +111,7 @@ export default async function OpengraphImage() {
           </div>
 
           <div style={{ display: "flex", fontSize: 24, color: COLOR.muted }}>
-            18 interview patterns · animated explainers · free
+            {PATTERN_COUNT} interview patterns · animated explainers · free
           </div>
           <div
             style={{

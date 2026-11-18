@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getPatternGroups, getProblems, EXTRAS_KEY } from "@/content";
+import { PATTERN_COUNT, getPatternGroups, getProblems, EXTRAS_KEY } from "@/content";
 import { PatternsBrowser } from "@/components/Patterns/PatternsBrowser/PatternsBrowser";
 import { YourProgressCard } from "@/components/Patterns/YourProgressCard/YourProgressCard";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "All 18 patterns",
+  title: `All ${PATTERN_COUNT} patterns`,
   description: "Most interview problems are one of these in disguise. Learn them in order, or jump to the one you need.",
   alternates: { canonical: "/patterns" },
 };
@@ -23,7 +23,7 @@ export default function PatternsPage() {
             <Link href="/">Home</Link> <span aria-hidden="true">›</span>{" "}
             <span aria-current="page">Patterns</span>
           </nav>
-          <h1 className={`soft ${styles.title}`}>All 18 patterns</h1>
+          <h1 className={`soft ${styles.title}`}>All {PATTERN_COUNT} patterns</h1>
           <p className={styles.lead}>
             Most interview problems are one of these in disguise. Learn them in order, or jump to the one
             you need.

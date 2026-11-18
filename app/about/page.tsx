@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { CONTACT_EMAIL, SOCIAL_LINKS } from "@/lib/site";
+import { PATTERN_COUNT } from "@/content";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Pointer teaches the 18 patterns behind most coding interviews by showing them move, one step at a time.",
+    `Pointer teaches the ${PATTERN_COUNT} patterns behind most coding interviews by showing them move, one step at a time.`,
   alternates: { canonical: "/about" },
 };
 
@@ -65,7 +66,7 @@ export default function AboutPage() {
             About <span className={styles.titleHighlight}>pointer</span>
           </h1>
           <p className={styles.lead}>
-            Pointer teaches the 18 patterns behind most coding interviews by showing them move, one step at
+            Pointer teaches the {PATTERN_COUNT} patterns behind most coding interviews by showing them move, one step at
             a time. Watch a one-minute animation, drive the visualizer yourself, then solve the real
             problems.
           </p>
@@ -135,7 +136,9 @@ export default function AboutPage() {
           CREDITS
         </h2>
         <p className={styles.creditsBody}>
-          Problem list: the Blind 75, compiled by Yangshun Tay. Pattern grouping inspired by NeetCode.
+          Problem list: the Blind 75, compiled by Yangshun Tay, plus problems from NeetCode 150 and Grind 169 picked by
+          how often companies ask them (company tags from liquidslr/leetcode-company-wise-problems). Pattern grouping
+          inspired by NeetCode.
           Problems link to LeetCode. Animations made with Remotion.
         </p>
       </section>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPatternGroups, getPatterns } from "@/content";
+import { PATTERN_COUNT, getPatternGroups, getPatterns } from "@/content";
 import { groupNumberRange } from "@/lib/pattern-style";
 import { PatternCard } from "@/components/PatternCard/PatternCard";
 import { WelcomeBackBanner } from "@/components/Home/WelcomeBackBanner/WelcomeBackBanner";
@@ -31,7 +31,7 @@ const FEATURE_TILES = [
 
 const SHARP_LINKS = [
   { href: "/drill", title: "Pattern drill", body: "Read a problem and name the pattern. Ten quick questions." },
-  { href: "/cheatsheet", title: "Cheat sheet", body: "All 18 patterns on one page. Print it for the night before." },
+  { href: "/cheatsheet", title: "Cheat sheet", body: `All ${PATTERN_COUNT} patterns on one page. Print it for the night before.` },
 ];
 
 /** Home (design/mocks/C2-Home.dc.html / C2-Home-Dark.dc.html). */
@@ -57,7 +57,7 @@ export default function HomePage() {
 
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>18 patterns. zero memorizing.</p>
+          <p className={styles.eyebrow}>{PATTERN_COUNT} patterns. zero memorizing.</p>
           <h1 className={`soft ${styles.title}`}>
             Algorithms you can <span className={styles.highlight}>watch move.</span>
           </h1>
