@@ -275,6 +275,59 @@ const CHECKS: Record<string, Check> = {
       return { args: [a, b], want };
     },
   },
+  "range-sum-query-immutable": {
+    name: "NumArray",
+    calls: (NumArray, int) => {
+      const nums = ints(int, 1, 12, -50, 50);
+      const sums = new NumArray(...([nums] as never[]));
+      for (let q = int(1, 8); q > 0; q--) {
+        const left = int(0, nums.length - 1);
+        const right = int(left, nums.length - 1);
+        const want = nums.slice(left, right + 1).reduce((a, b) => a + b, 0);
+        expect(call(sums, "sumRange", left, right)).toBe(want);
+      }
+    },
+  },
+  "subarray-sum-equals-k": {
+    cases: (int) => {
+      const nums = ints(int, 1, 14, -5, 5);
+      const k = int(-6, 6);
+      let want = 0;
+      for (let i = 0; i < nums.length; i++) for (let j = i; j < nums.length; j++) if (nums.slice(i, j + 1).reduce((a, b) => a + b, 0) === k) want++;
+      return { args: [nums, k], want };
+    },
+  },
+  "contiguous-array": {
+    cases: (int) => {
+      const nums = ints(int, 1, 16, 0, 1);
+      let want = 0;
+      for (let i = 0; i < nums.length; i++) {
+        for (let j = i; j < nums.length; j++) {
+          const ones = nums.slice(i, j + 1).filter((x) => x === 1).length;
+          if (ones * 2 === j - i + 1) want = Math.max(want, j - i + 1);
+        }
+      }
+      return { args: [nums], want };
+    },
+  },
+  "continuous-subarray-sum": {
+    cases: (int) => {
+      const nums = ints(int, 1, 10, 0, 12);
+      const k = int(1, 13);
+      let want = false;
+      for (let i = 0; i < nums.length; i++) for (let j = i + 1; j < nums.length; j++) if (nums.slice(i, j + 1).reduce((a, b) => a + b, 0) % k === 0) want = true;
+      return { args: [nums, k], want };
+    },
+  },
+  "subarray-sums-divisible-by-k": {
+    cases: (int) => {
+      const nums = ints(int, 1, 14, -9, 9);
+      const k = int(1, 9);
+      let want = 0;
+      for (let i = 0; i < nums.length; i++) for (let j = i; j < nums.length; j++) if (nums.slice(i, j + 1).reduce((a, b) => a + b, 0) % k === 0) want++;
+      return { args: [nums, k], want };
+    },
+  },
 };
 
 describe("worked solutions", () => {
