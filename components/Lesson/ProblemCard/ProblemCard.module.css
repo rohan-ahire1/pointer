@@ -16,6 +16,11 @@
   background: var(--tint-mint);
 }
 
+/* An open solution needs room for its code, so the card takes the whole row. */
+.cardWide {
+  grid-column: 1 / -1;
+}
+
 .head {
   display: flex;
   justify-content: space-between;
@@ -55,6 +60,47 @@
   font-size: 17px;
   font-weight: 700;
   line-height: 1.15;
+}
+
+.meta {
+  margin: -6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.solution {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  animation: solution-in var(--dur-base) var(--ease-out);
+}
+
+/* Without this the `display` above beats the hidden attribute. */
+.solution[hidden] {
+  display: none;
+}
+
+@keyframes solution-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.solutionHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.solutionCost {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .premium {

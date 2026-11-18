@@ -8,23 +8,25 @@ type ProblemHintToggleProps = {
   open: boolean;
   title: string;
   onToggle: () => void;
+  /** What it opens. Defaults to "Hint"; lesson cards reuse it for "Solution". */
+  label?: string;
 };
 
 /** The button half of a hint. Kept apart because each host puts it somewhere different. */
-export function ProblemHintToggle({ controls, open, title, onToggle }: ProblemHintToggleProps) {
+export function ProblemHintToggle({ controls, open, title, onToggle, label = "Hint" }: ProblemHintToggleProps) {
   return (
     <button
       type="button"
       aria-expanded={open}
       aria-controls={controls}
-      aria-label={`Hint for ${title}`}
+      aria-label={`${label} for ${title}`}
       onClick={onToggle}
       className={styles.toggle}
     >
       <span aria-hidden="true" className={open ? styles.chevronOpen : styles.chevron}>
         ▸
       </span>
-      Hint
+      {label}
     </button>
   );
 }

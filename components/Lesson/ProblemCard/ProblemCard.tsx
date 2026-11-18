@@ -2,17 +2,22 @@
 
 import { useId, useState, type MouseEvent } from "react";
 import Link from "next/link";
-import { problemVisualizerHref, type Problem } from "@/content";
+import { PROBLEM_LISTS, problemVisualizerHref, type Problem } from "@/content";
+import type { Solution } from "@/content/solutions";
 import { useProgress } from "@/lib/progress";
 import { padPatternNumber } from "@/lib/pattern-nav";
 import { dispatchShowVisualizer } from "@/lib/visualizer-events";
 import { ProblemHint, ProblemHintToggle } from "@/components/Problems/ProblemHint/ProblemHint";
+import { CodeLangToggle } from "@/components/CodeLangToggle/CodeLangToggle";
+import { PatternCode } from "@/components/PatternCode/PatternCode";
 import styles from "./ProblemCard.module.css";
 
 type ProblemCardProps = {
   problem: Problem;
   /** 1-indexed position within the pattern's problem list, for the "01" badge. */
   index: number;
+  /** A worked solution, when the problem has one (content/solutions.ts). */
+  solution?: Solution;
 };
 
 const DIFFICULTY_LABEL: Record<Problem["difficulty"], string> = {
@@ -33,11 +38,13 @@ const DIFFICULTY_CLASS: Record<Problem["difficulty"], string> = {
  * /problems via the progress store, and a LeetCode link that announces it
  * opens a new tab. Also reused (read-only context differs) by /problems.
  */
-export function ProblemCard({ problem, index }: ProblemCardProps) {
+export function ProblemCard({ problem, index, solution }: ProblemCardProps) {
   const { isSolved, toggleSolved } = useProgress();
   const solved = isSolved(problem.slug);
   const [hintOpen, setHintOpen] = useState(false);
   const hintId = useId();
+  const [solutionOpen, setSolutionOpen] = useState(false);
+  const solutionId = useId();
   const visualizerHref = problemVisualizerHref(problem);
 
   /** Stays on the page so the reader keeps their place; a modified click still opens a new tab. */
@@ -47,8 +54,11 @@ export function ProblemCard({ problem, index }: ProblemCardProps) {
     dispatchShowVisualizer(problem.visualizer);
   }
 
+  const listNames = problem.lists.map((list) => PROBLEM_LISTS[list]);
+  const cardClass = solved ? `tilt ${styles.cardSolved}` : `tilt ${styles.card}`;
+
   return (
-    <li className={solved ? `tilt ${styles.cardSolved}` : `tilt ${styles.card}`}>
+    <li className={solutionOpen ? `${cardClass} ${styles.cardWide}` : cardClass}>
       <div className={styles.head}>
         <span className={`${styles.diffTag} ${DIFFICULTY_CLASS[problem.difficulty]}`}>
           {DIFFICULTY_LABEL[problem.difficulty]}
@@ -56,6 +66,10 @@ export function ProblemCard({ problem, index }: ProblemCardProps) {
         <span className={styles.index}>{padPatternNumber(index)}</span>
       </div>
       <h3 className={`soft ${styles.title}`}>{problem.title}</h3>
+      <p className={styles.meta}>
+        LeetCode {problem.leetcodeNumber}
+        {listNames.length > 0 ? ` · ${listNames.join(" · ")}` : ""}
+      </p>
       {problem.premium && <span className={styles.premium}>LeetCode Premium</span>}
       <p className={styles.twist}>{problem.twist}</p>
       <div className={styles.extras}>
@@ -65,6 +79,15 @@ export function ProblemCard({ problem, index }: ProblemCardProps) {
           title={problem.title}
           onToggle={() => setHintOpen((open) => !open)}
         />
+        {solution && (
+          <ProblemHintToggle
+            controls={solutionId}
+            open={solutionOpen}
+            title={problem.title}
+            label="Solution"
+            onToggle={() => setSolutionOpen((open) => !open)}
+          />
+        )}
         {visualizerHref && (
           <Link
             href={visualizerHref}
@@ -77,6 +100,17 @@ export function ProblemCard({ problem, index }: ProblemCardProps) {
         )}
       </div>
       <ProblemHint id={hintId} problem={problem} open={hintOpen} />
+      {solution && (
+        <div id={solutionId} hidden={!solutionOpen} className={styles.solution}>
+          <div className={styles.solutionHead}>
+            <span className={styles.solutionCost}>
+              {problem.time} time · {problem.space} space
+            </span>
+            <CodeLangToggle />
+          </div>
+          <PatternCode template={solution} patternName={problem.title} kind="solution" />
+        </div>
+      )}
       <div className={styles.actions}>
         <button
           type="button"

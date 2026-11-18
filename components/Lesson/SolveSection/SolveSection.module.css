@@ -68,6 +68,8 @@
 @media (min-width: 640px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* A card with its solution open spans the row; dense keeps the others from leaving a hole. */
+    grid-auto-flow: row dense;
   }
 }
 
@@ -75,6 +77,32 @@
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.groupHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.groupTitle {
+  margin: 0;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.groupNote {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
 }
 
 /* The section's flex gap would otherwise leave a hole under the grid. */

@@ -11,10 +11,12 @@ type PatternCodeProps = {
   patternName: string;
   /** Puts this h4 and the copy button in a row above the code. */
   heading?: string;
+  /** What the code is, for the copy button and the code block's label. */
+  kind?: "template" | "solution";
 };
 
 /** A pattern's code skeleton in the reader's language, with a copy button. */
-export function PatternCode({ template, patternName, heading }: PatternCodeProps) {
+export function PatternCode({ template, patternName, heading, kind = "template" }: PatternCodeProps) {
   const lang = useCodeLang();
   const [copyStatus, setCopyStatus] = useState("");
   const code = template[lang];
@@ -33,7 +35,7 @@ export function PatternCode({ template, patternName, heading }: PatternCodeProps
       <button
         type="button"
         onClick={copy}
-        aria-label={`Copy the ${patternName} template`}
+        aria-label={`Copy the ${patternName} ${kind}`}
         className={styles.copy}
       >
         Copy
@@ -53,7 +55,7 @@ export function PatternCode({ template, patternName, heading }: PatternCodeProps
         </div>
       )}
       {/* Long lines scroll, so the block has to be reachable by keyboard. */}
-      <pre tabIndex={0} aria-label={`${patternName} template in ${CODE_LANG_LABELS[lang]}`} className={styles.code}>
+      <pre tabIndex={0} aria-label={`${patternName} ${kind} in ${CODE_LANG_LABELS[lang]}`} className={styles.code}>
         <code>
           {tokenize(code, lang).map((token, index) =>
             token.kind ? (

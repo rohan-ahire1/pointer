@@ -8,6 +8,7 @@ import { LessonHero } from "@/components/Lesson/LessonHero/LessonHero";
 import { LessonWatch } from "@/components/Lesson/LessonWatch/LessonWatch";
 import { SolveSection } from "@/components/Lesson/SolveSection/SolveSection";
 import { PATTERN_GUIDES } from "@/content/guides";
+import { SOLUTIONS } from "@/content/solutions";
 import { UpNextCard } from "@/components/Lesson/UpNextCard/UpNextCard";
 import { SoonLesson } from "@/components/Lesson/SoonLesson/SoonLesson";
 import { JsonLd } from "@/components/JsonLd/JsonLd";
@@ -18,7 +19,7 @@ type PatternPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-/** All 18 patterns get a static route, whether they're live or "coming soon" (CLAUDE.md). */
+/** Every pattern gets a static route, whether they're live or "coming soon" (CLAUDE.md). */
 export function generateStaticParams() {
   return getPatterns().map((pattern) => ({ slug: pattern.slug }));
 }
@@ -119,7 +120,13 @@ export default async function PatternPage({ params }: PatternPageProps) {
           <LessonVisualizers ids={[pattern.visualizer, ...(pattern.moreVisualizers ?? [])]} />
         </section>
 
-        <SolveSection problems={problems} patternName={pattern.name} guide={PATTERN_GUIDES[pattern.slug]} />
+        <SolveSection
+          problems={problems}
+          patternName={pattern.name}
+          guide={PATTERN_GUIDES[pattern.slug]}
+          sections={pattern.sections}
+          solutions={Object.fromEntries(problems.flatMap((p) => (SOLUTIONS[p.slug] ? [[p.slug, SOLUTIONS[p.slug]]] : [])))}
+        />
 
         <UpNextCard totalPatterns={totalPatterns} prev={prev} next={next} />
       </div>
