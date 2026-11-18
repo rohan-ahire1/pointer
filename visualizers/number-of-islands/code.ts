@@ -12,8 +12,8 @@ export const code: string[] = [
   "      islands++;", // 5
   "      grid[r][c] = \"0\";", // 6
   "      const queue: [number, number][] = [[r, c]];", // 7
-  "      while (queue.length > 0) {", // 8
-  "        const [cr, cc] = queue.shift()!;", // 9
+  "      for (let head = 0; head < queue.length; head++) {", // 8
+  "        const [cr, cc] = queue[head];", // 9
   "        for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {", // 10
   "          const nr = cr + dr, nc = cc + dc;", // 11
   "          if (grid[nr]?.[nc] === \"1\") {", // 12

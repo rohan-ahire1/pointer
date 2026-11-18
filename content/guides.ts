@@ -304,9 +304,10 @@ return heap[0]`,
       ts: `// Mark on push, so no node is queued twice.
 const seen = new Set([start]);
 const queue = [start];
-while (queue.length) {
+// Read with an index: shift() is O(n) in JavaScript.
+for (let head = 0; head < queue.length; head++) {
   // Oldest first: the closest nodes go first.
-  const node = queue.shift()!;
+  const node = queue[head];
   for (const next of neighbours(node)) {
     if (seen.has(next)) continue;
     seen.add(next);

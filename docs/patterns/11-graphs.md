@@ -23,8 +23,8 @@ function numIslands(grid: string[][]): number {
       islands++;
       grid[r][c] = "0";
       const queue: [number, number][] = [[r, c]];
-      while (queue.length > 0) {
-        const [cr, cc] = queue.shift()!;
+      for (let head = 0; head < queue.length; head++) {
+        const [cr, cc] = queue[head];
         for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
           const nr = cr + dr, nc = cc + dc;
           if (grid[nr]?.[nc] === "1") {

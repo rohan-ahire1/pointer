@@ -9,8 +9,8 @@ export const code: string[] = [
   "  const ready: number[] = [];", // 7
   "  for (let c = 0; c < n; c++) if (needs[c] === 0) ready.push(c);", // 8
   "  let taken = 0;", // 9
-  "  while (ready.length) {", // 10
-  "    const c = ready.shift()!;", // 11
+  "  for (let head = 0; head < ready.length; head++) {", // 10
+  "    const c = ready[head];", // 11
   "    taken++;", // 12
   "    for (const after of next[c]) {", // 13
   "      needs[after]--;", // 14
