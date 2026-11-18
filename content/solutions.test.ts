@@ -328,6 +328,92 @@ const CHECKS: Record<string, Check> = {
       return { args: [nums, k], want };
     },
   },
+  "rotting-oranges": {
+    cases: (int) => {
+      const rows = int(1, 5);
+      const cols = int(1, 6);
+      const grid = Array.from({ length: rows }, () => Array.from({ length: cols }, () => [0, 1, 1, 1, 2][int(0, 4)]));
+      // Brute force: rot the whole grid in rounds until nothing changes.
+      const g = grid.map((row) => [...row]);
+      let want = 0;
+      for (;;) {
+        const next = g.flatMap((row, r) => row.map((v, c) => [v, r, c]).filter(([v, r, c]) => v === 1 && [[r + 1, c], [r - 1, c], [r, c + 1], [r, c - 1]].some(([a, b]) => g[a]?.[b] === 2)));
+        if (next.length === 0) break;
+        for (const [, r, c] of next) g[r][c] = 2;
+        want++;
+      }
+      if (g.flat().includes(1)) want = -1;
+      return { args: [grid], want };
+    },
+  },
+  "course-schedule-ii": {
+    judge: (int) => {
+      const n = int(1, 7);
+      const rules: number[][] = [];
+      for (let k = int(0, 9); k > 0; k--) {
+        const course = int(0, n - 1);
+        const before = int(0, n - 1);
+        if (course !== before) rules.push([course, before]);
+      }
+      // Brute force: depth-first search finds a loop if there is one.
+      const colour = new Array(n).fill(0);
+      const loops = (c: number): boolean => {
+        if (colour[c] === 1) return true;
+        if (colour[c] === 2) return false;
+        colour[c] = 1;
+        const hit = rules.some(([course, before]) => before === c && loops(course));
+        colour[c] = 2;
+        return hit;
+      };
+      const cyclic = Array.from({ length: n }, (_, c) => c).some((c) => loops(c));
+      return {
+        args: [n, rules],
+        ok: (got) => {
+          const order = got as number[];
+          if (cyclic) return order.length === 0;
+          if ([...order].sort((a, b) => a - b).join() !== Array.from({ length: n }, (_, c) => c).join()) return false;
+          return rules.every(([course, before]) => order.indexOf(before) < order.indexOf(course));
+        },
+      };
+    },
+  },
+  "word-ladder": {
+    cases: (int) => {
+      const word = () => Array.from({ length: 3 }, () => "abc"[int(0, 2)]).join("");
+      const list = [...new Set(Array.from({ length: int(1, 10) }, word))];
+      const end = int(0, 2) ? list[int(0, list.length - 1)] : word();
+      let begin = word();
+      while (begin === end) begin = word();
+      // Brute force: BFS over the list, comparing every pair of words letter by letter.
+      const near = (a: string, b: string) => [...a].filter((ch, i) => ch !== b[i]).length === 1;
+      const dist = new Map([[begin, 1]]);
+      const queue = [begin];
+      for (let head = 0; head < queue.length; head++) {
+        for (const w of list) {
+          if (!dist.has(w) && near(queue[head], w)) {
+            dist.set(w, dist.get(queue[head])! + 1);
+            queue.push(w);
+          }
+        }
+      }
+      return { args: [begin, end, list], want: list.includes(end) ? (dist.get(end) ?? 0) : 0 };
+    },
+  },
+  "bus-routes": {
+    cases: (int) => {
+      const routes = Array.from({ length: int(1, 5) }, () => [...new Set(Array.from({ length: int(1, 4) }, () => int(0, 9)))]);
+      const source = int(0, 9);
+      const target = int(0, 9);
+      // Brute force: relax "rides needed to be on bus b" until nothing improves.
+      const rides = routes.map((route) => (route.includes(source) ? 1 : Infinity));
+      for (let pass = 0; pass < routes.length; pass++)
+        routes.forEach((a, i) => routes.forEach((b, j) => {
+          if (a.some((stop) => b.includes(stop))) rides[j] = Math.min(rides[j], rides[i] + 1);
+        }));
+      const best = Math.min(...routes.map((route, b) => (route.includes(target) ? rides[b] : Infinity)));
+      return { args: [routes, source, target], want: source === target ? 0 : best === Infinity ? -1 : best };
+    },
+  },
 };
 
 describe("worked solutions", () => {
