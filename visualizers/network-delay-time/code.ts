@@ -5,7 +5,7 @@ export const code: string[] = [
   "  const best = new Array(n).fill(Infinity);", // 3
   "  best[start] = 0;", // 4
   "  const heap = new MinHeap([[0, start]]);", // 5
-  "  while (heap.size > 0) {", // 6
+  "  while (heap.size() > 0) {", // 6
   "    const [time, node] = heap.pop();", // 7
   "    if (time > best[node]) continue;", // 8
   "    for (const [to, cost] of roads[node]) {", // 9
