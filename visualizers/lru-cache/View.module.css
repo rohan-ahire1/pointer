@@ -1,0 +1,91 @@
+.listWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.ends {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 72px;
+}
+
+.sentinel {
+  flex-shrink: 0;
+  padding: 10px 12px;
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.link {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.node {
+  flex-shrink: 0;
+  min-width: 56px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--ink);
+  animation: node-in var(--dur-base) ease-out;
+}
+
+.node[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+}
+
+.node[data-state="evicted"] {
+  background: var(--past-bg);
+  border-style: dashed;
+  border-color: var(--past-line);
+  color: var(--faint);
+}
+
+.key {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+@keyframes node-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node {
+    animation: none;
+  }
+}
