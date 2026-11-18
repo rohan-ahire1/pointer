@@ -1,0 +1,84 @@
+/* A grid is a map, not a row: cells top out smaller than array cells. */
+.grid {
+  --cell: clamp(28px, calc((100cqi - (var(--cols) - 1) * 4px) / var(--cols)), 52px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 4px;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.cell {
+  width: var(--cell);
+  height: var(--cell);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: calc(var(--cell) * 0.2);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: calc(var(--cell) * 0.36);
+  font-weight: 800;
+  transform: translateY(0);
+  transition:
+    transform var(--dur-base) ease-in-out,
+    background-color var(--dur-fast) ease;
+}
+
+.cell[data-state="empty"] {
+  background: var(--paper);
+  border-style: dashed;
+  border-color: var(--past-line);
+}
+
+.cell[data-state="fresh"] {
+  background: var(--tint-mint);
+  color: var(--ink);
+  font-size: calc(var(--cell) * 0.5);
+}
+
+.cell[data-state="rotten"] {
+  background: var(--tint-yellow);
+}
+
+.cell[data-state="current"] {
+  background: var(--orange);
+  color: var(--on-accent);
+  transform: translateY(-5px);
+  z-index: 1;
+}
+
+.cell[data-pulse="true"] {
+  animation: pulse var(--dur-base) ease-out;
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.key {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.aside,
+.sep {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sep {
+  align-self: center;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.08);
+  }
+}
+

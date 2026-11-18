@@ -28,6 +28,7 @@ import { levelOrderVisualizer } from "./level-order";
 import { kthLargestVisualizer } from "./kth-largest";
 import { wordSearchVisualizer } from "./word-search";
 import { courseScheduleVisualizer } from "./course-schedule";
+import { rottingOrangesVisualizer } from "./rotting-oranges";
 import { coinChangeVisualizer } from "./coin-change";
 import { uniquePathsVisualizer } from "./unique-paths";
 import { maxSubarrayVisualizer } from "./max-subarray";
@@ -77,6 +78,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [kthLargestVisualizer.id]: kthLargestVisualizer as Visualizer<unknown, unknown>,
   [wordSearchVisualizer.id]: wordSearchVisualizer as Visualizer<unknown, unknown>,
   [courseScheduleVisualizer.id]: courseScheduleVisualizer as Visualizer<unknown, unknown>,
+  [rottingOrangesVisualizer.id]: rottingOrangesVisualizer as Visualizer<unknown, unknown>,
   [coinChangeVisualizer.id]: coinChangeVisualizer as Visualizer<unknown, unknown>,
   [uniquePathsVisualizer.id]: uniquePathsVisualizer as Visualizer<unknown, unknown>,
   [maxSubarrayVisualizer.id]: maxSubarrayVisualizer as Visualizer<unknown, unknown>,
