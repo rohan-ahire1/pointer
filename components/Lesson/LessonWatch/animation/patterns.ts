@@ -24,6 +24,9 @@ export const CONFIG: Record<string, Config> = {
   'linked-list': {
     headlines: ['Reverse it. *Keep the nodes*.', 'Two pointers: *prev* and *curr*.', 'Save *next*, then flip the arrow.', 'One pass. *No new nodes*.'],
   },
+  design: {
+    headlines: ['Which key was used *longest ago*?', 'A *map* finds the node.', 'Touch it? Move it to the *newest* end.', 'Every call. *O(1)*.'],
+  },
   trees: {
     headlines: ['How *deep* is the tree?', 'Ask each child *how deep*.', 'Take the *deeper* side, add one.', 'Each node once. *O(n)*.'],
   },

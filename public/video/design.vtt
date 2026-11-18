@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00.000 --> 00:07.868
+A cache holds 2 keys, and when it fills, the key used longest ago has to go.
+
+00:07.868 --> 00:14.700
+Keep the keys in a plain list and every call scans it to find one.
+
+00:15.000 --> 00:18.784
+Instead, pair two structures.
+
+00:18.784 --> 00:31.700
+A hash map jumps straight to a key’s node, and a linked list keeps the nodes from oldest to newest.
+
+00:32.000 --> 00:38.133
+Every get or put moves its node to the newest end.
+
+00:38.133 --> 00:47.700
+When the cache overflows, the node next to the head is the oldest, so it goes.
+
+00:48.000 --> 00:50.555
+Not one call scans.
+
+00:50.555 --> 00:52.976
+Each is O(1) time.
+
+00:52.976 --> 00:59.700
+That’s design: pick a structure for each question.

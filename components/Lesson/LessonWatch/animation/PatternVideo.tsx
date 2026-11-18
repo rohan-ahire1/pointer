@@ -3,6 +3,7 @@ import {Run, Scene, Step, Timing, bruteK, timeline, useRun, type Hook, type Outr
 import {CONFIG, PATTERNS} from './patterns';
 import {BitsBrute, BitsStage, ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, bitsConfetti, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
 import {ComboBrute, ComboStage, DijkstraBrute, DijkstraStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, dijkstraConfetti, fullTree, heapConfetti, heapSorts, listConfetti, roadWalks, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
+import {LruBrute, LruStage, lruConfetti, lruScans} from './stages-design';
 import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, SpiralBrute, SpiralStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti, spiralConfetti} from './stages-grid';
 import {meta as twoSumMeta} from '@/visualizers/two-sum/meta';
 import {parseInput as twoSumParse} from '@/visualizers/two-sum/parseInput';
@@ -19,6 +20,9 @@ import {trace as findMinTrace} from '@/visualizers/find-min-rotated/trace';
 import {meta as listMeta} from '@/visualizers/reverse-linked-list/meta';
 import {parseInput as listParse} from '@/visualizers/reverse-linked-list/parseInput';
 import {trace as listTrace} from '@/visualizers/reverse-linked-list/trace';
+import {meta as lruMeta} from '@/visualizers/lru-cache/meta';
+import {parseInput as lruParse} from '@/visualizers/lru-cache/parseInput';
+import {trace as lruTrace} from '@/visualizers/lru-cache/trace';
 import {meta as treeMeta} from '@/visualizers/max-depth-tree/meta';
 import {parseInput as treeParse} from '@/visualizers/max-depth-tree/parseInput';
 import {trace as treeTrace} from '@/visualizers/max-depth-tree/trace';
@@ -139,6 +143,19 @@ const DEFS: Record<string, () => Def> = {
       label: 'Copy into a new list', unit: 'new nodes', naive: steps[0].state.values.length, fast: 0,
       naiveLabel: 'copy into a new list', fastLabel: 'flip the arrows in place',
       stamp: 'O(n) time · O(1) space',
+    };
+  },
+  design: () => {
+    const steps = run(lruMeta, lruParse, lruTrace);
+    const {capacity, calls} = steps[0].state;
+    const firstHit = steps.findIndex((st) => st.state.phase === 'hit');
+    const firstEvict = steps.findIndex((st) => st.state.phase === 'evict');
+    return {
+      steps, Stage: LruStage, Brute: LruBrute, confetti: lruConfetti,
+      label: 'Scan the list on every call', unit: 'keys scanned', naive: lruScans(capacity, calls).length, fast: 0,
+      naiveLabel: 'scan a plain list', fastLabel: 'map + linked list',
+      timing: {anchors: {[firstHit]: 29, [firstEvict]: 33.5}},
+      stamp: 'O(1) per call',
     };
   },
   trees: () => {
