@@ -24,6 +24,9 @@ export const CONFIG: Record<string, Config> = {
   'linked-list': {
     headlines: ['Reverse it. *Keep the nodes*.', 'Two pointers: *prev* and *curr*.', 'Save *next*, then flip the arrow.', 'One pass. *No new nodes*.'],
   },
+  'prefix-sum': {
+    headlines: ['How many runs add up to *7*?', 'Keep a *running total*.', 'Ask the map: *total − 7*?', 'One pass. *O(n)*.'],
+  },
   design: {
     headlines: ['Which key was used *longest ago*?', 'A *map* finds the node.', 'Touch it? Move it to the *newest* end.', 'Every call. *O(1)*.'],
   },

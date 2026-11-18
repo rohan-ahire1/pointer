@@ -4,6 +4,7 @@ import {CONFIG, PATTERNS} from './patterns';
 import {BitsBrute, BitsStage, ContainerBrute, ContainerStage, FindMinBrute, FindMinStage, JumpBrute, JumpStage, ParenBrute, ParenStage, RobberBrute, RobberStage, TwoSumBrute, TwoSumStage, bitsConfetti, containerConfetti, findMinConfetti, jumpConfetti, jumpRoutes, parenConfetti, robberConfetti, stripReads, twoSumConfetti, twoSumPairs} from './stages-rows';
 import {ComboBrute, ComboStage, DijkstraBrute, DijkstraStage, HeapBrute, HeapStage, ListBrute, ListStage, TreeBrute, TreeStage, TrieBrute, TrieStage, comboConfetti, dijkstraConfetti, fullTree, heapConfetti, heapSorts, listConfetti, roadWalks, treeConfetti, treeVisits, trieCompares, trieConfetti} from './stages-graph';
 import {LruBrute, LruStage, lruConfetti, lruScans} from './stages-design';
+import {PrefixBrute, PrefixStage, prefixConfetti, prefixSubarrays} from './stages-prefix';
 import {IntervalsBrute, IntervalsStage, IslandsBrute, IslandsStage, LcsBrute, LcsStage, SpiralBrute, SpiralStage, floodVisits, intervalPairs, intervalsConfetti, islandsConfetti, lcsConfetti, spiralConfetti} from './stages-grid';
 import {meta as twoSumMeta} from '@/visualizers/two-sum/meta';
 import {parseInput as twoSumParse} from '@/visualizers/two-sum/parseInput';
@@ -21,6 +22,9 @@ import {meta as listMeta} from '@/visualizers/reverse-linked-list/meta';
 import {parseInput as listParse} from '@/visualizers/reverse-linked-list/parseInput';
 import {trace as listTrace} from '@/visualizers/reverse-linked-list/trace';
 import {meta as lruMeta} from '@/visualizers/lru-cache/meta';
+import {meta as prefixMeta} from '@/visualizers/subarray-sum-k/meta';
+import {parseInput as prefixParse} from '@/visualizers/subarray-sum-k/parseInput';
+import {trace as prefixTrace} from '@/visualizers/subarray-sum-k/trace';
 import {parseInput as lruParse} from '@/visualizers/lru-cache/parseInput';
 import {trace as lruTrace} from '@/visualizers/lru-cache/trace';
 import {meta as treeMeta} from '@/visualizers/max-depth-tree/meta';
@@ -115,6 +119,18 @@ const DEFS: Record<string, () => Def> = {
       label: 'Try every pair', unit: 'containers', naive: twoSumPairs(steps[0].state.height).length, fast: steps.filter(isMeasure).length,
       naiveLabel: 'try every pair', fastLabel: 'two pointers',
       timing: {weight: (st, i) => (i === 0 ? 0.7 : st.best >= 49 && st.phase !== 'done' && !st.newBest ? 0.8 : 1)},
+    };
+  },
+  'prefix-sum': () => {
+    const steps = run(prefixMeta, prefixParse, prefixTrace);
+    const n = steps[0].state.nums.length;
+    const firstHit = steps.findIndex((st) => st.state.phase === 'look' && st.state.hits > 0);
+    return {
+      steps, Stage: PrefixStage, Brute: PrefixBrute, confetti: prefixConfetti,
+      label: 'Sum every subarray', unit: 'sums', naive: prefixSubarrays(n).length, fast: n,
+      naiveLabel: 'sum every subarray', fastLabel: 'running total + map',
+      // 14 steps after the first hit, each held for a 1.5s note, so the hits start in beat 2
+      timing: {anchors: {1: 19, [firstHit]: 25.5}},
     };
   },
   stack: () => {
