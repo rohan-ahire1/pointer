@@ -422,6 +422,9 @@
     "signal": "A queue hands you each level in turn.",
     "time": "O(n)",
     "space": "O(n)",
+    "alsoFits": [
+      "graphs"
+    ],
     "visualizer": "level-order"
   },
   {
@@ -595,6 +598,9 @@
     "signal": "Each new land cell starts a flood that claims its whole group.",
     "time": "O(m·n)",
     "space": "O(m·n)",
+    "alsoFits": [
+      "advanced-graphs"
+    ],
     "visualizer": "number-of-islands"
   },
   {
@@ -635,6 +641,9 @@
     "signal": "Tasks and rules form arrows. A loop makes it impossible.",
     "time": "O(V + E)",
     "space": "O(V + E)",
+    "alsoFits": [
+      "advanced-graphs"
+    ],
     "visualizer": "course-schedule"
   },
   {
@@ -822,6 +831,9 @@
     "signal": "Ways into a cell: the ways from above plus the ways from the left.",
     "time": "O(m·n)",
     "space": "O(n)",
+    "alsoFits": [
+      "math-and-geometry"
+    ],
     "visualizer": "unique-paths"
   },
   {
@@ -1025,7 +1037,10 @@
     "prompt": "For every number from 0 to n, count its 1 bits.",
     "signal": "bits(i) = bits(i >> 1) + (i & 1).",
     "time": "O(n)",
-    "space": "O(n)"
+    "space": "O(n)",
+    "alsoFits": [
+      "1-d-dp"
+    ]
   },
   {
     "slug": "reverse-bits",
@@ -1051,7 +1066,11 @@
     "prompt": "One number from 0 to n is missing from an array. Find it.",
     "signal": "XOR everything, or compare against the expected sum.",
     "time": "O(n)",
-    "space": "O(1)"
+    "space": "O(1)",
+    "alsoFits": [
+      "arrays-and-hashing",
+      "math-and-geometry"
+    ]
   },
   {
     "slug": "sum-of-two-integers",
