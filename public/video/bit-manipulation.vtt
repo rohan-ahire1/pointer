@@ -18,8 +18,8 @@ Subtract one and the lowest 1 flips off.
 00:38.978 --> 00:47.700
 AND that with n, and only that one bit disappears.
 
-00:48.000 --> 00:51.495
-Four 1 bits, four hops.
+00:48.000 --> 00:56.744
+Four 1 bits, four hops: O(k) for k one bits, and the zeros are skipped.
 
-00:51.495 --> 00:59.700
-That’s O(k) for k one bits, and the zeros are skipped.
+00:56.744 --> 00:59.700
+That’s bit manipulation.

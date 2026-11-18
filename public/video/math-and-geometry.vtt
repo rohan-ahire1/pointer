@@ -21,8 +21,8 @@ Walk along one wall, then pull it in.
 00:37.187 --> 00:47.700
 The next side starts where the last one ended, and the box keeps shrinking.
 
-00:48.000 --> 00:53.850
-Every cell is read once, so it’s O(m·n) time.
+00:48.000 --> 00:57.419
+Every cell is read once, so it’s O(m·n) time, and four walls are all the extra memory you need.
 
-00:53.850 --> 00:59.700
-Four walls are all the extra memory you need.
+00:57.419 --> 00:59.700
+That’s the spiral walk.

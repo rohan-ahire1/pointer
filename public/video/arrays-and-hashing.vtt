@@ -15,11 +15,11 @@ Instead, walk the list once and keep a map of numbers you have seen.
 00:24.013 --> 00:31.700
 Each entry remembers a number and the index where it sits.
 
-00:32.000 --> 00:38.197
+00:32.000 --> 00:37.698
 For each number, ask the map for its partner.
 
-00:38.197 --> 00:47.700
-At 5 you need 4, and 4 is already in the map, so the pair is 3 and 4.
+00:37.698 --> 00:47.700
+At 5 you need 4, and 4 is already in the map, so the answer is indices 3 and 4.
 
 00:48.000 --> 00:52.703
 One pass, one map lookup each: O(n) time.

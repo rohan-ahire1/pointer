@@ -44,7 +44,7 @@
         },
         {
           "t": 32,
-          "text": "For each number, ask the map for its partner. At 5 you need 4, and 4 is already in the map, so the pair is 3 and 4."
+          "text": "For each number, ask the map for its partner. At 5 you need 4, and 4 is already in the map, so the answer is indices 3 and 4."
         },
         {
           "t": 48,
@@ -437,12 +437,12 @@
     "slug": "heaps",
     "name": "Heaps",
     "group": "structures",
-    "idea": "Always know the smallest item.",
+    "idea": "Always know the smallest or largest item.",
     "status": "live",
     "problems": [
       "find-median-from-data-stream"
     ],
-    "analogy": "Picture a line of people sorted by height, split into two teams at the middle. The shorter team only watches its tallest member, and the taller team only its shortest. The median is always where the two teams meet, so nobody ever sorts the whole line.",
+    "analogy": "People arrive one at a time and join one of two teams: the shorter half and the taller half. The shorter team only watches its tallest member, and the taller team only its shortest. The median is always where the two teams meet, so nobody ever lines everyone up by height.",
     "minutes": 15,
     "needs": [
       "arrays",
@@ -451,8 +451,8 @@
     "complexity": "O(log n)",
     "space": "O(n)",
     "whenToUse": [
-      "Items arrive one at a time, unsorted",
-      "You need the middle, min or max so far",
+      "You need the k largest or k smallest items",
+      "Items arrive one at a time and you need the min, max or middle so far",
       "Brute force sorts after every arrival"
     ],
     "video": {
@@ -661,7 +661,7 @@
       "word-break",
       "longest-increasing-subsequence"
     ],
-    "analogy": "Plan a route of jobs in a notebook, one line per day. Each line holds the best total so far, so tomorrow’s choice only looks at the last two lines. The final line is the answer, built without ever redoing a day.",
+    "analogy": "Keep a notebook with one line per day. Each line holds the best total so far, so tomorrow’s line only needs to look at the last two. The final line is the answer, built without ever redoing a day.",
     "minutes": 15,
     "needs": [
       "arrays",
@@ -900,7 +900,7 @@
         },
         {
           "t": 48,
-          "text": "Every cell is read once, so it’s O(m·n) time. Four walls are all the extra memory you need."
+          "text": "Every cell is read once, so it’s O(m·n) time, and four walls are all the extra memory you need. That’s the spiral walk."
         }
       ]
     },
@@ -951,7 +951,7 @@
         },
         {
           "t": 48,
-          "text": "Four 1 bits, four hops. That’s O(k) for k one bits, and the zeros are skipped."
+          "text": "Four 1 bits, four hops: O(k) for k one bits, and the zeros are skipped. That’s bit manipulation."
         }
       ]
     },
