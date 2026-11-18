@@ -18,8 +18,8 @@ Each half only watches the member closest to the split.
 00:42.180 --> 00:47.700
 Both tops read 5 and 15, so the median is 10.
 
-00:48.000 --> 00:55.597
-Each number costs one heap push and pop: O(log n).
+00:48.000 --> 00:56.339
+Each number costs at most three pushes and two pops, each O(log n).
 
-00:55.597 --> 00:59.700
+00:56.339 --> 00:59.700
 That’s the two-heap median.

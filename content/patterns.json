@@ -474,7 +474,7 @@
         },
         {
           "t": 48,
-          "text": "Each number costs one heap push and pop: O(log n). That’s the two-heap median."
+          "text": "Each number costs at most three pushes and two pops, each O(log n). That’s the two-heap median."
         }
       ]
     },
