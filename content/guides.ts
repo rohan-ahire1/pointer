@@ -274,7 +274,7 @@ return heap[0]`,
   for (let i = start; i < choices.length; i++) {
     // Choose.
     path.push(choices[i]);
-    // Explore everything from here.
+    // Explore from here. i + 1 uses each choice once; pass i to allow repeats.
     dfs(path, i + 1);
     // Undo, so the next choice starts clean.
     path.pop();
@@ -288,7 +288,7 @@ return heap[0]`,
     for i in range(start, len(choices)):
         # Choose.
         path.append(choices[i])
-        # Explore everything from here.
+        # Explore from here. i + 1 uses each choice once; pass i to allow repeats.
         dfs(path, i + 1)
         # Undo, so the next choice starts clean.
         path.pop()`,
@@ -328,7 +328,7 @@ while queue:
     pitfalls: [
       "Marking a node when you pop it instead of when you push it, so it’s queued twice.",
       "Forgetting the graph may have more than one connected piece.",
-      "Using BFS or DFS on weighted edges when you need the shortest path.",
+      "Using DFS for a shortest path. BFS finds it when every edge costs the same; different costs need Dijkstra.",
     ],
   },
   "1-d-dp": {
@@ -414,7 +414,8 @@ return state`,
   },
   intervals: {
     template: {
-      ts: `// Sort by start, so overlaps end up side by side.
+      ts: `if (intervals.length === 0) return [];
+// Sort by start, so overlaps end up side by side.
 intervals.sort((a, b) => a[0] - b[0]);
 const out = [intervals[0]];
 for (const [start, end] of intervals.slice(1)) {
@@ -424,7 +425,9 @@ for (const [start, end] of intervals.slice(1)) {
   // No overlap: this one starts a new interval.
   else out.push([start, end]);
 }`,
-      py: `# Sort by start, so overlaps end up side by side.
+      py: `if not intervals:
+    return []
+# Sort by start, so overlaps end up side by side.
 intervals.sort(key=lambda x: x[0])
 out = [intervals[0]]
 for start, end in intervals[1:]:
@@ -439,6 +442,7 @@ for start, end in intervals[1:]:
       "Forgetting to sort first.",
       "Replacing the end with the new end. Take the max, since one may contain the other.",
       "Deciding whether touching ends count as overlap. Read the problem.",
+      "Sorting by start when you must remove the fewest. Sort by end, so you keep whichever finishes first.",
     ],
   },
   "advanced-graphs": {
@@ -447,7 +451,7 @@ for start, end in intervals[1:]:
 const best = new Array(n).fill(Infinity);
 best[start] = 0;
 const heap = new MinHeap([[0, start]]);
-while (heap.size > 0) {
+while (heap.size() > 0) {
   const [time, node] = heap.pop();
   // Old entry: a faster way here was already found.
   if (time > best[node]) continue;
@@ -467,9 +471,13 @@ const find = (x: number): number => {
   if (parent[x] !== x) parent[x] = find(parent[x]);
   return parent[x];
 };
-// Join two groups by linking one leader to the other.
-const union = (a: number, b: number) => {
-  parent[find(b)] = find(a);
+// Join two groups. False means they were already one group,
+// so this link closes a loop.
+const union = (a: number, b: number): boolean => {
+  const leaderA = find(a), leaderB = find(b);
+  if (leaderA === leaderB) return false;
+  parent[leaderB] = leaderA;
+  return true;
 };`,
       py: `# Dijkstra: the heap hands back the closest node first.
 best = [inf] * n
@@ -493,9 +501,14 @@ def find(x: int) -> int:
     if parent[x] != x:
         parent[x] = find(parent[x])
     return parent[x]
-# Join two groups by linking one leader to the other.
-def union(a: int, b: int) -> None:
-    parent[find(b)] = find(a)`,
+# Join two groups. False means they were already one group,
+# so this link closes a loop.
+def union(a: int, b: int) -> bool:
+    leader_a, leader_b = find(a), find(b)
+    if leader_a == leader_b:
+        return False
+    parent[leader_b] = leader_a
+    return True`,
     },
     pitfalls: [
       "Using Dijkstra with negative costs. It assumes a finished node can't get cheaper.",
