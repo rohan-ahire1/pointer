@@ -1,12 +1,12 @@
 # Pointer
 
-**Learn the 19 coding-interview patterns by watching them run.**
+**Learn the 20 coding-interview patterns by watching them run.**
 
 Live: [pointer.rohanahire.com](https://pointer.rohanahire.com)
 
 ## What it does
 
-Pointer teaches the patterns behind the Blind 75 and NeetCode 150 problem lists: Arrays & Hashing, Two Pointers, Sliding Window, Stack, Binary Search, Linked List, Design, Trees, Tries, Heaps, Backtracking, Graphs, Advanced Graphs, 1-D DP, 2-D DP, Greedy, Intervals, Math & Geometry and Bit Manipulation.
+Pointer teaches the patterns behind the Blind 75 and NeetCode 150 problem lists: Arrays & Hashing, Two Pointers, Sliding Window, Prefix Sum, Stack, Binary Search, Linked List, Design, Trees, Tries, Heaps, Backtracking, Graphs, Advanced Graphs, 1-D DP, 2-D DP, Greedy, Intervals, Math & Geometry and Bit Manipulation.
 
 Each pattern gets one lesson page with:
 
@@ -20,7 +20,7 @@ Progress is saved in the browser, so there's no sign-up and no backend.
 
 ## Key features
 
-- 19 lessons and 35 visualizers
+- 20 lessons and 36 visualizers
 - Visualizer player with play/pause, step, reset, speed control, predict mode, share links and keyboard shortcuts (arrow keys, space, `R`)
 - Spaced review: solved problems come back after a day, then less and less often
 - Pattern drill: read a problem, pick the pattern, see how you did
