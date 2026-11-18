@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { EXTRAS_KEY, getPattern, getPatterns, getProblem, getProblems, problemsForPattern } from "./index";
 import { PATTERN_GUIDES } from "./guides";
+import { SOLUTIONS } from "./solutions";
 
 const LEETCODE_URL_RE = /^https:\/\/leetcode\.com\/problems\/[a-z0-9-]+\/$/;
 
@@ -31,6 +32,19 @@ const BLIND_75 = [
   "top-k-frequent-elements", "find-median-from-data-stream",
 ];
 
+/**
+ * Problems added after the Blind 75: LeetCode number, difficulty and the lists
+ * they're on. Checked against NeetCode's published list.
+ */
+const BEYOND_75: Record<string, [number, "easy" | "medium" | "hard", string[]]> = {
+  "decode-string": [394, "medium", []],
+  "basic-calculator-ii": [227, "medium", []],
+  "daily-temperatures": [739, "medium", ["neetcode-150"]],
+  "largest-rectangle-in-histogram": [84, "hard", ["neetcode-150"]],
+  "trapping-rain-water": [42, "hard", ["neetcode-150"]],
+  "sliding-window-maximum": [239, "hard", ["neetcode-150"]],
+};
+
 /** LeetCode's premium-only problems on the list. */
 const PREMIUM = [
   "encode-and-decode-strings", "alien-dictionary", "graph-valid-tree",
@@ -60,11 +74,37 @@ describe("patterns.json", () => {
 describe("problems.json", () => {
   const problems = getProblems();
 
-  it("has exactly 75 problems (the Blind 75)", () => {
-    // If this ever fails, it means content/problems.json no longer matches
-    // the Blind 75 list — report the actual count rather than silently
-    // adjusting this expectation.
-    expect(problems).toHaveLength(75);
+  it("has the Blind 75 plus exactly the problems added after it", () => {
+    // If this ever fails, content/problems.json gained or lost a problem.
+    // Report the actual count rather than silently adjusting this expectation.
+    expect(problems).toHaveLength(BLIND_75.length + Object.keys(BEYOND_75).length);
+  });
+
+  it("every problem has its real LeetCode number, each used once", () => {
+    const numbers = problems.map((problem) => problem.leetcodeNumber);
+    expect(new Set(numbers).size).toBe(numbers.length);
+    for (const problem of problems) expect(Number.isInteger(problem.leetcodeNumber) && problem.leetcodeNumber > 0).toBe(true);
+  });
+
+  it("matches the LeetCode number and difficulty of every problem added after the Blind 75", () => {
+    for (const [slug, [number, difficulty, lists]] of Object.entries(BEYOND_75)) {
+      const problem = problems.find((p) => p.slug === slug);
+      expect(problem, slug).toBeDefined();
+      expect([problem?.leetcodeNumber, problem?.difficulty, problem?.lists], slug).toEqual([number, difficulty, lists]);
+    }
+  });
+
+  it("tags exactly the Blind 75 as Blind 75, and every one of them is on the NeetCode 150 too", () => {
+    const tagged = problems.filter((problem) => problem.lists.includes("blind-75"));
+    expect(tagged.map((problem) => leetcodeSlug(problem.leetcodeUrl)).sort()).toEqual([...BLIND_75].sort());
+    for (const problem of tagged) expect(problem.lists, problem.slug).toContain("neetcode-150");
+  });
+
+  it("every problem added after the Blind 75 comes with a worked solution", () => {
+    for (const problem of problems) {
+      if (problem.lists.includes("blind-75")) continue;
+      expect(SOLUTIONS[problem.slug], `${problem.slug} solution`).toBeDefined();
+    }
   });
 
   it("has unique slugs", () => {
@@ -78,10 +118,10 @@ describe("problems.json", () => {
     }
   });
 
-  it("links to exactly the Blind 75, each once", () => {
+  it("links to the Blind 75 and every added problem, each once", () => {
     expect(BLIND_75).toHaveLength(75);
     const linked = problems.map((problem) => leetcodeSlug(problem.leetcodeUrl));
-    expect([...linked].sort()).toEqual([...BLIND_75].sort());
+    expect([...linked].sort()).toEqual([...BLIND_75, ...Object.keys(BEYOND_75)].sort());
   });
 
   it("marks exactly LeetCode's premium problems as premium", () => {
@@ -137,6 +177,30 @@ describe("problem hints and drill copy", () => {
         expect(getPattern(slug), `${problem.slug} alsoFits ${slug}`).toBeDefined();
         expect(slug, problem.slug).not.toBe(problem.pattern);
       }
+    }
+  });
+});
+
+describe("lesson sections", () => {
+  it("split a lesson's problems into named groups, in the same order", () => {
+    for (const pattern of getPatterns()) {
+      if (pattern.status !== "live" || !pattern.sections) continue;
+      expect(pattern.sections.flatMap((section) => section.problems), pattern.slug).toEqual(pattern.problems);
+      const titles = pattern.sections.map((section) => section.title);
+      expect(new Set(titles).size, pattern.slug).toBe(titles.length);
+      for (const section of pattern.sections) {
+        expect(section.problems.length, section.title).toBeGreaterThan(0);
+        expect(section.note.length, section.title).toBeGreaterThan(10);
+        expect(section.note.length, section.title).toBeLessThanOrEqual(110);
+      }
+    }
+  });
+
+  it("order every lesson's problems from easy to hard", () => {
+    const rank = { easy: 0, medium: 1, hard: 2 };
+    for (const pattern of getPatterns()) {
+      const ranks = problemsForPattern(pattern.slug).map((problem) => rank[problem.difficulty]);
+      expect(ranks, pattern.slug).toEqual([...ranks].sort((a, b) => a - b));
     }
   });
 });
