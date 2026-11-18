@@ -171,10 +171,43 @@
     "idea": "Remember the past, answer on the way back.",
     "status": "live",
     "problems": [
-      "valid-parentheses"
+      "valid-parentheses",
+      "decode-string",
+      "basic-calculator-ii",
+      "daily-temperatures",
+      "largest-rectangle-in-histogram",
+      "trapping-rain-water",
+      "sliding-window-maximum"
+    ],
+    "sections": [
+      {
+        "title": "Matching pairs",
+        "note": "The newest open item is the first one to close.",
+        "problems": [
+          "valid-parentheses"
+        ]
+      },
+      {
+        "title": "Parsing",
+        "note": "Save what you have when a new level opens, and finish it when the level closes.",
+        "problems": [
+          "decode-string",
+          "basic-calculator-ii"
+        ]
+      },
+      {
+        "title": "Monotonic stack",
+        "note": "Keep the stack in order. Each new value pops every item it answers.",
+        "problems": [
+          "daily-temperatures",
+          "largest-rectangle-in-histogram",
+          "trapping-rain-water",
+          "sliding-window-maximum"
+        ]
+      }
     ],
     "analogy": "Think of a stack of plates. You only ever touch the top one, and the last plate you put down is the first one you pick up.",
-    "minutes": 10,
+    "minutes": 20,
     "needs": [
       "strings",
       "arrays"
@@ -182,8 +215,8 @@
     "complexity": "O(n)",
     "space": "O(n)",
     "whenToUse": [
-      "The last thing seen must be handled first",
       "Pairs nest inside each other, like brackets",
+      "Each item waits for the next bigger one",
       "You need to undo steps in reverse order"
     ],
     "video": {
@@ -211,7 +244,8 @@
     },
     "visualizer": "valid-parentheses",
     "moreVisualizers": [
-      "daily-temperatures"
+      "daily-temperatures",
+      "trapping-rain-water"
     ]
   },
   {

@@ -117,6 +117,8 @@ for x in items:
       "Popping from an empty stack. Check it first.",
       "Forgetting what’s still on the stack when the loop ends.",
       "Storing values when you’ll need indices later.",
+      "Pushing before popping. Settle the older items first, then push the new one.",
+      "Getting the order wrong. Decide up front whether the stack rises or falls from bottom to top.",
     ],
   },
   "binary-search": {

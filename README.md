@@ -20,7 +20,7 @@ Progress is saved in the browser, so there's no sign-up and no backend.
 
 ## Key features
 
-- 18 lessons and 32 visualizers
+- 18 lessons and 33 visualizers
 - Visualizer player with play/pause, step, reset, speed control, predict mode, share links and keyboard shortcuts (arrow keys, space, `R`)
 - Spaced review: solved problems come back after a day, then less and less often
 - Pattern drill: read a problem, pick the pattern, see how you did

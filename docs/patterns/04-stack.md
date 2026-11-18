@@ -56,4 +56,44 @@ Repeatedly delete `()`, `[]` and `{}` until the string stops changing; valid mea
 ## Content direction
 - Stack already has an approved analogy (plates). Keep it verbatim.
 - `needs`: strings, arrays. `complexity`: `O(n)`.
-- Problems: valid-parentheses (visualized). It's the only one, so its twist is the "watched" line.
+- Problems, in three sections:
+  - **Matching pairs:** valid-parentheses (visualized, so its twist is the "watched" line).
+  - **Parsing:** decode-string, basic-calculator-ii.
+  - **Monotonic stack:** daily-temperatures (`daily-temperatures` visualizer), largest-rectangle-in-histogram,
+    trapping-rain-water (`trapping-rain-water` visualizer), sliding-window-maximum (a monotonic deque).
+- Problems beyond the Blind 75 carry a worked solution in `content/solutions.ts`.
+
+---
+
+# 04b · Stack — Trapping Rain Water
+
+- **Visualizer id:** `trapping-rain-water` · **Folder:** `visualizers/trapping-rain-water/`
+- **Story:** bars wait on a falling stack. A taller bar pops the dip on top, and the bar under it is the left wall, so each pop pours one flat layer of water.
+
+## Input
+- `inputLabel`: `height =` · `inputMaxLength`: 40 · `inputHint`: `2–12 bar heights from 0 to 9.`
+- Presets and expected answers:
+  - `0 1 0 2 1 0 1 3 2 1 2 1` → `6` (LeetCode's example)
+  - `4 2 0 3 2 5` → `9`
+  - `3 2 1 2 3` → `4` (two layers poured over the same dip)
+
+## Steps
+| Moment | lines | note (example) |
+|---|---|---|
+| setup | 1, 2 | The stack holds bars that could still be the left wall of a pool. |
+| read | 3, 4 | Bar 3 is 2 tall. Is it taller than the bar on top of the stack? |
+| fill | 5, 7, 8, 9 | Pop bar 2. Walls 1 and 3 hold 1 deep × 1 wide = 1 unit. |
+| runoff | 5, 6 | Pop bar 0. Nothing on its left can hold water, so it runs off. |
+| push | 11 | Bar 3 goes on the stack. It could be the left wall of a later pool. |
+| done | 13 | Done. 6 units of water are trapped. |
+
+State: `{ height, stack, i, floor, left, layers: { from, to, base, top }[], fresh, water, phase }`.
+
+## View
+- Bars as in Container With Most Water, on one baseline. `i` (orange) lifts the current bar; `left` (inverse) and `floor` (lilac) tag the pop.
+  Bars on the stack are yellow; settled bars are dashed.
+- Every poured layer stays drawn behind the bars, so the water builds up layer by layer. The newest layer has a dashed outline.
+- A `stack · top last` chip panel underneath. **Stats:** `bar` · `on stack` · answer tile `water`.
+
+## Tests: brute force
+Each bar holds `min(tallest on the left, tallest on the right) − its height`. The layers must add up to exactly that, bar by bar, and never overlap a bar.

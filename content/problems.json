@@ -305,6 +305,113 @@
     "visualizer": "valid-parentheses"
   },
   {
+    "slug": "decode-string",
+    "title": "Decode String",
+    "difficulty": "medium",
+    "pattern": "stack",
+    "leetcodeUrl": "https://leetcode.com/problems/decode-string/",
+    "leetcodeNumber": 394,
+    "premium": false,
+    "lists": [],
+    "twist": "Push what you have at each [ and rebuild it at each ].",
+    "prompt": "Expand a string like 3[a2[c]] into accaccacc.",
+    "signal": "Brackets nest, and the innermost one has to be expanded first.",
+    "time": "O(output)",
+    "space": "O(output)"
+  },
+  {
+    "slug": "basic-calculator-ii",
+    "title": "Basic Calculator II",
+    "difficulty": "medium",
+    "pattern": "stack",
+    "leetcodeUrl": "https://leetcode.com/problems/basic-calculator-ii/",
+    "leetcodeNumber": 227,
+    "premium": false,
+    "lists": [],
+    "twist": "Hold terms on the stack. * and / fold into the top one at once.",
+    "prompt": "Work out a string like 3 + 2 * 2 that uses + - * / and no brackets.",
+    "signal": "* and / come before + and -, so keep each term until you know its sign.",
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "daily-temperatures",
+    "title": "Daily Temperatures",
+    "difficulty": "medium",
+    "pattern": "stack",
+    "leetcodeUrl": "https://leetcode.com/problems/daily-temperatures/",
+    "leetcodeNumber": 739,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Same stack, but each new day pops every colder day it answers.",
+    "prompt": "For each day’s temperature, how many days until a warmer one? Use 0 if none comes.",
+    "signal": "Each day waits until a warmer one arrives. The newest waiting day is answered first.",
+    "time": "O(n)",
+    "space": "O(n)",
+    "visualizer": "daily-temperatures"
+  },
+  {
+    "slug": "largest-rectangle-in-histogram",
+    "title": "Largest Rectangle in Histogram",
+    "difficulty": "hard",
+    "pattern": "stack",
+    "leetcodeUrl": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+    "leetcodeNumber": 84,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Keep bars rising. A shorter bar ends every taller rectangle before it.",
+    "prompt": "Bars of different heights stand side by side. Find the area of the biggest rectangle under them.",
+    "signal": "A bar’s rectangle stops at the first shorter bar on each side.",
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "trapping-rain-water",
+    "title": "Trapping Rain Water",
+    "difficulty": "hard",
+    "pattern": "stack",
+    "leetcodeUrl": "https://leetcode.com/problems/trapping-rain-water/",
+    "leetcodeNumber": 42,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "Same popping, but each pop fills one layer of water.",
+    "prompt": "Bars of different heights stand in a row. How much rain is trapped between them after a storm?",
+    "signal": "Water sits in a dip until a taller bar on the right closes it.",
+    "time": "O(n)",
+    "space": "O(n)",
+    "alsoFits": [
+      "two-pointers"
+    ],
+    "visualizer": "trapping-rain-water"
+  },
+  {
+    "slug": "sliding-window-maximum",
+    "title": "Sliding Window Maximum",
+    "difficulty": "hard",
+    "pattern": "stack",
+    "leetcodeUrl": "https://leetcode.com/problems/sliding-window-maximum/",
+    "leetcodeNumber": 239,
+    "premium": false,
+    "lists": [
+      "neetcode-150"
+    ],
+    "twist": "A queue this time: drop from the back like a stack, expire from the front.",
+    "prompt": "Slide a window of size k along an array. Report the largest value at each position.",
+    "signal": "A new value makes every smaller one before it useless, so drop them from the back.",
+    "time": "O(n)",
+    "space": "O(k)",
+    "alsoFits": [
+      "sliding-window",
+      "heaps"
+    ]
+  },
+  {
     "slug": "find-minimum-in-rotated-sorted-array",
     "title": "Find Minimum in Rotated Sorted Array",
     "difficulty": "medium",
