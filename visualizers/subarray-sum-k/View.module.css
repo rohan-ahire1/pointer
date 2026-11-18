@@ -1,0 +1,28 @@
+.label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.probe {
+  padding: 3px 10px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.probe[data-hit="yes"] {
+  background: var(--mint);
+  color: var(--on-accent);
+}
+
+.probe[data-hit="no"] {
+  border-style: dashed;
+}
