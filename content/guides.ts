@@ -92,6 +92,38 @@ for right, ch in enumerate(s):
       "Using it on a problem with negative numbers, where growing can lower the sum.",
     ],
   },
+  "prefix-sum": {
+    template: {
+      ts: `// How many times each running total has shown up. The empty prefix is 0.
+const seen = new Map<number, number>([[0, 1]]);
+let prefix = 0;
+let answer = 0;
+for (const x of nums) {
+  prefix += x;
+  // A run ending here is good when an earlier total was prefix - k.
+  answer += seen.get(prefix - k) ?? 0;
+  // Store the total only after the lookup, so a run is never empty.
+  seen.set(prefix, (seen.get(prefix) ?? 0) + 1);
+}
+return answer;`,
+      py: `# How many times each running total has shown up. The empty prefix is 0.
+seen = {0: 1}
+prefix = answer = 0
+for x in nums:
+    prefix += x
+    # A run ending here is good when an earlier total was prefix - k.
+    answer += seen.get(prefix - k, 0)
+    # Store the total only after the lookup, so a run is never empty.
+    seen[prefix] = seen.get(prefix, 0) + 1
+return answer`,
+    },
+    pitfalls: [
+      "Forgetting to seed the map with 0, which misses every run that starts at index 0.",
+      "Storing the total before the lookup, which counts an empty run when k is 0.",
+      "Using a sliding window when the numbers can be negative. The window sum no longer grows as it widens.",
+      "Taking a remainder of a negative total in JavaScript, which stays negative. Add k and take it again.",
+    ],
+  },
   stack: {
     template: {
       ts: `// Items still waiting for their answer.

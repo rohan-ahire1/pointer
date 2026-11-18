@@ -729,4 +729,133 @@ class RandomizedSet:
             lo = i + 1  # took too few from a
     raise ValueError("The arrays must be sorted.")`,
   },
+  "range-sum-query-immutable": {
+    ts: `class NumArray {
+  // sums[i] is the total of the first i numbers, so sums[0] is 0.
+  private sums: number[] = [0];
+
+  constructor(nums: number[]) {
+    for (const x of nums) this.sums.push(this.sums[this.sums.length - 1] + x);
+  }
+
+  sumRange(left: number, right: number): number {
+    // Everything up to right, minus everything before left.
+    return this.sums[right + 1] - this.sums[left];
+  }
+}`,
+    py: `class NumArray:
+    def __init__(self, nums: list[int]):
+        # sums[i] is the total of the first i numbers, so sums[0] is 0.
+        self.sums = [0]
+        for x in nums:
+            self.sums.append(self.sums[-1] + x)
+
+    def sumRange(self, left: int, right: int) -> int:
+        # Everything up to right, minus everything before left.
+        return self.sums[right + 1] - self.sums[left]`,
+  },
+  "subarray-sum-equals-k": {
+    ts: `function subarraySum(nums: number[], k: number): number {
+  const seen = new Map<number, number>([[0, 1]]); // prefix sum → times seen
+  let prefix = 0;
+  let count = 0;
+  for (const x of nums) {
+    prefix += x;
+    // A subarray ending here sums to k once for each earlier prefix of prefix - k.
+    count += seen.get(prefix - k) ?? 0;
+    seen.set(prefix, (seen.get(prefix) ?? 0) + 1);
+  }
+  return count;
+}`,
+    py: `def subarray_sum(nums: list[int], k: int) -> int:
+    seen = {0: 1}  # prefix sum -> times seen
+    prefix = count = 0
+    for x in nums:
+        prefix += x
+        # A subarray ending here sums to k once for each earlier prefix of prefix - k.
+        count += seen.get(prefix - k, 0)
+        seen[prefix] = seen.get(prefix, 0) + 1
+    return count`,
+  },
+  "contiguous-array": {
+    ts: `function findMaxLength(nums: number[]): number {
+  // The first index where each running total showed up. Total 0 comes "before index 0".
+  const first = new Map<number, number>([[0, -1]]);
+  let prefix = 0;
+  let best = 0;
+  for (let i = 0; i < nums.length; i++) {
+    prefix += nums[i] === 1 ? 1 : -1; // count each 0 as -1
+    const at = first.get(prefix);
+    if (at === undefined) first.set(prefix, i);
+    // Same total as before: the run in between has as many 0s as 1s.
+    else best = Math.max(best, i - at);
+  }
+  return best;
+}`,
+    py: `def find_max_length(nums: list[int]) -> int:
+    # The first index where each running total showed up. Total 0 comes "before index 0".
+    first = {0: -1}
+    prefix = best = 0
+    for i, x in enumerate(nums):
+        prefix += 1 if x == 1 else -1  # count each 0 as -1
+        if prefix not in first:
+            first[prefix] = i
+        else:
+            # Same total as before: the run in between has as many 0s as 1s.
+            best = max(best, i - first[prefix])
+    return best`,
+  },
+  "continuous-subarray-sum": {
+    ts: `function checkSubarraySum(nums: number[], k: number): boolean {
+  // The first index where each remainder mod k showed up.
+  const first = new Map<number, number>([[0, -1]]);
+  let rem = 0;
+  for (let i = 0; i < nums.length; i++) {
+    rem = (rem + nums[i]) % k;
+    const at = first.get(rem);
+    if (at === undefined) first.set(rem, i);
+    // Same remainder: the run in between sums to a multiple of k.
+    else if (i - at >= 2) return true;
+  }
+  return false;
+}`,
+    py: `def check_subarray_sum(nums: list[int], k: int) -> bool:
+    # The first index where each remainder mod k showed up.
+    first = {0: -1}
+    rem = 0
+    for i, x in enumerate(nums):
+        rem = (rem + x) % k
+        if rem not in first:
+            first[rem] = i
+        elif i - first[rem] >= 2:
+            # Same remainder: the run in between sums to a multiple of k.
+            return True
+    return False`,
+  },
+  "subarray-sums-divisible-by-k": {
+    ts: `function subarraysDivByK(nums: number[], k: number): number {
+  // How many running totals had each remainder. The empty prefix has remainder 0.
+  const count: number[] = new Array(k).fill(0);
+  count[0] = 1;
+  let rem = 0;
+  let answer = 0;
+  for (const x of nums) {
+    // % keeps the sign in JavaScript, so add k to land in 0..k-1.
+    rem = (((rem + x) % k) + k) % k;
+    answer += count[rem];
+    count[rem]++;
+  }
+  return answer;
+}`,
+    py: `def subarrays_div_by_k(nums: list[int], k: int) -> int:
+    # How many running totals had each remainder. The empty prefix has remainder 0.
+    count = [0] * k
+    count[0] = 1
+    rem = answer = 0
+    for x in nums:
+        rem = (rem + x) % k  # Python's % is never negative for k > 0
+        answer += count[rem]
+        count[rem] += 1
+    return answer`,
+  },
 };

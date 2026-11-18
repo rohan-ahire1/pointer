@@ -165,6 +165,58 @@
   },
   {
     "number": 4,
+    "slug": "prefix-sum",
+    "name": "Prefix Sum",
+    "group": "foundations",
+    "idea": "Keep running totals, then subtract to get any range.",
+    "status": "live",
+    "problems": [
+      "range-sum-query-immutable",
+      "subarray-sum-equals-k",
+      "contiguous-array",
+      "continuous-subarray-sum",
+      "subarray-sums-divisible-by-k"
+    ],
+    "analogy": "Think of a car’s trip meter. To know how far you drove between two towns, you subtract the two readings. A prefix sum writes down the reading after every number, so the total of any stretch is one subtraction.",
+    "minutes": 15,
+    "needs": [
+      "arrays",
+      "hash maps"
+    ],
+    "complexity": "O(n)",
+    "space": "O(n)",
+    "whenToUse": [
+      "You need the sum of many ranges, or of every subarray",
+      "You count subarrays with a given sum, even with negatives",
+      "A total minus an earlier total answers the question"
+    ],
+    "video": {
+      "poster": "/video/prefix-sum.jpg",
+      "durationSec": 60,
+      "captions": "/video/prefix-sum.vtt",
+      "transcript": [
+        {
+          "t": 0,
+          "text": "Here are 8 numbers. How many subarrays, runs of neighbours, add up to 7? Adding up every run one by one takes 36 sums."
+        },
+        {
+          "t": 15,
+          "text": "Instead, keep a running total, the prefix sum. Any run adds up to the total at its end minus the total just before it starts."
+        },
+        {
+          "t": 32,
+          "text": "So at each number, ask a hash map how many earlier totals equal the total minus 7. Each one starts a run that ends here. Then store the total."
+        },
+        {
+          "t": 48,
+          "text": "One pass finds all 4. That’s O(n) time and O(n) space. That’s prefix sum: keep running totals and subtract."
+        }
+      ]
+    },
+    "visualizer": "subarray-sum-k"
+  },
+  {
+    "number": 5,
     "slug": "stack",
     "name": "Stack",
     "group": "foundations",
@@ -249,7 +301,7 @@
     ]
   },
   {
-    "number": 5,
+    "number": 6,
     "slug": "binary-search",
     "name": "Binary Search",
     "group": "foundations",
@@ -338,7 +390,7 @@
     ]
   },
   {
-    "number": 6,
+    "number": 7,
     "slug": "linked-list",
     "name": "Linked List",
     "group": "structures",
@@ -394,7 +446,7 @@
     ]
   },
   {
-    "number": 7,
+    "number": 8,
     "slug": "design",
     "name": "Design",
     "group": "structures",
@@ -445,7 +497,7 @@
     "visualizer": "lru-cache"
   },
   {
-    "number": 8,
+    "number": 9,
     "slug": "trees",
     "name": "Trees",
     "group": "structures",
@@ -505,7 +557,7 @@
     ]
   },
   {
-    "number": 9,
+    "number": 10,
     "slug": "tries",
     "name": "Tries",
     "group": "structures",
@@ -555,7 +607,7 @@
     "visualizer": "implement-trie"
   },
   {
-    "number": 10,
+    "number": 11,
     "slug": "heaps",
     "name": "Heaps",
     "group": "structures",
@@ -606,7 +658,7 @@
     ]
   },
   {
-    "number": 11,
+    "number": 12,
     "slug": "backtracking",
     "name": "Backtracking",
     "group": "structures",
@@ -658,7 +710,7 @@
     ]
   },
   {
-    "number": 12,
+    "number": 13,
     "slug": "graphs",
     "name": "Graphs",
     "group": "advanced",
@@ -712,7 +764,7 @@
     ]
   },
   {
-    "number": 13,
+    "number": 14,
     "slug": "advanced-graphs",
     "name": "Advanced Graphs",
     "group": "advanced",
@@ -765,7 +817,7 @@
     ]
   },
   {
-    "number": 14,
+    "number": 15,
     "slug": "1-d-dp",
     "name": "1-D DP",
     "group": "advanced",
@@ -825,7 +877,7 @@
     ]
   },
   {
-    "number": 15,
+    "number": 16,
     "slug": "2-d-dp",
     "name": "2-D DP",
     "group": "advanced",
@@ -877,7 +929,7 @@
     ]
   },
   {
-    "number": 16,
+    "number": 17,
     "slug": "greedy",
     "name": "Greedy",
     "group": "advanced",
@@ -928,7 +980,7 @@
     ]
   },
   {
-    "number": 17,
+    "number": 18,
     "slug": "intervals",
     "name": "Intervals",
     "group": "advanced",
@@ -980,7 +1032,7 @@
     "visualizer": "merge-intervals"
   },
   {
-    "number": 18,
+    "number": 19,
     "slug": "math-and-geometry",
     "name": "Math & Geometry",
     "group": "advanced",
@@ -1029,7 +1081,7 @@
     "visualizer": "spiral-matrix"
   },
   {
-    "number": 19,
+    "number": 20,
     "slug": "bit-manipulation",
     "name": "Bit Manipulation",
     "group": "advanced",

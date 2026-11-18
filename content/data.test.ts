@@ -54,6 +54,11 @@ const BEYOND_75: Record<string, [number, "easy" | "medium" | "hard", string[]]> 
   "koko-eating-bananas": [875, "medium", ["neetcode-150"]],
   "split-array-largest-sum": [410, "hard", []],
   "median-of-two-sorted-arrays": [4, "hard", ["neetcode-150"]],
+  "range-sum-query-immutable": [303, "easy", []],
+  "subarray-sum-equals-k": [560, "medium", []],
+  "contiguous-array": [525, "medium", []],
+  "continuous-subarray-sum": [523, "medium", []],
+  "subarray-sums-divisible-by-k": [974, "medium", []],
 };
 
 /** LeetCode's premium-only problems on the list. */
@@ -67,13 +72,13 @@ const leetcodeSlug = (url: string) => url.replace("https://leetcode.com/problems
 describe("patterns.json", () => {
   const patterns = getPatterns();
 
-  it("has exactly 19 patterns", () => {
-    expect(patterns).toHaveLength(19);
+  it("has exactly 20 patterns", () => {
+    expect(patterns).toHaveLength(20);
   });
 
-  it("is numbered 1..19 with no gaps or repeats", () => {
+  it("is numbered 1..20 with no gaps or repeats", () => {
     const numbers = patterns.map((pattern) => pattern.number).sort((a, b) => a - b);
-    expect(numbers).toEqual(Array.from({ length: 19 }, (_, i) => i + 1));
+    expect(numbers).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
   });
 
   it("has unique slugs", () => {
