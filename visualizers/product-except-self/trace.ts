@@ -23,13 +23,13 @@ export function trace(nums: ProductInput): Step<ProductState>[] {
     out_[i] = left;
     push(i, "left", [3, 4], `Everything left of index ${i} multiplies to ${left}. Store it.`, `Left pass, index ${i}. Left product ${left}. Output ${list(out_)}.`);
     left = tidy(left * nums[i]);
-    push(i, "left", [5], `Add ${nums[i]} to the running product: left is now ${left}.`, `Left pass, index ${i}. Left product becomes ${left}.`);
+    push(i, "left", [5], `Multiply in ${nums[i]}: left is now ${left}.`, `Left pass, index ${i}. Left product becomes ${left}.`);
   }
   for (let i = nums.length - 1; i >= 0; i--) {
     out_[i] = tidy(out_[i] * right);
     push(i, "right", [8, 9], `Everything right of index ${i} multiplies to ${right}. Multiply it in.`, `Right pass, index ${i}. Right product ${right}. Output ${list(out_)}.`);
     right = tidy(right * nums[i]);
-    push(i, "right", [10], `Add ${nums[i]} to the running product: right is now ${right}.`, `Right pass, index ${i}. Right product becomes ${right}.`);
+    push(i, "right", [10], `Multiply in ${nums[i]}: right is now ${right}.`, `Right pass, index ${i}. Right product becomes ${right}.`);
   }
   push(-1, "done", [12], `Done. Each cell is everything to its left times everything to its right.`, `Done. The answer is ${list(out_)}.`);
   return steps;

@@ -41,7 +41,11 @@ export function trace({ s, t }: MinWindowInput): Step<MinWindowState>[] {
         right,
         "grow",
         covered ? [5, 7, 8] : [5, 7],
-        covered ? `${q(ch)} is covered now. ${missing} ${missing === 1 ? "letter" : "letters"} still missing.` : `${q(ch)} counts toward what’s needed.`,
+        covered
+          ? `${q(ch)} is covered now. ${missing} ${missing === 1 ? "letter" : "letters"} still missing.`
+          : need.get(ch)! < 0
+            ? `${q(ch)} is an extra. The window already has enough.`
+            : `${q(ch)} counts toward what’s needed.`,
         `Right edge at ${right}, letter ${ch}. ${missing} still missing.`,
       );
     } else {

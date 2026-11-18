@@ -36,7 +36,7 @@ export function trace({ coins, amount }: CoinChangeInput): Step<CoinChangeState>
       if (better) dp[a] = option;
       let note: string;
       if (option === null) note = `Coin ${coin} leaves ${a - coin}, which can’t be made.`;
-      else if (better) note = `Coin ${coin} leaves ${a - coin}: ${rest} + 1 = ${option} coins. Best so far.`;
+      else if (better) note = `Coin ${coin} leaves ${a - coin}: ${rest} + 1 = ${option} ${option === 1 ? "coin" : "coins"}. Best so far.`;
       else note = `Coin ${coin} takes ${option}. ${show(before)} is already as good.`;
       push(a, coin, "try", [4, 5, 6], note, `Coin ${coin} for amount ${a}. Best is ${show(dp[a])}.`);
     }

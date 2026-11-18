@@ -17,7 +17,7 @@ export function trace({ m, n }: UniquePathsInput): Step<UniquePathsState>[] {
       const above = dp[r - 1][c] as number;
       const left = dp[r][c - 1] as number;
       dp[r][c] = above + left;
-      push(r, c, "cell", [3, 4], `${above} ways from above + ${left} from the left = ${above + left}.`, `Row ${r}, column ${c} is ${above + left}.`);
+      push(r, c, "cell", [3, 4], `${above} ${above === 1 ? "way" : "ways"} from above + ${left} from the left = ${above + left}.`, `Row ${r}, column ${c} is ${above + left}.`);
     }
   }
   const answer = dp[m - 1][n - 1] as number;
