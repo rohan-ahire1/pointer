@@ -7,8 +7,8 @@ import { SOLUTIONS } from "./solutions";
 type Rand = (min: number, max: number) => number;
 
 /** Compile a solution's TypeScript and hand back the function or class it declares. */
-function load(code: string): (...args: never[]) => unknown {
-  const name = /^(?:function|class) (\w+)/m.exec(code)?.[1];
+function load(code: string, export_?: string): (...args: never[]) => unknown {
+  const name = export_ ?? /^(?:function|class) (\w+)/m.exec(code)?.[1];
   if (!name) throw new Error("No function or class at the top of the solution");
   const js = ts.transpileModule(code, {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
@@ -59,7 +59,14 @@ function expression(int: Rand): [string, number] {
   return [space() + text + space(), total];
 }
 
-type Check = { cases: (int: Rand) => { args: unknown[]; want: unknown } };
+type Check =
+  | { cases: (int: Rand) => { args: unknown[]; want: unknown } }
+  /** A design problem: drive the class with random calls and compare with a plain model. */
+  | { name?: string; calls: (Class: new (...args: never[]) => Record<string, (...a: never[]) => unknown>, int: Rand) => void };
+
+/** Calls a method on an instance from a design problem. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const call = (obj: any, method: string, ...args: unknown[]): unknown => obj[method](...args);
 
 const CHECKS: Record<string, Check> = {
   "daily-temperatures": {
@@ -111,6 +118,86 @@ const CHECKS: Record<string, Check> = {
       return { args: [text], want: value };
     },
   },
+  "min-stack": {
+    calls: (MinStack, int) => {
+      const stack = new MinStack();
+      const model: number[] = [];
+      for (let k = int(1, 20); k > 0; k--) {
+        if (model.length && int(0, 2) === 0) {
+          call(stack, "pop");
+          model.pop();
+        } else {
+          const val = int(-9, 9);
+          call(stack, "push", val);
+          model.push(val);
+        }
+        if (model.length) {
+          expect(call(stack, "top")).toBe(model.at(-1));
+          expect(call(stack, "getMin")).toBe(Math.min(...model));
+        }
+      }
+    },
+  },
+  "lru-cache": {
+    name: "LRUCache",
+    calls: (LRUCache, int) => {
+      const capacity = int(1, 4);
+      const cache = new (LRUCache as unknown as new (capacity: number) => object)(capacity);
+      let order: [number, number][] = [];
+      for (let k = int(1, 25); k > 0; k--) {
+        const key = int(0, 6);
+        const found = order.find(([k2]) => k2 === key);
+        if (int(0, 1)) {
+          expect(call(cache, "get", key)).toBe(found ? found[1] : -1);
+          if (found) order = [...order.filter((e) => e !== found), found];
+        } else {
+          const value = int(0, 99);
+          call(cache, "put", key, value);
+          order = [...order.filter(([k2]) => k2 !== key), [key, value]];
+          if (order.length > capacity) order = order.slice(1);
+        }
+      }
+    },
+  },
+  "time-based-key-value-store": {
+    calls: (TimeMap, int) => {
+      const map = new TimeMap();
+      const model: [string, string, number][] = [];
+      let time = 0;
+      for (let k = int(1, 25); k > 0; k--) {
+        const key = "ab"[int(0, 1)];
+        if (int(0, 1)) {
+          time += int(1, 3);
+          const value = `v${k}`;
+          call(map, "set", key, value, time);
+          model.push([key, value, time]);
+        } else {
+          const at = int(0, time + 2);
+          const hits = model.filter(([k2, , t]) => k2 === key && t <= at);
+          expect(call(map, "get", key, at)).toBe(hits.length ? hits.at(-1)![1] : "");
+        }
+      }
+    },
+  },
+  "insert-delete-getrandom-o1": {
+    calls: (RandomizedSet, int) => {
+      const set = new RandomizedSet();
+      const model = new Set<number>();
+      for (let k = int(1, 25); k > 0; k--) {
+        const val = int(0, 6);
+        const pick = int(0, 2);
+        if (pick === 0) {
+          expect(call(set, "insert", val)).toBe(!model.has(val));
+          model.add(val);
+        } else if (pick === 1) {
+          expect(call(set, "remove", val)).toBe(model.has(val));
+          model.delete(val);
+        } else if (model.size) {
+          for (let draw = 0; draw < 5; draw++) expect(model.has(call(set, "getRandom") as number)).toBe(true);
+        }
+      }
+    },
+  },
 };
 
 describe("worked solutions", () => {
@@ -131,9 +218,14 @@ describe("worked solutions", () => {
 
   for (const [slug, solution] of Object.entries(SOLUTIONS)) {
     it(`${slug} matches brute force on 300 random inputs`, () => {
-      const run = load(solution.ts);
       const check = CHECKS[slug];
       const int = seeded(slug.length * 7919);
+      if ("calls" in check) {
+        const Class = load(solution.ts, check.name) as unknown as Parameters<typeof check.calls>[0];
+        for (let k = 0; k < 300; k++) check.calls(Class, int);
+        return;
+      }
+      const run = load(solution.ts);
       for (let k = 0; k < 300; k++) {
         const { args, want } = check.cases(int);
         const copy = structuredClone(args);
