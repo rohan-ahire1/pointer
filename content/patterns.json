@@ -555,7 +555,7 @@
       "queues"
     ],
     "complexity": "O(m·n)",
-    "space": "O(V + E)",
+    "space": "O(m·n)",
     "whenToUse": [
       "The input is a grid or a network",
       "Answers spread through neighbours",

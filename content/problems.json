@@ -192,7 +192,7 @@
     "premium": false,
     "twist": "Same window, but shrink only when replacements run out.",
     "prompt": "You may change up to k letters. How long a run of one letter can you make?",
-    "signal": "A stretch is fine while its length minus its most common letter is at most k.",
+    "signal": "A stretch is fine while its length minus the count of its most common letter is at most k.",
     "time": "O(n)",
     "space": "O(1)"
   },
@@ -206,7 +206,7 @@
     "twist": "Grow until the window is valid, then shrink it as small as it goes.",
     "prompt": "Find the shortest piece of a string that contains every letter of another string.",
     "signal": "Grow until it covers everything, then shrink while it still does.",
-    "time": "O(n)",
+    "time": "O(m + n)",
     "space": "O(k)",
     "visualizer": "min-window"
   },
@@ -330,7 +330,7 @@
   },
   {
     "slug": "merge-k-sorted-lists",
-    "title": "Merge K Sorted Lists",
+    "title": "Merge k Sorted Lists",
     "difficulty": "hard",
     "pattern": "linked-list",
     "leetcodeUrl": "https://leetcode.com/problems/merge-k-sorted-lists/",
@@ -406,7 +406,7 @@
     "premium": false,
     "twist": "Split point where the targets part ways.",
     "prompt": "Find the lowest shared parent of two values, in a tree where left is smaller and right is bigger.",
-    "signal": "Walk down until the two values fall on different sides.",
+    "signal": "Walk down until the two values fall on different sides, or you land on one of them.",
     "time": "O(h)",
     "space": "O(1)"
   },
@@ -474,7 +474,7 @@
     "leetcodeUrl": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
     "premium": false,
     "twist": "Like depth, but the best path may bend.",
-    "prompt": "Find the path between any two nodes with the largest total.",
+    "prompt": "Find the largest total along any path in a tree. A path can start and end at any node, but can’t visit a node twice.",
     "signal": "Each node passes up its best straight arm and scores its best bend.",
     "time": "O(n)",
     "space": "O(h)"
@@ -618,7 +618,7 @@
     "leetcodeUrl": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
     "premium": false,
     "twist": "Flood from both oceans, keep the overlap.",
-    "prompt": "On a height map, find the cells where rain can drain to both the top-left and bottom-right seas.",
+    "prompt": "On a height map with one sea along the top and left edges and another along the bottom and right edges, find the cells where rain can drain into both seas.",
     "signal": "Work backwards: flood uphill from each sea and keep the overlap.",
     "time": "O(m·n)",
     "space": "O(m·n)"
@@ -787,8 +787,8 @@
     "premium": false,
     "twist": "Each cut asks whether the prefix already breaks.",
     "prompt": "Can this string be cut into words from a dictionary?",
-    "signal": "A cut works if the part before it already works.",
-    "time": "O(n²)",
+    "signal": "A cut works if the part before it already breaks and the part after it is a word.",
+    "time": "O(n³)",
     "space": "O(n)",
     "alsoFits": [
       "backtracking"
@@ -803,7 +803,7 @@
     "premium": false,
     "twist": "Each number extends the best run before it.",
     "prompt": "Find the longest chain of values that keeps rising, with gaps allowed.",
-    "signal": "Each value extends the best chain ending at a smaller value.",
+    "signal": "Each value extends the best chain ending at a smaller value. That is O(n²); keeping the smallest tail for each length, found by binary search, gets it to O(n log n).",
     "time": "O(n log n)",
     "space": "O(n)",
     "alsoFits": [
@@ -955,7 +955,7 @@
     "premium": true,
     "twist": "Turn word pairs into arrows, then sort them.",
     "prompt": "Work out a letter order from a sorted list of words in an unknown alphabet.",
-    "signal": "Each neighbouring word pair gives one before-and-after rule. Order the rules with a topological sort.",
+    "signal": "Each neighbouring word pair gives one before-and-after rule, from its first different letter. Order the rules with a topological sort.",
     "time": "O(c)",
     "space": "O(1)",
     "alsoFits": ["graphs"]
