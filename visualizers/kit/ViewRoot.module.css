@@ -27,6 +27,16 @@
 
 .cells {
   --cell: clamp(20px, calc((100cqi - (var(--n) - 1) * var(--cell-gap)) / var(--n)), 56px);
+  /* Guard: loose cells passed straight in still lay out as one row, never a
+     column. A single wrapper (a row, grid or chart) fills the width. */
+  display: flex;
+  gap: var(--cell-gap);
+  min-width: 0;
+}
+
+.cells > :only-child {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .split {

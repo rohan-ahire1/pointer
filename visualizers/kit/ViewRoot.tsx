@@ -23,6 +23,7 @@ export function Fit({ n, children, className }: { n: number; children: ReactNode
     <div className={styles.fit}>
       <div
         className={`${styles.cells}${className ? ` ${className}` : ""}`}
+        data-fit=""
         style={{ "--n": Math.max(1, n) } as CSSProperties}
       >
         {children}

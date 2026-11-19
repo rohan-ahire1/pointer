@@ -17,3 +17,8 @@
   font-weight: 500;
   color: var(--muted);
 }
+
+.bits {
+  display: flex;
+  gap: var(--cell-gap);
+}

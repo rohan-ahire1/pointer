@@ -21,9 +21,11 @@ function BitRow({ label, value, lowest }: BitRowProps) {
         {value !== null && ` = ${value}`}
       </span>
       <Fit n={WIDTH}>
-        {value === null
-          ? Array.from({ length: WIDTH }, (_, index) => <Cell key={index} value="·" state="past" size="sm" />)
-          : bitsOf(value).map((bit, index) => <Cell key={index} value={bit} state={stateOf(index, bit)} size="sm" />)}
+        <div className={styles.bits}>
+          {value === null
+            ? Array.from({ length: WIDTH }, (_, index) => <Cell key={index} value="·" state="past" size="sm" />)
+            : bitsOf(value).map((bit, index) => <Cell key={index} value={bit} state={stateOf(index, bit)} size="sm" />)}
+        </div>
       </Fit>
     </div>
   );
