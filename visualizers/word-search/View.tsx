@@ -37,19 +37,21 @@ export function WordSearchView({ step }: WordSearchViewProps) {
           ))}
         </div>
       </Fit>
-      <div className={styles.board} style={{ "--cols": cols } as CSSProperties}>
-        {board.map((row, r) =>
-          row.map((ch, c) => {
-            const order = orderOf(r, c);
-            return (
-              <div key={`${r}-${c}`} className={styles.cell} data-state={stateOf(r, c)}>
-                {ch}
-                {order >= 0 && <span className={styles.order}>{order + 1}</span>}
-              </div>
-            );
-          }),
-        )}
-      </div>
+      <Fit n={cols}>
+        <div className={styles.board} style={{ "--cols": cols } as CSSProperties}>
+          {board.map((row, r) =>
+            row.map((ch, c) => {
+              const order = orderOf(r, c);
+              return (
+                <div key={`${r}-${c}`} className={styles.cell} data-state={stateOf(r, c)}>
+                  {ch}
+                  {order >= 0 && <span className={styles.order}>{order + 1}</span>}
+                </div>
+              );
+            }),
+          )}
+        </div>
+      </Fit>
       <Stats
         items={[
           { label: "matched", value: `${path.length} of ${word.length}` },

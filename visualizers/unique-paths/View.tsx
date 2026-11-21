@@ -22,14 +22,16 @@ export function UniquePathsView({ step }: UniquePathsViewProps) {
 
   return (
     <ViewRoot>
-      <div className={styles.grid} style={{ "--cols": n } as CSSProperties}>
-        {dp.map((row, rowIndex) =>
-          row.map((value, colIndex) => (
-            <div key={`${rowIndex}-${colIndex}`} className={styles.cell} data-state={stateOf(rowIndex, colIndex)}>
-              {value ?? ""}
-            </div>
-          )),
-        )}
+      <div className={styles.fit}>
+        <div className={styles.grid} style={{ "--cols": n } as CSSProperties}>
+          {dp.map((row, rowIndex) =>
+            row.map((value, colIndex) => (
+              <div key={`${rowIndex}-${colIndex}`} className={styles.cell} data-state={stateOf(rowIndex, colIndex)}>
+                {value ?? ""}
+              </div>
+            )),
+          )}
+        </div>
       </div>
       <Stats
         items={[

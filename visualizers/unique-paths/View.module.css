@@ -1,3 +1,11 @@
+/* The grid sizes its cells from this box's width (100cqi). Without a
+   container here, cqi falls back to the whole screen and the grid overflows
+   the player on phones. */
+.fit {
+  container-type: inline-size;
+  min-width: 0;
+}
+
 .grid {
   --cell: clamp(30px, calc((100cqi - (var(--cols) - 1) * 4px) / var(--cols)), 54px);
   display: grid;
