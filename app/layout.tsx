@@ -12,6 +12,14 @@ import { SiteHeader } from "@/components/SiteHeader/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter/SiteFooter";
 import { SkipLink } from "@/components/SkipLink/SkipLink";
 
+const CF_BEACON_SCRIPT = `if (!/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname)) {
+  var s = document.createElement("script");
+  s.defer = true;
+  s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  s.setAttribute("data-cf-beacon", '{"token": "cc42599ca7f040a59b75be0a42cc5a02"}');
+  document.body.appendChild(s);
+}`;
+
 const unbounded = Unbounded({
   weight: "800",
   subsets: ["latin"],
@@ -106,8 +114,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main id="main">{children}</main>
         <SiteFooter />
         <Intro />
-        {/* Cloudflare Web Analytics */}
-        <Script src="https://static.cloudflareinsights.com/beacon.min.js" strategy="afterInteractive" data-cf-beacon='{"token": "cc42599ca7f040a59b75be0a42cc5a02"}' />
+        {/* Cloudflare Web Analytics. Skipped on localhost, where the beacon's CORS errors break local runs and CI. */}
+        <Script id="cf-beacon" strategy="afterInteractive">{CF_BEACON_SCRIPT}</Script>
       </body>
     </html>
   );
