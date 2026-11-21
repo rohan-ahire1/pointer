@@ -1,3 +1,12 @@
+/* One or more strips stacked; more than one only when a single row would
+   shrink the cells below a readable size. */
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
 .strip {
   position: relative;
   display: flex;
