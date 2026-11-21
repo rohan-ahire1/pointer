@@ -3,6 +3,7 @@
  * `pointer:v1`. Kept dependency-free (no React) so it can be validated and
  * unit tested in isolation from the store that persists it.
  */
+import { REVIEW_INTERVALS, localDay } from "./review";
 
 /** The four numbered sections of a live lesson page. */
 export type LessonSection = "idea" | "watch" | "try" | "solve";
@@ -57,8 +58,13 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+const MAX_REVIEW_BOX = REVIEW_INTERVALS.length - 1;
+
 function isDay(value: unknown): value is string {
-  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, date] = value.split("-").map(Number);
+  // A day like 2026-02-31 rolls over into March, so it won't round-trip.
+  return localDay(new Date(year, month - 1, date)) === value;
 }
 
 /**
@@ -105,8 +111,11 @@ export function validateProgress(value: unknown): { ok: true; value: Progress } 
       return { ok: false, error: "\"reviews\" must be an object." };
     }
     for (const [slug, card] of Object.entries(value.reviews)) {
-      if (!isPlainObject(card) || !Number.isInteger(card.box) || (card.box as number) < 0 || !isDay(card.due)) {
-        return { ok: false, error: `"reviews.${slug}" must have a whole box number and a YYYY-MM-DD due date.` };
+      if (!isPlainObject(card) || !Number.isInteger(card.box) || (card.box as number) < 0 || (card.box as number) > MAX_REVIEW_BOX || !isDay(card.due)) {
+        return {
+          ok: false,
+          error: `"reviews.${slug}" must have a whole box number from 0 to ${MAX_REVIEW_BOX} and a real YYYY-MM-DD due date.`,
+        };
       }
     }
   }
@@ -116,7 +125,7 @@ export function validateProgress(value: unknown): { ok: true; value: Progress } 
     }
     for (const [day, count] of Object.entries(value.activity)) {
       if (!isDay(day) || !Number.isInteger(count) || (count as number) < 1) {
-        return { ok: false, error: `"activity.${day}" must be a YYYY-MM-DD day with a whole count.` };
+        return { ok: false, error: `"activity.${day}" must be a real YYYY-MM-DD day with a whole count.` };
       }
     }
   }

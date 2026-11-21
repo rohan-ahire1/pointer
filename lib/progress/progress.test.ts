@@ -326,4 +326,17 @@ describe("spaced review", () => {
     expect(validateProgress({ ...VALID, drillBest: "ten" }).ok).toBe(false);
     expect(validateProgress(VALID).ok).toBe(true);
   });
+
+  it("rejects impossible calendar dates but accepts a leap day", () => {
+    expect(validateProgress({ ...VALID, reviews: { a: { box: 0, due: "2026-02-31" } } }).ok).toBe(false);
+    expect(validateProgress({ ...VALID, activity: { "2026-02-31": 1 } }).ok).toBe(false);
+    expect(validateProgress({ ...VALID, activity: { "2026-13-40": 1 } }).ok).toBe(false);
+    expect(validateProgress({ ...VALID, reviews: { a: { box: 0, due: "2028-02-29" } } }).ok).toBe(true);
+    expect(validateProgress({ ...VALID, activity: { "2028-02-29": 1 } }).ok).toBe(true);
+  });
+
+  it("rejects review boxes past the last interval", () => {
+    expect(validateProgress({ ...VALID, reviews: { a: { box: 6, due: "2026-11-01" } } }).ok).toBe(false);
+    expect(validateProgress({ ...VALID, reviews: { a: { box: 5, due: "2026-11-01" } } }).ok).toBe(true);
+  });
 });
