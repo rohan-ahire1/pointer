@@ -24,6 +24,11 @@ const allPatterns = getPatterns();
 const allProblems = getProblems();
 const livePatterns = allPatterns.filter((pattern) => pattern.status === "live");
 
+function importedMessage(added: number): string {
+  if (added === 0) return "Progress imported. Nothing new to add.";
+  return `Progress imported: ${added} new solved ${added === 1 ? "problem" : "problems"}.`;
+}
+
 function downloadJson(filename: string, contents: string) {
   const blob = new Blob([contents], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -119,7 +124,7 @@ export function ProgressDashboard() {
     const result = importProgress(text);
     setImportMessage(
       result.ok
-        ? { kind: "success", text: "Progress imported." }
+        ? { kind: "success", text: importedMessage(result.added) }
         : { kind: "error", text: `Import failed: ${result.error}` },
     );
   }

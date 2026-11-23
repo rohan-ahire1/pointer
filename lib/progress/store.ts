@@ -155,8 +155,11 @@ export function importProgress(json: string): ImportResult {
   if (!result.ok) {
     return { ok: false, error: result.error };
   }
-  set(mergeProgress(current, result.value));
-  return { ok: true };
+  const before = current.solved;
+  const merged = mergeProgress(current, result.value);
+  const added = Object.keys(merged.solved).filter((slug) => !before[slug]).length;
+  set(merged);
+  return { ok: true, added };
 }
 
 /** Clears all progress (solved problems and lesson positions). */

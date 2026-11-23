@@ -236,6 +236,19 @@ describe("progress store (mutators)", () => {
     expect(progress.solved).toEqual({ "two-sum": true, "valid-anagram": true });
   });
 
+  it("importProgress reports how many solved problems were new", () => {
+    toggleSolved("two-sum");
+    const incoming: Progress = {
+      version: 1,
+      solved: { "two-sum": true, "valid-anagram": true, "group-anagrams": true },
+      lessons: {},
+    };
+    const first = importProgress(JSON.stringify(incoming));
+    expect(first).toEqual({ ok: true, added: 2 });
+    const second = importProgress(JSON.stringify(incoming));
+    expect(second).toEqual({ ok: true, added: 0 });
+  });
+
   it("keeps working (in-memory) when localStorage.setItem throws", () => {
     const spy = vi.spyOn(window.localStorage.__proto__, "setItem").mockImplementation(() => {
       throw new Error("blocked");
