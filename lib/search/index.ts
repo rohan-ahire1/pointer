@@ -78,7 +78,10 @@ function scoreOf(item: SearchItem, q: string): number {
   if (title === q) return 0;
   if (title.startsWith(q)) return 1;
   if (title.includes(q)) return 2;
-  if (item.sub.toLowerCase().includes(q)) return 3;
+  const sub = item.sub.toLowerCase();
+  if (sub.includes(q)) return 3;
+  const words = q.split(/\s+/);
+  if (words.length > 1 && words.every((word) => title.includes(word) || sub.includes(word))) return 4;
   return -1;
 }
 
@@ -91,8 +94,9 @@ function scoreOf(item: SearchItem, q: string): number {
  *
  * Ranking: an exact title match first, then a title that starts with the
  * query, then any title match, then a match only in the subtitle (e.g. a
- * problem found by its pattern's name). Ties keep the items' original
- * (content) order.
+ * problem found by its pattern's name), then items where every word of a
+ * multi-word query appears somewhere in the title or subtitle, in any order.
+ * Ties keep the items' original (content) order.
  */
 export function searchItems(
   items: SearchItem[],

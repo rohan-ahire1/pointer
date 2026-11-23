@@ -55,6 +55,20 @@ describe("searchItems", () => {
     expect(problemSection?.items[0]?.title).toBe("Two Sum");
   });
 
+  it.each([
+    ["sum two", "Two Sum"],
+    ["tree depth", "Maximum Depth of Binary Tree"],
+    ["window substring", "Minimum Window Substring"],
+  ])("matches %j in any word order", (query, title) => {
+    const sections = searchItems(items, query);
+    const problemSection = sections.find((s) => s.title === "PROBLEMS");
+    expect(problemSection?.items.some((i) => i.title === title)).toBe(true);
+  });
+
+  it("finds nothing when one word of a multi-word query matches nothing", () => {
+    expect(searchItems(items, "zzz window")).toEqual([]);
+  });
+
   it("orders sections as PATTERNS, PROBLEMS, PAGES and omits empty ones", () => {
     const sections = searchItems(items, "two sum");
     expect(sections.map((s) => s.title)).toEqual(["PROBLEMS"]);
