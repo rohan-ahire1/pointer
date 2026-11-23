@@ -1860,7 +1860,8 @@
     "space": "O(n)",
     "alsoFits": [
       "1-d-dp"
-    ]
+    ],
+    "visualizer": "counting-bits"
   },
   {
     "slug": "reverse-bits",

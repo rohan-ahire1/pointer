@@ -1163,6 +1163,9 @@
         }
       ]
     },
-    "visualizer": "number-of-1-bits"
+    "visualizer": "number-of-1-bits",
+    "moreVisualizers": [
+      "counting-bits"
+    ]
   }
 ]
