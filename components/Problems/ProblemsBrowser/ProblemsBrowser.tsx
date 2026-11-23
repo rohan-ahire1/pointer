@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import type { ChangeEvent } from "react";
 import {
   EXTRAS_KEY,
@@ -13,10 +13,9 @@ import {
 } from "@/content";
 import { useProgress } from "@/lib/progress";
 import { ProblemGroupSection } from "@/components/Problems/ProblemGroupSection/ProblemGroupSection";
+import { filtersToSearch, readFilters, type DifficultyFilter, type StatusFilter } from "./filters-url";
 import styles from "./ProblemsBrowser.module.css";
 
-type DifficultyFilter = "all" | Difficulty;
-type StatusFilter = "all" | "todo" | "done";
 type ListFilter = "all" | ProblemList;
 
 const DIFFICULTY_OPTIONS: { value: DifficultyFilter; label: string }[] = [
@@ -40,6 +39,8 @@ const LIST_OPTIONS: { value: ListFilter; label: string }[] = [
 type ProblemsBrowserProps = {
   groups: ProblemGroupSummary[];
 };
+
+const subscribeNever = () => () => {};
 
 function lessonInfo(group: ProblemGroupSummary): { href?: string; label: string } {
   if (group.key === EXTRAS_KEY || !group.pattern) {
@@ -65,6 +66,40 @@ export function ProblemsBrowser({ groups }: ProblemsBrowserProps) {
   const [status, setStatus] = useState<StatusFilter>("all");
   const [list, setList] = useState<ListFilter>("all");
   const [openOverrides, setOpenOverrides] = useState<Record<string, boolean>>({});
+
+  // The server render has no query string, so it stays unfiltered. On the first
+  // client render after hydration, the filters are picked up from the URL,
+  // adjusted during render as in VisualizerPlayer (no flash, no extra effect).
+  const mounted = useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false,
+  );
+  const [applied, setApplied] = useState(false);
+  if (mounted && !applied) {
+    setApplied(true);
+    const fromUrl = readFilters(window.location.search);
+    setQuery(fromUrl.query);
+    setDifficulty(fromUrl.difficulty);
+    setStatus(fromUrl.status);
+  }
+
+  // Mirror the filters back into the URL without navigating. Skipped until the
+  // URL has been read, so hydration doesn't wipe the incoming query string.
+  useEffect(() => {
+    if (!mounted) return;
+    const next = filtersToSearch({ query, difficulty, status }, window.location.search);
+    if (next === window.location.search) return;
+    try {
+      window.history.replaceState(
+        window.history.state,
+        "",
+        `${window.location.pathname}${next}${window.location.hash}`,
+      );
+    } catch {
+      // Some browsers restrict history changes; the filters still work without the URL.
+    }
+  }, [mounted, query, difficulty, status]);
 
   const isFiltering = query.trim() !== "" || difficulty !== "all" || status !== "all";
   const inList = (problem: Problem) => list === "all" || problem.lists.includes(list);
