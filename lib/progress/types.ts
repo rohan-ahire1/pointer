@@ -51,7 +51,7 @@ export function isLessonSection(value: unknown): value is LessonSection {
 }
 
 /** Result of `importProgress` — a discriminated union so callers must check `ok`. */
-export type ImportResult = { ok: true } | { ok: false; error: string };
+export type ImportResult = { ok: true; added: number } | { ok: false; error: string };
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
