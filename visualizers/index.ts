@@ -14,6 +14,7 @@ import { houseRobberVisualizer } from "./house-robber";
 import { lcsVisualizer } from "./lcs";
 import { jumpGameVisualizer } from "./jump-game";
 import { mergeIntervalsVisualizer } from "./merge-intervals";
+import { nonOverlappingIntervalsVisualizer } from "./non-overlapping-intervals";
 import { productExceptSelfVisualizer } from "./product-except-self";
 import { threeSumVisualizer } from "./three-sum";
 import { minWindowVisualizer } from "./min-window";
@@ -64,6 +65,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [lcsVisualizer.id]: lcsVisualizer as Visualizer<unknown, unknown>,
   [jumpGameVisualizer.id]: jumpGameVisualizer as Visualizer<unknown, unknown>,
   [mergeIntervalsVisualizer.id]: mergeIntervalsVisualizer as Visualizer<unknown, unknown>,
+  [nonOverlappingIntervalsVisualizer.id]: nonOverlappingIntervalsVisualizer as Visualizer<unknown, unknown>,
   [productExceptSelfVisualizer.id]: productExceptSelfVisualizer as Visualizer<unknown, unknown>,
   [threeSumVisualizer.id]: threeSumVisualizer as Visualizer<unknown, unknown>,
   [minWindowVisualizer.id]: minWindowVisualizer as Visualizer<unknown, unknown>,

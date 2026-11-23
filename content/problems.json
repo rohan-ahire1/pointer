@@ -1704,7 +1704,8 @@
     "space": "O(1)",
     "alsoFits": [
       "greedy"
-    ]
+    ],
+    "visualizer": "non-overlapping-intervals"
   },
   {
     "slug": "meeting-rooms",

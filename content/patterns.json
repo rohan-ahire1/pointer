@@ -1063,7 +1063,10 @@
         }
       ]
     },
-    "visualizer": "merge-intervals"
+    "visualizer": "merge-intervals",
+    "moreVisualizers": [
+      "non-overlapping-intervals"
+    ]
   },
   {
     "number": 19,
