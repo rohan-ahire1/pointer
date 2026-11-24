@@ -1783,7 +1783,8 @@
     "prompt": "Turn a square grid 90 degrees clockwise, in place.",
     "signal": "Flip across the diagonal, then reverse each row.",
     "time": "O(n²)",
-    "space": "O(1)"
+    "space": "O(1)",
+    "visualizer": "rotate-image"
   },
   {
     "slug": "spiral-matrix",
