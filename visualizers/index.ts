@@ -36,6 +36,7 @@ import { networkDelayVisualizer } from "./network-delay-time";
 import { connectedComponentsVisualizer } from "./connected-components";
 import { spiralMatrixVisualizer } from "./spiral-matrix";
 import { numberOfOneBitsVisualizer } from "./number-of-1-bits";
+import { addSearchWordsVisualizer } from "./add-search-words";
 
 /**
  * Registry of every visualizer, keyed by the id a live pattern's
@@ -86,6 +87,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [connectedComponentsVisualizer.id]: connectedComponentsVisualizer as Visualizer<unknown, unknown>,
   [spiralMatrixVisualizer.id]: spiralMatrixVisualizer as Visualizer<unknown, unknown>,
   [numberOfOneBitsVisualizer.id]: numberOfOneBitsVisualizer as Visualizer<unknown, unknown>,
+  [addSearchWordsVisualizer.id]: addSearchWordsVisualizer as Visualizer<unknown, unknown>,
 };
 
 export function getVisualizer(id: string): Visualizer<unknown, unknown> | undefined {

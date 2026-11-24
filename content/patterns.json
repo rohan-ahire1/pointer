@@ -604,7 +604,10 @@
         }
       ]
     },
-    "visualizer": "implement-trie"
+    "visualizer": "implement-trie",
+    "moreVisualizers": [
+      "add-search-words"
+    ]
   },
   {
     "number": 11,
