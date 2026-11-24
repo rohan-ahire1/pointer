@@ -1,0 +1,11 @@
+/* Grid cells top out smaller than array cells, like Spiral Matrix. Set here
+   so it overrides the kit's default. */
+.grid {
+  --cell: clamp(28px, calc((100cqi - (var(--cols) - 1) * 6px) / var(--cols)), 52px);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  gap: 6px;
+  justify-content: center;
+  padding: 8px;
+}

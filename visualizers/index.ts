@@ -34,6 +34,7 @@ import { uniquePathsVisualizer } from "./unique-paths";
 import { maxSubarrayVisualizer } from "./max-subarray";
 import { networkDelayVisualizer } from "./network-delay-time";
 import { connectedComponentsVisualizer } from "./connected-components";
+import { rotateImageVisualizer } from "./rotate-image";
 import { spiralMatrixVisualizer } from "./spiral-matrix";
 import { numberOfOneBitsVisualizer } from "./number-of-1-bits";
 
@@ -85,6 +86,7 @@ export const visualizers: Record<string, Visualizer<unknown, unknown>> = {
   [networkDelayVisualizer.id]: networkDelayVisualizer as Visualizer<unknown, unknown>,
   [connectedComponentsVisualizer.id]: connectedComponentsVisualizer as Visualizer<unknown, unknown>,
   [spiralMatrixVisualizer.id]: spiralMatrixVisualizer as Visualizer<unknown, unknown>,
+  [rotateImageVisualizer.id]: rotateImageVisualizer as Visualizer<unknown, unknown>,
   [numberOfOneBitsVisualizer.id]: numberOfOneBitsVisualizer as Visualizer<unknown, unknown>,
 };
 

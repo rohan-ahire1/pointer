@@ -1112,7 +1112,10 @@
         }
       ]
     },
-    "visualizer": "spiral-matrix"
+    "visualizer": "spiral-matrix",
+    "moreVisualizers": [
+      "rotate-image"
+    ]
   },
   {
     "number": 20,
